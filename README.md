@@ -21,7 +21,7 @@ Both share one domain background and one ontology.
 | [`business/domain-glossary.md`](business/domain-glossary.md) | Acronyms |
 | `business/lookthrough-product/` | LookThrough business requirements |
 | `business/clearance-product/` | Clearance business requirements and three operating procedures (`wf1`–`wf3`), each with controls and scenarios |
-| [`model/`](model/README.md) | The ontology, draft v0.9: OWL Turtle, stewardship and status per term, a generated JSON-LD form, the Draw.io diagram (overview and five detail pages, still at v0.8), and a README with decisions, traceability and checks |
+| [`model/`](model/README.md) | The ontology, draft v0.9: OWL Turtle, stewardship and status per term, a generated JSON-LD form, the Draw.io diagram (overview and five detail pages) with PNG renderings, and a README with decisions, traceability and checks |
 | `solution/` | The prototype: emulated source systems and gold dataset, the OKF bundle, the graph projection, the agent runner and the run report |
 | [`AGENTS.md`](AGENTS.md) | Modelling and Draw.io conventions for AI agents working in this repository |
 
