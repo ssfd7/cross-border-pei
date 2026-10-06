@@ -1,0 +1,102 @@
+# Where instances of ontology terms live in the onboarding system.
+source: onboarding
+steward: Fund tax team
+party_identity: {shares_key_with: investor_register.investor.inv_no}
+
+mappings:
+  - term: xbpei:TaxCertification
+    table: tax_form
+    key: form_id
+    system_of_record: true
+    scope: Tax forms received from investors and underlying owners.
+    properties:
+      xbpei:identifier: form_id
+      xbpei:documentDate: signed_dt
+      xbpei:claimsTreatyBenefit: treaty_claim
+      xbpei:isIntermediaryCertification: is_intermediary
+    links:
+      xbpei:certifiedBy: {column: inv_no, references: investor_register.investor.inv_no}
+    codes:
+      xbpei:hasCertificationType: {column: form_type}
+    interval: {property: xbpei:validDuring, start: signed_dt, end: valid_to}
+    warnings:
+      - form_status is the system's own flag and is not updated when a form ends. Test valid_to against the date in question.
+      - Flags are held as Y and N.
+
+  - term: xbpei:OwnershipInterest
+    table: declared_owner
+    key: decl_id
+    where: "alloc_basis = 'OWNERSHIP'"
+    system_of_record: true
+    scope: Who owns an investor, as the investor declared it. Declarations can point at each other.
+    properties:
+      xbpei:identifier: decl_id
+      xbpei:economicPercentage: pct_econ
+      xbpei:votingPercentage: pct_vote
+    links:
+      xbpei:heldBy: {column: owner_inv_no, references: investor_register.investor.inv_no}
+      xbpei:interestIn: {column: owned_inv_no, references: investor_register.investor.inv_no}
+      xbpei:evidencedBy: {column: doc_ref, references: documents.document.doc_ref}
+    constants:
+      xbpei:holdingCapacity: beneficial
+    interval: {property: xbpei:validDuring, start: from_dt, end: to_dt}
+
+  - term: xbpei:OwnershipInterest
+    table: declared_owner
+    key: decl_id
+    where: "alloc_basis = 'NOMINEE_ALLOC'"
+    system_of_record: true
+    scope: >-
+      Whose income a nominee receives. Each row is a beneficial interest in whatever the nominee
+      (owned_inv_no) holds of record; pct_econ and pct_vote are shares of the nominee's interest,
+      not of the entity.
+    properties:
+      xbpei:identifier: decl_id
+    links:
+      xbpei:heldBy: {column: owner_inv_no, references: investor_register.investor.inv_no}
+      xbpei:evidencedBy: {column: doc_ref, references: documents.document.doc_ref}
+    constants:
+      xbpei:holdingCapacity: beneficial
+    derived:
+      xbpei:heldThrough: the nominee's interest, investor_register.commitment for owned_inv_no.
+      xbpei:interestIn: the entity the nominee's interest is in.
+      xbpei:economicPercentage: pct_econ of the nominee's economic percentage.
+      xbpei:votingPercentage: pct_vote of the nominee's voting percentage.
+    interval: {property: xbpei:validDuring, start: from_dt, end: to_dt}
+
+  - term: xbpei:TaxStatusAssertion
+    table: tax_status
+    key: status_id
+    system_of_record: true
+    scope: Tax classification of an investor as assessed under one jurisdiction.
+    properties:
+      xbpei:identifier: status_id
+      xbpei:taxClassification: classification
+      xbpei:recordedOn: recorded_dt
+    links:
+      xbpei:aboutParty: {column: inv_no, references: investor_register.investor.inv_no}
+      xbpei:assessedUnder: {columns: [assessed_country]}
+      xbpei:evidencedBy: {column: doc_ref, references: documents.document.doc_ref}
+    interval: {property: xbpei:validDuring, start: from_dt, end: to_dt}
+
+  - term: xbpei:JurisdictionFact
+    table: residence_record
+    key: [inv_no, country, from_dt]
+    system_of_record: true
+    scope: Tax residence of an investor, with dates.
+    properties:
+      xbpei:recordedOn: recorded_dt
+    links:
+      xbpei:aboutEntity: {column: inv_no, references: investor_register.investor.inv_no}
+      xbpei:hasJurisdiction: {columns: [country]}
+      xbpei:evidencedBy: {column: doc_ref, references: documents.document.doc_ref}
+    constants:
+      xbpei:hasFactType: xbpei:TaxResidence
+    interval: {property: xbpei:validDuring, start: from_dt, end: to_dt}
+
+unmapped_columns:
+  tax_form.doc_ref: The scan of the form in the document index. The certification is itself the source document, so there is no relationship to bind this to.
+  tax_form.treaty_country: The ontology has no term for the treaty a certification claims under.
+  tax_form.lob_cd: The ontology has no term for the limitation-on-benefits category claimed.
+  tax_form.form_status: Processing state of the form in this system; not a fact about the certification.
+  tax_form.recv_dt: Date of receipt; no term.

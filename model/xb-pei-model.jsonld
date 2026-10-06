@@ -1,0 +1,4013 @@
+{
+  "@context": {
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "time": "http://www.w3.org/2006/time#",
+    "vann": "http://purl.org/vocab/vann/",
+    "xbpei": "https://w3id.org/xb-pei/ontology#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "xbpei:holdingCapacity",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:OwnershipInterest"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "holdingCapacity"
+      },
+      "rdfs:range": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b51"
+      },
+      "skos:changeNote": {
+        "@language": "en",
+        "@value": "Added in v0.9."
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Whether the holder holds the interest for its own benefit or as nominee for others. Exposure is read from beneficial interests; the holder of record is read from nominee interests."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b51",
+      "@type": "rdfs:Datatype",
+      "owl:oneOf": {
+        "@list": [
+          "beneficial",
+          "nominee"
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:evidencedBy",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b31"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "evidencedBy"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:SourceDocument"
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b31",
+      "@type": "owl:Class",
+      "owl:unionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:OwnershipInterest"
+          },
+          {
+            "@id": "xbpei:JurisdictionFact"
+          },
+          {
+            "@id": "xbpei:TaxStatusAssertion"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:caseKind",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:Case"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "caseKind"
+      },
+      "rdfs:range": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b86"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Which kind of clearance work the case covers."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b86",
+      "@type": "rdfs:Datatype",
+      "owl:oneOf": {
+        "@list": [
+          "onboarding",
+          "renewal",
+          "change",
+          "distribution"
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:JurisdictionFactTypeScheme",
+      "@type": [
+        "skos:ConceptScheme",
+        "owl:NamedIndividual"
+      ],
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Jurisdiction fact types"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:hasFactType",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:JurisdictionFact"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "hasFactType"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:JurisdictionFactType"
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:CarriedInterest",
+      "@type": [
+        "xbpei:PaymentType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:PaymentTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Carried interest"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:hasComponent",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:DistributionEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "hasComponent"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:DistributionComponent"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A component of the distribution."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:isIntermediaryCertification",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:TaxCertification"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "isIntermediaryCertification"
+      },
+      "rdfs:range": {
+        "@id": "xsd:boolean"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Whether the certifying party acts as an intermediary or flow-through entity, so that certifications of its underlying owners are also required."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:reliesOnCertification",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:Clearance"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "reliesOnCertification"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:TaxCertification"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A certification the clearance decision relied on, including those of underlying owners of an intermediary."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:usesFact",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:ObligationAssessment"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "usesFact"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:FactAssertion"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:unmetRequirement",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:MissingFactFinding"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "unmetRequirement"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:FactRequirement"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:hasCertificationType",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:TaxCertification"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "hasCertificationType"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:CertificationType"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The form type of the certification."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:votingPercentage",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:OwnershipInterest"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "votingPercentage"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Percentage"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Share of voting rights carried by the interest."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:reliesOnFact",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:Clearance"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "reliesOnFact"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:FactAssertion"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A recorded fact the clearance decision relied on. A change to that fact puts the clearance up for review."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:claimsTreatyBenefit",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:TaxCertification"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "claimsTreatyBenefit"
+      },
+      "rdfs:range": {
+        "@id": "xsd:boolean"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Whether the certification claims a reduced rate under a treaty."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:Dividend",
+      "@type": [
+        "xbpei:PaymentType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:PaymentTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Dividend"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:obligationKind",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:Obligation"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "obligationKind"
+      },
+      "rdfs:range": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b68"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Whether the obligation is to report or to withhold."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b68",
+      "@type": "rdfs:Datatype",
+      "owl:oneOf": {
+        "@list": [
+          "reporting",
+          "withholding"
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:SourceDocument",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Source Document"
+      },
+      "rdfs:subClassOf": [
+        {
+          "@id": "prov:Entity"
+        },
+        {
+          "@id": "dcat:Resource"
+        }
+      ],
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A document that evidences a recorded fact."
+      },
+      "xbpei:steward": "Compliance and risk",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:triggeredBy",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:Case"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "triggeredBy"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:ChangeEvent"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The change that opened the case."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:reviewedBy",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:Clearance"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "reviewedBy"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The party that carried out the second review of the clearance."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:CapitalContribution",
+      "@type": [
+        "xbpei:PaymentType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:PaymentTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Capital contribution"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:ManagementFee",
+      "@type": [
+        "xbpei:PaymentType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:PaymentTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Management fee"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:sourcedIn",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:DistributionComponent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "sourcedIn"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Jurisdiction"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The jurisdiction in which the income of the component arises."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:scheduleStatus",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingSchedule"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "scheduleStatus"
+      },
+      "rdfs:range": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b100"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "State of the schedule."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b100",
+      "@type": "rdfs:Datatype",
+      "owl:oneOf": {
+        "@list": [
+          "draft",
+          "signed",
+          "superseded"
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:FactAssertion",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Fact Assertion"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A statement recorded as true about a party, entity or event, which an assessment can use. Absence of an assertion means unknown, not false."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:heldBy",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:OwnershipInterest"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "heldBy"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:amount",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:PaymentEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "amount"
+      },
+      "rdfs:range": {
+        "@id": "xsd:decimal"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Gross amount paid, in the payment currency."
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:payer",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:PaymentEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "payer"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:ObligationAssessment",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Obligation Assessment"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A dated evaluation of a rule version against the facts available about a party or event, with a result of applicable, not applicable or undetermined."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:identifier",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "identifier"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Stable business identifier of any resource in the model. Aligned with dcterms:identifier."
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:RoleType",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Role Type"
+      },
+      "rdfs:subClassOf": {
+        "@id": "skos:Concept"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A kind of role a party can play, such as investor, limited partner, general partner or manager."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:PortfolioCompany",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Portfolio Company"
+      },
+      "rdfs:subClassOf": {
+        "@id": "xbpei:LegalEntity"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A legal entity in which a fund holds an investment, directly or indirectly."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:assessedOn",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:ObligationAssessment"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "assessedOn"
+      },
+      "rdfs:range": {
+        "@id": "xsd:date"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Date as of which the assessment was made."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:CertificationTypeScheme",
+      "@type": [
+        "skos:ConceptScheme",
+        "owl:NamedIndividual"
+      ],
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Certification types"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:vintageYear",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:FundVehicle"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "vintageYear"
+      },
+      "rdfs:range": {
+        "@id": "xsd:gYear"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Year in which the fund vehicle began investing."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:DividendIncome",
+      "@type": [
+        "xbpei:IncomeType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:IncomeTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Dividend"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:governedBy",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b22"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "governedBy"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Agreement"
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b22",
+      "@type": "owl:Class",
+      "owl:unionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:RoleAssignment"
+          },
+          {
+            "@id": "xbpei:OwnershipInterest"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:RoleTypeScheme",
+      "@type": [
+        "skos:ConceptScheme",
+        "owl:NamedIndividual"
+      ],
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Role types"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "dcterms:modified",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:netAmount",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingDetermination"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "netAmount"
+      },
+      "rdfs:range": {
+        "@id": "xsd:decimal"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Amount payable after tax, in the distribution currency."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "dcat:keyword",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:sourceLocation",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:domain": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b75"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "sourceLocation"
+      },
+      "rdfs:range": {
+        "@id": "xsd:anyURI"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Where the document or authority can be retrieved."
+      },
+      "xbpei:steward": "Compliance and risk",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b75",
+      "@type": "owl:Class",
+      "owl:unionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:SourceDocument"
+          },
+          {
+            "@id": "xbpei:AuthoritySource"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:interestIn",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:OwnershipInterest"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "interestIn"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:LegalEntity"
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "skos:ConceptScheme",
+      "@type": "owl:Class"
+    },
+    {
+      "@id": "dcterms:identifier",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:prescribedRate",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:RuleVersion"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "prescribedRate"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Percentage"
+      },
+      "skos:changeNote": {
+        "@language": "en",
+        "@value": "Added in v0.9."
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The rate the rule version prescribes where it applies. The value is supplied as data; no jurisdiction's rate is fixed in this ontology."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:NaturalPerson",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Natural Person"
+      },
+      "rdfs:subClassOf": {
+        "@id": "xbpei:Party"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A party that is a human being."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "skos:Concept",
+      "@type": "owl:Class"
+    },
+    {
+      "@id": "xbpei:closedOn",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:Case"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "closedOn"
+      },
+      "rdfs:range": {
+        "@id": "xsd:date"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Date on which the case was closed. Absent while the case is open."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:identifiesGap",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:ObligationAssessment"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "identifiesGap"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:MissingFactFinding"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:PaymentEvent",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Payment Event"
+      },
+      "rdfs:subClassOf": {
+        "@id": "xbpei:Event"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A transfer of cash from a payer to a payee. An allocation of taxable income is not a payment event."
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:scheduleFor",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingSchedule"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "scheduleFor"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:DistributionEvent"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The distribution the schedule covers."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:requiresFact",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:RuleVersion"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "requiresFact"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:FactRequirement"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:preparedBy",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingSchedule"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "preparedBy"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The party that prepared the schedule."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:DisposalProceeds",
+      "@type": [
+        "xbpei:PaymentType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:PaymentTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Disposal proceeds"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:AuthoritySource",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Authority Source"
+      },
+      "rdfs:subClassOf": [
+        {
+          "@id": "prov:Entity"
+        },
+        {
+          "@id": "dcat:Resource"
+        }
+      ],
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Legal or regulatory material from which a rule version is derived, such as a statute, regulation or official guidance."
+      },
+      "xbpei:steward": "Compliance and risk",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:Obligation",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Obligation"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A reporting or withholding duty of a party, based on a rule version. Recorded separately from the assessment that identifies it."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:openedOn",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:Case"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "openedOn"
+      },
+      "rdfs:range": {
+        "@id": "xsd:date"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Date on which the case was opened."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:GeneralPartner",
+      "@type": [
+        "xbpei:RoleType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:RoleTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "General partner"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:RoleAssignment",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Role Assignment"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The fact that a party plays a role of a given type in the context of a fund vehicle, under an agreement."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:includes",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingSchedule"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "includes"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:WithholdingDetermination"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A determination listed in the schedule."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:obligatedParty",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:Obligation"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "obligatedParty"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:aboutEntity",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:JurisdictionFact"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "aboutEntity"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:LegalEntity"
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:taxClassification",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:TaxStatusAssertion"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "taxClassification"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "How the party is classified for tax in the assessing jurisdiction, such as transparent, opaque or exempt."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:basedOn",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:Obligation"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "basedOn"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:RuleVersion"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:CountryCode",
+      "@type": "rdfs:Datatype",
+      "owl:equivalentClass": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b2"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "country code"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "ISO 3166-1 alpha-2 country code."
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b2",
+      "@type": "rdfs:Datatype",
+      "owl:onDatatype": {
+        "@id": "xsd:string"
+      },
+      "owl:withRestrictions": {
+        "@list": [
+          {
+            "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b3"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b3",
+      "xsd:pattern": "[A-Z]{2}"
+    },
+    {
+      "@id": "xbpei:occurredOn",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b54"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "occurredOn"
+      },
+      "rdfs:range": {
+        "@id": "xsd:date"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Date on which the event took place."
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b54",
+      "@type": "owl:Class",
+      "owl:unionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:Event"
+          },
+          {
+            "@id": "xbpei:ChangeEvent"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:payee",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:PaymentEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "payee"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:concernsDistribution",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:Case"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "concernsDistribution"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:DistributionEvent"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The distribution a distribution case is about."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:LimitedPartner",
+      "@type": [
+        "xbpei:RoleType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:RoleTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Limited partner"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:InterestIncome",
+      "@type": [
+        "xbpei:IncomeType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:IncomeTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Interest"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:PaymentTypeScheme",
+      "@type": [
+        "skos:ConceptScheme",
+        "owl:NamedIndividual"
+      ],
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Payment types"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:supportedBy",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingDetermination"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "supportedBy"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:ObligationAssessment"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "An assessment giving the rule version and facts behind the determination."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:inContextOf",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b19"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "inContextOf"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:FundVehicle"
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b19",
+      "@type": "owl:Class",
+      "owl:unionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:RoleAssignment"
+          },
+          {
+            "@id": "xbpei:Clearance"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "dcat:startDate",
+      "@type": "owl:DatatypeProperty"
+    },
+    {
+      "@id": "xbpei:TaxResidence",
+      "@type": [
+        "xbpei:JurisdictionFactType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:JurisdictionFactTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Tax residence"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:hasIncomeType",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:DistributionComponent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "hasIncomeType"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:IncomeType"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The character of the income in the component."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:concernsParty",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:Case"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "concernsParty"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The party the case is about."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "dcterms:created",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "prov:Entity",
+      "@type": "owl:Class"
+    },
+    {
+      "@id": "xbpei:RuleVersion",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Rule Version"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "One dated version of a rule that applies in a jurisdiction and states which facts it requires."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "dcat:endDate",
+      "@type": "owl:DatatypeProperty"
+    },
+    {
+      "@id": "xbpei:appliesIn",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:RuleVersion"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "appliesIn"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Jurisdiction"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "prov:wasDerivedFrom",
+      "@type": "owl:ObjectProperty"
+    },
+    {
+      "@id": "xbpei:minimumVotingPercentage",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:RuleVersion"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "minimumVotingPercentage"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Percentage"
+      },
+      "skos:changeNote": {
+        "@language": "en",
+        "@value": "Added in v0.9."
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The lowest share of voting rights in the paying company at which the rule version applies, inclusive. Absent where the rule has no holding threshold."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:validDuring",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b25"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "validDuring"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:TimeInterval"
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b25",
+      "@type": "owl:Class",
+      "owl:unionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:OwnershipInterest"
+          },
+          {
+            "@id": "xbpei:JurisdictionFact"
+          },
+          {
+            "@id": "xbpei:TaxStatusAssertion"
+          },
+          {
+            "@id": "xbpei:TaxCertification"
+          },
+          {
+            "@id": "xbpei:Clearance"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "dcterms:PeriodOfTime",
+      "@type": "owl:Class"
+    },
+    {
+      "@id": "xbpei:DistributionComponent",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Distribution Component"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The part of a distribution that has one income type and one source jurisdiction."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:FactRequirement",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Fact Requirement"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A fact that a rule version needs before its applicability can be determined."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:WithholdingSchedule",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Withholding Schedule"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The set of withholding determinations for a distribution, prepared, reviewed and signed off before payments are released. A corrected schedule is a new record."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:partOfDistribution",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:PaymentEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "partOfDistribution"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:DistributionEvent"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The distribution a payment belongs to."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:ChangeEvent",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Change Event"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A recorded change to a fact that triggers review of assessments relying on it. A change triggers review; it does not itself prove that an obligation changed."
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:determinationOutcome",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingDetermination"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "determinationOutcome"
+      },
+      "rdfs:range": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b95"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Outcome for the party and component."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b95",
+      "@type": "rdfs:Datatype",
+      "owl:oneOf": {
+        "@list": [
+          "cleared",
+          "defaultRate",
+          "held",
+          "notApplicable"
+        ]
+      }
+    },
+    {
+      "@id": "dcat:distribution",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:TimeInterval",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Time Interval"
+      },
+      "rdfs:subClassOf": [
+        {
+          "@id": "time:ProperInterval"
+        },
+        {
+          "@id": "dcterms:PeriodOfTime"
+        },
+        {
+          "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b104"
+        },
+        {
+          "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b105"
+        }
+      ],
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A period with a start date and an optional end date. An absent end date means the period is open, not that it is unknown."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b104",
+      "@type": "owl:Restriction",
+      "owl:cardinality": {
+        "@type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "@id": "dcat:startDate"
+      }
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b105",
+      "@type": "owl:Restriction",
+      "owl:maxCardinality": {
+        "@type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "@id": "dcat:endDate"
+      }
+    },
+    {
+      "@id": "xbpei:defaultTreatment",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:Clearance"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "defaultTreatment"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The treatment that applies while items are open or after the clearance is withdrawn."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:termStatus",
+      "@type": "owl:AnnotationProperty",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "termStatus"
+      },
+      "skos:changeNote": {
+        "@language": "en",
+        "@value": "Added in v0.9."
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Where a term stands in its lifecycle: proposed, reviewed or released."
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:decidedOn",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b83"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "decidedOn"
+      },
+      "rdfs:range": {
+        "@id": "xsd:date"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Date on which the decision was made."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b83",
+      "@type": "owl:Class",
+      "owl:unionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:Clearance"
+          },
+          {
+            "@id": "xbpei:WithholdingDetermination"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:WithholdingDetermination",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Withholding Determination"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The treatment decided for one party and one distribution component: the outcome, the rate and its basis, the clearance relied on and the assessment that supports it."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:steward",
+      "@type": "owl:AnnotationProperty",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "steward"
+      },
+      "skos:changeNote": {
+        "@language": "en",
+        "@value": "Added in v0.9."
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The team accountable for the meaning of a term and for approving changes to it."
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:Jurisdiction",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Jurisdiction"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A territory with its own legal or tax authority, national or sub-national."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "https://w3id.org/xb-pei/ontology",
+      "@type": [
+        "owl:Ontology",
+        "dcat:Dataset"
+      ],
+      "dcat:distribution": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b1"
+      },
+      "dcat:keyword": [
+        {
+          "@language": "en",
+          "@value": "private equity"
+        },
+        {
+          "@language": "en",
+          "@value": "cross-border"
+        },
+        {
+          "@language": "en",
+          "@value": "tax obligation"
+        },
+        {
+          "@language": "en",
+          "@value": "ownership"
+        }
+      ],
+      "dcterms:created": {
+        "@type": "xsd:date",
+        "@value": "2026-10-05"
+      },
+      "dcterms:description": {
+        "@language": "en",
+        "@value": "Structural semantic model of a private equity fund investing through legal entities across jurisdictions, and of the facts, rules and evidence behind tax-obligation assessments. Formal counterpart of xb-pei-model.drawio. Not a tax engine; no jurisdiction-specific rule is encoded."
+      },
+      "dcterms:modified": {
+        "@type": "xsd:date",
+        "@value": "2026-10-06"
+      },
+      "dcterms:title": {
+        "@language": "en",
+        "@value": "Cross-border private equity investment ontology"
+      },
+      "owl:versionIRI": {
+        "@id": "https://w3id.org/xb-pei/ontology/0.9"
+      },
+      "owl:versionInfo": "0.9",
+      "vann:preferredNamespacePrefix": "xbpei",
+      "vann:preferredNamespaceUri": "https://w3id.org/xb-pei/ontology#"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b1",
+      "@type": "dcat:Distribution",
+      "dcat:mediaType": {
+        "@id": "https://www.iana.org/assignments/media-types/text/turtle"
+      },
+      "dcterms:format": "text/turtle",
+      "dcterms:title": {
+        "@language": "en",
+        "@value": "Turtle serialization"
+      }
+    },
+    {
+      "@id": "xbpei:committedCapital",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:FundVehicle"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "committedCapital"
+      },
+      "rdfs:range": {
+        "@id": "xsd:decimal"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Total capital committed to the fund vehicle, in the fund currency."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:OperatingLocation",
+      "@type": [
+        "xbpei:JurisdictionFactType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:JurisdictionFactTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Operating location"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:BeneficialOwner",
+      "@type": "owl:Class",
+      "owl:equivalentClass": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b13"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Beneficial Owner"
+      },
+      "rdfs:subClassOf": {
+        "@id": "xbpei:Party"
+      },
+      "skos:changeNote": {
+        "@language": "en",
+        "@value": "Added in v0.9."
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A party that holds at least one ownership interest for its own benefit, so that the income from it is its own. Membership follows from the interests held and is not asserted."
+      },
+      "skos:scopeNote": {
+        "@language": "en",
+        "@value": "The tax sense: the party entitled to the income. Not the natural person who ultimately controls an entity, as the term is used in know-your-customer work."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b13",
+      "@type": "owl:Class",
+      "owl:intersectionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:Party"
+          },
+          {
+            "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b14"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b14",
+      "@type": "owl:Restriction",
+      "owl:onProperty": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b15"
+      },
+      "owl:someValuesFrom": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b16"
+      }
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b15",
+      "owl:inverseOf": {
+        "@id": "xbpei:heldBy"
+      }
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b16",
+      "@type": "owl:Restriction",
+      "owl:hasValue": "beneficial",
+      "owl:onProperty": {
+        "@id": "xbpei:holdingCapacity"
+      }
+    },
+    {
+      "@id": "xbpei:currencyCode",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b57"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "currencyCode"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:CurrencyCode"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "ISO 4217 currency of a payment or of a fund vehicle's commitments."
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b57",
+      "@type": "owl:Class",
+      "owl:unionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:PaymentEvent"
+          },
+          {
+            "@id": "xbpei:FundVehicle"
+          },
+          {
+            "@id": "xbpei:DistributionEvent"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:aboutParty",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:TaxStatusAssertion"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "aboutParty"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:Percentage",
+      "@type": "rdfs:Datatype",
+      "owl:equivalentClass": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b8"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "percentage"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Decimal between 0 and 100 inclusive."
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b8",
+      "@type": "rdfs:Datatype",
+      "owl:onDatatype": {
+        "@id": "xsd:decimal"
+      },
+      "owl:withRestrictions": {
+        "@list": [
+          {
+            "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b9"
+          },
+          {
+            "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b10"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b9",
+      "xsd:minInclusive": {
+        "@type": "xsd:decimal",
+        "@value": "0.0"
+      }
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b10",
+      "xsd:maxInclusive": {
+        "@type": "xsd:decimal",
+        "@value": "100.0"
+      }
+    },
+    {
+      "@id": "xbpei:Clearance",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Clearance"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A dated decision on whether a party's tax documentation supports its treatment as an investor in a fund vehicle, with the certifications and facts relied on and any open items. A renewed or withdrawn clearance is a new record; earlier records are kept."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:releasedAgainst",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:PaymentEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "releasedAgainst"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:WithholdingSchedule"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The signed schedule against which the payment was released."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:reliesOnClearance",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingDetermination"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "reliesOnClearance"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Clearance"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The clearance whose validity on the payment date the determination relied on."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "skos:scopeNote",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:Distribution",
+      "@type": [
+        "xbpei:PaymentType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:PaymentTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Distribution"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:clearanceStatus",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:Clearance"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "clearanceStatus"
+      },
+      "rdfs:range": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b78"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Outcome recorded by the clearance."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b78",
+      "@type": "rdfs:Datatype",
+      "owl:oneOf": {
+        "@list": [
+          "cleared",
+          "admittedWithOpenItems",
+          "notCleared",
+          "withdrawn"
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:citation",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:AuthoritySource"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "citation"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Formal citation of the legal or regulatory material."
+      },
+      "xbpei:steward": "Compliance and risk",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:determinedFor",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingDetermination"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "determinedFor"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The party whose payment the determination covers."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:caseOutcome",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:Case"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "caseOutcome"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Outcome of the case in the terms of its operating procedure."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "skos:definition",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:CertificationType",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Certification Type"
+      },
+      "rdfs:subClassOf": {
+        "@id": "skos:Concept"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A kind of tax certification form. Members depend on the jurisdiction pair chosen and are supplied as data, not in this ontology."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:JurisdictionFact",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Jurisdiction Fact"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A dated statement linking a legal entity to a jurisdiction in a stated capacity, such as incorporation, tax residence or operating location."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:description",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "description"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Free-text description."
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:assignedTo",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:RoleAssignment"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "assignedTo"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:distributedBy",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:DistributionEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "distributedBy"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:FundVehicle"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The fund vehicle making the distribution."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:name",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:domain": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b35"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "name"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Human-readable name or title."
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b35",
+      "@type": "owl:Class",
+      "owl:unionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:Party"
+          },
+          {
+            "@id": "xbpei:Jurisdiction"
+          },
+          {
+            "@id": "xbpei:Agreement"
+          },
+          {
+            "@id": "xbpei:SourceDocument"
+          },
+          {
+            "@id": "xbpei:AuthoritySource"
+          },
+          {
+            "@id": "xbpei:RuleVersion"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:taxWithheld",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingDetermination"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "taxWithheld"
+      },
+      "rdfs:range": {
+        "@id": "xsd:decimal"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Tax to withhold, in the distribution currency."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:triggersReassessment",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:ChangeEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "triggersReassessment"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:ObligationAssessment"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:TaxStatusAssertion",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Tax Status Assertion"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A dated statement of a party's tax classification or status as assessed under one jurisdiction."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "vann:preferredNamespaceUri",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:clearanceOf",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:Clearance"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "clearanceOf"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The party the clearance is about."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:CurrencyCode",
+      "@type": "rdfs:Datatype",
+      "owl:equivalentClass": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b5"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "currency code"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "ISO 4217 alphabetic currency code."
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b5",
+      "@type": "rdfs:Datatype",
+      "owl:onDatatype": {
+        "@id": "xsd:string"
+      },
+      "owl:withRestrictions": {
+        "@list": [
+          {
+            "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b6"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b6",
+      "xsd:pattern": "[A-Z]{3}"
+    },
+    {
+      "@id": "xbpei:signedOffBy",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingSchedule"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "signedOffBy"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The reviewer who signed off the schedule. Expected to differ from the preparer."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:evaluates",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:ObligationAssessment"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "evaluates"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:RuleVersion"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:GainOnDisposal",
+      "@type": [
+        "xbpei:IncomeType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:IncomeTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Gain on disposal"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:paymentDate",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:DistributionEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "paymentDate"
+      },
+      "rdfs:range": {
+        "@id": "xsd:date"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Date on which the distribution is to be paid. Clearance validity is tested against this date."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:ReturnOfCapital",
+      "@type": [
+        "xbpei:IncomeType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:IncomeTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Return of capital"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:learnedOn",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:ChangeEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "learnedOn"
+      },
+      "rdfs:range": {
+        "@id": "xsd:date"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Date on which the change became known, as distinct from the date it took effect."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:leiCode",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:LegalEntity"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "leiCode"
+      },
+      "rdfs:range": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b48"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "ISO 17442 Legal Entity Identifier, where one exists."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b48",
+      "@type": "rdfs:Datatype",
+      "owl:onDatatype": {
+        "@id": "xsd:string"
+      },
+      "owl:withRestrictions": {
+        "@list": [
+          {
+            "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b49"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b49",
+      "xsd:pattern": "[A-Z0-9]{18}[0-9]{2}"
+    },
+    {
+      "@id": "xbpei:shareClass",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:OwnershipInterest"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "shareClass"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Class or category of the shares or units held."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:assessmentResult",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:ObligationAssessment"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "assessmentResult"
+      },
+      "rdfs:range": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b64"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Outcome of the assessment. Undetermined is a recorded outcome, not a missing value."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b64",
+      "@type": "rdfs:Datatype",
+      "owl:oneOf": {
+        "@list": [
+          "applicable",
+          "notApplicable",
+          "undetermined"
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:Party",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Party"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A person or legal entity that can hold interests, play roles, pay or receive payments, and bear obligations. Identity is separate from the roles a party plays."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:signedOffOn",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingSchedule"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "signedOffOn"
+      },
+      "rdfs:range": {
+        "@id": "xsd:date"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Date of the reviewer sign-off."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:Agreement",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Agreement"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A contract or governing document, such as a limited partnership agreement or shareholders' agreement."
+      },
+      "xbpei:steward": "Compliance and risk",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:hasSubjectEvent",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:ObligationAssessment"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "hasSubjectEvent"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Event"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:effectiveDuring",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:RuleVersion"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "effectiveDuring"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:TimeInterval"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:InterestPayment",
+      "@type": [
+        "xbpei:PaymentType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:PaymentTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Interest"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:dueDate",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:Obligation"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "dueDate"
+      },
+      "rdfs:range": {
+        "@id": "xsd:date"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Date by which the obligation must be met."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:rateBasis",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingDetermination"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "rateBasis"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The basis cited for the rate, such as a treaty and article, or the reason no withholding applies."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:identifies",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:ObligationAssessment"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "identifies"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Obligation"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "dcterms:title",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:countryCode",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:Jurisdiction"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "countryCode"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:CountryCode"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "ISO 3166-1 alpha-2 code of the country of the jurisdiction."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:reasoning",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:ObligationAssessment"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "reasoning"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Explanation of how the result follows from the rule and the facts used."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:withholdingRate",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingDetermination"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "withholdingRate"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Percentage"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Rate of tax to withhold."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:TaxCertification",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Tax Certification"
+      },
+      "rdfs:subClassOf": {
+        "@id": "xbpei:SourceDocument"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A signed self-certification of tax status supplied by a party, valid for a stated period. Which form applies is jurisdiction-specific and is given by its certification type."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:recordedOn",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b42"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "recordedOn"
+      },
+      "rdfs:range": {
+        "@id": "xsd:date"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Date on which a fact, finding or assessment was recorded. Distinct from the period in which the fact holds."
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b42",
+      "@type": "owl:Class",
+      "owl:unionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:FactAssertion"
+          },
+          {
+            "@id": "xbpei:JurisdictionFact"
+          },
+          {
+            "@id": "xbpei:TaxStatusAssertion"
+          },
+          {
+            "@id": "xbpei:MissingFactFinding"
+          },
+          {
+            "@id": "xbpei:ChangeEvent"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:changes",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:ChangeEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "changes"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:FactAssertion"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:Investor",
+      "@type": [
+        "xbpei:RoleType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:RoleTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Investor"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:affectsInterest",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:InvestmentTransaction"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "affectsInterest"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:OwnershipInterest"
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:certifiedBy",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:TaxCertification"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "certifiedBy"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The party whose status the certification states and who signed it."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:versionLabel",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:RuleVersion"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "versionLabel"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Label distinguishing this version of the rule from earlier and later versions."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:hasOpenItem",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:Clearance"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "hasOpenItem"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:MissingFactFinding"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A required item still missing when the clearance was decided."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "skos:inScheme",
+      "@type": "owl:ObjectProperty"
+    },
+    {
+      "@id": "xbpei:Manager",
+      "@type": [
+        "xbpei:RoleType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:RoleTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Manager"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:Event",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Event"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Something that happens on a date and can be the subject of an obligation assessment."
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:economicPercentage",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:OwnershipInterest"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "economicPercentage"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Percentage"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Share of economic rights carried by the interest. Distinct from voting percentage."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:forComponent",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:WithholdingDetermination"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "forComponent"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:DistributionComponent"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The distribution component the determination covers."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:grossAmount",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b91"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "grossAmount"
+      },
+      "rdfs:range": {
+        "@id": "xsd:decimal"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Amount before tax, in the distribution currency."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b91",
+      "@type": "owl:Class",
+      "owl:unionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:DistributionEvent"
+          },
+          {
+            "@id": "xbpei:DistributionComponent"
+          },
+          {
+            "@id": "xbpei:WithholdingDetermination"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:hasSubjectParty",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:ObligationAssessment"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "hasSubjectParty"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Party"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:MissingFactFinding",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Missing Fact Finding"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "An explicit record that a required fact was not available when an assessment was made."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "dcat:Resource",
+      "@type": "owl:Class"
+    },
+    {
+      "@id": "xbpei:transactionKind",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:InvestmentTransaction"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "transactionKind"
+      },
+      "rdfs:range": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b61"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Whether the investment transaction is an acquisition or a disposal."
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b61",
+      "@type": "rdfs:Datatype",
+      "owl:oneOf": {
+        "@list": [
+          "acquisition",
+          "disposal"
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:derivedFrom",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:RuleVersion"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "derivedFrom"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:AuthoritySource"
+      },
+      "rdfs:subPropertyOf": {
+        "@id": "prov:wasDerivedFrom"
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:FundVehicle",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Fund Vehicle"
+      },
+      "rdfs:subClassOf": {
+        "@id": "xbpei:LegalEntity"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A legal entity that pools investor capital to make investments. Not disjoint with SPV or Portfolio Company."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:JurisdictionFactType",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Jurisdiction Fact Type"
+      },
+      "rdfs:subClassOf": {
+        "@id": "skos:Concept"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The capacity in which an entity is linked to a jurisdiction."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:hasRoleType",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:RoleAssignment"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "hasRoleType"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:RoleType"
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:associatedWith",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:PaymentEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "associatedWith"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:InvestmentTransaction"
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "skos:prefLabel",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:OwnershipInterest",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Ownership Interest"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A holding by one party in one legal entity, with its own percentages, share class, validity period, governing agreement and evidence."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:AcquisitionPrice",
+      "@type": [
+        "xbpei:PaymentType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:PaymentTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Acquisition price"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "dcterms:description",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:hasSubjectEntity",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:InvestmentTransaction"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "hasSubjectEntity"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:LegalEntity"
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "dcat:mediaType",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:SPV",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "SPV"
+      },
+      "rdfs:subClassOf": {
+        "@id": "xbpei:LegalEntity"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Special purpose vehicle: a legal entity created for a specific transaction or holding."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:documentDate",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b71"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "documentDate"
+      },
+      "rdfs:range": {
+        "@id": "xsd:date"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Date of signature, issue or publication."
+      },
+      "xbpei:steward": "Compliance and risk",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "_:n6d9ef97dcff747149f71a20dcacebfb4b71",
+      "@type": "owl:Class",
+      "owl:unionOf": {
+        "@list": [
+          {
+            "@id": "xbpei:Agreement"
+          },
+          {
+            "@id": "xbpei:SourceDocument"
+          },
+          {
+            "@id": "xbpei:AuthoritySource"
+          }
+        ]
+      }
+    },
+    {
+      "@id": "xbpei:hasJurisdiction",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:JurisdictionFact"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "hasJurisdiction"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Jurisdiction"
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:IncomeTypeScheme",
+      "@type": [
+        "skos:ConceptScheme",
+        "owl:NamedIndividual"
+      ],
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Income types"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:LegalEntity",
+      "@type": "owl:Class",
+      "owl:disjointWith": {
+        "@id": "xbpei:NaturalPerson"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Legal Entity"
+      },
+      "rdfs:subClassOf": {
+        "@id": "xbpei:Party"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A party that exists by operation of law, such as a company, partnership or trust. Legal form is not tax classification."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:recordDate",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:DistributionEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "recordDate"
+      },
+      "rdfs:range": {
+        "@id": "xsd:date"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Date as at which the investor list and holdings are frozen for the distribution."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:InvestmentTransaction",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Investment Transaction"
+      },
+      "rdfs:subClassOf": {
+        "@id": "xbpei:Event"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "An acquisition or disposal concerning a legal entity, which may involve several payments and may affect ownership interests."
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "dcterms:format",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "skos:changeNote",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:subdivisionCode",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:Jurisdiction"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "subdivisionCode"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "ISO 3166-2 code, for a sub-national jurisdiction."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:IncomeType",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Income Type"
+      },
+      "rdfs:subClassOf": {
+        "@id": "skos:Concept"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The character of the income passed on by a distribution component, such as dividend, interest, gain on disposal or return of capital."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:isMandatory",
+      "@type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:FactRequirement"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "isMandatory"
+      },
+      "rdfs:range": {
+        "@id": "xsd:boolean"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Whether the rule cannot be evaluated without this fact."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:legalForm",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:LegalEntity"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "legalForm"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "Legal form under the law of formation, such as limited partnership or corporation. Not a tax classification."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:decides",
+      "@type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:Case"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "decides"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Clearance"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A clearance record produced by the case: granted, renewed, confirmed or withdrawn."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "time:ProperInterval",
+      "@type": "owl:Class"
+    },
+    {
+      "@id": "xbpei:Incorporation",
+      "@type": [
+        "xbpei:JurisdictionFactType",
+        "owl:NamedIndividual"
+      ],
+      "skos:inScheme": {
+        "@id": "xbpei:JurisdictionFactTypeScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "Incorporation"
+      },
+      "xbpei:steward": "Knowledge engineering",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:Case",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Case"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A unit of clearance work with an opening trigger and an outcome: onboarding, renewal, change in circumstances, or distribution."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:DistributionEvent",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Distribution Event"
+      },
+      "rdfs:subClassOf": {
+        "@id": "xbpei:Event"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A distribution proposed or made by a fund vehicle to its investors, with a record date and a payment date. The cash transfers it gives rise to are payment events."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:PaymentType",
+      "@type": "owl:Class",
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "Payment Type"
+      },
+      "rdfs:subClassOf": {
+        "@id": "skos:Concept"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "A kind of payment, such as capital contribution, distribution, management fee or dividend."
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "vann:preferredNamespacePrefix",
+      "@type": "owl:AnnotationProperty"
+    },
+    {
+      "@id": "xbpei:hasPaymentType",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:PaymentEvent"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "hasPaymentType"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:PaymentType"
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    },
+    {
+      "@id": "xbpei:heldThrough",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:OwnershipInterest"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "heldThrough"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:OwnershipInterest"
+      },
+      "skos:changeNote": {
+        "@language": "en",
+        "@value": "Added in v0.9."
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The nominee's interest through which a beneficially held interest in the same legal entity is held of record."
+      },
+      "xbpei:steward": "Fund administration",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:statement",
+      "@type": "owl:DatatypeProperty",
+      "rdfs:domain": {
+        "@id": "xbpei:FactAssertion"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "statement"
+      },
+      "rdfs:range": {
+        "@id": "xsd:string"
+      },
+      "skos:definition": {
+        "@language": "en",
+        "@value": "The content of a fact assertion in plain language."
+      },
+      "xbpei:steward": "Fund tax team",
+      "xbpei:termStatus": "proposed"
+    },
+    {
+      "@id": "xbpei:assessedUnder",
+      "@type": [
+        "owl:ObjectProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:domain": {
+        "@id": "xbpei:TaxStatusAssertion"
+      },
+      "rdfs:label": {
+        "@language": "en",
+        "@value": "assessedUnder"
+      },
+      "rdfs:range": {
+        "@id": "xbpei:Jurisdiction"
+      },
+      "xbpei:steward": "Fund finance and treasury",
+      "xbpei:termStatus": "reviewed"
+    }
+  ]
+}

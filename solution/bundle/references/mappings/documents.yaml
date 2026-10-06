@@ -1,0 +1,23 @@
+# Where instances of ontology terms live in the document index.
+source: documents
+steward: Compliance and risk
+
+mappings:
+  - term: xbpei:SourceDocument
+    table: document
+    key: doc_ref
+    system_of_record: true
+    scope: >-
+      Index of the document folder. file_path is relative to solution/documents; an empty file_path
+      means the document is not digitised, not that it does not exist.
+    also_when:
+      xbpei:Agreement: "doc_type IN ('LPA', 'SPA')"
+    properties:
+      xbpei:identifier: doc_ref
+      xbpei:name: title
+      xbpei:documentDate: doc_dt
+      xbpei:sourceLocation: file_path
+
+unmapped_columns:
+  document.about_ref: A free reference to the record a document concerns. Evidence links are held by the records that cite the document.
+  document.doc_type: The index's own filing category; used only to tell agreements from other documents.

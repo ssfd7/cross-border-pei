@@ -1,0 +1,22 @@
+# Local Postgres for the prototype. Synthetic data only; credentials are for local use.
+# Reset to the seeded state with: docker compose down -v && docker compose up -d
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: xbpei
+      POSTGRES_USER: xbpei_admin
+      POSTGRES_PASSWORD: xbpei_admin
+    ports:
+      - "54329:5432"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d:ro
+      - xbpei_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U xbpei_admin -d xbpei"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+
+volumes:
+  xbpei_pgdata:

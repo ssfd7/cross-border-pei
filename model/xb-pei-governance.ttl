@@ -1,0 +1,187 @@
+@prefix xbpei: <https://w3id.org/xb-pei/ontology#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+
+# Stewardship and lifecycle status of every term in xb-pei-model.ttl. Maintained by hand.
+# Status values: proposed, reviewed, released. Stewards are the synthetic teams named in the
+# business requirements. Terms of diagram pages 01 and 02, with the shared attributes, datatypes and
+# their code lists, were marked reviewed on 2026-10-06; everything else is proposed.
+
+xbpei:steward xbpei:steward "Knowledge engineering" ; xbpei:termStatus "proposed" ; skos:changeNote "Added in v0.9."@en .
+xbpei:termStatus xbpei:steward "Knowledge engineering" ; xbpei:termStatus "proposed" ; skos:changeNote "Added in v0.9."@en .
+xbpei:CountryCode xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:CurrencyCode xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:Percentage xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:Party xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:LegalEntity xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:NaturalPerson xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:BeneficialOwner xbpei:steward "Fund administration" ; xbpei:termStatus "proposed" ; skos:changeNote "Added in v0.9."@en .
+xbpei:FundVehicle xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:SPV xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:PortfolioCompany xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:RoleAssignment xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:RoleType xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:OwnershipInterest xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
+xbpei:TimeInterval xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
+xbpei:Jurisdiction xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
+xbpei:FactAssertion xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:JurisdictionFact xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
+xbpei:JurisdictionFactType xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
+xbpei:TaxStatusAssertion xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
+xbpei:Event xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:PaymentEvent xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:InvestmentTransaction xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:PaymentType xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:ChangeEvent xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "proposed" .
+xbpei:RuleVersion xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:FactRequirement xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:ObligationAssessment xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:Obligation xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:MissingFactFinding xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:Agreement xbpei:steward "Compliance and risk" ; xbpei:termStatus "proposed" .
+xbpei:SourceDocument xbpei:steward "Compliance and risk" ; xbpei:termStatus "proposed" .
+xbpei:AuthoritySource xbpei:steward "Compliance and risk" ; xbpei:termStatus "proposed" .
+xbpei:TaxCertification xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:CertificationType xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:Clearance xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:Case xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:DistributionEvent xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:DistributionComponent xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:IncomeType xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:WithholdingDetermination xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:WithholdingSchedule xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:assignedTo xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:hasRoleType xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:inContextOf xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:governedBy xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:heldBy xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:interestIn xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:heldThrough xbpei:steward "Fund administration" ; xbpei:termStatus "proposed" ; skos:changeNote "Added in v0.9."@en .
+xbpei:validDuring xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:evidencedBy xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:aboutEntity xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:hasJurisdiction xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:hasFactType xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:payer xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:payee xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:hasPaymentType xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:associatedWith xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:affectsInterest xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:hasSubjectEntity xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:aboutParty xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:assessedUnder xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:evaluates xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:derivedFrom xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:appliesIn xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:effectiveDuring xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:requiresFact xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:usesFact xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:hasSubjectEvent xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:hasSubjectParty xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:identifiesGap xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:unmetRequirement xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:identifies xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:obligatedParty xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:basedOn xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:triggersReassessment xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:changes xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:identifier xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:name xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:description xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:recordedOn xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:legalForm xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:leiCode xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:committedCapital xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:vintageYear xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:economicPercentage xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:votingPercentage xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:shareClass xbpei:steward "Fund administration" ; xbpei:termStatus "reviewed" .
+xbpei:holdingCapacity xbpei:steward "Fund administration" ; xbpei:termStatus "proposed" ; skos:changeNote "Added in v0.9."@en .
+xbpei:countryCode xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
+xbpei:subdivisionCode xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
+xbpei:taxClassification xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
+xbpei:statement xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:occurredOn xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:amount xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:currencyCode xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:transactionKind xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
+xbpei:versionLabel xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:prescribedRate xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" ; skos:changeNote "Added in v0.9."@en .
+xbpei:minimumVotingPercentage xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" ; skos:changeNote "Added in v0.9."@en .
+xbpei:isMandatory xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:assessedOn xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:assessmentResult xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:reasoning xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:obligationKind xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:dueDate xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:documentDate xbpei:steward "Compliance and risk" ; xbpei:termStatus "proposed" .
+xbpei:citation xbpei:steward "Compliance and risk" ; xbpei:termStatus "proposed" .
+xbpei:sourceLocation xbpei:steward "Compliance and risk" ; xbpei:termStatus "proposed" .
+xbpei:certifiedBy xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:hasCertificationType xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:clearanceOf xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:reviewedBy xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:reliesOnCertification xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:reliesOnFact xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:hasOpenItem xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:concernsParty xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:triggeredBy xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:decides xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:distributedBy xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:hasComponent xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:hasIncomeType xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:sourcedIn xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:determinedFor xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:forComponent xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:reliesOnClearance xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:supportedBy xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:scheduleFor xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:includes xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:preparedBy xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:signedOffBy xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:partOfDistribution xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:releasedAgainst xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:concernsDistribution xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:claimsTreatyBenefit xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:isIntermediaryCertification xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:clearanceStatus xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:decidedOn xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:defaultTreatment xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:caseKind xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:openedOn xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:closedOn xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:caseOutcome xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:learnedOn xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:recordDate xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:paymentDate xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:grossAmount xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:determinationOutcome xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:withholdingRate xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:taxWithheld xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:netAmount xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:rateBasis xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:scheduleStatus xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:signedOffOn xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:RoleTypeScheme xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:JurisdictionFactTypeScheme xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:PaymentTypeScheme xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:Investor xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:LimitedPartner xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:GeneralPartner xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:Manager xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:Incorporation xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:TaxResidence xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:OperatingLocation xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:CapitalContribution xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:Distribution xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:ManagementFee xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:CarriedInterest xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:Dividend xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:InterestPayment xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:AcquisitionPrice xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:DisposalProceeds xbpei:steward "Knowledge engineering" ; xbpei:termStatus "reviewed" .
+xbpei:CertificationTypeScheme xbpei:steward "Knowledge engineering" ; xbpei:termStatus "proposed" .
+xbpei:IncomeTypeScheme xbpei:steward "Knowledge engineering" ; xbpei:termStatus "proposed" .
+xbpei:DividendIncome xbpei:steward "Knowledge engineering" ; xbpei:termStatus "proposed" .
+xbpei:InterestIncome xbpei:steward "Knowledge engineering" ; xbpei:termStatus "proposed" .
+xbpei:GainOnDisposal xbpei:steward "Knowledge engineering" ; xbpei:termStatus "proposed" .
+xbpei:ReturnOfCapital xbpei:steward "Knowledge engineering" ; xbpei:termStatus "proposed" .

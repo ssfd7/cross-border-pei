@@ -1,0 +1,146 @@
+# Where instances of ontology terms live in the Clearance schema, the only schema agents write to.
+# The schema follows the ontology, so most columns carry the term's own name in snake_case.
+# Parties are held as investor numbers; other source records as schema.table:key references.
+source: clearance
+steward: Fund tax team
+party_identity: {shares_key_with: investor_register.investor.inv_no}
+
+mappings:
+  - term: xbpei:ChangeEvent
+    table: change_event
+    key: change_id
+    system_of_record: true
+    scope: Reported changes to a recorded fact.
+    properties:
+      xbpei:identifier: change_id
+      xbpei:description: description
+      xbpei:occurredOn: occurred_on
+      xbpei:learnedOn: learned_on
+      xbpei:recordedOn: recorded_on
+    links:
+      xbpei:changes: {column: changes_ref}
+
+  - term: xbpei:Case
+    table: case
+    key: case_id
+    system_of_record: true
+    scope: Units of clearance work.
+    properties:
+      xbpei:identifier: case_id
+      xbpei:caseKind: case_kind
+      xbpei:openedOn: opened_on
+      xbpei:closedOn: closed_on
+      xbpei:caseOutcome: case_outcome
+    links:
+      xbpei:concernsParty: {column: concerns_party, references: investor_register.investor.inv_no}
+      xbpei:concernsDistribution: {column: concerns_distribution, references: treasury.distribution.dist_id}
+      xbpei:triggeredBy: {column: triggered_by, references: clearance.change_event.change_id}
+
+  - term: xbpei:Clearance
+    table: clearance
+    key: clearance_id
+    system_of_record: true
+    scope: >-
+      Clearance decisions. A renewal or withdrawal is a new row; the decision in force on a date is
+      the latest one decided on or before it whose validity period covers it.
+    properties:
+      xbpei:identifier: clearance_id
+      xbpei:clearanceStatus: clearance_status
+      xbpei:decidedOn: decided_on
+      xbpei:defaultTreatment: default_treatment
+    links:
+      xbpei:clearanceOf: {column: clearance_of, references: investor_register.investor.inv_no}
+      xbpei:inContextOf: {column: in_context_of, references: investor_register.fund.fund_code}
+      xbpei:reviewedBy: {column: reviewed_by}
+    inverse_links:
+      xbpei:decides: {column: case_id, references: clearance.case.case_id}
+    link_tables:
+      xbpei:reliesOnCertification: {table: clearance_reliance, from: clearance_id, to: source_ref, where: "reliance_kind = 'certification'"}
+      xbpei:reliesOnFact: {table: clearance_reliance, from: clearance_id, to: source_ref, where: "reliance_kind = 'fact'"}
+    interval: {property: xbpei:validDuring, start: valid_from, end: valid_to}
+
+  - term: xbpei:MissingFactFinding
+    table: missing_fact_finding
+    key: finding_id
+    system_of_record: true
+    scope: Open items of a clearance and gaps found by an assessment.
+    properties:
+      xbpei:identifier: finding_id
+      xbpei:description: description
+      xbpei:recordedOn: recorded_on
+    links:
+      xbpei:unmetRequirement: {column: unmet_requirement, references: rulebook.fact_requirement.req_id}
+    inverse_links:
+      xbpei:hasOpenItem: {column: clearance_id, references: clearance.clearance.clearance_id}
+      xbpei:identifiesGap: {column: assessment_id, references: clearance.obligation_assessment.assessment_id}
+
+  - term: xbpei:ObligationAssessment
+    table: obligation_assessment
+    key: assessment_id
+    system_of_record: true
+    scope: Evaluations of a rule version against the facts available.
+    properties:
+      xbpei:identifier: assessment_id
+      xbpei:assessedOn: assessed_on
+      xbpei:assessmentResult: assessment_result
+      xbpei:reasoning: reasoning
+    links:
+      xbpei:evaluates: {columns: [evaluates_rule, evaluates_version], references: rulebook.rule_version.rule_id}
+      xbpei:hasSubjectParty: {column: subject_party, references: investor_register.investor.inv_no}
+      xbpei:hasSubjectEvent: {column: subject_event}
+    link_tables:
+      xbpei:usesFact: {table: assessment_fact, from: assessment_id, to: source_ref}
+
+  - term: xbpei:Obligation
+    table: obligation
+    key: obligation_id
+    system_of_record: true
+    scope: Reporting or withholding duties identified by an assessment.
+    properties:
+      xbpei:identifier: obligation_id
+      xbpei:obligationKind: obligation_kind
+      xbpei:dueDate: due_date
+    links:
+      xbpei:obligatedParty: {column: obligated_party}
+      xbpei:basedOn: {columns: [based_on_rule, based_on_version], references: rulebook.rule_version.rule_id}
+    inverse_links:
+      xbpei:identifies: {column: assessment_id, references: clearance.obligation_assessment.assessment_id}
+
+  - term: xbpei:WithholdingSchedule
+    table: withholding_schedule
+    key: schedule_id
+    system_of_record: true
+    scope: The determinations for a distribution. A corrected schedule is a new row.
+    properties:
+      xbpei:identifier: schedule_id
+      xbpei:scheduleStatus: schedule_status
+      xbpei:signedOffOn: signed_off_on
+    links:
+      xbpei:scheduleFor: {column: schedule_for, references: treasury.distribution.dist_id}
+      xbpei:preparedBy: {column: prepared_by}
+      xbpei:signedOffBy: {column: signed_off_by}
+
+  - term: xbpei:WithholdingDetermination
+    table: withholding_determination
+    key: determination_id
+    system_of_record: true
+    scope: The treatment decided for one party and one distribution component.
+    properties:
+      xbpei:identifier: determination_id
+      xbpei:determinationOutcome: determination_outcome
+      xbpei:grossAmount: gross_amount
+      xbpei:withholdingRate: withholding_rate
+      xbpei:taxWithheld: tax_withheld
+      xbpei:netAmount: net_amount
+      xbpei:rateBasis: rate_basis
+      xbpei:decidedOn: decided_on
+    links:
+      xbpei:determinedFor: {column: determined_for, references: investor_register.investor.inv_no}
+      xbpei:forComponent: {column: for_component, references: treasury.distribution_component.comp_id}
+      xbpei:reliesOnClearance: {column: relies_on_clearance, references: clearance.clearance.clearance_id}
+      xbpei:supportedBy: {column: supported_by, references: clearance.obligation_assessment.assessment_id}
+    inverse_links:
+      xbpei:includes: {column: schedule_id, references: clearance.withholding_schedule.schedule_id}
+
+unmapped_columns:
+  missing_fact_finding.about_party: The party a finding concerns. The ontology links a finding to its requirement and to the clearance or assessment that raised it, not to a party.

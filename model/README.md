@@ -1,4 +1,4 @@
-# Cross-border private equity conceptual model — draft v0.8
+# Cross-border private equity conceptual model — draft v0.9
 
 Open `xb-pei-model.drawio` in diagrams.net/draw.io. It contains an overview page and five editable detail pages with colored circular concepts and labeled, directed relationships. Dashed `subclassOf` arrows denote proposed specializations, not instance relationships. Other arrows describe candidate relationships, with one name per connector. Inheritance uses a dashed line and a small hollow triangle pointing to the superclass.
 
@@ -157,12 +157,36 @@ Layout: pages 04 and 05 use a Fruchterman–Reingold layout (seeds 4197 and 5130
 
 Checked: XML parses; cell identifiers are unique per page; every connector has a name and existing endpoints; the overview equals the union of pages 01–05; every diagram concept and relationship has a Turtle counterpart and the reverse. Pages 00, 04 and 05 were rendered with the diagrams.net viewer and inspected. Pages 04 and 05 are clean. The overview is dense: several relationship labels sit close together or overlap near Party, and a few connectors pass close to concept circles. The Turtle was not parsed with an RDF library (none installed) or run through a reasoner.
 
+## Rule rates, beneficial ownership and stewardship in v0.9
+
+These changes are in the Turtle only. **The diagram is still at v0.8**: Beneficial Owner (a kind of Party) and `heldThrough` (Ownership Interest to Ownership Interest) are structural and are not yet on page 01 or the overview.
+
+| Addition | Kind | Meaning |
+|---|---|---|
+| `prescribedRate` | Attribute of Rule Version | The rate the rule version prescribes where it applies. Values are data; no jurisdiction's rate is fixed in the ontology |
+| `minimumVotingPercentage` | Attribute of Rule Version | Lowest share of voting rights in the paying company at which the rule version applies, inclusive |
+| `holdingCapacity` | Attribute of Ownership Interest | Whether the holder holds for its own benefit or as nominee |
+| `heldThrough` | Relationship | From a beneficially held interest to the nominee's interest through which it is held of record |
+| Beneficial Owner | Defined class | Any party holding at least one interest in a beneficial capacity. Membership follows from the data and is not asserted |
+| `steward`, `termStatus` | Annotations | The team accountable for a term, and its lifecycle status: proposed, reviewed or released |
+
+Decisions proposed for review:
+
+- A rule version carries one rate. A rule with several rates is recorded as several rule versions, each derived from its own authority source.
+- Beneficial Owner is not asserted, because a party is a beneficial owner of a particular interest and may be a nominee elsewhere. Its scope note limits it to the tax sense (the party entitled to the income), as distinct from the natural person who ultimately controls an entity in know-your-customer work.
+- Stewardship and status are kept in `xb-pei-governance.ttl`, one line per term, so they can change without touching definitions. Terms of pages 01 and 02, with the shared attributes, datatypes and their code lists, are `reviewed`; page 03, pages 04 and 05 and the v0.9 additions are `proposed`. None is `released`. The stewards are the synthetic teams named in the business requirements.
+- Open: the ontology has no term for the treaty a certification claims under, its limitation-on-benefits category, the treaty partner of a rule version, or the party a missing-fact finding concerns. The source systems hold all four; the mapping files list them as unmapped.
+
+Checked: both Turtle files parse with rdflib; every one of the 179 terms has a steward and a status. Not run through an OWL reasoner, so the Beneficial Owner definition is untested by inference.
+
 ## Formal ontology
 
-`xb-pei-model.ttl` is the OWL 2 counterpart of the diagram: the same 37 classes, 59 relationships (as object properties) and 9 subclass links as `00 Model overview`, plus 49 data properties, three restricted datatypes and five SKOS code lists for role, jurisdiction-fact, payment, certification and income types. The namespace `https://w3id.org/xb-pei/ontology#` is a placeholder and is not registered.
+`xb-pei-model.ttl` is the OWL 2 counterpart of the diagram, plus the v0.9 additions above: 38 classes, 60 relationships (as object properties) and 10 subclass links, against 37, 59 and 9 on `00 Model overview`, plus 52 data properties, three restricted datatypes and five SKOS code lists for role, jurisdiction-fact, payment, certification and income types. The namespace `https://w3id.org/xb-pei/ontology#` is a placeholder and is not registered.
 
 Reused vocabularies: OWL-Time and DCAT for periods (`TimeInterval` is a `time:ProperInterval` and `dcterms:PeriodOfTime`, with `dcat:startDate` and `dcat:endDate`), PROV-O and DCAT for evidence (`SourceDocument`, `AuthoritySource`), SKOS for code lists, Dublin Core and VANN for ontology metadata. External terms are declared, not imported.
 
-The file parses as Turtle and was checked against the overview page for matching classes, relationships and subclass links. It has not been run through an OWL reasoner or profile checker.
+`xb-pei-model.jsonld` is generated from the two Turtle files by `solution/xbpei/build_model.py` and is not edited by hand.
+
+The file parses as Turtle and, at v0.8, was checked against the overview page for matching classes, relationships and subclass links. It has not been run through an OWL reasoner or profile checker.
 
 Two axioms go beyond the diagram: `LegalEntity` is disjoint with `NaturalPerson`, and several relationships are functional (for example one holder and one entity per ownership interest, one payer and one payee per payment).

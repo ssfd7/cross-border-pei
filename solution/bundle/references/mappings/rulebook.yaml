@@ -1,0 +1,49 @@
+# Where instances of ontology terms live in the tax team's rule library.
+# The rules are illustrative and have not been checked against the primary text.
+source: rulebook
+steward: Fund tax team
+
+mappings:
+  - term: xbpei:RuleVersion
+    table: rule_version
+    key: [rule_id, version_label]
+    system_of_record: true
+    scope: One dated version of a rule, with the single rate it prescribes.
+    properties:
+      xbpei:identifier: rule_id
+      xbpei:versionLabel: version_label
+      xbpei:name: rule_name
+      xbpei:prescribedRate: rate_pct
+      xbpei:minimumVotingPercentage: min_vote_pct
+    links:
+      xbpei:appliesIn: {columns: [applies_in]}
+    link_tables:
+      xbpei:derivedFrom: {table: rule_authority, from: [rule_id, version_label], to: authority_id, references: rulebook.authority_source.authority_id}
+    interval: {property: xbpei:effectiveDuring, start: eff_from, end: eff_to}
+
+  - term: xbpei:FactRequirement
+    table: fact_requirement
+    key: req_id
+    system_of_record: true
+    scope: A fact a rule version needs before it can be evaluated.
+    properties:
+      xbpei:identifier: req_id
+      xbpei:description: description
+      xbpei:isMandatory: mandatory
+    inverse_links:
+      xbpei:requiresFact: {columns: [rule_id, version_label], references: rulebook.rule_version.rule_id}
+
+  - term: xbpei:AuthoritySource
+    table: authority_source
+    key: authority_id
+    system_of_record: true
+    scope: The legal material a rule version is derived from.
+    properties:
+      xbpei:identifier: authority_id
+      xbpei:name: title
+      xbpei:citation: citation
+      xbpei:documentDate: doc_dt
+      xbpei:sourceLocation: location
+
+unmapped_columns:
+  rule_version.treaty_country: The residence a recipient must have for a treaty rule. The ontology has no term for it.

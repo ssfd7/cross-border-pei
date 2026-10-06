@@ -1,0 +1,96 @@
+# Where instances of ontology terms live in the investor register.
+source: investor_register
+steward: Fund administration
+party_identity: {table: investor, key: inv_no, match_on: [lei, reg_no]}
+
+mappings:
+  - term: xbpei:Party
+    table: investor
+    key: inv_no
+    system_of_record: true
+    scope: >-
+      Investors of record (rec_type INV) and underlying owners known only from a declaration
+      (rec_type UO). Two investors can share a name; match on registration number or LEI.
+    also_when:
+      xbpei:LegalEntity: "inv_type = 'ENT'"
+      xbpei:NaturalPerson: "inv_type = 'IND'"
+    properties:
+      xbpei:identifier: inv_no
+      xbpei:name: display_name
+      xbpei:legalForm: legal_form
+      xbpei:leiCode: lei
+
+  - term: xbpei:JurisdictionFact
+    table: investor
+    key: inv_no
+    system_of_record: true
+    scope: Country of incorporation of an investor.
+    links:
+      xbpei:aboutEntity: {column: inv_no, references: investor_register.investor.inv_no}
+      xbpei:hasJurisdiction: {columns: [country_inc]}
+    constants:
+      xbpei:hasFactType: xbpei:Incorporation
+    gaps:
+      - Current state only. No validity period, recorded date or evidence is held.
+
+  - term: xbpei:JurisdictionFact
+    table: investor
+    key: inv_no
+    system_of_record: false
+    yields_to: onboarding.residence_record
+    scope: Country of tax residence as last keyed into the register. Use the onboarding record.
+    links:
+      xbpei:aboutEntity: {column: inv_no, references: investor_register.investor.inv_no}
+      xbpei:hasJurisdiction: {columns: [country_res]}
+    constants:
+      xbpei:hasFactType: xbpei:TaxResidence
+
+  - term: xbpei:FundVehicle
+    table: fund
+    key: fund_code
+    system_of_record: false
+    yields_to: entity_mgmt.legal_entity
+    scope: The register's own list of funds. The same fund is in entity management; match on LEI.
+    properties:
+      xbpei:identifier: fund_code
+      xbpei:name: fund_name
+      xbpei:leiCode: lei
+      xbpei:currencyCode: base_ccy
+
+  - term: xbpei:OwnershipInterest
+    table: commitment
+    key: commit_id
+    system_of_record: true
+    scope: Interests of investors of record in a fund vehicle. Rows with an end date are history.
+    properties:
+      xbpei:identifier: commit_id
+      xbpei:economicPercentage: unit_pct
+      xbpei:votingPercentage: vote_pct
+      xbpei:shareClass: unit_class
+    links:
+      xbpei:heldBy: {column: inv_no, references: investor_register.investor.inv_no}
+      xbpei:interestIn: {column: fund_code, references: investor_register.fund.fund_code}
+      xbpei:governedBy: {column: lpa_ref, references: documents.document.doc_ref}
+    derived:
+      xbpei:holdingCapacity: >-
+        nominee where onboarding.declared_owner holds NOMINEE_ALLOC rows for the investor that are
+        valid on the date in question; otherwise beneficial.
+    interval: {property: xbpei:validDuring, start: from_dt, end: to_dt}
+
+  - term: xbpei:RoleAssignment
+    table: commitment
+    key: commit_id
+    system_of_record: true
+    scope: A commitment makes its holder an investor in the fund.
+    links:
+      xbpei:assignedTo: {column: inv_no, references: investor_register.investor.inv_no}
+      xbpei:inContextOf: {column: fund_code, references: investor_register.fund.fund_code}
+      xbpei:governedBy: {column: lpa_ref, references: documents.document.doc_ref}
+    derived:
+      xbpei:hasRoleType: xbpei:GeneralPartner where unit_class is GP; otherwise xbpei:LimitedPartner.
+
+unmapped_columns:
+  investor.rec_type: Whether the party is an investor of record or is known only from a declaration; no term.
+  commitment.commit_amt: >-
+    An investor's own commitment has no term. xbpei:committedCapital is the fund's total and no
+    system holds it.

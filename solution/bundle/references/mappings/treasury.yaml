@@ -1,0 +1,77 @@
+# Where instances of ontology terms live in the treasury system.
+source: treasury
+steward: Fund finance and treasury
+party_identity: {table: counterparty, key: cp_id, match_on: [lei, reg_no]}
+
+mappings:
+  - term: xbpei:Party
+    table: counterparty
+    key: cp_id
+    system_of_record: false
+    yields_to: investor_register.investor
+    scope: >-
+      Treasury's own list of payers and payees. Names are in capitals and are not unique. Match to
+      the other systems on LEI or registration number, never on name.
+    properties:
+      xbpei:identifier: cp_id
+      xbpei:name: cp_name
+      xbpei:leiCode: lei
+
+  - term: xbpei:PaymentEvent
+    table: payment
+    key: pay_id
+    system_of_record: true
+    scope: Cash payments made or received.
+    properties:
+      xbpei:identifier: pay_id
+      xbpei:amount: amt
+      xbpei:currencyCode: ccy
+      xbpei:occurredOn: value_dt
+    links:
+      xbpei:payer: {column: payer_cp, references: treasury.counterparty.cp_id}
+      xbpei:payee: {column: payee_cp, references: treasury.counterparty.cp_id}
+      xbpei:partOfDistribution: {column: dist_id, references: treasury.distribution.dist_id}
+    codes:
+      xbpei:hasPaymentType:
+        column: pay_type_cd
+        values: {CAPCALL: xbpei:CapitalContribution, MGMTFEE: xbpei:ManagementFee, DIV: xbpei:Dividend, DIST: xbpei:Distribution}
+
+  - term: xbpei:DistributionEvent
+    table: distribution
+    key: dist_id
+    system_of_record: true
+    scope: Distributions proposed or made by a fund.
+    properties:
+      xbpei:identifier: dist_id
+      xbpei:recordDate: record_dt
+      xbpei:paymentDate: pay_dt
+      xbpei:grossAmount: gross_amt
+      xbpei:currencyCode: ccy
+    links:
+      xbpei:distributedBy: {column: fund_cp, references: treasury.counterparty.cp_id}
+
+  - term: xbpei:DistributionComponent
+    table: distribution_component
+    key: comp_id
+    system_of_record: true
+    scope: The make-up of a distribution by income type and source.
+    properties:
+      xbpei:identifier: comp_id
+      xbpei:grossAmount: gross_amt
+    links:
+      xbpei:sourcedIn: {columns: [source_country]}
+    inverse_links:
+      xbpei:hasComponent: {column: dist_id, references: treasury.distribution.dist_id}
+    codes:
+      xbpei:hasIncomeType:
+        column: income_cd
+        values: {DIV: xbpei:DividendIncome, INT: xbpei:InterestIncome, GAIN: xbpei:GainOnDisposal, ROC: xbpei:ReturnOfCapital}
+
+unmapped_columns:
+  counterparty.country: A country with no stated capacity. It is not a jurisdiction fact and must not be used as one.
+  distribution.status: Processing state in this system; no term.
+
+unmapped_tables:
+  distribution_line: >-
+    Gross amount per investor of record and component. It is the input to xbpei:grossAmount of a
+    withholding determination and is not itself an instance of a term.

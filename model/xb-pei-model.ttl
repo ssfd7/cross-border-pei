@@ -18,9 +18,9 @@
     dcterms:title "Cross-border private equity investment ontology"@en ;
     dcterms:description "Structural semantic model of a private equity fund investing through legal entities across jurisdictions, and of the facts, rules and evidence behind tax-obligation assessments. Formal counterpart of xb-pei-model.drawio. Not a tax engine; no jurisdiction-specific rule is encoded."@en ;
     dcterms:created "2026-10-05"^^xsd:date ;
-    dcterms:modified "2026-10-05"^^xsd:date ;
-    owl:versionInfo "0.8" ;
-    owl:versionIRI <https://w3id.org/xb-pei/ontology/0.8> ;
+    dcterms:modified "2026-10-06"^^xsd:date ;
+    owl:versionInfo "0.9" ;
+    owl:versionIRI <https://w3id.org/xb-pei/ontology/0.9> ;
     vann:preferredNamespacePrefix "xbpei" ;
     vann:preferredNamespaceUri "https://w3id.org/xb-pei/ontology#" ;
     dcat:keyword "private equity"@en , "cross-border"@en , "tax obligation"@en , "ownership"@en ;
@@ -57,8 +57,22 @@ vann:preferredNamespacePrefix a owl:AnnotationProperty .
 vann:preferredNamespaceUri a owl:AnnotationProperty .
 skos:definition a owl:AnnotationProperty .
 skos:prefLabel a owl:AnnotationProperty .
+skos:scopeNote a owl:AnnotationProperty .
+skos:changeNote a owl:AnnotationProperty .
 skos:inScheme a owl:ObjectProperty .
 prov:wasDerivedFrom a owl:ObjectProperty .
+
+#################################################################
+# Governance annotations (values are in xb-pei-governance.ttl)
+#################################################################
+
+xbpei:steward a owl:AnnotationProperty ;
+    rdfs:label "steward"@en ;
+    skos:definition "The team accountable for the meaning of a term and for approving changes to it."@en .
+
+xbpei:termStatus a owl:AnnotationProperty ;
+    rdfs:label "termStatus"@en ;
+    skos:definition "Where a term stands in its lifecycle: proposed, reviewed or released."@en .
 
 #################################################################
 # Datatypes
@@ -100,6 +114,15 @@ xbpei:NaturalPerson a owl:Class ;
     rdfs:subClassOf xbpei:Party ;
     rdfs:label "Natural Person"@en ;
     skos:definition "A party that is a human being."@en .
+
+xbpei:BeneficialOwner a owl:Class ;
+    rdfs:subClassOf xbpei:Party ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf ( xbpei:Party
+        [ a owl:Restriction ; owl:onProperty [ owl:inverseOf xbpei:heldBy ] ;
+          owl:someValuesFrom [ a owl:Restriction ; owl:onProperty xbpei:holdingCapacity ; owl:hasValue "beneficial" ] ] ) ] ;
+    rdfs:label "Beneficial Owner"@en ;
+    skos:definition "A party that holds at least one ownership interest for its own benefit, so that the income from it is its own. Membership follows from the interests held and is not asserted."@en ;
+    skos:scopeNote "The tax sense: the party entitled to the income. Not the natural person who ultimately controls an entity, as the term is used in know-your-customer work."@en .
 
 xbpei:FundVehicle a owl:Class ;
     rdfs:subClassOf xbpei:LegalEntity ;
@@ -306,6 +329,11 @@ xbpei:interestIn a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "interestIn"@en ;
     rdfs:domain xbpei:OwnershipInterest ; rdfs:range xbpei:LegalEntity .
 
+xbpei:heldThrough a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "heldThrough"@en ;
+    skos:definition "The nominee's interest through which a beneficially held interest in the same legal entity is held of record."@en ;
+    rdfs:domain xbpei:OwnershipInterest ; rdfs:range xbpei:OwnershipInterest .
+
 xbpei:validDuring a owl:ObjectProperty ;
     rdfs:label "validDuring"@en ;
     rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:OwnershipInterest xbpei:JurisdictionFact xbpei:TaxStatusAssertion xbpei:TaxCertification xbpei:Clearance ) ] ;
@@ -500,6 +528,12 @@ xbpei:shareClass a owl:DatatypeProperty ;
     skos:definition "Class or category of the shares or units held."@en ;
     rdfs:domain xbpei:OwnershipInterest ; rdfs:range xsd:string .
 
+xbpei:holdingCapacity a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "holdingCapacity"@en ;
+    skos:definition "Whether the holder holds the interest for its own benefit or as nominee for others. Exposure is read from beneficial interests; the holder of record is read from nominee interests."@en ;
+    rdfs:domain xbpei:OwnershipInterest ;
+    rdfs:range [ a rdfs:Datatype ; owl:oneOf ( "beneficial" "nominee" ) ] .
+
 #################################################################
 # Data properties — jurisdiction and status
 #################################################################
@@ -559,6 +593,16 @@ xbpei:versionLabel a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:label "versionLabel"@en ;
     skos:definition "Label distinguishing this version of the rule from earlier and later versions."@en ;
     rdfs:domain xbpei:RuleVersion ; rdfs:range xsd:string .
+
+xbpei:prescribedRate a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "prescribedRate"@en ;
+    skos:definition "The rate the rule version prescribes where it applies. The value is supplied as data; no jurisdiction's rate is fixed in this ontology."@en ;
+    rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:Percentage .
+
+xbpei:minimumVotingPercentage a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "minimumVotingPercentage"@en ;
+    skos:definition "The lowest share of voting rights in the paying company at which the rule version applies, inclusive. Absent where the rule has no holding threshold."@en ;
+    rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:Percentage .
 
 xbpei:isMandatory a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:label "isMandatory"@en ;

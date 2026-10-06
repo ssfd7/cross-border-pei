@@ -1,0 +1,163 @@
+# Answer key for the gold dataset (solution/db/03_seed_legacy.sql, 04_seed_clearance.sql).
+# Figures are recomputed from the data by verify.sql. Terms prefixed xbpei: are from
+# model/xb-pei-model.ttl. The rules (R-01 to R-03) are illustrative and not checked against primary law.
+
+as_of:
+  record_date: 2026-10-30
+  payment_date: 2026-11-16
+distribution: D-001
+fund: Atlas Growth Fund I LP (E-001, fund code AGF1)
+paying_company: Orion Manufacturing Inc. (E-003)
+
+cases:
+  - id: G1
+    name: Baseline
+    party: I-001 Harbor Pension Trust
+    terms: ["xbpei:Clearance", "xbpei:TaxCertification", "xbpei:WithholdingDetermination"]
+    expected:
+      effective_voting_in_paying_company: 8.0
+      determination: {outcome: cleared, rate: 15, rule: R-02, relies_on_clearance: CL-001, certification: F-001}
+
+  - id: G2
+    name: Ownership multiplied through tiers
+    party: I-010 Ardennes Industrial Holding S.A.
+    terms: ["xbpei:OwnershipInterest", "xbpei:votingPercentage", "xbpei:heldBy", "xbpei:interestIn"]
+    trap: Holds 50% of the feeder and so 12% of the fund; only 9.6% of the voting stock of the paying company.
+    path: [I-010 50%, I-002 Atlas Lux Feeder 24%, E-001 fund 100%, E-002 SPV 80%, E-003 Orion]
+    expected:
+      effective_voting_in_paying_company: 9.6
+      determination: {outcome: cleared, rate: 15, rule: R-02}
+    must_not: Apply the 5% rate on the strength of the 12% holding in the fund.
+
+  - id: G3
+    name: Circular holding
+    party: I-006 Meridian Holdings I S.à r.l.
+    terms: ["xbpei:OwnershipInterest", "xbpei:ChangeEvent", "xbpei:Case", "xbpei:MissingFactFinding"]
+    trap: From 1 August 2026, I-006 and I-018 each hold 30% of the other. Clearance CL-006 still reads cleared while change case K-006 is open.
+    expected:
+      cycle_reported: [I-006, I-018]
+      ultimate_owner_if_resolved: I-019 Meridian Family Trust (Jersey), 100%
+      assessment_result: undetermined
+      unmet_requirement: FR-07
+      determination: {outcome_one_of: [defaultRate, held], rate_if_default: 30, escalated_to_person: true}
+    must_not: [Loop without ending, Grant the treaty rate on CL-006]
+
+  - id: G4
+    name: Nominee
+    party: I-007 Sterling Nominees Ltd
+    terms: ["xbpei:BeneficialOwner", "xbpei:holdingCapacity", "xbpei:heldThrough", "xbpei:isIntermediaryCertification", "xbpei:hasOpenItem"]
+    trap: The holder of record is a United Kingdom nominee; the income belongs to two underlying owners, one undocumented.
+    expected:
+      determinations:
+        - {recipient: I-013 Echternach Pension Fund, share: 62.5, gross: 375000.00, outcome: cleared, rate: 15, rule: R-02, certification: F-013}
+        - {recipient: I-014 undocumented owner, share: 37.5, gross: 225000.00, outcome: defaultRate, rate: 30, rule: R-01, open_item: MF-001}
+    must_not: Treat Sterling Nominees as the recipient and apply one rate to the whole line.
+
+  - id: G5
+    name: Same name, different party
+    parties:
+      - I-008 Alpha Holdings SA, Luxembourg, B 214 577
+      - I-009 Alpha Holdings SA, Switzerland, CHE-318.442.907
+    terms: ["xbpei:Party", "xbpei:identifier", "xbpei:leiCode"]
+    trap: The register and treasury (CP-108, CP-109) hold the same name for both.
+    expected:
+      I-008: {outcome: cleared, rate: 15, rule: R-02, certification: F-008}
+      I-009: {outcome: cleared, rate: 30, rule: R-01, certification: F-009}
+      question_by_name_alone: Ask which party is meant, or answer for both and say so.
+    must_not: Match records across systems on name.
+
+  - id: G6
+    name: Threshold boundary
+    terms: ["xbpei:votingPercentage", "xbpei:economicPercentage", "xbpei:minimumVotingPercentage"]
+    trap: The qualifying-holding rate needs at least 10% of the voting stock of the paying company.
+    expected:
+      I-003 Kirchberg Industries S.A.: {effective_voting: 10.0, rate: 5, rule: R-03}
+      I-004 Limpertsberg Holdings S.A.: {effective_voting: 9.99, rate: 15, rule: R-02}
+      I-005 Grund Participations S.A.: {effective_economic: 10.4, effective_voting: 8.0, rate: 15, rule: R-02}
+    must_not: [Treat "at least" as "more than", Test the threshold on economic percentage]
+
+  - id: G7
+    name: Stale records
+    terms: ["xbpei:validDuring", "xbpei:TimeInterval", "xbpei:clearanceStatus"]
+    expected:
+      I-015 Bertrange Capital S.A.:
+        note: Form F-015 reads VALIDATED but ended on 2025-12-31; clearance CL-015 was withdrawn by CL-015W.
+        holding_at_record_date: 5.0
+        determination: {outcome: defaultRate, rate: 30, rule: R-01, relies_on_clearance: CL-015W, open_item: MF-002}
+      I-008 Alpha Holdings SA:
+        note: Commitment C-008a (8%) ended on 2026-06-30 and form F-008a is superseded.
+        holding_at_record_date: 6.0
+        certification: F-008
+    must_not: [Rely on a form or clearance not valid on the payment date, Add or use an ended holding]
+
+  - id: G8
+    name: Sources disagree
+    party: I-016 Atlas Co-Invest Vehicle LP
+    terms: ["xbpei:OwnershipInterest", "xbpei:evidencedBy"]
+    expected:
+      conflict_reported:
+        "investor_register.commitment:C-016": 3.0
+        "entity_mgmt.shareholding:H-006": 3.5
+      determination: {outcome: notApplicable, rate: 0, rule: R-01 notApplicable, certification: F-016}
+    must_not: Pick one figure without reporting the other.
+
+  - id: G9
+    name: Refusal
+    terms: ["xbpei:vintageYear"]
+    questions:
+      - text: What is the vintage year of Atlas Growth Fund I?
+        expected: The term exists in the ontology but no source holds it. Refuse and name the missing mapping.
+      - text: Which investors are politically exposed persons?
+        expected: No such term in the ontology. Refuse and say it is out of scope.
+    must_not: Guess a value or write a query against an unrelated column.
+
+# Withholding schedule for component D-001-A (US-source dividend, USD 10,000,000).
+# Component D-001-B (return of capital, USD 2,000,000) is notApplicable for every investor.
+schedule_d001_a:
+  total_gross: 10000000.00
+  total_tax_if_g3_defaulted: 1510562.50
+  lines:
+    - {payee: I-001, recipient: I-001, gross: 1000000.00, rate: 15, tax: 150000.00, net: 850000.00}
+    - {payee: I-002, recipient: I-010, gross: 1200000.00, rate: 15, tax: 180000.00, net: 1020000.00}
+    - {payee: I-002, recipient: I-011, gross: 720000.00, rate: 15, tax: 108000.00, net: 612000.00}
+    - {payee: I-002, recipient: I-012, gross: 480000.00, rate: 30, tax: 144000.00, net: 336000.00}
+    - {payee: I-003, recipient: I-003, gross: 1250000.00, rate: 5, tax: 62500.00, net: 1187500.00}
+    - {payee: I-004, recipient: I-004, gross: 1248750.00, rate: 15, tax: 187312.50, net: 1061437.50}
+    - {payee: I-005, recipient: I-005, gross: 1300000.00, rate: 15, tax: 195000.00, net: 1105000.00}
+    - {payee: I-006, recipient: I-006, gross: 300000.00, rate: 30, tax: 90000.00, net: 210000.00}
+    - {payee: I-007, recipient: I-013, gross: 375000.00, rate: 15, tax: 56250.00, net: 318750.00}
+    - {payee: I-007, recipient: I-014, gross: 225000.00, rate: 30, tax: 67500.00, net: 157500.00}
+    - {payee: I-008, recipient: I-008, gross: 600000.00, rate: 15, tax: 90000.00, net: 510000.00}
+    - {payee: I-009, recipient: I-009, gross: 100000.00, rate: 30, tax: 30000.00, net: 70000.00}
+    - {payee: I-015, recipient: I-015, gross: 500000.00, rate: 30, tax: 150000.00, net: 350000.00}
+    - {payee: I-016, recipient: I-016, gross: 300000.00, rate: 0, tax: 0.00, net: 300000.00}
+    - {payee: I-017, recipient: I-017, gross: 401250.00, rate: 0, tax: 0.00, net: 401250.00}
+
+# LookThrough answers at the record date.
+lookthrough:
+  CQ1_effective_holding_in_orion:   # ultimate holder: [economic %, voting %]; sums to 80
+    I-001: [8.0, 8.0]
+    I-003: [10.0, 10.0]
+    I-004: [9.99, 9.99]
+    I-005: [10.4, 8.0]
+    I-006: [2.4, 2.4]
+    I-008: [4.8, 4.8]
+    I-009: [0.8, 0.8]
+    I-010: [9.6, 9.6]
+    I-011: [5.76, 5.76]
+    I-012: [3.84, 3.84]
+    I-013: [3.0, 3.0]
+    I-014: [1.8, 1.8]
+    I-015: [4.0, 4.0]
+    I-016: [2.4, 2.4]    # 2.8 on the entity management figure; report the conflict (G8)
+    I-017: [3.21, 5.61]
+  CQ2_jurisdictions_fund_to_company:
+    orion: {incorporation: [US], tax_residence: [US], operating_location: [US]}
+    borealis: {incorporation: [US, LU, DE], tax_residence: [US, LU, DE], operating_location: [DE, PL]}
+    unknown: Tax residence of Atlas Lux Feeder SCSp is not recorded; report it as unknown.
+  CQ3_cross_border_payments:   # compared on the tax residence of payer and payee
+    cross_border: [P-001 LU→US, P-005 DE→LU, P-006 LU→US]
+    not_cross_border: [P-003, P-007, P-008]
+    undetermined:
+      P-002: The payer is the feeder, whose tax residence is not recorded. It crosses a border on incorporation (LU→US).
+      P-004: The payee, Atlas Capital Management LLC, is known only to treasury, which holds a country without saying in what capacity.

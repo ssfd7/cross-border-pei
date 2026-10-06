@@ -1,0 +1,77 @@
+# Where instances of ontology terms live in the entity management system.
+# A mapping says where to look and what each column means; it is not a query.
+# The format is described and checked in xbpei/check_mappings.py.
+source: entity_mgmt
+steward: Fund administration
+party_identity: {table: legal_entity, key: entity_id, match_on: [lei, reg_no]}
+
+mappings:
+  - term: xbpei:LegalEntity
+    table: legal_entity
+    key: entity_id
+    system_of_record: true
+    scope: Legal entities in the fund's own structure.
+    also_when:
+      xbpei:FundVehicle: "is_fund = 'Y'"
+      xbpei:SPV: "is_spv = 'Y'"
+      xbpei:PortfolioCompany: "is_portco = 'Y'"
+    properties:
+      xbpei:identifier: entity_id
+      xbpei:name: legal_name
+      xbpei:legalForm: legal_form
+      xbpei:leiCode: lei
+
+  - term: xbpei:TaxStatusAssertion
+    table: legal_entity
+    key: entity_id
+    system_of_record: true
+    scope: US tax classification of structure entities.
+    properties:
+      xbpei:taxClassification: tax_class_us
+    links:
+      xbpei:aboutParty: {column: entity_id, references: entity_mgmt.legal_entity.entity_id}
+    constants:
+      xbpei:assessedUnder: US
+    gaps:
+      - Current state only. No validity period, recorded date or evidence is held.
+
+  - term: xbpei:JurisdictionFact
+    table: entity_jurisdiction
+    key: [entity_id, capacity_cd, country, from_dt]
+    system_of_record: true
+    scope: Jurisdictions of structure entities, one row per capacity.
+    properties:
+      xbpei:recordedOn: recorded_dt
+    links:
+      xbpei:aboutEntity: {column: entity_id, references: entity_mgmt.legal_entity.entity_id}
+      xbpei:hasJurisdiction: {columns: [country, subdivision]}
+      xbpei:evidencedBy: {column: doc_ref, references: documents.document.doc_ref}
+    codes:
+      xbpei:hasFactType:
+        column: capacity_cd
+        values: {INC: xbpei:Incorporation, TAXRES: xbpei:TaxResidence, OPS: xbpei:OperatingLocation}
+    interval: {property: xbpei:validDuring, start: from_dt, end: to_dt}
+    gaps:
+      - A capacity with no row is unknown, not absent.
+
+  - term: xbpei:OwnershipInterest
+    table: shareholding
+    key: holding_id
+    system_of_record: partial
+    yields_to: investor_register.commitment
+    scope: >-
+      Interests of one structure entity in another. Where the holder is also an investor of record
+      in the investor register, the register is the system of record and this row is a secondary
+      record: do not add the two, and report any difference.
+    properties:
+      xbpei:identifier: holding_id
+      xbpei:economicPercentage: pct_econ
+      xbpei:votingPercentage: pct_vote
+      xbpei:shareClass: share_class
+    links:
+      xbpei:heldBy: {column: owner_entity_id, references: entity_mgmt.legal_entity.entity_id}
+      xbpei:interestIn: {column: owned_entity_id, references: entity_mgmt.legal_entity.entity_id}
+      xbpei:evidencedBy: {column: doc_ref, references: documents.document.doc_ref}
+    constants:
+      xbpei:holdingCapacity: beneficial
+    interval: {property: xbpei:validDuring, start: eff_from, end: eff_to}

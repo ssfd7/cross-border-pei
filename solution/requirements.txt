@@ -1,0 +1,6 @@
+rdflib
+pyshacl
+pyyaml
+psycopg[binary]
+real_ladybug
+claude-agent-sdk

@@ -1,0 +1,65 @@
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xbpei: <https://w3id.org/xb-pei/ontology#> .
+@prefix xbsh:  <https://w3id.org/xb-pei/shapes#> .
+
+# Controls of the operating procedures that can be tested on a draft before it is written.
+# Written by hand; generated.ttl holds the shapes that follow from the ontology itself.
+# C3.1 is tested for duplicates only: that no investor on the frozen list is left out is checked
+# by the workflow against the distribution lines.
+
+xbsh:OneOutcomePerComponent a sh:NodeShape ;
+    rdfs:label "C3.1 One outcome per party and component"@en ;
+    sh:targetClass xbpei:WithholdingSchedule ;
+    sh:sparql [
+        sh:message "A party has more than one determination for the same component in this schedule."@en ;
+        sh:prefixes xbsh:prefixes ;
+        sh:select """
+            SELECT DISTINCT $this WHERE {
+                $this xbpei:includes ?first , ?second .
+                ?first xbpei:determinedFor ?party ; xbpei:forComponent ?component .
+                ?second xbpei:determinedFor ?party ; xbpei:forComponent ?component .
+                FILTER (?first != ?second)
+            }""" ] .
+
+xbsh:ClearedRateHasBasis a sh:NodeShape ;
+    rdfs:label "C3.3 A cleared rate cites its basis"@en ;
+    sh:targetClass xbpei:WithholdingDetermination ;
+    sh:sparql [
+        sh:message "A cleared determination must give a rate basis, the clearance relied on and the supporting assessment."@en ;
+        sh:prefixes xbsh:prefixes ;
+        sh:select """
+            SELECT $this WHERE {
+                $this xbpei:determinationOutcome "cleared" .
+                FILTER NOT EXISTS { $this xbpei:rateBasis ?basis ; xbpei:reliesOnClearance ?clearance ; xbpei:supportedBy ?assessment }
+            }""" ] .
+
+xbsh:AmountsReconcile a sh:NodeShape ;
+    rdfs:label "C3.4 Tax and net follow from gross and rate"@en ;
+    sh:targetClass xbpei:WithholdingDetermination ;
+    sh:sparql [
+        sh:message "Tax withheld must equal gross amount times rate, and net amount must equal gross less tax."@en ;
+        sh:prefixes xbsh:prefixes ;
+        sh:select """
+            SELECT $this WHERE {
+                $this xbpei:grossAmount ?gross ; xbpei:withholdingRate ?rate ; xbpei:taxWithheld ?tax ; xbpei:netAmount ?net .
+                FILTER (ABS(?gross * ?rate / 100 - ?tax) > 0.005 || ABS(?gross - ?tax - ?net) > 0.005)
+            }""" ] .
+
+xbsh:SecondReview a sh:NodeShape ;
+    rdfs:label "C3.5 Sign-off by someone who did not prepare the schedule"@en ;
+    sh:targetClass xbpei:WithholdingSchedule ;
+    sh:property [
+        sh:path xbpei:signedOffBy ;
+        sh:disjoint xbpei:preparedBy ;
+        sh:message "The reviewer who signs off a schedule must not be its preparer."@en ] ;
+    sh:sparql [
+        sh:message "A signed schedule must name the reviewer and the sign-off date."@en ;
+        sh:prefixes xbsh:prefixes ;
+        sh:select """
+            SELECT $this WHERE {
+                $this xbpei:scheduleStatus "signed" .
+                FILTER NOT EXISTS { $this xbpei:signedOffBy ?reviewer ; xbpei:signedOffOn ?date }
+            }""" ] .
+
+xbsh:prefixes sh:declare [ sh:prefix "xbpei" ; sh:namespace "https://w3id.org/xb-pei/ontology#"^^<http://www.w3.org/2001/XMLSchema#anyURI> ] .
