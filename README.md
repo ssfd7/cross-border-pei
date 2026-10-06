@@ -27,7 +27,7 @@ Both share one domain background and one ontology.
 ## Where to start reviewing
 
 1. The two business requirements documents, for scope and objectives.
-2. [`model/README.md`](model/README.md), then `model/xb-pei-model.drawio` in diagrams.net. Pages 04 and 05 are the newest and least reviewed.
+2. [`model/README.md`](model/README.md), which shows each diagram page as an image; the editable source is `model/xb-pei-model.drawio` (diagrams.net). Pages 04 and 05 are the newest and least reviewed.
 3. One operating procedure, for example [`wf3-withholding-at-distribution.md`](business/clearance-product/wf3-withholding-at-distribution.md), to see what the agents are expected to carry out.
 
 ## Solution direction agreed so far

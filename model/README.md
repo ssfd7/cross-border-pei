@@ -2,6 +2,34 @@
 
 Open `xb-pei-model.drawio` in diagrams.net/draw.io. It contains an overview page and five editable detail pages with colored circular concepts and labeled, directed relationships. Dashed `subclassOf` arrows denote proposed specializations, not instance relationships. Other arrows describe candidate relationships, with one name per connector. Inheritance uses a dashed line and a small hollow triangle pointing to the superclass.
 
+## Diagrams
+
+PNG renderings of each page are in `diagrams/`, for viewing on GitHub. The Draw.io file is the source; the images were rendered from draft v0.8 and must be regenerated when the diagram changes.
+
+### 00 Model overview
+
+![00 Model overview](diagrams/00-model-overview.png)
+
+### 01 Ownership and roles
+
+![01 Ownership and roles](diagrams/01-ownership-and-roles.png)
+
+### 02 Payments and jurisdictions
+
+![02 Payments and jurisdictions](diagrams/02-payments-and-jurisdictions.png)
+
+### 03 Obligation assessment and evidence
+
+![03 Obligation assessment and evidence](diagrams/03-obligation-assessment-and-evidence.png)
+
+### 04 Investor clearance
+
+![04 Investor clearance](diagrams/04-investor-clearance.png)
+
+### 05 Withholding at distribution
+
+![05 Withholding at distribution](diagrams/05-withholding-at-distribution.png)
+
 ## Purpose and scope
 
 A first conceptual ontology for a synthetic private equity fund investing through legal entities across jurisdictions. It describes investment structure and the information needed for tax-obligation assessment. It is not an executable tax engine, validated legal ontology, or a model of every private equity structure. No jurisdiction-specific tax rule is implemented.
