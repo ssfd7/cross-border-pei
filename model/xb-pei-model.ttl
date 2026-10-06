@@ -1,0 +1,916 @@
+@prefix xbpei:   <https://w3id.org/xb-pei/ontology#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dcat:    <http://www.w3.org/ns/dcat#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix time:    <http://www.w3.org/2006/time#> .
+@prefix vann:    <http://purl.org/vocab/vann/> .
+
+#################################################################
+# Ontology header
+#################################################################
+
+<https://w3id.org/xb-pei/ontology> a owl:Ontology , dcat:Dataset ;
+    dcterms:title "Cross-border private equity investment ontology"@en ;
+    dcterms:description "Structural semantic model of a private equity fund investing through legal entities across jurisdictions, and of the facts, rules and evidence behind tax-obligation assessments. Formal counterpart of xb-pei-model.drawio. Not a tax engine; no jurisdiction-specific rule is encoded."@en ;
+    dcterms:created "2026-10-05"^^xsd:date ;
+    dcterms:modified "2026-10-05"^^xsd:date ;
+    owl:versionInfo "0.8" ;
+    owl:versionIRI <https://w3id.org/xb-pei/ontology/0.8> ;
+    vann:preferredNamespacePrefix "xbpei" ;
+    vann:preferredNamespaceUri "https://w3id.org/xb-pei/ontology#" ;
+    dcat:keyword "private equity"@en , "cross-border"@en , "tax obligation"@en , "ownership"@en ;
+    dcat:distribution [
+        a dcat:Distribution ;
+        dcterms:title "Turtle serialization"@en ;
+        dcat:mediaType <https://www.iana.org/assignments/media-types/text/turtle> ;
+        dcterms:format "text/turtle"
+    ] .
+
+#################################################################
+# Reused external terms (declared, not imported)
+#################################################################
+
+time:ProperInterval a owl:Class .
+dcterms:PeriodOfTime a owl:Class .
+dcat:Resource a owl:Class .
+prov:Entity a owl:Class .
+skos:Concept a owl:Class .
+skos:ConceptScheme a owl:Class .
+
+dcat:startDate a owl:DatatypeProperty .
+dcat:endDate a owl:DatatypeProperty .
+dcterms:identifier a owl:AnnotationProperty .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:created a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:format a owl:AnnotationProperty .
+dcat:keyword a owl:AnnotationProperty .
+dcat:distribution a owl:AnnotationProperty .
+dcat:mediaType a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+skos:definition a owl:AnnotationProperty .
+skos:prefLabel a owl:AnnotationProperty .
+skos:inScheme a owl:ObjectProperty .
+prov:wasDerivedFrom a owl:ObjectProperty .
+
+#################################################################
+# Datatypes
+#################################################################
+
+xbpei:CountryCode a rdfs:Datatype ;
+    rdfs:label "country code"@en ;
+    skos:definition "ISO 3166-1 alpha-2 country code."@en ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:onDatatype xsd:string ;
+        owl:withRestrictions ( [ xsd:pattern "[A-Z]{2}" ] ) ] .
+
+xbpei:CurrencyCode a rdfs:Datatype ;
+    rdfs:label "currency code"@en ;
+    skos:definition "ISO 4217 alphabetic currency code."@en ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:onDatatype xsd:string ;
+        owl:withRestrictions ( [ xsd:pattern "[A-Z]{3}" ] ) ] .
+
+xbpei:Percentage a rdfs:Datatype ;
+    rdfs:label "percentage"@en ;
+    skos:definition "Decimal between 0 and 100 inclusive."@en ;
+    owl:equivalentClass [ a rdfs:Datatype ; owl:onDatatype xsd:decimal ;
+        owl:withRestrictions ( [ xsd:minInclusive 0.0 ] [ xsd:maxInclusive 100.0 ] ) ] .
+
+#################################################################
+# Classes — entities
+#################################################################
+
+xbpei:Party a owl:Class ;
+    rdfs:label "Party"@en ;
+    skos:definition "A person or legal entity that can hold interests, play roles, pay or receive payments, and bear obligations. Identity is separate from the roles a party plays."@en .
+
+xbpei:LegalEntity a owl:Class ;
+    rdfs:subClassOf xbpei:Party ;
+    owl:disjointWith xbpei:NaturalPerson ;
+    rdfs:label "Legal Entity"@en ;
+    skos:definition "A party that exists by operation of law, such as a company, partnership or trust. Legal form is not tax classification."@en .
+
+xbpei:NaturalPerson a owl:Class ;
+    rdfs:subClassOf xbpei:Party ;
+    rdfs:label "Natural Person"@en ;
+    skos:definition "A party that is a human being."@en .
+
+xbpei:FundVehicle a owl:Class ;
+    rdfs:subClassOf xbpei:LegalEntity ;
+    rdfs:label "Fund Vehicle"@en ;
+    skos:definition "A legal entity that pools investor capital to make investments. Not disjoint with SPV or Portfolio Company."@en .
+
+xbpei:SPV a owl:Class ;
+    rdfs:subClassOf xbpei:LegalEntity ;
+    rdfs:label "SPV"@en ;
+    skos:definition "Special purpose vehicle: a legal entity created for a specific transaction or holding."@en .
+
+xbpei:PortfolioCompany a owl:Class ;
+    rdfs:subClassOf xbpei:LegalEntity ;
+    rdfs:label "Portfolio Company"@en ;
+    skos:definition "A legal entity in which a fund holds an investment, directly or indirectly."@en .
+
+#################################################################
+# Classes — roles
+#################################################################
+
+xbpei:RoleAssignment a owl:Class ;
+    rdfs:label "Role Assignment"@en ;
+    skos:definition "The fact that a party plays a role of a given type in the context of a fund vehicle, under an agreement."@en .
+
+xbpei:RoleType a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Role Type"@en ;
+    skos:definition "A kind of role a party can play, such as investor, limited partner, general partner or manager."@en .
+
+#################################################################
+# Classes — context
+#################################################################
+
+xbpei:OwnershipInterest a owl:Class ;
+    rdfs:label "Ownership Interest"@en ;
+    skos:definition "A holding by one party in one legal entity, with its own percentages, share class, validity period, governing agreement and evidence."@en .
+
+xbpei:TimeInterval a owl:Class ;
+    rdfs:subClassOf time:ProperInterval , dcterms:PeriodOfTime ;
+    rdfs:label "Time Interval"@en ;
+    skos:definition "A period with a start date and an optional end date. An absent end date means the period is open, not that it is unknown."@en .
+
+xbpei:Jurisdiction a owl:Class ;
+    rdfs:label "Jurisdiction"@en ;
+    skos:definition "A territory with its own legal or tax authority, national or sub-national."@en .
+
+xbpei:FactAssertion a owl:Class ;
+    rdfs:label "Fact Assertion"@en ;
+    skos:definition "A statement recorded as true about a party, entity or event, which an assessment can use. Absence of an assertion means unknown, not false."@en .
+
+xbpei:JurisdictionFact a owl:Class ;
+    rdfs:label "Jurisdiction Fact"@en ;
+    skos:definition "A dated statement linking a legal entity to a jurisdiction in a stated capacity, such as incorporation, tax residence or operating location."@en .
+
+xbpei:JurisdictionFactType a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Jurisdiction Fact Type"@en ;
+    skos:definition "The capacity in which an entity is linked to a jurisdiction."@en .
+
+xbpei:TaxStatusAssertion a owl:Class ;
+    rdfs:label "Tax Status Assertion"@en ;
+    skos:definition "A dated statement of a party's tax classification or status as assessed under one jurisdiction."@en .
+
+#################################################################
+# Classes — events
+#################################################################
+
+xbpei:Event a owl:Class ;
+    rdfs:label "Event"@en ;
+    skos:definition "Something that happens on a date and can be the subject of an obligation assessment."@en .
+
+xbpei:PaymentEvent a owl:Class ;
+    rdfs:subClassOf xbpei:Event ;
+    rdfs:label "Payment Event"@en ;
+    skos:definition "A transfer of cash from a payer to a payee. An allocation of taxable income is not a payment event."@en .
+
+xbpei:InvestmentTransaction a owl:Class ;
+    rdfs:subClassOf xbpei:Event ;
+    rdfs:label "Investment Transaction"@en ;
+    skos:definition "An acquisition or disposal concerning a legal entity, which may involve several payments and may affect ownership interests."@en .
+
+xbpei:PaymentType a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Payment Type"@en ;
+    skos:definition "A kind of payment, such as capital contribution, distribution, management fee or dividend."@en .
+
+xbpei:ChangeEvent a owl:Class ;
+    rdfs:label "Change Event"@en ;
+    skos:definition "A recorded change to a fact that triggers review of assessments relying on it. A change triggers review; it does not itself prove that an obligation changed."@en .
+
+#################################################################
+# Classes — rules
+#################################################################
+
+xbpei:RuleVersion a owl:Class ;
+    rdfs:label "Rule Version"@en ;
+    skos:definition "One dated version of a rule that applies in a jurisdiction and states which facts it requires."@en .
+
+xbpei:FactRequirement a owl:Class ;
+    rdfs:label "Fact Requirement"@en ;
+    skos:definition "A fact that a rule version needs before its applicability can be determined."@en .
+
+xbpei:ObligationAssessment a owl:Class ;
+    rdfs:label "Obligation Assessment"@en ;
+    skos:definition "A dated evaluation of a rule version against the facts available about a party or event, with a result of applicable, not applicable or undetermined."@en .
+
+xbpei:Obligation a owl:Class ;
+    rdfs:label "Obligation"@en ;
+    skos:definition "A reporting or withholding duty of a party, based on a rule version. Recorded separately from the assessment that identifies it."@en .
+
+xbpei:MissingFactFinding a owl:Class ;
+    rdfs:label "Missing Fact Finding"@en ;
+    skos:definition "An explicit record that a required fact was not available when an assessment was made."@en .
+
+#################################################################
+# Classes — evidence
+#################################################################
+
+xbpei:Agreement a owl:Class ;
+    rdfs:label "Agreement"@en ;
+    skos:definition "A contract or governing document, such as a limited partnership agreement or shareholders' agreement."@en .
+
+xbpei:SourceDocument a owl:Class ;
+    rdfs:subClassOf prov:Entity , dcat:Resource ;
+    rdfs:label "Source Document"@en ;
+    skos:definition "A document that evidences a recorded fact."@en .
+
+xbpei:AuthoritySource a owl:Class ;
+    rdfs:subClassOf prov:Entity , dcat:Resource ;
+    rdfs:label "Authority Source"@en ;
+    skos:definition "Legal or regulatory material from which a rule version is derived, such as a statute, regulation or official guidance."@en .
+
+#################################################################
+# Classes — clearance (pages 04 and 05)
+#################################################################
+
+xbpei:TaxCertification a owl:Class ;
+    rdfs:subClassOf xbpei:SourceDocument ;
+    rdfs:label "Tax Certification"@en ;
+    skos:definition "A signed self-certification of tax status supplied by a party, valid for a stated period. Which form applies is jurisdiction-specific and is given by its certification type."@en .
+
+xbpei:CertificationType a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Certification Type"@en ;
+    skos:definition "A kind of tax certification form. Members depend on the jurisdiction pair chosen and are supplied as data, not in this ontology."@en .
+
+xbpei:Clearance a owl:Class ;
+    rdfs:label "Clearance"@en ;
+    skos:definition "A dated decision on whether a party's tax documentation supports its treatment as an investor in a fund vehicle, with the certifications and facts relied on and any open items. A renewed or withdrawn clearance is a new record; earlier records are kept."@en .
+
+xbpei:Case a owl:Class ;
+    rdfs:label "Case"@en ;
+    skos:definition "A unit of clearance work with an opening trigger and an outcome: onboarding, renewal, change in circumstances, or distribution."@en .
+
+xbpei:DistributionEvent a owl:Class ;
+    rdfs:subClassOf xbpei:Event ;
+    rdfs:label "Distribution Event"@en ;
+    skos:definition "A distribution proposed or made by a fund vehicle to its investors, with a record date and a payment date. The cash transfers it gives rise to are payment events."@en .
+
+xbpei:DistributionComponent a owl:Class ;
+    rdfs:label "Distribution Component"@en ;
+    skos:definition "The part of a distribution that has one income type and one source jurisdiction."@en .
+
+xbpei:IncomeType a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Income Type"@en ;
+    skos:definition "The character of the income passed on by a distribution component, such as dividend, interest, gain on disposal or return of capital."@en .
+
+xbpei:WithholdingDetermination a owl:Class ;
+    rdfs:label "Withholding Determination"@en ;
+    skos:definition "The treatment decided for one party and one distribution component: the outcome, the rate and its basis, the clearance relied on and the assessment that supports it."@en .
+
+xbpei:WithholdingSchedule a owl:Class ;
+    rdfs:label "Withholding Schedule"@en ;
+    skos:definition "The set of withholding determinations for a distribution, prepared, reviewed and signed off before payments are released. A corrected schedule is a new record."@en .
+
+#################################################################
+# Object properties — ownership and roles (page 01)
+#################################################################
+
+xbpei:assignedTo a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "assignedTo"@en ;
+    rdfs:domain xbpei:RoleAssignment ; rdfs:range xbpei:Party .
+
+xbpei:hasRoleType a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "hasRoleType"@en ;
+    rdfs:domain xbpei:RoleAssignment ; rdfs:range xbpei:RoleType .
+
+xbpei:inContextOf a owl:ObjectProperty ;
+    rdfs:label "inContextOf"@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:RoleAssignment xbpei:Clearance ) ] ;
+    rdfs:range xbpei:FundVehicle .
+
+xbpei:governedBy a owl:ObjectProperty ;
+    rdfs:label "governedBy"@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:RoleAssignment xbpei:OwnershipInterest ) ] ;
+    rdfs:range xbpei:Agreement .
+
+xbpei:heldBy a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "heldBy"@en ;
+    rdfs:domain xbpei:OwnershipInterest ; rdfs:range xbpei:Party .
+
+xbpei:interestIn a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "interestIn"@en ;
+    rdfs:domain xbpei:OwnershipInterest ; rdfs:range xbpei:LegalEntity .
+
+xbpei:validDuring a owl:ObjectProperty ;
+    rdfs:label "validDuring"@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:OwnershipInterest xbpei:JurisdictionFact xbpei:TaxStatusAssertion xbpei:TaxCertification xbpei:Clearance ) ] ;
+    rdfs:range xbpei:TimeInterval .
+
+xbpei:evidencedBy a owl:ObjectProperty ;
+    rdfs:label "evidencedBy"@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:OwnershipInterest xbpei:JurisdictionFact xbpei:TaxStatusAssertion ) ] ;
+    rdfs:range xbpei:SourceDocument .
+
+#################################################################
+# Object properties — payments and jurisdictions (page 02)
+#################################################################
+
+xbpei:aboutEntity a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "aboutEntity"@en ;
+    rdfs:domain xbpei:JurisdictionFact ; rdfs:range xbpei:LegalEntity .
+
+xbpei:hasJurisdiction a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "hasJurisdiction"@en ;
+    rdfs:domain xbpei:JurisdictionFact ; rdfs:range xbpei:Jurisdiction .
+
+xbpei:hasFactType a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "hasFactType"@en ;
+    rdfs:domain xbpei:JurisdictionFact ; rdfs:range xbpei:JurisdictionFactType .
+
+xbpei:payer a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "payer"@en ;
+    rdfs:domain xbpei:PaymentEvent ; rdfs:range xbpei:Party .
+
+xbpei:payee a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "payee"@en ;
+    rdfs:domain xbpei:PaymentEvent ; rdfs:range xbpei:Party .
+
+xbpei:hasPaymentType a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "hasPaymentType"@en ;
+    rdfs:domain xbpei:PaymentEvent ; rdfs:range xbpei:PaymentType .
+
+xbpei:associatedWith a owl:ObjectProperty ;
+    rdfs:label "associatedWith"@en ;
+    rdfs:domain xbpei:PaymentEvent ; rdfs:range xbpei:InvestmentTransaction .
+
+xbpei:affectsInterest a owl:ObjectProperty ;
+    rdfs:label "affectsInterest"@en ;
+    rdfs:domain xbpei:InvestmentTransaction ; rdfs:range xbpei:OwnershipInterest .
+
+xbpei:hasSubjectEntity a owl:ObjectProperty ;
+    rdfs:label "hasSubjectEntity"@en ;
+    rdfs:domain xbpei:InvestmentTransaction ; rdfs:range xbpei:LegalEntity .
+
+xbpei:aboutParty a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "aboutParty"@en ;
+    rdfs:domain xbpei:TaxStatusAssertion ; rdfs:range xbpei:Party .
+
+xbpei:assessedUnder a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "assessedUnder"@en ;
+    rdfs:domain xbpei:TaxStatusAssertion ; rdfs:range xbpei:Jurisdiction .
+
+#################################################################
+# Object properties — obligation assessment and evidence (page 03)
+#################################################################
+
+xbpei:evaluates a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "evaluates"@en ;
+    rdfs:domain xbpei:ObligationAssessment ; rdfs:range xbpei:RuleVersion .
+
+xbpei:derivedFrom a owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasDerivedFrom ;
+    rdfs:label "derivedFrom"@en ;
+    rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:AuthoritySource .
+
+xbpei:appliesIn a owl:ObjectProperty ;
+    rdfs:label "appliesIn"@en ;
+    rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:Jurisdiction .
+
+xbpei:effectiveDuring a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "effectiveDuring"@en ;
+    rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:TimeInterval .
+
+xbpei:requiresFact a owl:ObjectProperty ;
+    rdfs:label "requiresFact"@en ;
+    rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:FactRequirement .
+
+xbpei:usesFact a owl:ObjectProperty ;
+    rdfs:label "usesFact"@en ;
+    rdfs:domain xbpei:ObligationAssessment ; rdfs:range xbpei:FactAssertion .
+
+xbpei:hasSubjectEvent a owl:ObjectProperty ;
+    rdfs:label "hasSubjectEvent"@en ;
+    rdfs:domain xbpei:ObligationAssessment ; rdfs:range xbpei:Event .
+
+xbpei:hasSubjectParty a owl:ObjectProperty ;
+    rdfs:label "hasSubjectParty"@en ;
+    rdfs:domain xbpei:ObligationAssessment ; rdfs:range xbpei:Party .
+
+xbpei:identifiesGap a owl:ObjectProperty ;
+    rdfs:label "identifiesGap"@en ;
+    rdfs:domain xbpei:ObligationAssessment ; rdfs:range xbpei:MissingFactFinding .
+
+xbpei:unmetRequirement a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "unmetRequirement"@en ;
+    rdfs:domain xbpei:MissingFactFinding ; rdfs:range xbpei:FactRequirement .
+
+xbpei:identifies a owl:ObjectProperty ;
+    rdfs:label "identifies"@en ;
+    rdfs:domain xbpei:ObligationAssessment ; rdfs:range xbpei:Obligation .
+
+xbpei:obligatedParty a owl:ObjectProperty ;
+    rdfs:label "obligatedParty"@en ;
+    rdfs:domain xbpei:Obligation ; rdfs:range xbpei:Party .
+
+xbpei:basedOn a owl:ObjectProperty ;
+    rdfs:label "basedOn"@en ;
+    rdfs:domain xbpei:Obligation ; rdfs:range xbpei:RuleVersion .
+
+xbpei:triggersReassessment a owl:ObjectProperty ;
+    rdfs:label "triggersReassessment"@en ;
+    rdfs:domain xbpei:ChangeEvent ; rdfs:range xbpei:ObligationAssessment .
+
+xbpei:changes a owl:ObjectProperty ;
+    rdfs:label "changes"@en ;
+    rdfs:domain xbpei:ChangeEvent ; rdfs:range xbpei:FactAssertion .
+
+#################################################################
+# Data properties — shared
+#################################################################
+
+xbpei:identifier a owl:DatatypeProperty ;
+    rdfs:label "identifier"@en ;
+    skos:definition "Stable business identifier of any resource in the model. Aligned with dcterms:identifier."@en ;
+    rdfs:range xsd:string .
+
+xbpei:name a owl:DatatypeProperty ;
+    rdfs:label "name"@en ;
+    skos:definition "Human-readable name or title."@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:Party xbpei:Jurisdiction xbpei:Agreement xbpei:SourceDocument xbpei:AuthoritySource xbpei:RuleVersion ) ] ;
+    rdfs:range xsd:string .
+
+xbpei:description a owl:DatatypeProperty ;
+    rdfs:label "description"@en ;
+    skos:definition "Free-text description."@en ;
+    rdfs:range xsd:string .
+
+xbpei:recordedOn a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "recordedOn"@en ;
+    skos:definition "Date on which a fact, finding or assessment was recorded. Distinct from the period in which the fact holds."@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:FactAssertion xbpei:JurisdictionFact xbpei:TaxStatusAssertion xbpei:MissingFactFinding xbpei:ChangeEvent ) ] ;
+    rdfs:range xsd:date .
+
+#################################################################
+# Data properties — entities and roles
+#################################################################
+
+xbpei:legalForm a owl:DatatypeProperty ;
+    rdfs:label "legalForm"@en ;
+    skos:definition "Legal form under the law of formation, such as limited partnership or corporation. Not a tax classification."@en ;
+    rdfs:domain xbpei:LegalEntity ; rdfs:range xsd:string .
+
+xbpei:leiCode a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "leiCode"@en ;
+    skos:definition "ISO 17442 Legal Entity Identifier, where one exists."@en ;
+    rdfs:domain xbpei:LegalEntity ;
+    rdfs:range [ a rdfs:Datatype ; owl:onDatatype xsd:string ;
+        owl:withRestrictions ( [ xsd:pattern "[A-Z0-9]{18}[0-9]{2}" ] ) ] .
+
+xbpei:committedCapital a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "committedCapital"@en ;
+    skos:definition "Total capital committed to the fund vehicle, in the fund currency."@en ;
+    rdfs:domain xbpei:FundVehicle ; rdfs:range xsd:decimal .
+
+xbpei:vintageYear a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "vintageYear"@en ;
+    skos:definition "Year in which the fund vehicle began investing."@en ;
+    rdfs:domain xbpei:FundVehicle ; rdfs:range xsd:gYear .
+
+#################################################################
+# Data properties — ownership
+#################################################################
+
+xbpei:economicPercentage a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "economicPercentage"@en ;
+    skos:definition "Share of economic rights carried by the interest. Distinct from voting percentage."@en ;
+    rdfs:domain xbpei:OwnershipInterest ; rdfs:range xbpei:Percentage .
+
+xbpei:votingPercentage a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "votingPercentage"@en ;
+    skos:definition "Share of voting rights carried by the interest."@en ;
+    rdfs:domain xbpei:OwnershipInterest ; rdfs:range xbpei:Percentage .
+
+xbpei:shareClass a owl:DatatypeProperty ;
+    rdfs:label "shareClass"@en ;
+    skos:definition "Class or category of the shares or units held."@en ;
+    rdfs:domain xbpei:OwnershipInterest ; rdfs:range xsd:string .
+
+#################################################################
+# Data properties — jurisdiction and status
+#################################################################
+
+xbpei:countryCode a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "countryCode"@en ;
+    skos:definition "ISO 3166-1 alpha-2 code of the country of the jurisdiction."@en ;
+    rdfs:domain xbpei:Jurisdiction ; rdfs:range xbpei:CountryCode .
+
+xbpei:subdivisionCode a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "subdivisionCode"@en ;
+    skos:definition "ISO 3166-2 code, for a sub-national jurisdiction."@en ;
+    rdfs:domain xbpei:Jurisdiction ; rdfs:range xsd:string .
+
+xbpei:taxClassification a owl:DatatypeProperty ;
+    rdfs:label "taxClassification"@en ;
+    skos:definition "How the party is classified for tax in the assessing jurisdiction, such as transparent, opaque or exempt."@en ;
+    rdfs:domain xbpei:TaxStatusAssertion ; rdfs:range xsd:string .
+
+xbpei:statement a owl:DatatypeProperty ;
+    rdfs:label "statement"@en ;
+    skos:definition "The content of a fact assertion in plain language."@en ;
+    rdfs:domain xbpei:FactAssertion ; rdfs:range xsd:string .
+
+#################################################################
+# Data properties — events
+#################################################################
+
+xbpei:occurredOn a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "occurredOn"@en ;
+    skos:definition "Date on which the event took place."@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:Event xbpei:ChangeEvent ) ] ;
+    rdfs:range xsd:date .
+
+xbpei:amount a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "amount"@en ;
+    skos:definition "Gross amount paid, in the payment currency."@en ;
+    rdfs:domain xbpei:PaymentEvent ; rdfs:range xsd:decimal .
+
+xbpei:currencyCode a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "currencyCode"@en ;
+    skos:definition "ISO 4217 currency of a payment or of a fund vehicle's commitments."@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:PaymentEvent xbpei:FundVehicle xbpei:DistributionEvent ) ] ;
+    rdfs:range xbpei:CurrencyCode .
+
+xbpei:transactionKind a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "transactionKind"@en ;
+    skos:definition "Whether the investment transaction is an acquisition or a disposal."@en ;
+    rdfs:domain xbpei:InvestmentTransaction ;
+    rdfs:range [ a rdfs:Datatype ; owl:oneOf ( "acquisition" "disposal" ) ] .
+
+#################################################################
+# Data properties — rules, assessments and obligations
+#################################################################
+
+xbpei:versionLabel a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "versionLabel"@en ;
+    skos:definition "Label distinguishing this version of the rule from earlier and later versions."@en ;
+    rdfs:domain xbpei:RuleVersion ; rdfs:range xsd:string .
+
+xbpei:isMandatory a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "isMandatory"@en ;
+    skos:definition "Whether the rule cannot be evaluated without this fact."@en ;
+    rdfs:domain xbpei:FactRequirement ; rdfs:range xsd:boolean .
+
+xbpei:assessedOn a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "assessedOn"@en ;
+    skos:definition "Date as of which the assessment was made."@en ;
+    rdfs:domain xbpei:ObligationAssessment ; rdfs:range xsd:date .
+
+xbpei:assessmentResult a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "assessmentResult"@en ;
+    skos:definition "Outcome of the assessment. Undetermined is a recorded outcome, not a missing value."@en ;
+    rdfs:domain xbpei:ObligationAssessment ;
+    rdfs:range [ a rdfs:Datatype ; owl:oneOf ( "applicable" "notApplicable" "undetermined" ) ] .
+
+xbpei:reasoning a owl:DatatypeProperty ;
+    rdfs:label "reasoning"@en ;
+    skos:definition "Explanation of how the result follows from the rule and the facts used."@en ;
+    rdfs:domain xbpei:ObligationAssessment ; rdfs:range xsd:string .
+
+xbpei:obligationKind a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "obligationKind"@en ;
+    skos:definition "Whether the obligation is to report or to withhold."@en ;
+    rdfs:domain xbpei:Obligation ;
+    rdfs:range [ a rdfs:Datatype ; owl:oneOf ( "reporting" "withholding" ) ] .
+
+xbpei:dueDate a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "dueDate"@en ;
+    skos:definition "Date by which the obligation must be met."@en ;
+    rdfs:domain xbpei:Obligation ; rdfs:range xsd:date .
+
+#################################################################
+# Data properties — evidence
+#################################################################
+
+xbpei:documentDate a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "documentDate"@en ;
+    skos:definition "Date of signature, issue or publication."@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:Agreement xbpei:SourceDocument xbpei:AuthoritySource ) ] ;
+    rdfs:range xsd:date .
+
+xbpei:citation a owl:DatatypeProperty ;
+    rdfs:label "citation"@en ;
+    skos:definition "Formal citation of the legal or regulatory material."@en ;
+    rdfs:domain xbpei:AuthoritySource ; rdfs:range xsd:string .
+
+xbpei:sourceLocation a owl:DatatypeProperty ;
+    rdfs:label "sourceLocation"@en ;
+    skos:definition "Where the document or authority can be retrieved."@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:SourceDocument xbpei:AuthoritySource ) ] ;
+    rdfs:range xsd:anyURI .
+
+#################################################################
+# Object properties — investor clearance (page 04)
+#################################################################
+
+xbpei:certifiedBy a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "certifiedBy"@en ;
+    skos:definition "The party whose status the certification states and who signed it."@en ;
+    rdfs:domain xbpei:TaxCertification ; rdfs:range xbpei:Party .
+
+xbpei:hasCertificationType a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "hasCertificationType"@en ;
+    skos:definition "The form type of the certification."@en ;
+    rdfs:domain xbpei:TaxCertification ; rdfs:range xbpei:CertificationType .
+
+xbpei:clearanceOf a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "clearanceOf"@en ;
+    skos:definition "The party the clearance is about."@en ;
+    rdfs:domain xbpei:Clearance ; rdfs:range xbpei:Party .
+
+xbpei:reviewedBy a owl:ObjectProperty ;
+    rdfs:label "reviewedBy"@en ;
+    skos:definition "The party that carried out the second review of the clearance."@en ;
+    rdfs:domain xbpei:Clearance ; rdfs:range xbpei:Party .
+
+xbpei:reliesOnCertification a owl:ObjectProperty ;
+    rdfs:label "reliesOnCertification"@en ;
+    skos:definition "A certification the clearance decision relied on, including those of underlying owners of an intermediary."@en ;
+    rdfs:domain xbpei:Clearance ; rdfs:range xbpei:TaxCertification .
+
+xbpei:reliesOnFact a owl:ObjectProperty ;
+    rdfs:label "reliesOnFact"@en ;
+    skos:definition "A recorded fact the clearance decision relied on. A change to that fact puts the clearance up for review."@en ;
+    rdfs:domain xbpei:Clearance ; rdfs:range xbpei:FactAssertion .
+
+xbpei:hasOpenItem a owl:ObjectProperty ;
+    rdfs:label "hasOpenItem"@en ;
+    skos:definition "A required item still missing when the clearance was decided."@en ;
+    rdfs:domain xbpei:Clearance ; rdfs:range xbpei:MissingFactFinding .
+
+xbpei:concernsParty a owl:ObjectProperty ;
+    rdfs:label "concernsParty"@en ;
+    skos:definition "The party the case is about."@en ;
+    rdfs:domain xbpei:Case ; rdfs:range xbpei:Party .
+
+xbpei:triggeredBy a owl:ObjectProperty ;
+    rdfs:label "triggeredBy"@en ;
+    skos:definition "The change that opened the case."@en ;
+    rdfs:domain xbpei:Case ; rdfs:range xbpei:ChangeEvent .
+
+xbpei:decides a owl:ObjectProperty ;
+    rdfs:label "decides"@en ;
+    skos:definition "A clearance record produced by the case: granted, renewed, confirmed or withdrawn."@en ;
+    rdfs:domain xbpei:Case ; rdfs:range xbpei:Clearance .
+
+#################################################################
+# Object properties — withholding at distribution (page 05)
+#################################################################
+
+xbpei:distributedBy a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "distributedBy"@en ;
+    skos:definition "The fund vehicle making the distribution."@en ;
+    rdfs:domain xbpei:DistributionEvent ; rdfs:range xbpei:FundVehicle .
+
+xbpei:hasComponent a owl:ObjectProperty ;
+    rdfs:label "hasComponent"@en ;
+    skos:definition "A component of the distribution."@en ;
+    rdfs:domain xbpei:DistributionEvent ; rdfs:range xbpei:DistributionComponent .
+
+xbpei:hasIncomeType a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "hasIncomeType"@en ;
+    skos:definition "The character of the income in the component."@en ;
+    rdfs:domain xbpei:DistributionComponent ; rdfs:range xbpei:IncomeType .
+
+xbpei:sourcedIn a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "sourcedIn"@en ;
+    skos:definition "The jurisdiction in which the income of the component arises."@en ;
+    rdfs:domain xbpei:DistributionComponent ; rdfs:range xbpei:Jurisdiction .
+
+xbpei:determinedFor a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "determinedFor"@en ;
+    skos:definition "The party whose payment the determination covers."@en ;
+    rdfs:domain xbpei:WithholdingDetermination ; rdfs:range xbpei:Party .
+
+xbpei:forComponent a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "forComponent"@en ;
+    skos:definition "The distribution component the determination covers."@en ;
+    rdfs:domain xbpei:WithholdingDetermination ; rdfs:range xbpei:DistributionComponent .
+
+xbpei:reliesOnClearance a owl:ObjectProperty ;
+    rdfs:label "reliesOnClearance"@en ;
+    skos:definition "The clearance whose validity on the payment date the determination relied on."@en ;
+    rdfs:domain xbpei:WithholdingDetermination ; rdfs:range xbpei:Clearance .
+
+xbpei:supportedBy a owl:ObjectProperty ;
+    rdfs:label "supportedBy"@en ;
+    skos:definition "An assessment giving the rule version and facts behind the determination."@en ;
+    rdfs:domain xbpei:WithholdingDetermination ; rdfs:range xbpei:ObligationAssessment .
+
+xbpei:scheduleFor a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "scheduleFor"@en ;
+    skos:definition "The distribution the schedule covers."@en ;
+    rdfs:domain xbpei:WithholdingSchedule ; rdfs:range xbpei:DistributionEvent .
+
+xbpei:includes a owl:ObjectProperty ;
+    rdfs:label "includes"@en ;
+    skos:definition "A determination listed in the schedule."@en ;
+    rdfs:domain xbpei:WithholdingSchedule ; rdfs:range xbpei:WithholdingDetermination .
+
+xbpei:preparedBy a owl:ObjectProperty ;
+    rdfs:label "preparedBy"@en ;
+    skos:definition "The party that prepared the schedule."@en ;
+    rdfs:domain xbpei:WithholdingSchedule ; rdfs:range xbpei:Party .
+
+xbpei:signedOffBy a owl:ObjectProperty ;
+    rdfs:label "signedOffBy"@en ;
+    skos:definition "The reviewer who signed off the schedule. Expected to differ from the preparer."@en ;
+    rdfs:domain xbpei:WithholdingSchedule ; rdfs:range xbpei:Party .
+
+xbpei:partOfDistribution a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "partOfDistribution"@en ;
+    skos:definition "The distribution a payment belongs to."@en ;
+    rdfs:domain xbpei:PaymentEvent ; rdfs:range xbpei:DistributionEvent .
+
+xbpei:releasedAgainst a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "releasedAgainst"@en ;
+    skos:definition "The signed schedule against which the payment was released."@en ;
+    rdfs:domain xbpei:PaymentEvent ; rdfs:range xbpei:WithholdingSchedule .
+
+xbpei:concernsDistribution a owl:ObjectProperty ;
+    rdfs:label "concernsDistribution"@en ;
+    skos:definition "The distribution a distribution case is about."@en ;
+    rdfs:domain xbpei:Case ; rdfs:range xbpei:DistributionEvent .
+
+#################################################################
+# Data properties — clearance
+#################################################################
+
+xbpei:claimsTreatyBenefit a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "claimsTreatyBenefit"@en ;
+    skos:definition "Whether the certification claims a reduced rate under a treaty."@en ;
+    rdfs:domain xbpei:TaxCertification ;
+    rdfs:range xsd:boolean .
+
+xbpei:isIntermediaryCertification a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "isIntermediaryCertification"@en ;
+    skos:definition "Whether the certifying party acts as an intermediary or flow-through entity, so that certifications of its underlying owners are also required."@en ;
+    rdfs:domain xbpei:TaxCertification ;
+    rdfs:range xsd:boolean .
+
+xbpei:clearanceStatus a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "clearanceStatus"@en ;
+    skos:definition "Outcome recorded by the clearance."@en ;
+    rdfs:domain xbpei:Clearance ;
+    rdfs:range [ a rdfs:Datatype ; owl:oneOf ( "cleared" "admittedWithOpenItems" "notCleared" "withdrawn" ) ] .
+
+xbpei:decidedOn a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "decidedOn"@en ;
+    skos:definition "Date on which the decision was made."@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:Clearance xbpei:WithholdingDetermination ) ] ;
+    rdfs:range xsd:date .
+
+xbpei:defaultTreatment a owl:DatatypeProperty ;
+    rdfs:label "defaultTreatment"@en ;
+    skos:definition "The treatment that applies while items are open or after the clearance is withdrawn."@en ;
+    rdfs:domain xbpei:Clearance ;
+    rdfs:range xsd:string .
+
+xbpei:caseKind a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "caseKind"@en ;
+    skos:definition "Which kind of clearance work the case covers."@en ;
+    rdfs:domain xbpei:Case ;
+    rdfs:range [ a rdfs:Datatype ; owl:oneOf ( "onboarding" "renewal" "change" "distribution" ) ] .
+
+xbpei:openedOn a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "openedOn"@en ;
+    skos:definition "Date on which the case was opened."@en ;
+    rdfs:domain xbpei:Case ;
+    rdfs:range xsd:date .
+
+xbpei:closedOn a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "closedOn"@en ;
+    skos:definition "Date on which the case was closed. Absent while the case is open."@en ;
+    rdfs:domain xbpei:Case ;
+    rdfs:range xsd:date .
+
+xbpei:caseOutcome a owl:DatatypeProperty ;
+    rdfs:label "caseOutcome"@en ;
+    skos:definition "Outcome of the case in the terms of its operating procedure."@en ;
+    rdfs:domain xbpei:Case ;
+    rdfs:range xsd:string .
+
+xbpei:learnedOn a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "learnedOn"@en ;
+    skos:definition "Date on which the change became known, as distinct from the date it took effect."@en ;
+    rdfs:domain xbpei:ChangeEvent ;
+    rdfs:range xsd:date .
+
+xbpei:recordDate a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "recordDate"@en ;
+    skos:definition "Date as at which the investor list and holdings are frozen for the distribution."@en ;
+    rdfs:domain xbpei:DistributionEvent ;
+    rdfs:range xsd:date .
+
+xbpei:paymentDate a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "paymentDate"@en ;
+    skos:definition "Date on which the distribution is to be paid. Clearance validity is tested against this date."@en ;
+    rdfs:domain xbpei:DistributionEvent ;
+    rdfs:range xsd:date .
+
+xbpei:grossAmount a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "grossAmount"@en ;
+    skos:definition "Amount before tax, in the distribution currency."@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:DistributionEvent xbpei:DistributionComponent xbpei:WithholdingDetermination ) ] ;
+    rdfs:range xsd:decimal .
+
+xbpei:determinationOutcome a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "determinationOutcome"@en ;
+    skos:definition "Outcome for the party and component."@en ;
+    rdfs:domain xbpei:WithholdingDetermination ;
+    rdfs:range [ a rdfs:Datatype ; owl:oneOf ( "cleared" "defaultRate" "held" "notApplicable" ) ] .
+
+xbpei:withholdingRate a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "withholdingRate"@en ;
+    skos:definition "Rate of tax to withhold."@en ;
+    rdfs:domain xbpei:WithholdingDetermination ;
+    rdfs:range xbpei:Percentage .
+
+xbpei:taxWithheld a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "taxWithheld"@en ;
+    skos:definition "Tax to withhold, in the distribution currency."@en ;
+    rdfs:domain xbpei:WithholdingDetermination ;
+    rdfs:range xsd:decimal .
+
+xbpei:netAmount a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "netAmount"@en ;
+    skos:definition "Amount payable after tax, in the distribution currency."@en ;
+    rdfs:domain xbpei:WithholdingDetermination ;
+    rdfs:range xsd:decimal .
+
+xbpei:rateBasis a owl:DatatypeProperty ;
+    rdfs:label "rateBasis"@en ;
+    skos:definition "The basis cited for the rate, such as a treaty and article, or the reason no withholding applies."@en ;
+    rdfs:domain xbpei:WithholdingDetermination ;
+    rdfs:range xsd:string .
+
+xbpei:scheduleStatus a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "scheduleStatus"@en ;
+    skos:definition "State of the schedule."@en ;
+    rdfs:domain xbpei:WithholdingSchedule ;
+    rdfs:range [ a rdfs:Datatype ; owl:oneOf ( "draft" "signed" "superseded" ) ] .
+
+xbpei:signedOffOn a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "signedOffOn"@en ;
+    skos:definition "Date of the reviewer sign-off."@en ;
+    rdfs:domain xbpei:WithholdingSchedule ;
+    rdfs:range xsd:date .
+
+#################################################################
+# Time: start and end dates of a TimeInterval reuse dcat:startDate
+# and dcat:endDate (xsd:date). OWL-Time relations such as
+# time:intervalOverlaps apply because TimeInterval is a
+# time:ProperInterval.
+#################################################################
+
+xbpei:TimeInterval rdfs:subClassOf
+    [ a owl:Restriction ; owl:onProperty dcat:startDate ; owl:cardinality "1"^^xsd:nonNegativeInteger ] ,
+    [ a owl:Restriction ; owl:onProperty dcat:endDate ; owl:maxCardinality "1"^^xsd:nonNegativeInteger ] .
+
+#################################################################
+# Code lists (SKOS concept schemes)
+#################################################################
+
+xbpei:RoleTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Role types"@en .
+xbpei:JurisdictionFactTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Jurisdiction fact types"@en .
+xbpei:PaymentTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Payment types"@en .
+
+xbpei:Investor a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "Investor"@en .
+xbpei:LimitedPartner a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "Limited partner"@en .
+xbpei:GeneralPartner a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "General partner"@en .
+xbpei:Manager a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "Manager"@en .
+
+xbpei:Incorporation a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Incorporation"@en .
+xbpei:TaxResidence a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Tax residence"@en .
+xbpei:OperatingLocation a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Operating location"@en .
+
+xbpei:CapitalContribution a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Capital contribution"@en .
+xbpei:Distribution a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Distribution"@en .
+xbpei:ManagementFee a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Management fee"@en .
+xbpei:CarriedInterest a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Carried interest"@en .
+xbpei:Dividend a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Dividend"@en .
+xbpei:InterestPayment a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Interest"@en .
+xbpei:AcquisitionPrice a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Acquisition price"@en .
+xbpei:DisposalProceeds a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Disposal proceeds"@en .
+
+xbpei:CertificationTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Certification types"@en .
+xbpei:IncomeTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Income types"@en .
+
+xbpei:DividendIncome a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Dividend"@en .
+xbpei:InterestIncome a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Interest"@en .
+xbpei:GainOnDisposal a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Gain on disposal"@en .
+xbpei:ReturnOfCapital a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Return of capital"@en .
