@@ -1,17 +1,22 @@
-# Cross-border private equity investment
+# Ontology-grounded AI agents for cross-border private equity
 
-A prototype showing how a shared ontology grounds AI agents that do the bulk of the work for two business products, over data held in enterprise legacy systems. All fund, investor and payment data is synthetic.
+A prototype showing how one ontology and one semantic layer ground AI agents across two business products, over data held in emulated legacy systems. All fund, investor and payment data is synthetic, and the tax rules are illustrative.
 
 **Status (2026-10-06):** business requirements and the semantic model are drafted. A first prototype exists for one procedure, WF3 withholding at distribution, and has been run once with a grounded agent and once with an ungrounded one. Both produced the correct schedule; the benchmark does not yet show an accuracy benefit from grounding. See the [run report](solution/reports/2026-10-06-wf3-two-arm-run.md).
 
-## The two products
+## Two products, one ontology, one semantic layer
 
 | Product | What it does | Requirements |
 |---|---|---|
 | PEI LookThrough | Analytics: answers structure, payment and tax-obligation questions (CQ1–CQ6) about an investment that spans jurisdictions | [`business/lookthrough-product/lookthrough-business-product.md`](business/lookthrough-product/lookthrough-business-product.md) |
 | PEI Clearance | Operations: investor tax onboarding, documentation upkeep, and withholding at distribution (WF1–WF3) | [`business/clearance-product/clearance-business-product.md`](business/clearance-product/clearance-business-product.md) |
 
-Both share one domain background and one ontology.
+Both products rest on the same two things:
+
+- **The ontology** says what each term means: 38 concepts such as Party, Ownership Interest and Clearance, each with a steward and a status. It is in [`model/`](model/README.md).
+- **The semantic layer** connects those terms to data and to work. Mappings say where each term's instances live in the source systems; attested queries, write tools and procedures refer to the terms through YAML-LD. It is packaged as an OKF bundle in `solution/bundle/`.
+
+So far only Clearance runs on it, for one procedure (WF3). LookThrough has the graph projection and three graph queries, but no question answering yet.
 
 ## Repository layout
 
@@ -44,6 +49,7 @@ Everything is under `solution/`. It covers WF3 only; WF1, WF2 and the LookThroug
 | `solution/bundle/` | An [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle: the WF3 procedure, twelve attested computations, five tools, and the mapping files that say where instances of each ontology term live |
 | `solution/shapes/` | SHACL shapes generated from the ontology, and hand-written shapes for four procedure controls |
 | `solution/xbpei/` | Python: ontology and mapping lookups, checks, the graph projection (LadybugDB), the executor and attester, the write tools, the agent runner and the scorer |
+| `solution/app.py` | A Streamlit app with four review screens: the draft schedule with the evidence behind each line and reviewer sign-off, a replay of recorded runs, the benchmark, and an ontology browser |
 | `solution/reports/` | The run report and the exported runs |
 
 How the pieces relate:
@@ -54,7 +60,7 @@ How the pieces relate:
 - **Writes are tools.** Agents add drafts to the Clearance schema after the draft passes the shapes. Only a person signs a schedule, under a separate database role.
 - **The graph is a read-only projection** rebuilt from Postgres. Its schema is written by hand to follow the mappings; it is not generated from the ontology.
 
-To run it, see section 12 of the [run report](solution/reports/2026-10-06-wf3-two-arm-run.md).
+To run it, see section 12 of the [run report](solution/reports/2026-10-06-wf3-two-arm-run.md). To open the review screens, run `.venv/bin/streamlit run app.py` from `solution/` with the database up. The screens read the live database, so they are empty until an agent run has been recorded.
 
 ## Open decisions
 

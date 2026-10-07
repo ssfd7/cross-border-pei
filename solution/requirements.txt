@@ -4,3 +4,4 @@ pyyaml
 psycopg[binary]
 real_ladybug
 claude-agent-sdk
+streamlit

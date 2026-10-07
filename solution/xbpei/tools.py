@@ -33,20 +33,26 @@ def next_id(conn, table: str, column: str, prefix: str) -> str:
     return f"{prefix}{count + 1:03d}"
 
 
-def resolves(conn, source_ref: str) -> bool:
-    """Whether a schema.table:key reference names an existing row, using the key the mappings declare."""
+def source_row(conn, source_ref: str) -> dict | None:
+    """The row a schema.table:key reference names, found by the key the mappings declare. None if it does not resolve."""
     try:
         table, key = source_ref.split(":", 1)
         source, name = table.split(".")
         columns = next(m["key"] for f in mapping_files() if f["source"] == source for m in f["mappings"] if m["table"] == name)
     except (ValueError, StopIteration):
-        return False
+        return None
     columns = columns if isinstance(columns, list) else [columns]
     values = key.split("/", len(columns) - 1) if len(columns) > 1 else [key]
     if len(values) != len(columns):
-        return False
+        return None
     where = " AND ".join(f"{c}::text = %s" for c in columns)
-    return conn.execute(f"SELECT 1 FROM {table} WHERE {where}", values).fetchone() is not None
+    cursor = conn.execute(f"SELECT * FROM {table} WHERE {where}", values)
+    row = cursor.fetchone()
+    return None if row is None else dict(zip([d.name for d in cursor.description], row)) if not isinstance(row, dict) else row
+
+
+def resolves(conn, source_ref: str) -> bool:
+    return source_row(conn, source_ref) is not None
 
 
 def read_document(doc_ref: str, run_id: str | None = None) -> dict:

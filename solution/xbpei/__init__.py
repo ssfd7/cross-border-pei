@@ -20,3 +20,4 @@ ADMIN_DSN = os.environ.get("XBPEI_ADMIN_DSN", "postgresql://xbpei_admin:xbpei_ad
 CONTROL_DSN = os.environ.get("XBPEI_CONTROL_DSN", "postgresql://xbpei_control:xbpei_control@localhost:54329/xbpei")
 GOLD = ROOT / "solution" / "gold" / "answer-key.yaml"
 BUSINESS = ROOT / "business"
+REVIEWER_DSN = os.environ.get("XBPEI_REVIEWER_DSN", "postgresql://xbpei_reviewer:xbpei_reviewer@localhost:54329/xbpei")
