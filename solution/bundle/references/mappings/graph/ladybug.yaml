@@ -1,0 +1,96 @@
+# Where instances of ontology terms live in the graph that xbpei/project_graph.py rebuilds from the
+# source systems. The graph is shaped for path questions: an Ownership Interest, a Jurisdiction Fact
+# and a Payment Event are each an edge, not a node.
+# A mapping says where to look and what each property means; it is not a query.
+# The format is described and checked in xbpei/check_mappings.py.
+source: graph
+runtime: ladybug
+built_by: xbpei/project_graph.py
+
+mappings:
+  - term: xbpei:Party
+    node: Party
+    key: id
+    scope: >-
+      One node stands for the same party in every source system. Systems are matched on LEI, then
+      on registration number, never on name.
+    also_when:
+      xbpei:LegalEntity: "kind = 'LegalEntity'"
+      xbpei:NaturalPerson: "kind = 'NaturalPerson'"
+      xbpei:FundVehicle: isFundVehicle
+      xbpei:SPV: isSPV
+      xbpei:PortfolioCompany: isPortfolioCompany
+    properties:
+      xbpei:identifier: id
+      xbpei:name: name
+      xbpei:leiCode: leiCode
+      xbpei:legalForm: legalForm
+    derived:
+      xbpei:BeneficialOwner: Not stored. A Party with at least one outgoing HOLDS edge whose holdingCapacity is 'beneficial'.
+
+  - term: xbpei:Jurisdiction
+    node: Jurisdiction
+    key: id
+    properties:
+      xbpei:countryCode: countryCode
+      xbpei:subdivisionCode: subdivisionCode
+
+  - term: xbpei:OwnershipInterest
+    edge: HOLDS
+    from: Party
+    to: Party
+    key: identifier
+    scope: One edge per interest, from the holder to the entity held. Read systemOfRecord before adding edges up.
+    properties:
+      xbpei:identifier: identifier
+      xbpei:economicPercentage: economicPercentage
+      xbpei:votingPercentage: votingPercentage
+      xbpei:shareClass: shareClass
+      xbpei:holdingCapacity: holdingCapacity
+    links:
+      xbpei:heldBy: from
+      xbpei:interestIn: to
+      xbpei:heldThrough: {property: heldThrough, references: HOLDS.identifier}
+    interval: {property: xbpei:validDuring, start: validFrom, end: validTo}
+
+  - term: xbpei:JurisdictionFact
+    edge: JURISDICTION_FACT
+    from: Party
+    to: Jurisdiction
+    properties:
+      xbpei:recordedOn: recordedOn
+    links:
+      xbpei:aboutEntity: from
+      xbpei:hasJurisdiction: to
+    codes:
+      xbpei:hasFactType:
+        property: factType
+        values: {Incorporation: xbpei:Incorporation, TaxResidence: xbpei:TaxResidence, OperatingLocation: xbpei:OperatingLocation}
+    interval: {property: xbpei:validDuring, start: validFrom, end: validTo}
+
+  - term: xbpei:PaymentEvent
+    edge: PAYMENT
+    from: Party
+    to: Party
+    key: identifier
+    properties:
+      xbpei:identifier: identifier
+      xbpei:amount: amount
+      xbpei:currencyCode: currencyCode
+      xbpei:occurredOn: occurredOn
+    links:
+      xbpei:payer: from
+      xbpei:payee: to
+    codes:
+      xbpei:hasPaymentType:
+        property: paymentType
+        values: {CapitalContribution: xbpei:CapitalContribution, ManagementFee: xbpei:ManagementFee, Dividend: xbpei:Dividend, Distribution: xbpei:Distribution}
+
+# Properties that carry provenance and stand for no ontology term.
+unmapped_properties:
+  Party.sourceRefs: The row that stands for the party in each source system.
+  HOLDS.sourceRef: The source row the edge was built from.
+  HOLDS.systemOfRecord: Whether that row is the system of record for the interest.
+  JURISDICTION_FACT.sourceRef: The source row the edge was built from.
+  JURISDICTION_FACT.systemOfRecord: Whether that row is the system of record for the fact.
+  PAYMENT.sourceRef: The source row the edge was built from.

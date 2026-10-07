@@ -1,5 +1,6 @@
 ---
 okf_version: "0.2"
+ontology: { prefix: xbpei, namespace: "https://w3id.org/xb-pei/ontology#", resource: ../../model/xb-pei-model.ttl }
 ---
 
 # Procedures
@@ -32,5 +33,6 @@ okf_version: "0.2"
 # References
 
 * [Mappings](references/mappings/) - Where instances of ontology terms live in each source system.
+* [Graph mapping](references/mappings/graph/ladybug.yaml) - Where instances of ontology terms live in the graph.
 * [Executors](references/executors/) - How computations are run on Postgres and on the graph.
 * [Attesters](references/attesters/) - The check that a run used the sanctioned computation.

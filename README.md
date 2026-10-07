@@ -55,12 +55,12 @@ Everything is under `solution/`. It covers WF3 only; WF1, WF2 and the LookThroug
 How the pieces relate:
 
 - **The ontology says what a term means, a mapping says where its instances live, and a query retrieves them.** These are three separate artifacts. Nothing translates ontology terms into SQL automatically.
-- **The bundle refers to the ontology.** The frontmatter keys `reads` and `writes` name the ontology terms each computation and tool depends on, and procedure steps name the concepts they use. A concept can carry a `# Glossary` section generated from the ontology for those terms, stamped with the ontology version and kept current by `bundle check`; `computations/effective-holding` is the first.
+- **The bundle refers to the ontology.** The frontmatter keys `reads` and `writes` name the ontology terms each computation and tool depends on, and procedure steps name the concepts they use. Every computation and tool carries a `# Glossary` section for those terms: their meaning from the ontology, where they live in the data from the mappings, and the ontology version. It is generated, and `bundle check` fails when it is out of date.
 - **Reads are attested computations.** An agent supplies values for declared parameters; it does not write or change the query. Each run is checked against the bundle.
 - **Writes are tools.** Agents add drafts to the Clearance schema after the draft passes the shapes. Only a person signs a schedule, under a separate database role.
-- **The graph is a read-only projection** rebuilt from Postgres. Its schema is written by hand to follow the mappings; it is not generated from the ontology.
+- **The graph is a read-only projection** rebuilt from Postgres. Its schema is written by hand, not generated from the ontology; a mapping file of its own says which node, edge or property holds each term, and `check_mappings` tests it against the schema.
 
-How the bundle ties the questions, the workflow and the data to one ontology. The source is [`solution/okf-extension-overview.drawio`](solution/okf-extension-overview.drawio); the image must be regenerated when it changes.
+How the bundle ties the questions, the workflow and the data to one ontology. The source is [`solution/okf-extension-overview.drawio`](solution/okf-extension-overview.drawio); regenerate the image with `python diagrams/render.py okf-extension-overview` from `solution/` when it changes. The extension to OKF that it shows is described in [`solution/okf-ontology-grounding-extension.md`](solution/okf-ontology-grounding-extension.md).
 
 ![One ontology at the core, a Semantic Layer (OKF bundle) around it](solution/diagrams/okf-extension-overview.png)
 

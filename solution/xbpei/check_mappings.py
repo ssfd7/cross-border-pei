@@ -19,6 +19,11 @@ A mapping file describes one source system:
         scope, warnings, gaps   what a reader must know before using the rows
     unmapped_columns, unmapped_tables   what has no term, and why
 
+The graph has one mapping file of its own, references/mappings/graph/ladybug.yaml, in the same
+format with these differences: an entry names a `node` or an `edge` (with the node tables it runs
+`from` and `to`) where a source-system entry names a table; a link is bound to `from` or `to`, or to
+a property; a code names the `property` holding it; `unmapped_properties` lists what has no term.
+
     python -m xbpei.check_mappings
 """
 import re
@@ -27,7 +32,7 @@ import sys
 import psycopg
 
 from . import DSN
-from .ontology import kind, mapping_files, to_iri
+from .ontology import graph_mapping, kind, mapping_files, to_iri
 
 
 def terms_in(node):
@@ -102,7 +107,41 @@ def check() -> list[str]:
     return problems
 
 
+def graph_schema() -> dict[str, set[str]]:
+    """Node and relationship tables of the graph with their properties, read from the projection's schema."""
+    from .project_graph import SCHEMA
+    tables = {}
+    for statement in SCHEMA:
+        name, body = re.match(r"CREATE (?:NODE|REL) TABLE (\w+)\((.*)\)", " ".join(statement.split())).groups()
+        tables[name] = {part.split()[0] for part in body.split(",") if not part.strip().startswith("FROM ")}
+    return tables
+
+
+def check_graph() -> list[str]:
+    file, tables, problems, mapped = graph_mapping(), graph_schema(), [], set()
+    for m in file["mappings"]:
+        table = m.get("node") or m.get("edge")
+        where = f'graph {table} ({m["term"]})'
+        problems += [f"{where}: {t} is not in the ontology" for t in set(terms_in(m)) if kind(to_iri(t)) is None]
+        if table not in tables:
+            problems.append(f"{where}: no such node or relationship table")
+            continue
+        problems += [f"{where}: no node table {m[end]}" for end in ("from", "to") if end in m and m[end] not in tables]
+        names = as_list(m.get("key", [])) + list(m.get("properties", {}).values())
+        names += [b["property"] for b in [*m.get("links", {}).values(), *m.get("codes", {}).values()] if isinstance(b, dict)]
+        names += [m["interval"][k] for k in ("start", "end") if "interval" in m]
+        names += [re.match(r"\w+", condition).group() for condition in m.get("also_when", {}).values()]
+        mapped |= {(table, n) for n in names}
+        problems += [f"{where}: no property {table}.{n}" for n in names if n not in tables[table]]
+        problems += [f"{where}: {link} must be bound to from, to or a property" for link, b in m.get("links", {}).items()
+                     if not isinstance(b, dict) and b not in ("from", "to")]
+    declared = {tuple(k.split(".")) for k in file.get("unmapped_properties", {})}
+    problems += [f"graph {t}.{p} is neither mapped nor declared unmapped"
+                 for t in sorted(tables) for p in sorted(tables[t]) if (t, p) not in mapped | declared]
+    return problems
+
+
 if __name__ == "__main__":
-    found = check()
-    print("\n".join(found) if found else "Mappings agree with the ontology and the database.")
+    found = check() + check_graph()
+    print("\n".join(found) if found else "Mappings agree with the ontology, the database and the graph.")
     sys.exit(1 if found else 0)

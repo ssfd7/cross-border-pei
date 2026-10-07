@@ -16,7 +16,7 @@ from rdflib import BNode, Graph, URIRef
 from rdflib.collection import Collection
 from rdflib.namespace import OWL, RDF, RDFS, SKOS
 
-from . import GOVERNANCE, MAPPINGS, MODEL, XBPEI
+from . import GOVERNANCE, GRAPH_MAPPING, MAPPINGS, MODEL, XBPEI
 
 KINDS = {OWL.Class: "class", OWL.ObjectProperty: "relationship", OWL.DatatypeProperty: "attribute",
          OWL.AnnotationProperty: "annotation", RDFS.Datatype: "datatype"}
@@ -35,6 +35,12 @@ def graph() -> Graph:
 @lru_cache
 def mapping_files() -> list[dict]:
     return [yaml.safe_load(p.read_text()) for p in sorted(MAPPINGS.glob("*.yaml"))]
+
+
+@lru_cache
+def graph_mapping() -> dict:
+    """Where terms live in the graph. Kept apart from the source-system mappings, which describe tables."""
+    return yaml.safe_load(GRAPH_MAPPING.read_text())
 
 
 def version() -> str:
@@ -131,6 +137,11 @@ def mappings_for(term: str) -> dict:
             bound = {slot: m[slot][term] for slot in PROPERTY_SLOTS if term in m.get(slot, {})}
             if m.get("interval", {}).get("property") == term:
                 bound["interval"] = m["interval"]
+            # A code or a constant: the term is the value a property takes, not the property.
+            values = {prop: b for slot in ("codes", "constants") for prop, b in m.get(slot, {}).items()
+                      if b == term or (isinstance(b, dict) and term in b.get("values", {}).values())}
+            if values:
+                bound["value_of"] = values
             if bound:
                 extra = {k: m[k] for k in ("where", "yields_to", "scope", "warnings", "gaps") if k in m}
                 found.append(dict(base, of=m["term"], **bound, **extra))
