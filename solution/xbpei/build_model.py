@@ -1,5 +1,4 @@
-"""Generate what follows mechanically from the Turtle: the JSON-LD form of the ontology, which the
-procedure bundles point at, and the SHACL shapes for each class.
+"""Generate what follows mechanically from the Turtle: the SHACL shapes for each class.
 
     python -m xbpei.build_model
 """
@@ -7,18 +6,11 @@ from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.collection import Collection
 from rdflib.namespace import OWL, RDF, RDFS, SH, XSD
 
-from . import MODEL_JSONLD, SHAPES, XBPEI
+from . import SHAPES, XBPEI
 from .ontology import graph, members
 
 XBSH = Namespace("https://w3id.org/xb-pei/shapes#")
 FACETS = {XSD.pattern: SH.pattern, XSD.minInclusive: SH.minInclusive, XSD.maxInclusive: SH.maxInclusive}
-
-
-def build_jsonld() -> None:
-    g = graph()
-    context = {prefix: str(ns) for prefix, ns in g.namespaces() if prefix in
-               ("xbpei", "owl", "rdfs", "xsd", "skos", "dcterms", "dcat", "prov", "time", "vann")}
-    g.serialize(MODEL_JSONLD, format="json-ld", context=context, indent=2)
 
 
 def datatype_constraints(g: Graph, shapes: Graph, prop_shape: BNode, rng) -> None:
@@ -68,5 +60,4 @@ def build_shapes() -> int:
 
 
 if __name__ == "__main__":
-    build_jsonld()
-    print(f"Wrote {MODEL_JSONLD.name} and shapes for {build_shapes()} classes.")
+    print(f"Wrote shapes for {build_shapes()} classes.")

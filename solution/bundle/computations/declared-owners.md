@@ -3,7 +3,6 @@ type: Attested Computation
 title: Declared owners of investors on a date
 description: Who owns each investor, as the investor declared it, on a date.
 status: draft
-"@context": /context.jsonld
 runtime: postgres
 parameters:
   - { name: on_date, type: date, required: true }

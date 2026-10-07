@@ -3,7 +3,6 @@ type: Tool
 title: Record an obligation assessment
 description: Record the evaluation of one rule version for one party and event, with the facts used and any facts missing.
 status: draft
-"@context": /context.jsonld
 performed_by: agent
 writes: [xbpei:ObligationAssessment, xbpei:evaluates, xbpei:hasSubjectParty, xbpei:hasSubjectEvent, xbpei:assessmentResult, xbpei:reasoning, xbpei:usesFact, xbpei:identifiesGap, xbpei:MissingFactFinding, xbpei:unmetRequirement]
 supports: [WF3.3, WF3.6, C3.3, CQ4, CQ5]

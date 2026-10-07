@@ -3,7 +3,6 @@ type: Attested Computation
 title: Distribution and its components
 description: A distribution with its record and payment dates, the fund making it and its components by income type and source.
 status: draft
-"@context": /context.jsonld
 runtime: postgres
 parameters:
   - { name: distribution_id, type: string, required: true }

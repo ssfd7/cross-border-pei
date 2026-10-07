@@ -3,7 +3,6 @@ type: Attested Computation
 title: Holdings on which sources disagree
 description: Holdings where a secondary source gives a different percentage from the system of record on a date.
 status: draft
-"@context": /context.jsonld
 runtime: ladybug
 parameters:
   - { name: on_date, type: date, required: true }

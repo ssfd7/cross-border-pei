@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="65bd71144e">
+  <diagram id="arch" name="Solution architecture">
+    <mxGraphModel dx="1500" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1460" pageHeight="2100" background="#FFFFFF" math="0" shadow="0" lineJumpsEnabled="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="PEI Clearance prototype: solution architecture" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;fontColor=#222222;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="25" y="14" width="1400" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="WF3, withholding at distribution, on ontology version 0.9. Everything shown exists in the repository. Read each arrow as source, label, target: it points at what the source uses." style="text;html=1;align=left;verticalAlign=middle;fontSize=13;fontColor=#444444;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="25" y="48" width="1400" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="sem" value="&lt;b&gt;Semantic model &amp;nbsp;·&amp;nbsp; model/&lt;/b&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=12;spacingTop=6;fillColor=#F4FAF0;strokeColor=#888888;strokeWidth=1;fontSize=14;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="25" y="90" width="800" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="bundle" value="&lt;b&gt;OKF v0.2 bundle &amp;nbsp;·&amp;nbsp; solution/bundle&lt;/b&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=12;spacingTop=6;fillColor=#FFFBEE;strokeColor=#888888;strokeWidth=1;fontSize=14;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="25" y="375" width="1410" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="mcp" value="&lt;b&gt;MCP server “clearance” &amp;nbsp;·&amp;nbsp; xbpei/&lt;/b&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=12;spacingTop=6;fillColor=#F3F8FD;strokeColor=#888888;strokeWidth=1;fontSize=14;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="25" y="960" width="1130" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="pg" value="&lt;b&gt;One Postgres 17 database, in Docker&lt;/b&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=12;spacingTop=6;fillColor=#FFFFFF;strokeColor=#888888;strokeWidth=1;fontSize=14;fontColor=#222222;dashed=1;dashPattern=6 4;" parent="1" vertex="1">
+          <mxGeometry x="320" y="1290" width="815" height="225" as="geometry" />
+        </mxCell>
+        <mxCell id="app" value="&lt;b&gt;Review app &amp;nbsp;·&amp;nbsp; app.py (Streamlit) &amp;nbsp;·&amp;nbsp; role xbpei_reviewer&lt;/b&gt;" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=12;spacingTop=6;fillColor=#F3F8FD;strokeColor=#888888;strokeWidth=1;fontSize=14;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="25" y="1620" width="1110" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="ont" value="&lt;b&gt;Ontology&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;xb-pei-model.ttl &amp;nbsp;·&amp;nbsp; version 0.9&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;OWL in Turtle: 38 classes with their relationships, attributes, allowed values and code lists. Terms carry a label and, where written, a definition and a scope note.&lt;br&gt;The one place that says what a term means.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#E2F0D9;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="40" y="125" width="520" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="gov" value="&lt;b&gt;Governance&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;xb-pei-governance.ttl&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;Steward and review status of every term. Loaded together with the ontology as one graph.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#E2F0D9;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="590" y="125" width="220" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="shapes" value="&lt;b&gt;SHACL shapes&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;solution/shapes&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;generated.ttl: one shape per class, written by build_model.py.&lt;br&gt;controls.ttl: four procedure controls (C3.1, C3.3, C3.4, C3.5), written by hand.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#E2F0D9;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="900" y="125" width="220" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="biz" value="&lt;b&gt;Operating procedure, as written for people&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;business/clearance-product/&lt;br&gt;wf3-withholding-at-distribution.md&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;The business text of WF3 and its controls.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#F2F2F2;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="1170" y="125" width="250" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="comp" value="&lt;b&gt;12 attested computations&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;computations/*.md &amp;nbsp;·&amp;nbsp; one file per question the procedure asks of the data&lt;/font&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#FFF2CC;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="40" y="415" width="520" height="275" as="geometry" />
+        </mxCell>
+        <mxCell id="comp_front" value="&lt;b&gt;Frontmatter&lt;/b&gt;: parameters, runtime (postgres or ladybug), executor, attester, &lt;b&gt;reads&lt;/b&gt; (the ontology terms the query touches) and supports (the controls and questions it serves)" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=6;fillColor=#FFFFFF;strokeColor=#999999;strokeWidth=1;fontSize=12;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="52" y="464" width="496" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="comp_query" value="&lt;b&gt;Note and Computation&lt;/b&gt;: what the rows mean and what to watch for, then one SQL or Cypher block" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=6;fillColor=#FFFFFF;strokeColor=#999999;strokeWidth=1;fontSize=12;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="52" y="536" width="496" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="comp_gloss" value="&lt;b&gt;Glossary&lt;/b&gt;: kind, meaning, status and steward of every term in reads, with the ontology version. Generated, never edited by hand. On 1 of the 12 so far (effective-holding)." style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;align=left;verticalAlign=middle;spacing=6;fillColor=#E2F0D9;strokeColor=#999999;strokeWidth=1;fontSize=12;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="52" y="600" width="496" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="map" value="&lt;b&gt;7 mapping files&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;references/mappings/*.yaml&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;One per source system and one for Clearance.&lt;br&gt;Per ontology term: table, key, columns, links, validity period, system of record, warnings and gaps.&lt;br&gt;A mapping says where to look. It is not a query.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#FFF2CC;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="590" y="415" width="185" height="275" as="geometry" />
+        </mxCell>
+        <mxCell id="toolc" value="&lt;b&gt;5 tool concepts&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;tools/*.md&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;&lt;b&gt;writes&lt;/b&gt; (the ontology terms a tool creates), the input fields and the checks a draft must pass.&lt;br&gt;Four are performed by the agent; sign-off is performed by a person.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#FFF2CC;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="870" y="415" width="185" height="275" as="geometry" />
+        </mxCell>
+        <mxCell id="proc" value="&lt;b&gt;Procedure WF3&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;procedures/&lt;br&gt;wf3-withholding-at-distribution.md&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;12 steps in frontmatter. Each step names who performs it (the agent for 1 to 9, a person for 10 to 12), the computations and tools it uses, and the controls it supports.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#FFF2CC;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="1170" y="415" width="250" height="275" as="geometry" />
+        </mxCell>
+        <mxCell id="agent" value="&lt;b&gt;Grounded agent&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;Claude Agent SDK &amp;nbsp;·&amp;nbsp; claude-opus-5-5&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;Its only tools are the nine of the MCP server. Reads data only by running the bundle's computations, writes only through its tools, and stops at the first step marked human.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#FCE4D6;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="1125" y="775" width="295" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="exec" value="&lt;b&gt;Executor and attester&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;execute.py &amp;nbsp;·&amp;nbsp; references/attesters/sanctioned_query.py &amp;nbsp;·&amp;nbsp; tool: run_computation&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;The agent supplies values for the declared parameters and nothing else. The computation text is taken from the bundle and run as written, on Postgres or on the graph.&lt;br&gt;The attester then confirms that what ran is the bundle's text with only the declared parameters bound, and runs it again to compare the hash of the result.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#DEEAF6;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="40" y="1005" width="520" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="look" value="&lt;b&gt;Lookups&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;ontology.py, bundle.py&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;Tools: find_term, describe_term, mappings_for, read_concept.&lt;br&gt;A term that is not in the ontology, or that no system holds, is reported as such and never guessed.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#DEEAF6;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="590" y="1005" width="250" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="tools" value="&lt;b&gt;Write tools&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;tools.py&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;Tools: open_case, record_assessment, draft_schedule, read_document.&lt;br&gt;A draft is tested before anything is written and refused with reasons if it fails: the shapes, every cited row resolves, gross amounts reconcile to the distribution.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#DEEAF6;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="870" y="1005" width="250" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="runner" value="&lt;b&gt;Agent runner and scorer&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;agent.py, score.py&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;python -m xbpei.agent&lt;br&gt;grounded | control D-001&lt;br&gt;One arm per run, same model and task. Resets Clearance, records the run, and scores the schedule against the answer key (13 cases).&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#DEEAF6;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="1190" y="1005" width="230" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="graph" value="&lt;b&gt;Graph&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;LadybugDB file, opened read-only&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;Party and Jurisdiction nodes; HOLDS, JURISDICTION_FACT and PAYMENT edges. Property names are the ontology's and every edge names its source row. Built by project_graph.py.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#E8E6F2;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="40" y="1320" width="230" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="src" value="&lt;b&gt;Six source-system schemas&lt;/b&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;entity_mgmt, investor_register, onboarding, treasury, documents, rulebook.&lt;br&gt;Seeded synthetic data. No agent can write here.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#E8E6F2;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="335" y="1330" width="225" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="runlog" value="&lt;b&gt;Run log&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;schema runlog&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;run: arm, model, turns, cost, score.&lt;br&gt;step: concept used, ontology terms, parameters, text executed, result, attested or not, verdict.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#E8E6F2;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="590" y="1330" width="250" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="clr" value="&lt;b&gt;Clearance&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;schema clearance&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;Cases, obligation assessments with the facts used and the facts missing, withholding schedules and their determinations.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#E8E6F2;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="870" y="1330" width="250" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="docs" value="&lt;b&gt;Document folder&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;solution/documents&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;Five synthetic documents, indexed in the documents schema.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#E8E6F2;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="1170" y="1330" width="200" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="scr_ont" value="&lt;b&gt;Screen: Ontology&lt;/b&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;Meaning, steward and status of a term, where its instances live, and which computations, tools and procedure steps depend on it. Uses the same lookups as the agent.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#DEEAF6;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="40" y="1665" width="250" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="scr_bench" value="&lt;b&gt;Screen: Benchmark&lt;/b&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;Grounded against control, case by case, and each schedule against the answer key.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#DEEAF6;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="310" y="1665" width="250" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="scr_replay" value="&lt;b&gt;Screen: Run replay&lt;/b&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;Every step of a recorded run: what was asked, what ran, what came back, and whether it was attested.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#DEEAF6;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="590" y="1665" width="250" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="scr_clr" value="&lt;b&gt;Screen: Clearance&lt;/b&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;The draft schedule, its reconciliation to the distribution, the evidence behind each line, and the second review with sign-off.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#DEEAF6;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="870" y="1665" width="250" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="control" value="&lt;b&gt;Control agent&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;same model, same task&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;Given the operating procedure as written for people and the bare table definitions. One read-only SQL tool (database role xbpei_control) and read_document.&lt;br&gt;No bundle, no ontology, no mappings. Its queries are logged, not attested.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#FCE4D6;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="1170" y="1620" width="250" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="checks" value="&lt;b&gt;Checks run before use&lt;/b&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;bundle check: links resolve, terms exist, parameters match the query, glossary is current.&lt;br&gt;check_mappings: mappings against the ontology and the database.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#FFFFFF;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="40" y="1930" width="250" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="key" value="&lt;b&gt;Answer key&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#555555&quot; style=&quot;font-size:12px&quot;&gt;gold/answer-key.yaml&lt;/font&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;The expected schedule for the gold dataset, with a script that recomputes its figures from the data.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#E8E6F2;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="310" y="1930" width="250" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="reviewer" value="&lt;b&gt;Tax reviewer&lt;/b&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;A person, and not the preparer of the schedule (control C3.5).&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#FFFFFF;strokeColor=#666666;strokeWidth=1;fontSize=13;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="870" y="1930" width="250" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="&lt;b&gt;Legend&lt;/b&gt;&lt;div style=&quot;margin-top:5px&quot;&gt;&lt;span style=&quot;background-color:#E2F0D9;border:1px solid #666&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt; semantic model, or generated from it&lt;/div&gt;&lt;div style=&quot;margin-top:3px&quot;&gt;&lt;span style=&quot;background-color:#FFF2CC;border:1px solid #666&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt; OKF bundle concept&lt;/div&gt;&lt;div style=&quot;margin-top:3px&quot;&gt;&lt;span style=&quot;background-color:#DEEAF6;border:1px solid #666&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt; Python code&lt;/div&gt;&lt;div style=&quot;margin-top:3px&quot;&gt;&lt;span style=&quot;background-color:#FCE4D6;border:1px solid #666&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt; agent (language model)&lt;/div&gt;&lt;div style=&quot;margin-top:3px&quot;&gt;&lt;span style=&quot;background-color:#E8E6F2;border:1px solid #666&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt; data&lt;/div&gt;&lt;div style=&quot;margin-top:3px&quot;&gt;Dashed outline: one database.&lt;/div&gt;" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=8;fillColor=#FFFFFF;strokeColor=#666666;strokeWidth=1;fontSize=12;fontColor=#222222;" parent="1" vertex="1">
+          <mxGeometry x="590" y="1930" width="250" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="e_bundle_sem" value="reads, writes and mapping keys&lt;br&gt;name terms of" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.0887;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.1562;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="bundle" target="sem" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_gloss_ont" value="its Glossary section is generated from,&lt;br&gt;and stamped with the version of" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.7308;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.7308;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="comp" target="ont" edge="1">
+          <mxGeometry x="0.05" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_shapes_sem" value="generated&lt;br&gt;from" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.0000;exitY=0.5000;exitDx=0;exitDy=0;entryX=1.0000;entryY=0.5500;entryDx=0;entryDy=0;" parent="1" source="shapes" target="sem" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_proc_biz" value="restates, as steps" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.5000;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.5000;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="proc" target="biz" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_agent_proc" value="follows the steps of" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.5763;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.5000;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="agent" target="proc" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_agent_mcp" value="calls" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.0508;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.9867;entryY=0.0000;entryDx=0;entryDy=0;" parent="1" source="agent" target="mcp" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_runner_agent" value="starts&lt;br&gt;(grounded arm)" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.5000;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.6102;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="runner" target="agent" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_runner_control" value="starts&lt;br&gt;(control arm)" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.9130;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.9200;entryY=0.0000;entryDx=0;entryDy=0;" parent="1" source="runner" target="control" edge="1">
+          <mxGeometry x="-0.72" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_exec_comp" value="runs the text of, unchanged" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.5000;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.5000;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="exec" target="comp" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_look_map" value="look up where&lt;br&gt;a term lives in" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.3600;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.4865;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="look" target="map" edge="1">
+          <mxGeometry x="0.45" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_look_sem" value="look up meaning,&lt;br&gt;steward and status in" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.8400;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.9688;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="look" target="sem" edge="1">
+          <mxGeometry x="-0.72" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_tools_toolc" value="implement the&lt;br&gt;contract of" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.3600;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.4865;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="tools" target="toolc" edge="1">
+          <mxGeometry x="0.45" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_tools_shapes" value="test every draft&lt;br&gt;against" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.8800;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.8636;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="tools" target="shapes" edge="1">
+          <mxGeometry x="0.87" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_exec_graph" value="run 3 computations&lt;br&gt;(Cypher) on" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.2212;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.5000;entryY=0.0000;entryDx=0;entryDy=0;" parent="1" source="exec" target="graph" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_exec_pg" value="run 9 computations&lt;br&gt;(SQL) on" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.7827;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.1558;entryY=0.0000;entryDx=0;entryDy=0;" parent="1" source="exec" target="pg" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_graph_src" value="rebuilt&lt;br&gt;from" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=1.0000;exitY=0.5000;exitDx=0;exitDy=0;entryX=0.0000;entryY=0.4706;entryDx=0;entryDy=0;" parent="1" source="graph" target="src" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mcp_runlog" value="logs computations, lookups&lt;br&gt;and tool calls as steps in" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.6106;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.5000;entryY=0.0000;entryDx=0;entryDy=0;" parent="1" source="mcp" target="runlog" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_tools_clr" value="insert into&lt;br&gt;(insert only)" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.3600;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.3600;entryY=0.0000;entryDx=0;entryDy=0;" parent="1" source="tools" target="clr" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_tools_docs" value="read" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.9200;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.2000;entryY=0.0000;entryDx=0;entryDy=0;" parent="1" source="tools" target="docs" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_bench_runlog" value="compares the&lt;br&gt;scores in" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.7600;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.1200;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="scr_bench" target="runlog" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_replay_runlog" value="replays the&lt;br&gt;steps in" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.5000;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.5000;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="scr_replay" target="runlog" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_clrscr_clr" value="shows; sign-off updates&lt;br&gt;only the sign-off columns of" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.3600;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.3600;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="scr_clr" target="clr" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_control_pg" value="runs its own SQL on&lt;br&gt;(read-only)" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.0600;exitY=0.0000;exitDx=0;exitDy=0;entryX=1.0000;entryY=0.8444;entryDx=0;entryDy=0;" parent="1" source="control" target="pg" edge="1">
+          <mxGeometry x="0.10" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_control_docs" value="reads" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.4800;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.6000;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="control" target="docs" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_bench_key" value="compares each run with" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.5000;exitY=1.0000;exitDx=0;exitDy=0;entryX=0.5000;entryY=0.0000;entryDx=0;entryDy=0;" parent="1" source="scr_bench" target="key" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_reviewer_clr" value="reviews the evidence&lt;br&gt;and signs off in" style="endArrow=block;endFill=1;endSize=7;html=1;rounded=0;strokeColor=#444444;strokeWidth=1.3;fontSize=12;fontColor=#222222;labelBackgroundColor=#FFFFFF;jumpStyle=arc;jumpSize=8;exitX=0.5000;exitY=0.0000;exitDx=0;exitDy=0;entryX=0.5000;entryY=1.0000;entryDx=0;entryDy=0;" parent="1" source="reviewer" target="scr_clr" edge="1">
+          <mxGeometry x="0.00" relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

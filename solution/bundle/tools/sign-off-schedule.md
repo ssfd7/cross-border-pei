@@ -3,7 +3,6 @@ type: Tool
 title: Sign off a withholding schedule
 description: Second review, in which a reviewer who did not prepare the schedule signs it.
 status: draft
-"@context": /context.jsonld
 performed_by: human
 writes: [xbpei:signedOffBy, xbpei:signedOffOn, xbpei:scheduleStatus]
 supports: [WF3.10, C3.5]

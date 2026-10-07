@@ -3,7 +3,6 @@ type: Attested Computation
 title: Beneficial recipients of a distribution
 description: For each investor of record, the parties whose income its share is, with each party's share of that investor's line.
 status: draft
-"@context": /context.jsonld
 runtime: postgres
 parameters:
   - { name: distribution_id, type: string, required: true }

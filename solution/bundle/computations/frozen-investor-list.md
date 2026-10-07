@@ -3,7 +3,6 @@ type: Attested Computation
 title: Frozen investor list
 description: The investors of record of the distributing fund at the record date, with their interest and gross amount per component.
 status: draft
-"@context": /context.jsonld
 runtime: postgres
 parameters:
   - { name: distribution_id, type: string, required: true }

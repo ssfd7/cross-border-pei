@@ -7,7 +7,6 @@ from rdflib import Namespace
 ROOT = Path(__file__).resolve().parents[2]
 MODEL = ROOT / "model" / "xb-pei-model.ttl"
 GOVERNANCE = ROOT / "model" / "xb-pei-governance.ttl"
-MODEL_JSONLD = ROOT / "model" / "xb-pei-model.jsonld"
 BUNDLE = ROOT / "solution" / "bundle"
 MAPPINGS = BUNDLE / "references" / "mappings"
 DOCUMENTS = ROOT / "solution" / "documents"

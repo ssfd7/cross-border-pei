@@ -3,7 +3,6 @@ type: Attested Computation
 title: Clearance in force on a date
 description: For each party, the latest clearance decision for a fund as at a date, whether it is in force then, its open items and any open change case.
 status: draft
-"@context": /context.jsonld
 runtime: postgres
 parameters:
   - { name: fund_code, type: string, required: true }

@@ -3,7 +3,6 @@ type: Attested Computation
 title: Circular holdings on a date
 description: Pairs of parties each of which holds the other, directly or through others, on a date.
 status: draft
-"@context": /context.jsonld
 runtime: ladybug
 parameters:
   - { name: on_date, type: date, required: true }

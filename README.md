@@ -14,7 +14,7 @@ A prototype showing how one ontology and one semantic layer ground AI agents acr
 Both products rest on the same two things:
 
 - **The ontology** says what each term means: 38 concepts such as Party, Ownership Interest and Clearance, each with a steward and a status. It is in [`model/`](model/README.md).
-- **The semantic layer** connects those terms to data and to work. Mappings say where each term's instances live in the source systems; attested queries, write tools and procedures refer to the terms through YAML-LD. It is packaged as an OKF bundle in `solution/bundle/`.
+- **The semantic layer** connects those terms to data and to work. Mappings say where each term's instances live in the source systems; attested queries, write tools and procedures refer to the terms through `reads` and `writes` links in their frontmatter. It is packaged as an OKF bundle in `solution/bundle/`.
 
 So far only Clearance runs on it, for one procedure (WF3). LookThrough has the graph projection and three graph queries, but no question answering yet.
 
@@ -26,7 +26,7 @@ So far only Clearance runs on it, for one procedure (WF3). LookThrough has the g
 | [`business/domain-glossary.md`](business/domain-glossary.md) | Acronyms |
 | `business/lookthrough-product/` | LookThrough business requirements |
 | `business/clearance-product/` | Clearance business requirements and three operating procedures (`wf1`–`wf3`), each with controls and scenarios |
-| [`model/`](model/README.md) | The ontology, draft v0.9: OWL Turtle, stewardship and status per term, a generated JSON-LD form, the Draw.io diagram (overview and five detail pages) with PNG renderings, and a README with decisions, traceability and checks |
+| [`model/`](model/README.md) | The ontology, draft v0.9: OWL Turtle, stewardship and status per term, the Draw.io diagram (overview and five detail pages) with PNG renderings, and a README with decisions, traceability and checks |
 | `solution/` | The prototype: emulated source systems and gold dataset, the OKF bundle, the graph projection, the agent runner and the run report |
 | [`AGENTS.md`](AGENTS.md) | Modelling and Draw.io conventions for AI agents working in this repository |
 
@@ -55,10 +55,14 @@ Everything is under `solution/`. It covers WF3 only; WF1, WF2 and the LookThroug
 How the pieces relate:
 
 - **The ontology says what a term means, a mapping says where its instances live, and a query retrieves them.** These are three separate artifacts. Nothing translates ontology terms into SQL automatically.
-- **The bundle refers to the ontology.** Concept frontmatter is YAML-LD: a shared `context.jsonld` and the keys `reads`, `writes` and `supports` tie each computation, tool and procedure step to ontology terms, so the bundle and the ontology load into one graph.
+- **The bundle refers to the ontology.** The frontmatter keys `reads` and `writes` name the ontology terms each computation and tool depends on, and procedure steps name the concepts they use. A concept can carry a `# Glossary` section generated from the ontology for those terms, stamped with the ontology version and kept current by `bundle check`; `computations/effective-holding` is the first.
 - **Reads are attested computations.** An agent supplies values for declared parameters; it does not write or change the query. Each run is checked against the bundle.
 - **Writes are tools.** Agents add drafts to the Clearance schema after the draft passes the shapes. Only a person signs a schedule, under a separate database role.
 - **The graph is a read-only projection** rebuilt from Postgres. Its schema is written by hand to follow the mappings; it is not generated from the ontology.
+
+How the bundle ties the questions, the workflow and the data to one ontology. The source is [`solution/okf-extension-overview.drawio`](solution/okf-extension-overview.drawio); the image must be regenerated when it changes.
+
+![One ontology at the core, a Semantic Layer (OKF bundle) around it](solution/diagrams/okf-extension-overview.png)
 
 To run it, see section 12 of the [run report](solution/reports/2026-10-06-wf3-two-arm-run.md). To open the review screens, run `.venv/bin/streamlit run app.py` from `solution/` with the database up. The screens read the live database, so they are empty until an agent run has been recorded.
 

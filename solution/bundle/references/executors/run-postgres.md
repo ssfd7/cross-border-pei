@@ -3,7 +3,6 @@ type: Reference
 title: Run a computation on Postgres
 description: Run instructions for attested computations with runtime postgres.
 status: draft
-"@context": /context.jsonld
 generated: { by: claude-code/claude-opus-5-5, at: 2026-10-06T16:57:20Z }
 ---
 

@@ -3,7 +3,6 @@ type: Attested Computation
 title: Income received before a distribution
 description: Dividend and interest payments received by the distributing fund and the entities it holds in the 60 days before the record date.
 status: draft
-"@context": /context.jsonld
 runtime: postgres
 parameters:
   - { name: distribution_id, type: string, required: true }

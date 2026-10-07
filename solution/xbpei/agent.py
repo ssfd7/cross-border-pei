@@ -102,7 +102,7 @@ def grounded_server(run_id: str):
             concept = bundle.concept(args["concept"])
         except KeyError:
             return reply({"error": f'No concept {args["concept"]} in the bundle.'})
-        meta = {k: v for k, v in concept.meta.items() if k not in ("executor", "attester", "generated", "@context")}
+        meta = {k: v for k, v in concept.meta.items() if k not in ("executor", "attester", "generated")}
         return reply({"concept": concept.id, **meta, "body": concept.body})
 
     @tool("run_computation", "Run one of the bundle's computations with values for its declared parameters. Returns its rows.",

@@ -3,7 +3,6 @@ type: Tool
 title: Draft a withholding schedule
 description: Record a draft withholding schedule for a distribution with one determination per recipient and component.
 status: draft
-"@context": /context.jsonld
 performed_by: agent
 writes: [xbpei:WithholdingSchedule, xbpei:scheduleFor, xbpei:scheduleStatus, xbpei:preparedBy, xbpei:includes, xbpei:WithholdingDetermination, xbpei:determinedFor, xbpei:forComponent, xbpei:determinationOutcome, xbpei:grossAmount, xbpei:withholdingRate, xbpei:taxWithheld, xbpei:netAmount, xbpei:rateBasis, xbpei:reliesOnClearance, xbpei:supportedBy]
 supports: [WF3.9, C3.1, C3.3, C3.4]

@@ -3,7 +3,6 @@ type: Attested Computation
 title: Tax residence on a date
 description: The recorded tax residence of each investor and underlying owner on a date.
 status: draft
-"@context": /context.jsonld
 runtime: postgres
 parameters:
   - { name: on_date, type: date, required: true }

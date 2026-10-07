@@ -3,7 +3,6 @@ type: Attested Computation
 title: Tax certifications and their validity on a date
 description: Every tax certification on file, with whether it is valid on the date given.
 status: draft
-"@context": /context.jsonld
 runtime: postgres
 parameters:
   - { name: on_date, type: date, required: true }

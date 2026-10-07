@@ -3,7 +3,6 @@ type: Attested Computation
 title: Rule versions in force on a date
 description: The rule versions that apply in a jurisdiction on a date, each with its rate, any holding threshold, its authority and the facts it requires.
 status: draft
-"@context": /context.jsonld
 runtime: postgres
 parameters:
   - { name: jurisdiction, type: string, required: true }

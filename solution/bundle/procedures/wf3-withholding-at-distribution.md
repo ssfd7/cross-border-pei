@@ -3,7 +3,6 @@ type: Procedure
 title: WF3 Withholding determination at distribution
 description: Decide the withholding for every recipient of a distribution before it is paid, and have the schedule signed off.
 status: draft
-"@context": /context.jsonld
 tags: [clearance, withholding]
 supports: [WF3]
 sources:

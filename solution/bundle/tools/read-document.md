@@ -3,7 +3,6 @@ type: Tool
 title: Read a document
 description: Return the text of a document in the document folder by its reference.
 status: draft
-"@context": /context.jsonld
 performed_by: agent
 supports: [WF3.2, C3.3]
 generated: { by: claude-code/claude-opus-5-5, at: 2026-10-06T16:57:20Z }

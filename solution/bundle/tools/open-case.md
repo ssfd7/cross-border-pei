@@ -3,7 +3,6 @@ type: Tool
 title: Open a case
 description: Open a unit of clearance work.
 status: draft
-"@context": /context.jsonld
 performed_by: agent
 writes: [xbpei:Case, xbpei:caseKind, xbpei:concernsParty, xbpei:concernsDistribution, xbpei:openedOn]
 supports: [WF3.1]

@@ -37,6 +37,11 @@ def mapping_files() -> list[dict]:
     return [yaml.safe_load(p.read_text()) for p in sorted(MAPPINGS.glob("*.yaml"))]
 
 
+def version() -> str:
+    """The version of the ontology as loaded."""
+    return str(graph().value(graph().value(predicate=RDF.type, object=OWL.Ontology), OWL.versionInfo))
+
+
 def curie(iri) -> str:
     return "xbpei:" + str(iri)[len(str(XBPEI)):] if str(iri).startswith(str(XBPEI)) else str(iri)
 
