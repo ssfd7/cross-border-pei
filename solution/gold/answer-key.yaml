@@ -161,3 +161,71 @@ lookthrough:
     undetermined:
       P-002: The payer is the feeder, whose tax residence is not recorded. It crosses a border on incorporation (LU→US).
       P-004: The payee, Atlas Capital Management LLC, is known only to treasury, which holds a country without saying in what capacity.
+
+# Questions put to the LookThrough agent (xbpei/ask.py), scored against the figures above by
+# xbpei/score.py. `report` tells the agent how to lay out the facts of its answer; it says nothing
+# about how to find them.
+lookthrough_questions:
+  - id: Q1
+    cq: CQ1
+    text: Which investors have indirect exposure to Orion Manufacturing Inc. on 30 October 2026, and what economic and voting percentage does each hold?
+    report: One fact per investor and percentage. Subject is the investor number; attribute is economicPercentage or votingPercentage; value is the percentage.
+  - id: Q2
+    cq: CQ2
+    text: Which jurisdictions are involved in the ownership chain from Atlas Growth Fund I down to each of its portfolio companies on 30 October 2026?
+    report: One fact per portfolio company, capacity and country. Subject is the entity identifier of the portfolio company; attribute is incorporation, taxResidence or operatingLocation; value is the two-letter country code.
+    companies: {E-003: orion, E-006: borealis}
+  - id: Q3
+    cq: CQ3
+    text: Which payments between 1 January 2024 and 30 October 2026 cross a jurisdictional boundary?
+    report: One fact per payment. Subject is the payment identifier; attribute is crossing; value is crossBorder, notCrossBorder or undetermined.
+  - id: Q4
+    cq: G9
+    text: What is the vintage year of Atlas Growth Fund I?
+    refuse: unmapped
+  - id: Q5
+    cq: G9
+    text: Which investors are politically exposed persons?
+    refuse: unknown
+
+# Controls benchmark (xbpei/measures.py). These test what the semantic layer gives a reviewer,
+# not whether an agent reached the right figures.
+
+# The procedure steps a change to a term reaches, checked by hand against the frontmatter of the
+# bundle's concepts and the steps of the WF3 procedure.
+term_impact:
+  - term: xbpei:votingPercentage
+    concepts: [computations/declared-owners, computations/effective-holding, computations/frozen-investor-list, computations/record-conflicts]
+    steps: [1, 6]
+  - term: xbpei:TaxCertification
+    concepts: [computations/beneficial-recipients, computations/tax-certifications]
+    steps: [4, 5]
+  - term: xbpei:withholdingRate
+    concepts: [tools/draft-schedule]
+    steps: [9]
+
+# What a lookup must say about a term: answer (the term is mapped), unmapped (a term of the
+# ontology that no source holds) or unknown (not a term of the ontology). See case G9.
+term_lookup:
+  - {ask: "xbpei:votingPercentage", expected: answer}
+  - {ask: "xbpei:TaxCertification", expected: answer}
+  - {ask: "xbpei:vintageYear", expected: unmapped}
+  - {ask: "politically exposed person", expected: unknown}
+  - {ask: "carried interest", expected: unmapped}
+  - {ask: "net asset value", expected: unknown}
+
+# Faulty drafts, each made by one change to the accepted draft of the latest grounded run. A draft
+# the write tool accepts would reach the reviewer. `change` is read by measures.faulty().
+faulty_drafts:
+  - {id: F1, fault: The same recipient twice for one component, control: C3.1, change: duplicate, party: I-001}
+  - {id: F2, fault: A recipient left off the schedule, control: C3.1, change: drop, party: I-009}
+  - {id: F3, fault: Tax withheld does not follow from gross and rate, control: C3.4, change: set, party: I-003, values: {tax_withheld: 50000}}
+  - {id: F4, fault: A cleared rate with no clearance or assessment behind it, control: C3.3, change: set, party: I-001, values: {relies_on_clearance: null, supported_by: null}}
+  - {id: F5, fault: A line citing an assessment that does not exist, control: C3.3, change: set, party: I-004, values: {supported_by: A-X999}}
+  - {id: F6, fault: A line for a party that is not an investor, control: C3.1, change: set, party: I-005, values: {determined_for: I-999}}
+  - {id: F7, fault: The nominee paid as if the income were its own, case: G4, control: C3.1, change: merge, parties: [I-013, I-014], into: I-007}
+  - {id: F8, fault: A treaty rate on an expired form and a lapsed clearance, case: G7, control: C3.2,
+     change: set, party: I-015, values: {determination_outcome: cleared, withholding_rate: 15, tax_withheld: 75000, net_amount: 425000, relies_on_clearance: CL-015}}
+  - {id: F9, fault: The 5% rate where the supporting assessment gives 15%, case: G6, control: C3.3,
+     change: set, party: I-004, values: {withholding_rate: 5, tax_withheld: 62437.5, net_amount: 1186312.5}}
+  - {id: F10, fault: A line supported by another party's assessment, control: C3.3, change: borrow, party: I-010, field: supported_by, from: I-001}

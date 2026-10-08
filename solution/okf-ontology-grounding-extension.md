@@ -107,11 +107,11 @@ and in the graph:
 
 | Element | State |
 |---|---|
-| `reads` | On all 12 computations |
+| `reads` | On all 15 computations |
 | `writes` | On 4 of the 5 tools; the fifth only reads a document |
 | `supports` | On every computation, tool and procedure. CQ1 to CQ5 are covered; nothing supports CQ6 yet |
 | `steps` | On the one procedure, WF3 |
-| `# Glossary` | On all 16 concepts that read or write terms |
+| `# Glossary` | On all 19 concepts that read or write terms |
 | Mapping files | Seven for the six source systems and Clearance, and one for the graph |
 | `ontology` | Declared in `bundle/index.md` |
 

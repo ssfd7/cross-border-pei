@@ -85,7 +85,7 @@ These references explain source limitations; they have not yet been translated i
 - Review the nine clearance concepts and the proposed questions CL1–CL8.
 - Select one tax obligation and jurisdiction pair; source its rule conditions and evidence requirements.
 - Create synthetic scenarios covering applicable, not-applicable and undetermined outcomes, and validate each question against them.
-- Parse the Turtle with an RDF library and run a profile check.
+- Run the Turtle through a reasoner and a profile check. It parses with rdflib.
 
 Visual styling follows a reference diagram from another project; its domain content is not reused.
 

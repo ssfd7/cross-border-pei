@@ -77,7 +77,8 @@ def reset_clearance() -> None:
             conn.execute(statement)
 
 
-def grounded_server(run_id: str):
+def grounded_server(run_id: str, name: str = "clearance", writes: bool = True):
+    """The bundle as tools. Without `writes` the agent can look up, read and run computations, and change nothing."""
     @tool("find_term", "Find ontology terms by words in their name or definition.", {"text": str})
     async def find_term(args):
         result = ontology.find_term(args["text"])[:8]
@@ -144,8 +145,8 @@ def grounded_server(run_id: str):
     async def draft_schedule(args):
         return reply(tools.draft_schedule(args["distribution_id"], args["determinations"], run_id))
 
-    return create_sdk_mcp_server("clearance", tools=[find_term, describe_term, mappings_for, read_concept, computation, read_document,
-                                                     open_case, record_assessment, draft_schedule])
+    reads = [find_term, describe_term, mappings_for, read_concept, computation, read_document]
+    return create_sdk_mcp_server(name, tools=reads + ([open_case, record_assessment, draft_schedule] if writes else []))
 
 
 def control_server(run_id: str):
@@ -168,12 +169,16 @@ def control_server(run_id: str):
     return create_sdk_mcp_server("firm", tools=[run_sql, read_document])
 
 
+def catalogue() -> str:
+    """The bundle's computations with their parameters, one per line."""
+    return "\n".join(f'- {c.id} ({", ".join(p["name"] + ": " + p["type"] for p in c.meta["parameters"])}): {c.meta["description"]}'
+                     for c in bundle.concepts().values() if c.meta["type"] == "Attested Computation")
+
+
 def grounded_prompt() -> str:
     procedure = bundle.concept(PROCEDURE)
     steps = "\n".join(f'{s["id"]}. [{s["performed_by"]}] {s["title"]}' + (f' Uses: {", ".join(u.strip("/").removesuffix(".md") for u in s["uses"])}.' if s.get("uses") else "")
                       for s in procedure.meta["steps"])
-    catalogue = "\n".join(f'- {c.id} ({", ".join(p["name"] + ": " + p["type"] for p in c.meta["parameters"])}): {c.meta["description"]}'
-                          for c in bundle.concepts().values() if c.meta["type"] == "Attested Computation")
     return f"""You prepare withholding schedules for a private equity fund's tax team. You carry out an operating procedure from the firm's knowledge bundle; a tax reviewer makes the decision afterwards.
 
 How you work:
@@ -189,7 +194,7 @@ How you work:
 {procedure.body}
 # Computations in the bundle
 
-{catalogue}
+{catalogue()}
 """
 
 

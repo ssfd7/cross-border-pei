@@ -1,0 +1,462 @@
+{
+ "run": {
+  "run_id": "RUN-9eb95edb",
+  "arm": "lookthrough",
+  "procedure": "CQ1",
+  "subject": "Which investors have indirect exposure to Orion Manufacturing Inc. on 30 October 2026, and what economic and voting percentage does each hold?",
+  "model": "claude-opus-5-5",
+  "started_at": "2026-10-08T15:13:38.560814+00:00",
+  "finished_at": "2026-10-08T15:14:10.282308+00:00",
+  "outcome": "success",
+  "turns": 10,
+  "duration_ms": 30616,
+  "cost_usd": 0.1582,
+  "usage": {
+   "speed": "standard",
+   "iterations": [
+    {
+     "type": "message",
+     "input_tokens": 2,
+     "output_tokens": 3122,
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 2800,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "cache_read_input_tokens": 6909,
+     "cache_creation_input_tokens": 2800
+    }
+   ],
+   "input_tokens": 6,
+   "service_tier": "standard",
+   "inference_geo": "not_available",
+   "output_tokens": 3873,
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 9709,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "fallback_credit": null,
+   "server_tool_use": {
+    "web_fetch_requests": 0,
+    "web_search_requests": 0
+   },
+   "output_tokens_details": {
+    "thinking_tokens": 485
+   },
+   "cache_read_input_tokens": 10021,
+   "cache_creation_input_tokens": 9709
+  },
+  "final_text": "{\"status\": \"answered\", \"answer\": \"Fifteen investors hold an effective interest in Orion Manufacturing Inc. (E-003) on 30 October 2026, together 80.00% economic. Percentages are multiplied through every fund vehicle and SPV tier, using beneficial interests in the system of record.\\n\\n| Investor | Name | Economic % | Voting % |\\n|---|---|---|---|\\n| I-001 | Harbor Pension Trust | 8.00 | 8.00 |\\n| I-003 | Kirchberg Industries S.A. | 10.00 | 10.00 |\\n| I-004 | Limpertsberg Holdings S.A. | 9.99 | 9.99 |\\n| I-005 | Grund Participations S.A. | 10.40 | 8.00 |\\n| I-006 | Meridian Holdings I S.à r.l. | 2.40 | 2.40 |\\n| I-008 | Alpha Holdings SA | 4.80 | 4.80 |\\n| I-009 | Alpha Holdings SA | 0.80 | 0.80 |\\n| I-010 | Ardennes Industrial Holding S.A. | 9.60 | 9.60 |\\n| I-011 | Moselle Capital S.A. | 5.76 | 5.76 |\\n| I-012 | Claire Dumont | 3.84 | 3.84 |\\n| I-013 | Echternach Pension Fund | 3.00 | 3.00 |\\n| I-014 | Client account 7731 | 1.80 | 1.80 |\\n| I-015 | Bertrange Capital S.A. | 4.00 | 4.00 |\\n| I-016 | Atlas Co-Invest Vehicle LP (E-010) | 2.40 | 2.40 |\\n| I-017 | Atlas GP LLC (E-004) | 3.21 | 5.61 |\\n\\nPoints to keep in mind:\\n- The date is in the future (today is 8 October 2026), so these are the interests currently recorded as valid on that date.\\n- The walk stops at each investor and does not look through to the investor's own owners. Nominee interests are skipped, so the owners behind a nominee appear in their own right.\\n- I-008 and I-009 are two separate investor numbers with the same name, Alpha Holdings SA; they are reported separately, not merged.\\n- Atlas Co-Invest Vehicle LP is a fund vehicle with no recorded holders above it on the date, so it appears as an investor itself.\\n- The effective-holding computation is marked draft in the bundle.\", \"facts\": [{\"subject\": \"I-001\", \"attribute\": \"economicPercentage\", \"value\": \"8.0\", \"source_ref\": \"investor_register.investor:I-001\"}, {\"subject\": \"I-001\", \"attribute\": \"votingPercentage\", \"value\": \"8.0\", \"source_ref\": \"investor_register.investor:I-001\"}, {\"subject\": \"I-003\", \"attribute\": \"economicPercentage\", \"value\": \"10.0\", \"source_ref\": \"investor_register.investor:I-003\"}, {\"subject\": \"I-003\", \"attribute\": \"votingPercentage\", \"value\": \"10.0\", \"source_ref\": \"investor_register.investor:I-003\"}, {\"subject\": \"I-004\", \"attribute\": \"economicPercentage\", \"value\": \"9.99\", \"source_ref\": \"investor_register.investor:I-004\"}, {\"subject\": \"I-004\", \"attribute\": \"votingPercentage\", \"value\": \"9.99\", \"source_ref\": \"investor_register.investor:I-004\"}, {\"subject\": \"I-005\", \"attribute\": \"economicPercentage\", \"value\": \"10.4\", \"source_ref\": \"investor_register.investor:I-005\"}, {\"subject\": \"I-005\", \"attribute\": \"votingPercentage\", \"value\": \"8.0\", \"source_ref\": \"investor_register.investor:I-005\"}, {\"subject\": \"I-006\", \"attribute\": \"economicPercentage\", \"value\": \"2.4\", \"source_ref\": \"investor_register.investor:I-006\"}, {\"subject\": \"I-006\", \"attribute\": \"votingPercentage\", \"value\": \"2.4\", \"source_ref\": \"investor_register.investor:I-006\"}, {\"subject\": \"I-008\", \"attribute\": \"economicPercentage\", \"value\": \"4.8\", \"source_ref\": \"investor_register.investor:I-008\"}, {\"subject\": \"I-008\", \"attribute\": \"votingPercentage\", \"value\": \"4.8\", \"source_ref\": \"investor_register.investor:I-008\"}, {\"subject\": \"I-009\", \"attribute\": \"economicPercentage\", \"value\": \"0.8\", \"source_ref\": \"investor_register.investor:I-009\"}, {\"subject\": \"I-009\", \"attribute\": \"votingPercentage\", \"value\": \"0.8\", \"source_ref\": \"investor_register.investor:I-009\"}, {\"subject\": \"I-010\", \"attribute\": \"economicPercentage\", \"value\": \"9.6\", \"source_ref\": \"investor_register.investor:I-010\"}, {\"subject\": \"I-010\", \"attribute\": \"votingPercentage\", \"value\": \"9.6\", \"source_ref\": \"investor_register.investor:I-010\"}, {\"subject\": \"I-011\", \"attribute\": \"economicPercentage\", \"value\": \"5.76\", \"source_ref\": \"investor_register.investor:I-011\"}, {\"subject\": \"I-011\", \"attribute\": \"votingPercentage\", \"value\": \"5.76\", \"source_ref\": \"investor_register.investor:I-011\"}, {\"subject\": \"I-012\", \"attribute\": \"economicPercentage\", \"value\": \"3.84\", \"source_ref\": \"investor_register.investor:I-012\"}, {\"subject\": \"I-012\", \"attribute\": \"votingPercentage\", \"value\": \"3.84\", \"source_ref\": \"investor_register.investor:I-012\"}, {\"subject\": \"I-013\", \"attribute\": \"economicPercentage\", \"value\": \"3.0\", \"source_ref\": \"investor_register.investor:I-013\"}, {\"subject\": \"I-013\", \"attribute\": \"votingPercentage\", \"value\": \"3.0\", \"source_ref\": \"investor_register.investor:I-013\"}, {\"subject\": \"I-014\", \"attribute\": \"economicPercentage\", \"value\": \"1.8\", \"source_ref\": \"investor_register.investor:I-014\"}, {\"subject\": \"I-014\", \"attribute\": \"votingPercentage\", \"value\": \"1.8\", \"source_ref\": \"investor_register.investor:I-014\"}, {\"subject\": \"I-015\", \"attribute\": \"economicPercentage\", \"value\": \"4.0\", \"source_ref\": \"investor_register.investor:I-015\"}, {\"subject\": \"I-015\", \"attribute\": \"votingPercentage\", \"value\": \"4.0\", \"source_ref\": \"investor_register.investor:I-015\"}, {\"subject\": \"I-016\", \"attribute\": \"economicPercentage\", \"value\": \"2.4\", \"source_ref\": \"investor_register.investor:I-016\"}, {\"subject\": \"I-016\", \"attribute\": \"votingPercentage\", \"value\": \"2.4\", \"source_ref\": \"investor_register.investor:I-016\"}, {\"subject\": \"I-017\", \"attribute\": \"economicPercentage\", \"value\": \"3.21\", \"source_ref\": \"investor_register.investor:I-017\"}, {\"subject\": \"I-017\", \"attribute\": \"votingPercentage\", \"value\": \"5.61\", \"source_ref\": \"investor_register.investor:I-017\"}], \"unknown\": [\"Who stands behind each investor: the computation stops at the investor and does not look through to its own owners. Meridian Holdings I S.à r.l. (I-006) and Meridian Holdings II S.à r.l. (I-018) are recorded as holding each other on the date.\", \"Whether the recorded interests will still be the ones in force on 30 October 2026: the date is after today (8 October 2026), so later changes are not reflected.\", \"The remaining 20% economic interest in Orion Manufacturing Inc.: the computation attributes none of it to an investor.\"], \"conflicts\": [\"Atlas Co-Invest Vehicle LP (I-016 / E-010) holding in Atlas Growth Fund I LP (E-001): the investor register, which is the system of record (investor_register.commitment:C-016), gives 3.0% economic and 3.0% voting; entity management (entity_mgmt.shareholding:H-006) gives 3.5% and 3.5%. The 2.40% effective figure for I-016 uses the system of record; on the entity-management figure it would be higher.\"]}",
+  "score": {
+   "total": 3,
+   "passed": 3,
+   "points": {
+    "G8 conflict reported": true,
+    "holdings of 15 investors": true,
+    "no party beyond the ultimate holders": true
+   }
+  }
+ },
+ "steps": [
+  {
+   "run_id": "RUN-9eb95edb",
+   "seq": 1,
+   "at": "2026-10-08T15:13:41.326167+00:00",
+   "kind": "computation",
+   "concept": "computations/structure-entities",
+   "terms": [
+    "xbpei:LegalEntity",
+    "xbpei:FundVehicle",
+    "xbpei:SPV",
+    "xbpei:PortfolioCompany",
+    "xbpei:identifier",
+    "xbpei:name",
+    "xbpei:legalForm"
+   ],
+   "parameters": {},
+   "executed": "SELECT e.entity_id AS entity, e.legal_name AS name, e.legal_form,\n       e.is_fund = 'Y' AS fund_vehicle, e.is_spv = 'Y' AS spv, e.is_portco = 'Y' AS portfolio_company,\n       'entity_mgmt.legal_entity:' || e.entity_id AS source_ref\nFROM entity_mgmt.legal_entity e\nORDER BY e.entity_id",
+   "result": [
+    {
+     "spv": false,
+     "name": "Atlas Growth Fund I LP",
+     "entity": "E-001",
+     "legal_form": "Delaware limited partnership",
+     "source_ref": "entity_mgmt.legal_entity:E-001",
+     "fund_vehicle": true,
+     "portfolio_company": false
+    },
+    {
+     "spv": true,
+     "name": "Atlas Acquisition SPV LLC",
+     "entity": "E-002",
+     "legal_form": "Delaware limited liability company",
+     "source_ref": "entity_mgmt.legal_entity:E-002",
+     "fund_vehicle": false,
+     "portfolio_company": false
+    },
+    {
+     "spv": false,
+     "name": "Orion Manufacturing Inc.",
+     "entity": "E-003",
+     "legal_form": "Delaware corporation",
+     "source_ref": "entity_mgmt.legal_entity:E-003",
+     "fund_vehicle": false,
+     "portfolio_company": true
+    },
+    {
+     "spv": false,
+     "name": "Atlas GP LLC",
+     "entity": "E-004",
+     "legal_form": "Delaware limited liability company",
+     "source_ref": "entity_mgmt.legal_entity:E-004",
+     "fund_vehicle": false,
+     "portfolio_company": false
+    },
+    {
+     "spv": false,
+     "name": "Atlas Lux Feeder SCSp",
+     "entity": "E-005",
+     "legal_form": "Luxembourg special limited partnership",
+     "source_ref": "entity_mgmt.legal_entity:E-005",
+     "fund_vehicle": true,
+     "portfolio_company": false
+    },
+    {
+     "spv": false,
+     "name": "Borealis Logistik GmbH",
+     "entity": "E-006",
+     "legal_form": "German limited liability company",
+     "source_ref": "entity_mgmt.legal_entity:E-006",
+     "fund_vehicle": false,
+     "portfolio_company": true
+    },
+    {
+     "spv": true,
+     "name": "Atlas Borealis Holdco S.à r.l.",
+     "entity": "E-007",
+     "legal_form": "Luxembourg private limited company",
+     "source_ref": "entity_mgmt.legal_entity:E-007",
+     "fund_vehicle": false,
+     "portfolio_company": false
+    },
+    {
+     "spv": false,
+     "name": "Atlas Co-Invest Vehicle LP",
+     "entity": "E-010",
+     "legal_form": "Delaware limited partnership",
+     "source_ref": "entity_mgmt.legal_entity:E-010",
+     "fund_vehicle": true,
+     "portfolio_company": false
+    }
+   ],
+   "row_count": 8,
+   "attested": true,
+   "verdict": "The sanctioned computation ran and the result is as reported."
+  },
+  {
+   "run_id": "RUN-9eb95edb",
+   "seq": 2,
+   "at": "2026-10-08T15:13:41.674592+00:00",
+   "kind": "lookup",
+   "concept": "ontology/find",
+   "terms": [],
+   "parameters": {
+    "text": "indirect exposure"
+   },
+   "executed": null,
+   "result": [],
+   "row_count": null,
+   "attested": null,
+   "verdict": null
+  },
+  {
+   "run_id": "RUN-9eb95edb",
+   "seq": 3,
+   "at": "2026-10-08T15:13:41.849704+00:00",
+   "kind": "lookup",
+   "concept": "ontology/find",
+   "terms": [],
+   "parameters": {
+    "text": "effective holding"
+   },
+   "executed": null,
+   "result": [],
+   "row_count": null,
+   "attested": null,
+   "verdict": null
+  },
+  {
+   "run_id": "RUN-9eb95edb",
+   "seq": 4,
+   "at": "2026-10-08T15:13:44.554328+00:00",
+   "kind": "computation",
+   "concept": "computations/effective-holding",
+   "terms": [
+    "xbpei:OwnershipInterest",
+    "xbpei:heldBy",
+    "xbpei:interestIn",
+    "xbpei:economicPercentage",
+    "xbpei:votingPercentage",
+    "xbpei:holdingCapacity",
+    "xbpei:validDuring",
+    "xbpei:FundVehicle",
+    "xbpei:SPV",
+    "xbpei:BeneficialOwner"
+   ],
+   "parameters": {
+    "on_date": "2026-10-30",
+    "company_id": "E-003"
+   },
+   "executed": "MATCH p = (h:Party)-[e:HOLDS* ACYCLIC 1..8 (r, n | WHERE r.systemOfRecord AND r.holdingCapacity = 'beneficial'\n        AND r.validFrom <= date($on_date) AND (r.validTo IS NULL OR r.validTo >= date($on_date)) AND (n.isFundVehicle OR n.isSPV))]->(c:Party {id: $company_id})\nWHERE NOT h.isSPV AND NOT (h.isFundVehicle AND EXISTS {\n        MATCH (:Party)-[r:HOLDS]->(h) WHERE r.systemOfRecord AND r.validFrom <= date($on_date) AND (r.validTo IS NULL OR r.validTo >= date($on_date)) })\nWITH h, list_product(properties(rels(p), 'economicPercentage')) / pow(100, size(rels(p)) - 1) AS economic,\n     list_product(properties(rels(p), 'votingPercentage')) / pow(100, size(rels(p)) - 1) AS voting\nRETURN h.id AS holder, h.name AS name, h.sourceRefs AS source_refs,\n       round(sum(economic), 4) AS effective_economic_pct, round(sum(voting), 4) AS effective_voting_pct\nORDER BY holder",
+   "result": [
+    {
+     "name": "Atlas GP LLC",
+     "holder": "E-004",
+     "source_refs": [
+      "entity_mgmt.legal_entity:E-004",
+      "investor_register.investor:I-017",
+      "treasury.counterparty:CP-117"
+     ],
+     "effective_voting_pct": 5.61,
+     "effective_economic_pct": 3.21
+    },
+    {
+     "name": "Atlas Co-Invest Vehicle LP",
+     "holder": "E-010",
+     "source_refs": [
+      "entity_mgmt.legal_entity:E-010",
+      "investor_register.investor:I-016",
+      "treasury.counterparty:CP-116"
+     ],
+     "effective_voting_pct": 2.4,
+     "effective_economic_pct": 2.4
+    },
+    {
+     "name": "Harbor Pension Trust",
+     "holder": "I-001",
+     "source_refs": [
+      "investor_register.investor:I-001",
+      "treasury.counterparty:CP-101"
+     ],
+     "effective_voting_pct": 8.0,
+     "effective_economic_pct": 8.0
+    },
+    {
+     "name": "Kirchberg Industries S.A.",
+     "holder": "I-003",
+     "source_refs": [
+      "investor_register.investor:I-003",
+      "treasury.counterparty:CP-103"
+     ],
+     "effective_voting_pct": 10.0,
+     "effective_economic_pct": 10.0
+    },
+    {
+     "name": "Limpertsberg Holdings S.A.",
+     "holder": "I-004",
+     "source_refs": [
+      "investor_register.investor:I-004",
+      "treasury.counterparty:CP-104"
+     ],
+     "effective_voting_pct": 9.99,
+     "effective_economic_pct": 9.99
+    },
+    {
+     "name": "Grund Participations S.A.",
+     "holder": "I-005",
+     "source_refs": [
+      "investor_register.investor:I-005",
+      "treasury.counterparty:CP-105"
+     ],
+     "effective_voting_pct": 8.0,
+     "effective_economic_pct": 10.4
+    },
+    {
+     "name": "Meridian Holdings I S.à r.l.",
+     "holder": "I-006",
+     "source_refs": [
+      "investor_register.investor:I-006",
+      "treasury.counterparty:CP-106"
+     ],
+     "effective_voting_pct": 2.4,
+     "effective_economic_pct": 2.4
+    },
+    {
+     "name": "Alpha Holdings SA",
+     "holder": "I-008",
+     "source_refs": [
+      "investor_register.investor:I-008",
+      "treasury.counterparty:CP-108"
+     ],
+     "effective_voting_pct": 4.8,
+     "effective_economic_pct": 4.8
+    },
+    {
+     "name": "Alpha Holdings SA",
+     "holder": "I-009",
+     "source_refs": [
+      "investor_register.investor:I-009",
+      "treasury.counterparty:CP-109"
+     ],
+     "effective_voting_pct": 0.8,
+     "effective_economic_pct": 0.8
+    },
+    {
+     "name": "Ardennes Industrial Holding S.A.",
+     "holder": "I-010",
+     "source_refs": [
+      "investor_register.investor:I-010"
+     ],
+     "effective_voting_pct": 9.6,
+     "effective_economic_pct": 9.6
+    },
+    {
+     "name": "Moselle Capital S.A.",
+     "holder": "I-011",
+     "source_refs": [
+      "investor_register.investor:I-011"
+     ],
+     "effective_voting_pct": 5.76,
+     "effective_economic_pct": 5.76
+    },
+    {
+     "name": "Claire Dumont",
+     "holder": "I-012",
+     "source_refs": [
+      "investor_register.investor:I-012"
+     ],
+     "effective_voting_pct": 3.84,
+     "effective_economic_pct": 3.84
+    },
+    {
+     "name": "Echternach Pension Fund",
+     "holder": "I-013",
+     "source_refs": [
+      "investor_register.investor:I-013"
+     ],
+     "effective_voting_pct": 3.0,
+     "effective_economic_pct": 3.0
+    },
+    {
+     "name": "Client account 7731",
+     "holder": "I-014",
+     "source_refs": [
+      "investor_register.investor:I-014"
+     ],
+     "effective_voting_pct": 1.8,
+     "effective_economic_pct": 1.8
+    },
+    {
+     "name": "Bertrange Capital S.A.",
+     "holder": "I-015",
+     "source_refs": [
+      "investor_register.investor:I-015",
+      "treasury.counterparty:CP-115"
+     ],
+     "effective_voting_pct": 4.0,
+     "effective_economic_pct": 4.0
+    }
+   ],
+   "row_count": 15,
+   "attested": true,
+   "verdict": "The sanctioned computation ran and the result is as reported."
+  },
+  {
+   "run_id": "RUN-9eb95edb",
+   "seq": 5,
+   "at": "2026-10-08T15:13:44.802630+00:00",
+   "kind": "lookup",
+   "concept": "ontology/find",
+   "terms": [
+    "xbpei:holdingCapacity"
+   ],
+   "parameters": {
+    "text": "exposure"
+   },
+   "executed": null,
+   "result": [
+    {
+     "kind": "attribute",
+     "term": "xbpei:holdingCapacity",
+     "label": "holdingCapacity",
+     "definition": "Whether the holder holds the interest for its own benefit or as nominee for others. Exposure is read from beneficial interests; the holder of record is read from nominee interests."
+    }
+   ],
+   "row_count": null,
+   "attested": null,
+   "verdict": null
+  },
+  {
+   "run_id": "RUN-9eb95edb",
+   "seq": 6,
+   "at": "2026-10-08T15:13:45.525989+00:00",
+   "kind": "computation",
+   "concept": "computations/record-conflicts",
+   "terms": [
+    "xbpei:OwnershipInterest",
+    "xbpei:economicPercentage",
+    "xbpei:votingPercentage",
+    "xbpei:evidencedBy"
+   ],
+   "parameters": {
+    "on_date": "2026-10-30"
+   },
+   "executed": "MATCH (a:Party)-[r:HOLDS]->(b:Party), (a)-[s:HOLDS]->(b)\nWHERE r.systemOfRecord AND NOT s.systemOfRecord AND r.validFrom <= date($on_date) AND (r.validTo IS NULL OR r.validTo >= date($on_date))\n  AND s.validFrom <= date($on_date) AND (s.validTo IS NULL OR s.validTo >= date($on_date))\n  AND (r.economicPercentage <> s.economicPercentage OR r.votingPercentage <> s.votingPercentage)\nRETURN a.id AS holder, a.name AS name, a.sourceRefs AS source_refs, b.id AS held_entity,\n       r.sourceRef AS record_ref, r.economicPercentage AS record_economic_pct, r.votingPercentage AS record_voting_pct,\n       s.sourceRef AS other_ref, s.economicPercentage AS other_economic_pct, s.votingPercentage AS other_voting_pct\nORDER BY holder",
+   "result": [
+    {
+     "name": "Atlas Co-Invest Vehicle LP",
+     "holder": "E-010",
+     "other_ref": "entity_mgmt.shareholding:H-006",
+     "record_ref": "investor_register.commitment:C-016",
+     "held_entity": "E-001",
+     "source_refs": [
+      "entity_mgmt.legal_entity:E-010",
+      "investor_register.investor:I-016",
+      "treasury.counterparty:CP-116"
+     ],
+     "other_voting_pct": 3.5,
+     "record_voting_pct": 3.0,
+     "other_economic_pct": 3.5,
+     "record_economic_pct": 3.0
+    }
+   ],
+   "row_count": 1,
+   "attested": true,
+   "verdict": "The sanctioned computation ran and the result is as reported."
+  },
+  {
+   "run_id": "RUN-9eb95edb",
+   "seq": 7,
+   "at": "2026-10-08T15:13:46.057868+00:00",
+   "kind": "computation",
+   "concept": "computations/ownership-cycles",
+   "terms": [
+    "xbpei:OwnershipInterest",
+    "xbpei:heldBy",
+    "xbpei:interestIn",
+    "xbpei:validDuring"
+   ],
+   "parameters": {
+    "on_date": "2026-10-30"
+   },
+   "executed": "MATCH (a:Party)-[:HOLDS* 1..6 (r, n | WHERE r.validFrom <= date($on_date) AND (r.validTo IS NULL OR r.validTo >= date($on_date)))]->(b:Party),\n      (b)-[:HOLDS* 1..6 (r, n | WHERE r.validFrom <= date($on_date) AND (r.validTo IS NULL OR r.validTo >= date($on_date)))]->(a)\nWHERE a.id < b.id\nRETURN DISTINCT a.id AS party, a.name AS name, a.sourceRefs AS source_refs,\n       b.id AS other_party, b.name AS other_name, b.sourceRefs AS other_source_refs\nORDER BY party, other_party",
+   "result": [
+    {
+     "name": "Meridian Holdings I S.à r.l.",
+     "party": "I-006",
+     "other_name": "Meridian Holdings II S.à r.l.",
+     "other_party": "I-018",
+     "source_refs": [
+      "investor_register.investor:I-006",
+      "treasury.counterparty:CP-106"
+     ],
+     "other_source_refs": [
+      "investor_register.investor:I-018"
+     ]
+    }
+   ],
+   "row_count": 1,
+   "attested": true,
+   "verdict": "The sanctioned computation ran and the result is as reported."
+  }
+ ]
+}

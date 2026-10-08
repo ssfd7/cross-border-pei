@@ -56,3 +56,38 @@ def score(lines: list[dict], text: str = "") -> dict:
             "lines_correct": correct_lines, "lines_expected": len(expected), "lines_given": sum(len(v) for v in got.values()),
             "gross_total": round(gross, 2), "tax_total": round(tax, 2), "tax_expected": key["total_tax_if_g3_defaulted"],
             "tax_error": round(tax - key["total_tax_if_g3_defaulted"], 2)}
+
+
+def score_answer(question: dict, output: dict) -> dict:
+    """Score a LookThrough answer against the answer key. `output` has status, answer, facts, unknown and conflicts."""
+    key = yaml.safe_load(GOLD.read_text())["lookthrough"]
+    facts: dict[tuple[str, str], set[str]] = {}
+    for f in output.get("facts", []):
+        facts.setdefault((f["subject"], f["attribute"]), set()).add(str(f["value"]).strip())
+    said = " ".join([output.get("answer", "")] + output.get("unknown", []) + output.get("conflicts", []))
+    number = lambda subject, attribute: next((float(v.rstrip("%")) for v in facts.get((subject, attribute), []) if re.fullmatch(r"[\d.]+%?", v)), None)
+
+    if "refuse" in question:
+        reason = r"mapp|no source|no system|not held|not recorded" if question["refuse"] == "unmapped" else r"not (a|in|part)|no such|out of scope|outside"
+        points = {"refused": output.get("status") == "refused", "no figure given": not output.get("facts"),
+                  "reason named": bool(re.search(reason, said, re.I))}
+    elif question["cq"] == "CQ1":
+        expected = key["CQ1_effective_holding_in_orion"]
+        right = [i for i, (econ, vote) in expected.items() if near(number(i, "economicPercentage"), econ) and near(number(i, "votingPercentage"), vote)]
+        points = {f"holdings of {len(expected)} investors": len(right) == len(expected),
+                  "no party beyond the ultimate holders": {s for s, _ in facts} <= set(expected),
+                  "G8 conflict reported": bool(re.search(r"2\.8|3\.5|H-006|disagree|conflict", said, re.I))}
+    elif question["cq"] == "CQ2":
+        expected = key["CQ2_jurisdictions_fund_to_company"]
+        points = {f"{name} {capacity}": facts.get((entity, capacity), set()) == set(expected[name][wanted])
+                  for entity, name in question["companies"].items()
+                  for capacity, wanted in (("incorporation", "incorporation"), ("taxResidence", "tax_residence"), ("operatingLocation", "operating_location"))}
+        points["feeder's tax residence reported as unknown"] = bool(re.search(r"feeder|E-005|I-002", " ".join(output.get("unknown", [])), re.I))
+    else:
+        expected = key["CQ3_cross_border_payments"]
+        groups = {"crossBorder": {p.split()[0] for p in expected["cross_border"]}, "notCrossBorder": set(expected["not_cross_border"]),
+                  "undetermined": set(expected["undetermined"])}
+        got = lambda value: {s for (s, a), values in facts.items() if a == "crossing" and values == {value}}
+        points = {f"{value}: {len(payments)} payments": got(value) == payments for value, payments in groups.items()}
+    return {"points": points, "passed": sum(points.values()), "total": len(points)}
+

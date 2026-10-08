@@ -10,7 +10,7 @@ import streamlit as st
 import yaml
 from psycopg.rows import dict_row
 
-from xbpei import GOLD, REVIEWER_DSN, bundle, ontology
+from xbpei import GOLD, REVIEWER_DSN, bundle, measures, ontology
 from xbpei.tools import source_row
 
 st.set_page_config(page_title="PEI Clearance and LookThrough prototype", layout="wide")
@@ -159,30 +159,13 @@ def replay_page() -> None:
 
 # Benchmark ------------------------------------------------------------------
 
-def run_lines(run: dict) -> dict[str, dict]:
-    """A run's lines for the dividend component, by recipient: from the control's output or the grounded run's accepted draft."""
-    if run["arm"] == "control":
-        try:
-            lines = json.loads(run["final_text"])["lines"]
-        except (TypeError, ValueError, KeyError):
-            return {}
-        return {l["recipient_no"]: l for l in lines if l["component"] == "D-001-A"}
-    drafts = rows("SELECT parameters FROM runlog.step WHERE run_id = %s AND concept = 'tools/draft-schedule' AND verdict = 'Written.' ORDER BY seq DESC LIMIT 1",
-                  (run["run_id"],))
-    if not drafts:
-        return {}
-    return {d["determined_for"]: {"outcome": d["determination_outcome"], "withholding_rate": d.get("withholding_rate"), "tax_withheld": d.get("tax_withheld")}
-            for d in drafts[0]["parameters"]["determinations"] if d["for_component"] == "D-001-A"}
-
-
 def benchmark_page() -> None:
     st.header("Benchmark")
-    runs = [r for r in all_runs() if r["score"]]
+    runs = [r for r in all_runs() if r["score"] and r["arm"] in ("grounded", "control")]
     if not runs:
         st.info("No scored runs are recorded.")
         return
-    st.warning("Each arm has been run once. One run shows that a setup works; it says nothing about consistency. Cost is an estimate reported by the SDK. "
-               "Scores are as stored when each run finished.")
+    st.warning("Cost is an estimate reported by the SDK. Scores are as stored when each run finished.")
     table([{"run": r["run_id"], "arm": r["arm"], "lines correct": f'{r["score"]["lines_correct"]} of {r["score"]["lines_expected"]}',
             "points": f'{r["score"]["cases_passed"]} of {r["score"]["cases_total"]}', "tax total": r["score"]["tax_total"],
             "tax error": r["score"]["tax_error"], "turns": r["turns"], "seconds": round((r["duration_ms"] or 0) / 1000),
@@ -195,10 +178,82 @@ def benchmark_page() -> None:
     st.subheader("Schedule for D-001-A against the answer key")
     key = yaml.safe_load(GOLD.read_text())["schedule_d001_a"]["lines"]
     names = {r["inv_no"]: r["display_name"] for r in rows("SELECT inv_no, display_name FROM investor_register.investor")}
-    by_run = {f'{r["arm"]} {r["run_id"]}': run_lines(r) for r in runs}
+    with psycopg.connect(REVIEWER_DSN, row_factory=dict_row) as conn:
+        by_run = {f'{r["arm"]} {r["run_id"]}': measures.run_lines(conn, r) for r in runs}
     table([{"recipient": f'{l["recipient"]} {names[l["recipient"]]}', "gross": l["gross"], "expected rate": l["rate"], "expected tax": l["tax"],
             **{label: (f'{float(lines[l["recipient"]].get("withholding_rate") or 0):g}% / {float(lines[l["recipient"]].get("tax_withheld") or 0):,.2f}'
                        if l["recipient"] in lines else "no line") for label, lines in by_run.items()}} for l in key])
+
+    st.header("What a reviewer gets")
+    st.write("These measures do not test whether an agent reached the right figures. They test what is left for a reviewer or an auditor to rely on. "
+             "The control arm has no write checks, no recorded evidence and no links from terms to steps, so it has no result on the first four.")
+    found = measures.report(REVIEWER_DSN)
+
+    st.subheader("Evidence behind the schedule")
+    table([{"run": run, "arm": e["arm"], "lines": e["lines"], "lines with resolvable evidence": e["lines_with_evidence"], "assessments": e["assessments"],
+            "facts cited": e["facts_cited"], "facts that resolve to a row": e["facts_resolved"]} for run, e in found["evidence"].items()])
+
+    st.subheader("Faulty drafts put to the write tool")
+    drafts = found["bad_drafts"]
+    if drafts["cases"]:
+        st.write(f'{drafts["caught"]} of {drafts["total"]} refused. Each is one change to the accepted draft of {drafts["from_run"]}. '
+                 "A draft that is accepted would reach the reviewer.")
+        table([{"id": c["id"], "fault": c["fault"], "control": c["control"], "result": "refused" if c["caught"] else "accepted",
+                "reason given": c["reasons"][0] if c["reasons"] else ""} for c in drafts["cases"]])
+    else:
+        st.info(drafts["note"])
+
+    st.subheader("What a change to a term reaches")
+    table([{"term": c["term"], "computations and tools": ", ".join(c["concepts"]), "WF3 steps": ", ".join(str(s) for s in c["steps"]),
+            "matches the hand-checked list": "yes" if c["as_expected"] else "no"} for c in found["term_impact"]["cases"]])
+
+    st.subheader("Terms that cannot be answered")
+    table([{"asked for": c["ask"], "expected": c["expected"], "lookup says": c["got"]} for c in found["term_lookup"]["cases"]])
+
+    st.subheader("Consistency over repeated runs")
+    table([{"arm": arm, "runs": len(c["runs"]), "recipients on which all runs agree": f'{c["recipients_agreed"]} of {c["recipients"]}',
+            "differing": ", ".join(c["recipients_differing"]), "lines correct": spread(c["lines_correct"]), "points": spread(c["points"]),
+            "turns": spread(c["turns"]), "estimated cost USD": spread(c["cost_usd"])} for arm, c in found["consistency"].items()])
+
+
+def spread(values) -> str:
+    """A lowest and highest value as one figure or a range."""
+    return "" if not values else f"{values[0]:g}" if values[0] == values[1] else f"{values[0]:g} to {values[1]:g}"
+
+
+# LookThrough ----------------------------------------------------------------
+
+def lookthrough_page() -> None:
+    st.header("LookThrough: questions answered")
+    runs = [r for r in all_runs() if r["arm"] == "lookthrough"]
+    if not runs:
+        st.info("No question has been asked. Run `python -m xbpei.ask Q1` from `solution/`.")
+        return
+    st.write("Each answer was given by an agent that can only look terms up and run the bundle's attested computations. It writes no queries. "
+             "A question about a term outside the ontology, or one no source holds, is refused.")
+    run = st.selectbox("Question", runs, format_func=lambda r: f'{r["procedure"] or "unscored"}  {r["subject"]}')
+    st.caption(f'{run["run_id"]}: {run["turns"] or "?"} turns, {round((run["duration_ms"] or 0) / 1000)} seconds, estimated USD {run["cost_usd"] or 0}')
+    try:
+        output = json.loads(run["final_text"])
+    except (TypeError, ValueError):
+        st.warning(f'The run left no answer. Outcome: {run["outcome"]}.')
+        return
+    st.subheader("Refused" if output["status"] == "refused" else "Answer")
+    st.write(output["answer"])
+    if output["facts"]:
+        table(output["facts"])
+    for label in ("unknown", "conflicts"):
+        if output[label]:
+            st.write(f"**{'Not recorded in the sources' if label == 'unknown' else 'Where the sources disagree'}**")
+            for item in output[label]:
+                st.write("- " + item)
+    if run["score"]:
+        st.subheader(f'Against the answer key: {run["score"]["passed"]} of {run["score"]["total"]}')
+        table([{"point": p, "result": "pass" if ok else "fail"} for p, ok in run["score"]["points"].items()])
+    st.subheader("What the answer rests on")
+    steps = rows("SELECT * FROM runlog.step WHERE run_id = %s AND kind IN ('computation', 'lookup') ORDER BY seq", (run["run_id"],))
+    table([{"seq": s["seq"], "kind": s["kind"], "concept": s["concept"], "parameters": json.dumps(s["parameters"]), "rows": s["row_count"],
+            "attested": s["attested"], "ontology terms": ", ".join(s["terms"] or [])} for s in steps])
 
 
 # Ontology -------------------------------------------------------------------
@@ -251,7 +306,7 @@ def ontology_page() -> None:
     table([{"steward": s, "status": t, "terms": n} for (s, t), n in sorted(status.items())])
 
 
-PAGES = {"Clearance": clearance_page, "Run replay": replay_page, "Benchmark": benchmark_page, "Ontology": ontology_page}
+PAGES = {"Clearance": clearance_page, "LookThrough": lookthrough_page, "Run replay": replay_page, "Benchmark": benchmark_page, "Ontology": ontology_page}
 st.sidebar.title("PEI prototype")
 st.sidebar.caption("Synthetic data. Rules are illustrative.")
 PAGES[st.sidebar.radio("Page", list(PAGES))]()

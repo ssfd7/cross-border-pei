@@ -21,6 +21,9 @@ ontology: { prefix: xbpei, namespace: "https://w3id.org/xb-pei/ontology#", resou
 * [Effective holding in a company](computations/effective-holding.md) - Economic and voting percentage per investor, multiplied through the chain.
 * [Circular holdings on a date](computations/ownership-cycles.md) - Parties that hold each other.
 * [Holdings on which sources disagree](computations/record-conflicts.md) - Differences between a secondary source and the system of record.
+* [Entities of the fund structure](computations/structure-entities.md) - The fund's own legal entities and what each is.
+* [Jurisdictions on the chain to a company](computations/chain-jurisdictions.md) - Recorded and unrecorded jurisdictions of every entity above a company.
+* [Payments that cross a border](computations/cross-border-payments.md) - Each payment tested on the tax residence of payer and payee.
 
 # Tools
 

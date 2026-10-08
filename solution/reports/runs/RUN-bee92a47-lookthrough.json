@@ -1,0 +1,627 @@
+{
+ "run": {
+  "run_id": "RUN-bee92a47",
+  "arm": "lookthrough",
+  "procedure": "CQ2",
+  "subject": "Which jurisdictions are involved in the ownership chain from Atlas Growth Fund I down to each of its portfolio companies on 30 October 2026?",
+  "model": "claude-opus-5-5",
+  "started_at": "2026-10-08T15:14:10.894617+00:00",
+  "finished_at": "2026-10-08T15:14:34.775284+00:00",
+  "outcome": "success",
+  "turns": 9,
+  "duration_ms": 23043,
+  "cost_usd": 0.1534,
+  "usage": {
+   "speed": "standard",
+   "iterations": [
+    {
+     "type": "message",
+     "input_tokens": 2,
+     "output_tokens": 2164,
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 4100,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "cache_read_input_tokens": 10196,
+     "cache_creation_input_tokens": 4100
+    }
+   ],
+   "input_tokens": 6,
+   "service_tier": "standard",
+   "inference_geo": "not_available",
+   "output_tokens": 2732,
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 11809,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "fallback_credit": null,
+   "server_tool_use": {
+    "web_fetch_requests": 0,
+    "web_search_requests": 0
+   },
+   "output_tokens_details": {
+    "thinking_tokens": 494
+   },
+   "cache_read_input_tokens": 15817,
+   "cache_creation_input_tokens": 11809
+  },
+  "final_text": "{\"status\": \"answered\", \"answer\": \"Atlas Growth Fund I LP (E-001) reaches two portfolio companies on 30 October 2026, and the chains involve the US, Luxembourg, Germany and Poland. That date is in the future, so this reflects the holdings and jurisdiction records as they stand today (8 October 2026) for that date.\\n\\n**Orion Manufacturing Inc. (E-003)** – the chain is US only.\\n- E-001 Atlas Growth Fund I LP: incorporated US (Delaware), tax resident US.\\n- E-002 Atlas Acquisition SPV LLC: incorporated US (Delaware), tax resident US.\\n- E-003 Orion Manufacturing Inc.: incorporated US (Delaware), tax resident US, operating in US (Ohio).\\n\\n**Borealis Logistik GmbH (E-006)** – the chain involves the US, Luxembourg, Germany and Poland.\\n- E-001 Atlas Growth Fund I LP: incorporated US (Delaware), tax resident US.\\n- E-007 Atlas Borealis Holdco S.à r.l.: incorporated LU, tax resident LU.\\n- E-006 Borealis Logistik GmbH: incorporated DE, tax resident DE, operating in DE (Hamburg) and PL.\\n\\nEach fact below is a distinct capacity and country found on the chain from the fund down to that company, counting the fund, the intermediate holding entity and the company itself. Where several entities share a capacity and country, the cited source is that of the entity nearest the company.\\n\\nEntities above the fund (Atlas GP LLC, Atlas Lux Feeder SCSp, Atlas Co-Invest Vehicle LP) are outside the fund-to-company chain and are not in the facts.\", \"facts\": [{\"subject\": \"E-003\", \"attribute\": \"incorporation\", \"value\": \"US\", \"source_ref\": \"entity_mgmt.entity_jurisdiction:E-003/INC/US/1998-05-12\"}, {\"subject\": \"E-003\", \"attribute\": \"taxResidence\", \"value\": \"US\", \"source_ref\": \"entity_mgmt.entity_jurisdiction:E-003/TAXRES/US/1998-05-12\"}, {\"subject\": \"E-003\", \"attribute\": \"operatingLocation\", \"value\": \"US\", \"source_ref\": \"entity_mgmt.entity_jurisdiction:E-003/OPS/US/1998-05-12\"}, {\"subject\": \"E-006\", \"attribute\": \"incorporation\", \"value\": \"DE\", \"source_ref\": \"entity_mgmt.entity_jurisdiction:E-006/INC/DE/2009-03-17\"}, {\"subject\": \"E-006\", \"attribute\": \"incorporation\", \"value\": \"LU\", \"source_ref\": \"entity_mgmt.entity_jurisdiction:E-007/INC/LU/2024-11-05\"}, {\"subject\": \"E-006\", \"attribute\": \"incorporation\", \"value\": \"US\", \"source_ref\": \"entity_mgmt.entity_jurisdiction:E-001/INC/US/2023-11-01\"}, {\"subject\": \"E-006\", \"attribute\": \"taxResidence\", \"value\": \"DE\", \"source_ref\": \"entity_mgmt.entity_jurisdiction:E-006/TAXRES/DE/2009-03-17\"}, {\"subject\": \"E-006\", \"attribute\": \"taxResidence\", \"value\": \"LU\", \"source_ref\": \"entity_mgmt.entity_jurisdiction:E-007/TAXRES/LU/2024-11-05\"}, {\"subject\": \"E-006\", \"attribute\": \"taxResidence\", \"value\": \"US\", \"source_ref\": \"entity_mgmt.entity_jurisdiction:E-001/TAXRES/US/2023-11-01\"}, {\"subject\": \"E-006\", \"attribute\": \"operatingLocation\", \"value\": \"DE\", \"source_ref\": \"entity_mgmt.entity_jurisdiction:E-006/OPS/DE/2009-03-17\"}, {\"subject\": \"E-006\", \"attribute\": \"operatingLocation\", \"value\": \"PL\", \"source_ref\": \"entity_mgmt.entity_jurisdiction:E-006/OPS/PL/2019-06-01\"}], \"unknown\": [\"No operating location is recorded for Atlas Growth Fund I LP (E-001), Atlas Acquisition SPV LLC (E-002) or Atlas Borealis Holdco S.à r.l. (E-007); this is unknown, not absent.\", \"Above the fund and outside the chain asked about: the tax residence of Atlas Lux Feeder SCSp (E-005) is not recorded (its incorporation is LU).\", \"30 October 2026 is after today (8 October 2026); any holding or jurisdiction change recorded between now and then is not reflected.\"], \"conflicts\": []}",
+  "score": {
+   "total": 7,
+   "passed": 7,
+   "points": {
+    "orion taxResidence": true,
+    "orion incorporation": true,
+    "borealis taxResidence": true,
+    "borealis incorporation": true,
+    "orion operatingLocation": true,
+    "borealis operatingLocation": true,
+    "feeder's tax residence reported as unknown": true
+   }
+  }
+ },
+ "steps": [
+  {
+   "run_id": "RUN-bee92a47",
+   "seq": 1,
+   "at": "2026-10-08T15:14:13.833129+00:00",
+   "kind": "computation",
+   "concept": "computations/structure-entities",
+   "terms": [
+    "xbpei:LegalEntity",
+    "xbpei:FundVehicle",
+    "xbpei:SPV",
+    "xbpei:PortfolioCompany",
+    "xbpei:identifier",
+    "xbpei:name",
+    "xbpei:legalForm"
+   ],
+   "parameters": {},
+   "executed": "SELECT e.entity_id AS entity, e.legal_name AS name, e.legal_form,\n       e.is_fund = 'Y' AS fund_vehicle, e.is_spv = 'Y' AS spv, e.is_portco = 'Y' AS portfolio_company,\n       'entity_mgmt.legal_entity:' || e.entity_id AS source_ref\nFROM entity_mgmt.legal_entity e\nORDER BY e.entity_id",
+   "result": [
+    {
+     "spv": false,
+     "name": "Atlas Growth Fund I LP",
+     "entity": "E-001",
+     "legal_form": "Delaware limited partnership",
+     "source_ref": "entity_mgmt.legal_entity:E-001",
+     "fund_vehicle": true,
+     "portfolio_company": false
+    },
+    {
+     "spv": true,
+     "name": "Atlas Acquisition SPV LLC",
+     "entity": "E-002",
+     "legal_form": "Delaware limited liability company",
+     "source_ref": "entity_mgmt.legal_entity:E-002",
+     "fund_vehicle": false,
+     "portfolio_company": false
+    },
+    {
+     "spv": false,
+     "name": "Orion Manufacturing Inc.",
+     "entity": "E-003",
+     "legal_form": "Delaware corporation",
+     "source_ref": "entity_mgmt.legal_entity:E-003",
+     "fund_vehicle": false,
+     "portfolio_company": true
+    },
+    {
+     "spv": false,
+     "name": "Atlas GP LLC",
+     "entity": "E-004",
+     "legal_form": "Delaware limited liability company",
+     "source_ref": "entity_mgmt.legal_entity:E-004",
+     "fund_vehicle": false,
+     "portfolio_company": false
+    },
+    {
+     "spv": false,
+     "name": "Atlas Lux Feeder SCSp",
+     "entity": "E-005",
+     "legal_form": "Luxembourg special limited partnership",
+     "source_ref": "entity_mgmt.legal_entity:E-005",
+     "fund_vehicle": true,
+     "portfolio_company": false
+    },
+    {
+     "spv": false,
+     "name": "Borealis Logistik GmbH",
+     "entity": "E-006",
+     "legal_form": "German limited liability company",
+     "source_ref": "entity_mgmt.legal_entity:E-006",
+     "fund_vehicle": false,
+     "portfolio_company": true
+    },
+    {
+     "spv": true,
+     "name": "Atlas Borealis Holdco S.à r.l.",
+     "entity": "E-007",
+     "legal_form": "Luxembourg private limited company",
+     "source_ref": "entity_mgmt.legal_entity:E-007",
+     "fund_vehicle": false,
+     "portfolio_company": false
+    },
+    {
+     "spv": false,
+     "name": "Atlas Co-Invest Vehicle LP",
+     "entity": "E-010",
+     "legal_form": "Delaware limited partnership",
+     "source_ref": "entity_mgmt.legal_entity:E-010",
+     "fund_vehicle": true,
+     "portfolio_company": false
+    }
+   ],
+   "row_count": 8,
+   "attested": true,
+   "verdict": "The sanctioned computation ran and the result is as reported."
+  },
+  {
+   "run_id": "RUN-bee92a47",
+   "seq": 2,
+   "at": "2026-10-08T15:14:14.072669+00:00",
+   "kind": "lookup",
+   "concept": "ontology/find",
+   "terms": [
+    "xbpei:Jurisdiction",
+    "xbpei:JurisdictionFact",
+    "xbpei:JurisdictionFactType",
+    "xbpei:JurisdictionFactTypeScheme",
+    "xbpei:hasJurisdiction",
+    "xbpei:CertificationType",
+    "xbpei:DistributionComponent",
+    "xbpei:RuleVersion"
+   ],
+   "parameters": {
+    "text": "jurisdiction"
+   },
+   "executed": null,
+   "result": [
+    {
+     "kind": "class",
+     "term": "xbpei:Jurisdiction",
+     "label": "Jurisdiction",
+     "definition": "A territory with its own legal or tax authority, national or sub-national."
+    },
+    {
+     "kind": "class",
+     "term": "xbpei:JurisdictionFact",
+     "label": "Jurisdiction Fact",
+     "definition": "A dated statement linking a legal entity to a jurisdiction in a stated capacity, such as incorporation, tax residence or operating location."
+    },
+    {
+     "kind": "class",
+     "term": "xbpei:JurisdictionFactType",
+     "label": "Jurisdiction Fact Type",
+     "definition": "The capacity in which an entity is linked to a jurisdiction."
+    },
+    {
+     "kind": "code",
+     "term": "xbpei:JurisdictionFactTypeScheme",
+     "label": "Jurisdiction fact types",
+     "definition": ""
+    },
+    {
+     "kind": "relationship",
+     "term": "xbpei:hasJurisdiction",
+     "label": "hasJurisdiction",
+     "definition": ""
+    },
+    {
+     "kind": "class",
+     "term": "xbpei:CertificationType",
+     "label": "Certification Type",
+     "definition": "A kind of tax certification form. Members depend on the jurisdiction pair chosen and are supplied as data, not in this ontology."
+    },
+    {
+     "kind": "class",
+     "term": "xbpei:DistributionComponent",
+     "label": "Distribution Component",
+     "definition": "The part of a distribution that has one income type and one source jurisdiction."
+    },
+    {
+     "kind": "class",
+     "term": "xbpei:RuleVersion",
+     "label": "Rule Version",
+     "definition": "One dated version of a rule that applies in a jurisdiction and states which facts it requires."
+    }
+   ],
+   "row_count": null,
+   "attested": null,
+   "verdict": null
+  },
+  {
+   "run_id": "RUN-bee92a47",
+   "seq": 3,
+   "at": "2026-10-08T15:14:14.284557+00:00",
+   "kind": "lookup",
+   "concept": "ontology/find",
+   "terms": [
+    "xbpei:PortfolioCompany",
+    "xbpei:FundVehicle"
+   ],
+   "parameters": {
+    "text": "portfolio company"
+   },
+   "executed": null,
+   "result": [
+    {
+     "kind": "class",
+     "term": "xbpei:PortfolioCompany",
+     "label": "Portfolio Company",
+     "definition": "A legal entity in which a fund holds an investment, directly or indirectly."
+    },
+    {
+     "kind": "class",
+     "term": "xbpei:FundVehicle",
+     "label": "Fund Vehicle",
+     "definition": "A legal entity that pools investor capital to make investments. Not disjoint with SPV or Portfolio Company."
+    }
+   ],
+   "row_count": null,
+   "attested": null,
+   "verdict": null
+  },
+  {
+   "run_id": "RUN-bee92a47",
+   "seq": 4,
+   "at": "2026-10-08T15:14:16.259028+00:00",
+   "kind": "computation",
+   "concept": "computations/chain-jurisdictions",
+   "terms": [
+    "xbpei:JurisdictionFact",
+    "xbpei:aboutEntity",
+    "xbpei:hasJurisdiction",
+    "xbpei:hasFactType",
+    "xbpei:Incorporation",
+    "xbpei:TaxResidence",
+    "xbpei:OperatingLocation",
+    "xbpei:validDuring",
+    "xbpei:OwnershipInterest",
+    "xbpei:heldBy",
+    "xbpei:interestIn",
+    "xbpei:LegalEntity",
+    "xbpei:FundVehicle"
+   ],
+   "parameters": {
+    "on_date": "2026-10-30",
+    "company_id": "E-003"
+   },
+   "executed": "WITH RECURSIVE chain (entity_id, tier, above_fund, path) AS (\n    SELECT e.entity_id, 0, false, ARRAY[e.entity_id]\n    FROM entity_mgmt.legal_entity e WHERE e.entity_id = %(company_id)s\n    UNION ALL\n    SELECT s.owner_entity_id, c.tier + 1, c.above_fund OR owned.is_fund = 'Y', c.path || s.owner_entity_id\n    FROM chain c\n    JOIN entity_mgmt.legal_entity owned ON owned.entity_id = c.entity_id\n    JOIN entity_mgmt.shareholding s ON s.owned_entity_id = c.entity_id\n     AND s.eff_from <= %(on_date)s::date AND (s.eff_to IS NULL OR s.eff_to >= %(on_date)s::date)\n    WHERE s.owner_entity_id <> ALL (c.path)\n), entity AS (\n    SELECT entity_id, min(tier) AS tier, bool_and(above_fund) AS above_fund FROM chain GROUP BY entity_id\n), wanted (entity_id, capacity_cd) AS (\n    SELECT entity_id, capacity FROM entity CROSS JOIN (VALUES ('INC'), ('TAXRES')) AS c (capacity)\n    UNION\n    SELECT j.entity_id, 'OPS' FROM entity_mgmt.entity_jurisdiction j JOIN entity USING (entity_id) WHERE j.capacity_cd = 'OPS'\n)\nSELECT e.entity_id AS entity, l.legal_name AS name, e.tier,\n       CASE WHEN e.above_fund THEN 'aboveFund' ELSE 'fundToCompany' END AS segment,\n       CASE w.capacity_cd WHEN 'INC' THEN 'incorporation' WHEN 'TAXRES' THEN 'taxResidence' ELSE 'operatingLocation' END AS capacity,\n       j.country, j.subdivision, j.country IS NOT NULL AS recorded,\n       'entity_mgmt.entity_jurisdiction:' || j.entity_id || '/' || j.capacity_cd || '/' || j.country || '/' || j.from_dt AS source_ref\nFROM entity e\nJOIN entity_mgmt.legal_entity l ON l.entity_id = e.entity_id\nJOIN wanted w ON w.entity_id = e.entity_id\nLEFT JOIN entity_mgmt.entity_jurisdiction j ON j.entity_id = w.entity_id AND j.capacity_cd = w.capacity_cd\n AND j.from_dt <= %(on_date)s::date AND (j.to_dt IS NULL OR j.to_dt >= %(on_date)s::date)\nORDER BY e.tier, e.entity_id, w.capacity_cd, j.country",
+   "result": [
+    {
+     "name": "Orion Manufacturing Inc.",
+     "tier": 0,
+     "entity": "E-003",
+     "country": "US",
+     "segment": "fundToCompany",
+     "capacity": "incorporation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-003/INC/US/1998-05-12",
+     "subdivision": "US-DE"
+    },
+    {
+     "name": "Orion Manufacturing Inc.",
+     "tier": 0,
+     "entity": "E-003",
+     "country": "US",
+     "segment": "fundToCompany",
+     "capacity": "operatingLocation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-003/OPS/US/1998-05-12",
+     "subdivision": "US-OH"
+    },
+    {
+     "name": "Orion Manufacturing Inc.",
+     "tier": 0,
+     "entity": "E-003",
+     "country": "US",
+     "segment": "fundToCompany",
+     "capacity": "taxResidence",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-003/TAXRES/US/1998-05-12",
+     "subdivision": null
+    },
+    {
+     "name": "Atlas Acquisition SPV LLC",
+     "tier": 1,
+     "entity": "E-002",
+     "country": "US",
+     "segment": "fundToCompany",
+     "capacity": "incorporation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-002/INC/US/2024-02-12",
+     "subdivision": "US-DE"
+    },
+    {
+     "name": "Atlas Acquisition SPV LLC",
+     "tier": 1,
+     "entity": "E-002",
+     "country": "US",
+     "segment": "fundToCompany",
+     "capacity": "taxResidence",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-002/TAXRES/US/2024-02-12",
+     "subdivision": null
+    },
+    {
+     "name": "Atlas Growth Fund I LP",
+     "tier": 2,
+     "entity": "E-001",
+     "country": "US",
+     "segment": "fundToCompany",
+     "capacity": "incorporation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-001/INC/US/2023-11-01",
+     "subdivision": "US-DE"
+    },
+    {
+     "name": "Atlas Growth Fund I LP",
+     "tier": 2,
+     "entity": "E-001",
+     "country": "US",
+     "segment": "fundToCompany",
+     "capacity": "taxResidence",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-001/TAXRES/US/2023-11-01",
+     "subdivision": null
+    },
+    {
+     "name": "Atlas GP LLC",
+     "tier": 3,
+     "entity": "E-004",
+     "country": "US",
+     "segment": "aboveFund",
+     "capacity": "incorporation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-004/INC/US/2023-10-20",
+     "subdivision": "US-DE"
+    },
+    {
+     "name": "Atlas GP LLC",
+     "tier": 3,
+     "entity": "E-004",
+     "country": "US",
+     "segment": "aboveFund",
+     "capacity": "taxResidence",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-004/TAXRES/US/2023-10-20",
+     "subdivision": null
+    },
+    {
+     "name": "Atlas Lux Feeder SCSp",
+     "tier": 3,
+     "entity": "E-005",
+     "country": "LU",
+     "segment": "aboveFund",
+     "capacity": "incorporation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-005/INC/LU/2023-12-01",
+     "subdivision": null
+    },
+    {
+     "name": "Atlas Lux Feeder SCSp",
+     "tier": 3,
+     "entity": "E-005",
+     "country": null,
+     "segment": "aboveFund",
+     "capacity": "taxResidence",
+     "recorded": false,
+     "source_ref": null,
+     "subdivision": null
+    },
+    {
+     "name": "Atlas Co-Invest Vehicle LP",
+     "tier": 3,
+     "entity": "E-010",
+     "country": "US",
+     "segment": "aboveFund",
+     "capacity": "incorporation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-010/INC/US/2024-01-15",
+     "subdivision": "US-DE"
+    },
+    {
+     "name": "Atlas Co-Invest Vehicle LP",
+     "tier": 3,
+     "entity": "E-010",
+     "country": "US",
+     "segment": "aboveFund",
+     "capacity": "taxResidence",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-010/TAXRES/US/2024-01-15",
+     "subdivision": null
+    }
+   ],
+   "row_count": 13,
+   "attested": true,
+   "verdict": "The sanctioned computation ran and the result is as reported."
+  },
+  {
+   "run_id": "RUN-bee92a47",
+   "seq": 5,
+   "at": "2026-10-08T15:14:16.562325+00:00",
+   "kind": "computation",
+   "concept": "computations/chain-jurisdictions",
+   "terms": [
+    "xbpei:JurisdictionFact",
+    "xbpei:aboutEntity",
+    "xbpei:hasJurisdiction",
+    "xbpei:hasFactType",
+    "xbpei:Incorporation",
+    "xbpei:TaxResidence",
+    "xbpei:OperatingLocation",
+    "xbpei:validDuring",
+    "xbpei:OwnershipInterest",
+    "xbpei:heldBy",
+    "xbpei:interestIn",
+    "xbpei:LegalEntity",
+    "xbpei:FundVehicle"
+   ],
+   "parameters": {
+    "on_date": "2026-10-30",
+    "company_id": "E-006"
+   },
+   "executed": "WITH RECURSIVE chain (entity_id, tier, above_fund, path) AS (\n    SELECT e.entity_id, 0, false, ARRAY[e.entity_id]\n    FROM entity_mgmt.legal_entity e WHERE e.entity_id = %(company_id)s\n    UNION ALL\n    SELECT s.owner_entity_id, c.tier + 1, c.above_fund OR owned.is_fund = 'Y', c.path || s.owner_entity_id\n    FROM chain c\n    JOIN entity_mgmt.legal_entity owned ON owned.entity_id = c.entity_id\n    JOIN entity_mgmt.shareholding s ON s.owned_entity_id = c.entity_id\n     AND s.eff_from <= %(on_date)s::date AND (s.eff_to IS NULL OR s.eff_to >= %(on_date)s::date)\n    WHERE s.owner_entity_id <> ALL (c.path)\n), entity AS (\n    SELECT entity_id, min(tier) AS tier, bool_and(above_fund) AS above_fund FROM chain GROUP BY entity_id\n), wanted (entity_id, capacity_cd) AS (\n    SELECT entity_id, capacity FROM entity CROSS JOIN (VALUES ('INC'), ('TAXRES')) AS c (capacity)\n    UNION\n    SELECT j.entity_id, 'OPS' FROM entity_mgmt.entity_jurisdiction j JOIN entity USING (entity_id) WHERE j.capacity_cd = 'OPS'\n)\nSELECT e.entity_id AS entity, l.legal_name AS name, e.tier,\n       CASE WHEN e.above_fund THEN 'aboveFund' ELSE 'fundToCompany' END AS segment,\n       CASE w.capacity_cd WHEN 'INC' THEN 'incorporation' WHEN 'TAXRES' THEN 'taxResidence' ELSE 'operatingLocation' END AS capacity,\n       j.country, j.subdivision, j.country IS NOT NULL AS recorded,\n       'entity_mgmt.entity_jurisdiction:' || j.entity_id || '/' || j.capacity_cd || '/' || j.country || '/' || j.from_dt AS source_ref\nFROM entity e\nJOIN entity_mgmt.legal_entity l ON l.entity_id = e.entity_id\nJOIN wanted w ON w.entity_id = e.entity_id\nLEFT JOIN entity_mgmt.entity_jurisdiction j ON j.entity_id = w.entity_id AND j.capacity_cd = w.capacity_cd\n AND j.from_dt <= %(on_date)s::date AND (j.to_dt IS NULL OR j.to_dt >= %(on_date)s::date)\nORDER BY e.tier, e.entity_id, w.capacity_cd, j.country",
+   "result": [
+    {
+     "name": "Borealis Logistik GmbH",
+     "tier": 0,
+     "entity": "E-006",
+     "country": "DE",
+     "segment": "fundToCompany",
+     "capacity": "incorporation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-006/INC/DE/2009-03-17",
+     "subdivision": null
+    },
+    {
+     "name": "Borealis Logistik GmbH",
+     "tier": 0,
+     "entity": "E-006",
+     "country": "DE",
+     "segment": "fundToCompany",
+     "capacity": "operatingLocation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-006/OPS/DE/2009-03-17",
+     "subdivision": "DE-HH"
+    },
+    {
+     "name": "Borealis Logistik GmbH",
+     "tier": 0,
+     "entity": "E-006",
+     "country": "PL",
+     "segment": "fundToCompany",
+     "capacity": "operatingLocation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-006/OPS/PL/2019-06-01",
+     "subdivision": null
+    },
+    {
+     "name": "Borealis Logistik GmbH",
+     "tier": 0,
+     "entity": "E-006",
+     "country": "DE",
+     "segment": "fundToCompany",
+     "capacity": "taxResidence",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-006/TAXRES/DE/2009-03-17",
+     "subdivision": null
+    },
+    {
+     "name": "Atlas Borealis Holdco S.à r.l.",
+     "tier": 1,
+     "entity": "E-007",
+     "country": "LU",
+     "segment": "fundToCompany",
+     "capacity": "incorporation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-007/INC/LU/2024-11-05",
+     "subdivision": null
+    },
+    {
+     "name": "Atlas Borealis Holdco S.à r.l.",
+     "tier": 1,
+     "entity": "E-007",
+     "country": "LU",
+     "segment": "fundToCompany",
+     "capacity": "taxResidence",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-007/TAXRES/LU/2024-11-05",
+     "subdivision": null
+    },
+    {
+     "name": "Atlas Growth Fund I LP",
+     "tier": 2,
+     "entity": "E-001",
+     "country": "US",
+     "segment": "fundToCompany",
+     "capacity": "incorporation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-001/INC/US/2023-11-01",
+     "subdivision": "US-DE"
+    },
+    {
+     "name": "Atlas Growth Fund I LP",
+     "tier": 2,
+     "entity": "E-001",
+     "country": "US",
+     "segment": "fundToCompany",
+     "capacity": "taxResidence",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-001/TAXRES/US/2023-11-01",
+     "subdivision": null
+    },
+    {
+     "name": "Atlas GP LLC",
+     "tier": 3,
+     "entity": "E-004",
+     "country": "US",
+     "segment": "aboveFund",
+     "capacity": "incorporation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-004/INC/US/2023-10-20",
+     "subdivision": "US-DE"
+    },
+    {
+     "name": "Atlas GP LLC",
+     "tier": 3,
+     "entity": "E-004",
+     "country": "US",
+     "segment": "aboveFund",
+     "capacity": "taxResidence",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-004/TAXRES/US/2023-10-20",
+     "subdivision": null
+    },
+    {
+     "name": "Atlas Lux Feeder SCSp",
+     "tier": 3,
+     "entity": "E-005",
+     "country": "LU",
+     "segment": "aboveFund",
+     "capacity": "incorporation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-005/INC/LU/2023-12-01",
+     "subdivision": null
+    },
+    {
+     "name": "Atlas Lux Feeder SCSp",
+     "tier": 3,
+     "entity": "E-005",
+     "country": null,
+     "segment": "aboveFund",
+     "capacity": "taxResidence",
+     "recorded": false,
+     "source_ref": null,
+     "subdivision": null
+    },
+    {
+     "name": "Atlas Co-Invest Vehicle LP",
+     "tier": 3,
+     "entity": "E-010",
+     "country": "US",
+     "segment": "aboveFund",
+     "capacity": "incorporation",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-010/INC/US/2024-01-15",
+     "subdivision": "US-DE"
+    },
+    {
+     "name": "Atlas Co-Invest Vehicle LP",
+     "tier": 3,
+     "entity": "E-010",
+     "country": "US",
+     "segment": "aboveFund",
+     "capacity": "taxResidence",
+     "recorded": true,
+     "source_ref": "entity_mgmt.entity_jurisdiction:E-010/TAXRES/US/2024-01-15",
+     "subdivision": null
+    }
+   ],
+   "row_count": 14,
+   "attested": true,
+   "verdict": "The sanctioned computation ran and the result is as reported."
+  }
+ ]
+}

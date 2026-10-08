@@ -2,7 +2,7 @@
 
 A prototype showing how one ontology and one semantic layer ground AI agents across two business products, over data held in emulated legacy systems. All fund, investor and payment data is synthetic, and the tax rules are illustrative.
 
-**Status (2026-10-06):** business requirements and the semantic model are drafted. A first prototype exists for one procedure, WF3 withholding at distribution, and has been run once with a grounded agent and once with an ungrounded one. Both produced the correct schedule; the benchmark does not yet show an accuracy benefit from grounding. See the [run report](solution/reports/2026-10-06-wf3-two-arm-run.md).
+**Status (2026-10-08):** business requirements and the semantic model are drafted. A first prototype exists for one procedure, WF3 withholding at distribution, with review screens and a documented extension to OKF that ties the bundle to the ontology. It has been run three times with a grounded agent and three times with an ungrounded one: the grounded agent produced the correct schedule every time, the ungrounded one in two runs of three. A read-only agent answers the first three LookThrough questions from the same bundle. See the [first run report](solution/reports/2026-10-06-wf3-two-arm-run.md) and the [second report](solution/reports/2026-10-08-controls-benchmark-and-lookthrough.md).
 
 ## Two products, one ontology, one semantic layer
 
@@ -16,7 +16,7 @@ Both products rest on the same two things:
 - **The ontology** says what each term means: 38 concepts such as Party, Ownership Interest and Clearance, each with a steward and a status. It is in [`model/`](model/README.md).
 - **The semantic layer** connects those terms to data and to work. Mappings say where each term's instances live in the source systems; attested queries, write tools and procedures refer to the terms through `reads` and `writes` links in their frontmatter. It is packaged as an OKF bundle in `solution/bundle/`.
 
-So far only Clearance runs on it, for one procedure (WF3). LookThrough has the graph projection and three graph queries, but no question answering yet.
+Clearance runs on it for one procedure (WF3). LookThrough answers CQ1 to CQ3 on it; CQ4 to CQ6 are not built.
 
 ## Repository layout
 
@@ -39,18 +39,18 @@ So far only Clearance runs on it, for one procedure (WF3). LookThrough has the g
 
 ## The prototype
 
-Everything is under `solution/`. It covers WF3 only; WF1, WF2 and the LookThrough questions are not built.
+Everything is under `solution/`. It covers WF3 and the LookThrough questions CQ1 to CQ3; WF1, WF2 and CQ4 to CQ6 are not built.
 
 | Path | Contents |
 |---|---|
 | `solution/db/` | Postgres schemas and seed data: six emulated source systems (entity management, investor register, onboarding, treasury, documents, rule library), the Clearance schema and the run log. Agents read the source systems and never write to them |
 | `solution/gold/` | The answer key for the gold dataset and a script that recomputes its figures from the data |
 | `solution/documents/` | Five synthetic documents |
-| `solution/bundle/` | An [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle: the WF3 procedure, twelve attested computations, five tools, and the mapping files that say where instances of each ontology term live |
+| `solution/bundle/` | An [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle: the WF3 procedure, fifteen attested computations, five tools, and the mapping files that say where instances of each ontology term live |
 | `solution/shapes/` | SHACL shapes generated from the ontology, and hand-written shapes for four procedure controls |
-| `solution/xbpei/` | Python: ontology and mapping lookups, checks, the graph projection (LadybugDB), the executor and attester, the write tools, the agent runner and the scorer |
-| `solution/app.py` | A Streamlit app with four review screens: the draft schedule with the evidence behind each line and reviewer sign-off, a replay of recorded runs, the benchmark, and an ontology browser |
-| `solution/reports/` | The run report and the exported runs |
+| `solution/xbpei/` | Python: ontology and mapping lookups, checks, the graph projection (LadybugDB), the executor and attester, the write tools, the two agent runners (`agent` for WF3, `ask` for LookThrough questions), the scorer and the reviewer measures |
+| `solution/app.py` | A Streamlit app with five review screens: the draft schedule with the evidence behind each line and reviewer sign-off, the LookThrough answers with what each rests on, a replay of recorded runs, the benchmark with the reviewer measures, and an ontology browser |
+| `solution/reports/` | The two reports and the exported runs |
 
 How the pieces relate:
 
@@ -64,11 +64,12 @@ How the bundle ties the questions, the workflow and the data to one ontology. Th
 
 ![One ontology at the core, a Semantic Layer (OKF bundle) around it](solution/diagrams/okf-extension-overview.png)
 
-To run it, see section 12 of the [run report](solution/reports/2026-10-06-wf3-two-arm-run.md). To open the review screens, run `.venv/bin/streamlit run app.py` from `solution/` with the database up. The screens read the live database, so they are empty until an agent run has been recorded.
+To run it, see section 12 of the [first run report](solution/reports/2026-10-06-wf3-two-arm-run.md). To ask a LookThrough question, run `.venv/bin/python -m xbpei.ask Q1` from `solution/`, or pass a question in quotes. `.venv/bin/python -m xbpei.measures` prints the reviewer measures. To open the review screens, run `.venv/bin/streamlit run app.py` from `solution/` with the database up. The screens read the live database, so they are empty until an agent run has been recorded.
 
 ## Open decisions
 
-- How to make the benchmark able to separate a grounded agent from an ungrounded one: a larger and less legible dataset, measures of evidence and control in place of accuracy alone, or a smaller model. The run report sets out the options.
+- Whether to close the four faulty drafts the write tool accepts (the second report lists them), and whether a line with outcome `notApplicable` must cite an assessment.
+- Whether to go further in separating a grounded agent from an ungrounded one: a larger and less legible dataset, or a smaller model in both arms. Neither has been tried.
 - Whether Jurisdiction Fact and Tax Status Assertion are kinds of Fact Assertion in the ontology.
 - Ontology terms the source data needs and the model lacks: the treaty a certification claims under, its limitation-on-benefits category, the treaty partner of a rule version, and the party a missing-fact finding concerns.
 - The clearance questions CL1–CL8 in the model are proposals and are not yet in the Clearance requirements.
@@ -81,4 +82,4 @@ Copyright 2026 Radu Marian. Licensed under the [Apache License 2.0](LICENSE).
 
 ## Limits
 
-The operating procedures are illustrative and have not been reviewed by a practitioner. The ontology encodes no jurisdiction-specific tax rule. The three rule versions in the prototype's rule library are illustrative: their rates, citations and the way the holding threshold is measured have not been checked against primary law. The Turtle parses with rdflib and has not been run through a reasoner. The bundle's concepts are drafts and none has been verified by a person. Each agent arm has been run once.
+The operating procedures are illustrative and have not been reviewed by a practitioner. The ontology encodes no jurisdiction-specific tax rule. The three rule versions in the prototype's rule library are illustrative: their rates, citations and the way the holding threshold is measured have not been checked against primary law. The Turtle parses with rdflib and has not been run through a reasoner. The bundle's concepts are drafts and none has been verified by a person. Each agent arm has been run three times, and each LookThrough question once.

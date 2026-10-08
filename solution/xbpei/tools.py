@@ -7,6 +7,7 @@ from datetime import date
 from decimal import Decimal
 
 import psycopg
+from psycopg.rows import tuple_row
 from pyshacl import validate
 from rdflib import Graph, Literal, URIRef
 from rdflib.namespace import RDF, XSD
@@ -159,28 +160,35 @@ def shape_violations(g: Graph) -> list[str]:
     return sorted(f"{str(r.focus).rsplit(':', 1)[-1]}{' ' + str(r.path).rsplit('#', 1)[-1] if r.path else ''}: {r.message}" for r in rows)
 
 
+def draft_reasons(conn, schedule_id: str, distribution_id: str, determinations: list[dict]) -> list[str]:
+    """Why a draft schedule would be refused. Empty if it would be written. Writes nothing."""
+    components = dict(conn.cursor(row_factory=tuple_row).execute(
+        "SELECT comp_id, gross_amt FROM treasury.distribution_component WHERE dist_id = %s", (distribution_id,)).fetchall())
+    if not components:
+        return [f"No distribution {distribution_id}."]
+    reasons = shape_violations(schedule_graph(schedule_id, distribution_id, determinations))
+    for d in determinations:
+        line = f"{d.get('determined_for')} {d.get('for_component')}"
+        if d.get("for_component") not in components:
+            reasons.append(f"{line}: the component is not part of {distribution_id}.")
+        for key, table in (("determined_for", "investor_register.investor"), ("relies_on_clearance", "clearance.clearance"),
+                           ("supported_by", "clearance.obligation_assessment")):
+            if d.get(key) and not resolves(conn, f"{table}:{d[key]}"):
+                reasons.append(f"{line}: {key} {d[key]} does not resolve to a row.")
+        if not d.get("rate_basis"):
+            reasons.append(f"{line}: no rate basis.")
+    for component, gross in components.items():
+        total = sum(Decimal(str(d.get("gross_amount") or 0)) for d in determinations if d.get("for_component") == component)
+        if total != gross:
+            reasons.append(f"{component}: gross amounts sum to {total}, the distribution gives {gross}. A recipient is missing, repeated or misstated.")
+    return reasons
+
+
 def draft_schedule(distribution_id: str, determinations: list[dict], run_id: str | None = None) -> dict:
     parameters = {"distribution_id": distribution_id, "determinations": determinations}
     with psycopg.connect(DSN) as conn:
-        components = dict(conn.execute("SELECT comp_id, gross_amt FROM treasury.distribution_component WHERE dist_id = %s", (distribution_id,)).fetchall())
-        if not components:
-            return refused(run_id, "tools/draft-schedule", parameters, [f"No distribution {distribution_id}."])
         schedule_id = next_id(conn, "withholding_schedule", "schedule_id", "WS-R")
-        reasons = shape_violations(schedule_graph(schedule_id, distribution_id, determinations))
-        for d in determinations:
-            line = f"{d.get('determined_for')} {d.get('for_component')}"
-            if d.get("for_component") not in components:
-                reasons.append(f"{line}: the component is not part of {distribution_id}.")
-            for key, table in (("determined_for", "investor_register.investor"), ("relies_on_clearance", "clearance.clearance"),
-                               ("supported_by", "clearance.obligation_assessment")):
-                if d.get(key) and not resolves(conn, f"{table}:{d[key]}"):
-                    reasons.append(f"{line}: {key} {d[key]} does not resolve to a row.")
-            if not d.get("rate_basis"):
-                reasons.append(f"{line}: no rate basis.")
-        for component, gross in components.items():
-            total = sum(Decimal(str(d.get("gross_amount") or 0)) for d in determinations if d.get("for_component") == component)
-            if total != gross:
-                reasons.append(f"{component}: gross amounts sum to {total}, the distribution gives {gross}. A recipient is missing, repeated or misstated.")
+        reasons = draft_reasons(conn, schedule_id, distribution_id, determinations)
         if reasons:
             return refused(run_id, "tools/draft-schedule", parameters, reasons)
         conn.execute("INSERT INTO clearance.withholding_schedule (schedule_id, schedule_for, schedule_status, prepared_by) VALUES (%s, %s, 'draft', %s)",
