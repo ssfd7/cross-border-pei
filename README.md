@@ -2,7 +2,7 @@
 
 A prototype showing how one ontology and one semantic layer ground AI agents across two business products, over data held in emulated legacy systems. All fund, investor and payment data is synthetic, and the tax rules are illustrative.
 
-**Status (2026-10-08):** business requirements and the semantic model are drafted. A first prototype exists for one procedure, WF3 withholding at distribution, with review screens and a documented extension to OKF that ties the bundle to the ontology. It has been run three times with a grounded agent and three times with an ungrounded one: the grounded agent produced the correct schedule every time, in a fourth run as well, the ungrounded one in two runs of three. A read-only agent answers the first three LookThrough questions from the same bundle. See the [first run report](solution/reports/2026-10-06-wf3-two-arm-run.md) and the [second report](solution/reports/2026-10-08-controls-benchmark-and-lookthrough.md).
+**Status (2026-10-08):** business requirements and the semantic model are drafted. A first prototype exists for one procedure, WF3 withholding at distribution, with review screens and a documented extension to OKF that ties the bundle to the ontology. It has been run three times with a grounded agent and three times with an ungrounded one: the grounded agent produced the correct schedule every time, in a fourth run as well, the ungrounded one in two runs of three. A read-only agent answers the six LookThrough questions from the same bundle. See the [first run report](solution/reports/2026-10-06-wf3-two-arm-run.md) and the [second report](solution/reports/2026-10-08-controls-benchmark-and-lookthrough.md).
 
 ## Two products, one ontology, one semantic layer
 
@@ -16,7 +16,7 @@ Both products rest on the same two things:
 - **The ontology** says what each term means: 38 concepts such as Party, Ownership Interest and Clearance, each with a steward and a status. It is in [`model/`](model/README.md).
 - **The semantic layer** connects those terms to data and to work. Mappings say where each term's instances live in the source systems; attested queries, write tools and procedures refer to the terms through `reads` and `writes` links in their frontmatter. It is packaged as an OKF bundle in `solution/bundle/`.
 
-Clearance runs on it for one procedure (WF3). LookThrough answers CQ1 to CQ3 on it; CQ4 to CQ6 are not built.
+Clearance runs on it for one procedure (WF3). LookThrough answers CQ1 to CQ6 on it, and CQ4 to CQ6 read what WF3 recorded.
 
 ## Repository layout
 
@@ -39,14 +39,14 @@ Clearance runs on it for one procedure (WF3). LookThrough answers CQ1 to CQ3 on 
 
 ## The prototype
 
-Everything is under `solution/`. It covers WF3 and the LookThrough questions CQ1 to CQ3; WF1, WF2 and CQ4 to CQ6 are not built.
+Everything is under `solution/`. It covers WF3 and the LookThrough questions CQ1 to CQ6; WF1 and WF2 are not built.
 
 | Path | Contents |
 |---|---|
 | `solution/db/` | Postgres schemas and seed data: six emulated source systems (entity management, investor register, onboarding, treasury, documents, rule library), the Clearance schema and the run log. Agents read the source systems and never write to them |
 | `solution/gold/` | The answer key for the gold dataset and a script that recomputes its figures from the data |
 | `solution/documents/` | Five synthetic documents |
-| `solution/bundle/` | An [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle: the WF3 procedure, fifteen attested computations, five tools, and the mapping files that say where instances of each ontology term live |
+| `solution/bundle/` | An [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle: the WF3 procedure, eighteen attested computations, five tools, and the mapping files that say where instances of each ontology term live |
 | `solution/shapes/` | SHACL shapes generated from the ontology, and hand-written shapes for four procedure controls |
 | `solution/xbpei/` | Python: ontology and mapping lookups, checks, the graph projection (LadybugDB), the executor and attester, the write tools, the two agent runners (`agent` for WF3, `ask` for LookThrough questions), the scorer and the reviewer measures |
 | `solution/app.py` | A Streamlit app with five review screens: the draft schedule with the evidence behind each line and reviewer sign-off, the LookThrough answers with what each rests on, a replay of recorded runs, the benchmark with the reviewer measures, and an ontology browser |

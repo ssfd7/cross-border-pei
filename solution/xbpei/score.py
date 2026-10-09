@@ -83,6 +83,20 @@ def score_answer(question: dict, output: dict) -> dict:
                   for entity, name in question["companies"].items()
                   for capacity, wanted in (("incorporation", "incorporation"), ("taxResidence", "tax_residence"), ("operatingLocation", "operating_location"))}
         points["feeder's tax residence reported as unknown"] = bool(re.search(r"feeder|E-005|I-002", " ".join(output.get("unknown", [])), re.I))
+    elif question["cq"] == "CQ4":
+        expected, party = key["CQ4_support_i001_d001a"], "I-001"
+        points = {"rule version": expected["rule"] in facts.get((party, "rule"), set()), "rate": near(number(party, "rate"), expected["rate"]),
+                  "clearance relied on": facts.get((party, "clearance"), set()) == {expected["clearance"]},
+                  "certification cited as a fact": expected["fact"] in facts.get((party, "fact"), set())}
+    elif question["cq"] == "CQ5":
+        expected = key["CQ5_missing_facts"]
+        points = {"parties with a missing fact": {s for s, a in facts if a == "unmetRequirement"} == set(expected["parties"]),
+                  "circular holding: ownership requirement": expected["requirement_i006"] in facts.get(("I-006", "unmetRequirement"), set())}
+    elif question["cq"] == "CQ6":
+        expected = key["CQ6_rests_on_i006"]
+        of_kind = lambda kind: {s for (s, a), values in facts.items() if a == "kind" and values == {kind}}
+        points = {"clearance": of_kind("clearance") == set(expected["clearance"]), "open change case": of_kind("case") == set(expected["case"]),
+                  "assessments named": bool(of_kind("assessment")), "determinations named": bool(of_kind("determination"))}
     else:
         expected = key["CQ3_cross_border_payments"]
         groups = {"crossBorder": {p.split()[0] for p in expected["cross_border"]}, "notCrossBorder": set(expected["not_cross_border"]),

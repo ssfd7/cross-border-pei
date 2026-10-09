@@ -7,7 +7,7 @@ Date: 2026-10-08. Follows the [first run report](2026-10-06-wf3-two-arm-run.md),
 - Each arm of WF3 has now been run three times. The grounded agent produced the correct schedule in all three runs. The ungrounded agent produced it in two and, in the third, gave the investor in a circular holding the treaty rate, under-withholding by USD 45,000.
 - Five measures of what a reviewer or auditor gets from a run were added beside the accuracy score. The ungrounded arm has no result on four of them, because it has no write checks, no recorded evidence and no links from terms to steps.
 - The measures also showed two gaps on the grounded side. The write tool accepted four of ten faulty drafts, and it accepted a line with outcome `notApplicable` that cites no assessment. Both were closed afterwards, and a fourth grounded run passed the stricter checks (section 6).
-- A read-only agent answered the first three LookThrough questions and refused two unanswerable ones from the same bundle, scoring 19 of 19 points against the answer key. Each question was asked once.
+- A read-only agent answered the six LookThrough questions and refused two unanswerable ones from the same bundle, scoring 29 of 29 points against the answer key. Each question was asked once. CQ4 to CQ6 were added on 2026-10-09.
 
 Three runs per arm is a small number. One miss in three shows that the ungrounded arm can fail on this dataset; it does not measure how often.
 
@@ -85,10 +85,15 @@ Six lookups returned what was expected: two mapped terms were answered, two term
 | CQ1 Which investors have indirect exposure to Orion Manufacturing, and how much? | RUN-9eb95edb | Answered | 3 of 3 | 10 | USD 0.16 |
 | CQ2 Which jurisdictions are on the chain from the fund to each portfolio company? | RUN-bee92a47 | Answered | 7 of 7 | 9 | USD 0.15 |
 | CQ3 Which payments cross a jurisdictional boundary? | RUN-c315ee6b | Answered | 3 of 3 | 7 | USD 0.12 |
+| CQ4 What facts and rules support the withholding on Harbor Pension Trust's share of the dividend? | RUN-126585e2 | Answered | 4 of 4 | 9 | USD 0.19 |
+| CQ5 Which required facts are missing, and for which parties? | RUN-f14afc82 | Answered | 2 of 2 | 5 | USD 0.07 |
+| CQ6 What would have to be revisited if the status or ownership of Meridian Holdings I changed? | RUN-8ee6fded | Answered | 4 of 4 | 10 | USD 0.15 |
 | What is the vintage year of Atlas Growth Fund I? | RUN-635befc4 | Refused: no source holds the term | 3 of 3 | 8 | USD 0.05 |
 | Which investors are politically exposed persons? | RUN-2bf03b90 | Refused: not a term of the ontology | 3 of 3 | 9 | USD 0.03 |
 
 The answers reported what the sources leave open without being asked for it: the difference between the investor register and entity management on one holding (3.0% against 3.5%), the unrecorded tax residence of the Luxembourg feeder, and the two payments whose crossing cannot be determined.
+
+CQ4 to CQ6 were added the next day with three more computations: the support for a withholding determination, the missing-fact findings, and the records that rest on a party's facts. They read the assessments, findings and schedule that the last run of WF3 recorded (RUN-305c4912), so the second product reuses what the first one wrote. Their answer key names only what any correct run leaves, which makes these three the most lightly scored. For CQ6 the answer lists the records to look at again; whether a treatment would change depends on the new fact, and the answer says so.
 
 ## 5. Limits
 
@@ -114,12 +119,11 @@ One run shows the agent can still complete the procedure under the stricter chec
 ## 7. Options from here
 
 1. **Have a practitioner add faulty drafts** the present checks were not written for.
-2. **Build CQ4 to CQ6.** CQ4 and CQ5 can read the assessments and missing-fact findings that WF3 already records. Nothing supports CQ6 yet.
-3. **A harder dataset or a smaller model**, as set out in the first report. Neither has been tried.
+2. **A harder dataset or a smaller model**, as set out in the first report. Neither has been tried.
 
 ## 8. Files
 
 - `xbpei/measures.py`, `xbpei/ask.py`, and `score_answer` in `xbpei/score.py`
 - `gold/answer-key.yaml`: sections `lookthrough_questions`, `term_impact`, `term_lookup` and `faulty_drafts`
-- `bundle/computations/structure-entities.md`, `chain-jurisdictions.md`, `cross-border-payments.md`
+- `bundle/computations/structure-entities.md`, `chain-jurisdictions.md`, `cross-border-payments.md`, `determination-support.md`, `missing-facts.md`, `records-resting-on-party.md`
 - `reports/runs/`: every run named above, with its steps

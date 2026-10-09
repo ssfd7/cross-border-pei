@@ -1,0 +1,204 @@
+{
+ "run": {
+  "run_id": "RUN-f14afc82",
+  "arm": "lookthrough",
+  "procedure": "CQ5",
+  "subject": "Which required facts are missing before a tax treatment can be determined, and for which parties?",
+  "model": "claude-opus-5-5",
+  "started_at": "2026-10-09T15:11:15.583543+00:00",
+  "finished_at": "2026-10-09T15:11:28.798242+00:00",
+  "outcome": "success",
+  "turns": 5,
+  "duration_ms": 12199,
+  "cost_usd": 0.0729,
+  "usage": {
+   "speed": "standard",
+   "iterations": [
+    {
+     "type": "message",
+     "input_tokens": 2,
+     "output_tokens": 1259,
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 4560,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "cache_read_input_tokens": 3279,
+     "cache_creation_input_tokens": 4560
+    }
+   ],
+   "input_tokens": 4,
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "output_tokens": 1469,
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 5164,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "fallback_credit": null,
+   "server_tool_use": {
+    "web_fetch_requests": 0,
+    "web_search_requests": 0
+   },
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "cache_read_input_tokens": 5954,
+   "cache_creation_input_tokens": 5164
+  },
+  "final_text": "{\"status\": \"answered\", \"answer\": \"There are five missing-fact findings on record, covering three parties.\\n\\n- **I-006 Meridian Holdings I S.à r.l.** has one finding, MF-R001, against requirement FR-07 (the owners of the recipient up to its ultimate owners, for an ownership-based limitation-on-benefits claim; rule R-02 v2026.1, not mandatory). Assessment A-R012 found it on component D-001-A on 2026-10-08. The owners cannot be established because of a circular holding with Meridian Holdings II (I-018) declared from 2026-08-01, and change case K-006 on clearance CL-006 is open.\\n- **I-014 Client account 7731** has two findings, both under rule R-01 v2026.1 and both mandatory. The account owns 37.5% of the income Sterling Nominees receives.\\n  - MF-001 is against FR-03 (the tax certification of each underlying owner and its share, for an intermediary or flow-through recipient). It is an open item of clearance CL-007 (admitted with open items), recorded 2025-03-15.\\n  - MF-R002 is against FR-02 (tax certification of the recipient, valid on the payment date). Assessment A-R014 found it on component D-001-A on 2026-10-08: there is no certification on file and no recorded tax residence.\\n- **I-015 Bertrange Capital S.A.** has two findings, both against FR-02 (rule R-01 v2026.1, mandatory). Form F-015 ended on 2025-12-31 and no new form was received.\\n  - MF-002 is an open item of the withdrawn clearance CL-015W, recorded 2026-01-01.\\n  - MF-R003 was found by assessment A-R017 on component D-001-A on 2026-10-08.\\n\\nThe clearance findings and the assessment findings are separate records and are not merged, so the same gap can appear once as each. The two Bertrange findings are the same gap recorded twice.\\n\\nThe computation behind this is in draft status, and its party column has no ontology term yet.\", \"facts\": [{\"subject\": \"I-006\", \"attribute\": \"unmetRequirement\", \"value\": \"FR-07\", \"source_ref\": \"clearance.missing_fact_finding:MF-R001\"}, {\"subject\": \"I-014\", \"attribute\": \"unmetRequirement\", \"value\": \"FR-03\", \"source_ref\": \"clearance.missing_fact_finding:MF-001\"}, {\"subject\": \"I-014\", \"attribute\": \"unmetRequirement\", \"value\": \"FR-02\", \"source_ref\": \"clearance.missing_fact_finding:MF-R002\"}, {\"subject\": \"I-015\", \"attribute\": \"unmetRequirement\", \"value\": \"FR-02\", \"source_ref\": \"clearance.missing_fact_finding:MF-002\"}, {\"subject\": \"I-015\", \"attribute\": \"unmetRequirement\", \"value\": \"FR-02\", \"source_ref\": \"clearance.missing_fact_finding:MF-R003\"}], \"unknown\": [\"Tax certification and tax residence of Client account 7731 (I-014): none is recorded.\", \"A tax certification for Bertrange Capital S.A. (I-015) valid after 2025-12-31: none was received.\", \"The owners of Meridian Holdings I S.à r.l. (I-006) up to its ultimate owners: they cannot be established while change case K-006 is open.\", \"Gaps for any other party or component: assessment findings reflect only what the last WF3 run recorded, so a party with no finding is not thereby shown to be complete.\"], \"conflicts\": []}",
+  "score": {
+   "total": 2,
+   "passed": 2,
+   "points": {
+    "parties with a missing fact": true,
+    "circular holding: ownership requirement": true
+   }
+  }
+ },
+ "steps": [
+  {
+   "run_id": "RUN-f14afc82",
+   "seq": 1,
+   "at": "2026-10-09T15:11:17.978830+00:00",
+   "kind": "lookup",
+   "concept": "ontology/find",
+   "terms": [
+    "xbpei:MissingFactFinding"
+   ],
+   "parameters": {
+    "text": "missing fact"
+   },
+   "executed": null,
+   "result": [
+    {
+     "kind": "class",
+     "term": "xbpei:MissingFactFinding",
+     "label": "Missing Fact Finding",
+     "definition": "An explicit record that a required fact was not available when an assessment was made."
+    }
+   ],
+   "row_count": null,
+   "attested": null,
+   "verdict": null
+  },
+  {
+   "run_id": "RUN-f14afc82",
+   "seq": 2,
+   "at": "2026-10-09T15:11:18.210917+00:00",
+   "kind": "computation",
+   "concept": "computations/missing-facts",
+   "terms": [
+    "xbpei:MissingFactFinding",
+    "xbpei:unmetRequirement",
+    "xbpei:description",
+    "xbpei:recordedOn",
+    "xbpei:hasOpenItem",
+    "xbpei:identifiesGap",
+    "xbpei:FactRequirement",
+    "xbpei:requiresFact",
+    "xbpei:isMandatory",
+    "xbpei:Clearance",
+    "xbpei:clearanceStatus",
+    "xbpei:ObligationAssessment",
+    "xbpei:hasSubjectEvent"
+   ],
+   "parameters": {},
+   "executed": "SELECT m.finding_id AS finding, m.about_party, i.display_name AS party_name,\n       m.unmet_requirement AS requirement, r.description AS requirement_text, r.rule_id AS rule, r.version_label AS version, r.mandatory,\n       m.description, m.recorded_on,\n       CASE WHEN m.clearance_id IS NOT NULL THEN 'clearance' ELSE 'assessment' END AS found_by,\n       m.clearance_id AS clearance, c.clearance_status, m.assessment_id AS assessment, a.subject_event AS component,\n       'clearance.missing_fact_finding:' || m.finding_id AS source_ref\nFROM clearance.missing_fact_finding m\nJOIN rulebook.fact_requirement r ON r.req_id = m.unmet_requirement\nLEFT JOIN investor_register.investor i ON i.inv_no = m.about_party\nLEFT JOIN clearance.clearance c ON c.clearance_id = m.clearance_id\nLEFT JOIN clearance.obligation_assessment a ON a.assessment_id = m.assessment_id\nORDER BY m.about_party, m.finding_id",
+   "result": [
+    {
+     "rule": "R-02",
+     "finding": "MF-R001",
+     "version": "2026.1",
+     "found_by": "assessment",
+     "clearance": null,
+     "component": "D-001-A",
+     "mandatory": false,
+     "assessment": "A-R012",
+     "party_name": "Meridian Holdings I S.à r.l.",
+     "source_ref": "clearance.missing_fact_finding:MF-R001",
+     "about_party": "I-006",
+     "description": "Owners of Meridian Holdings I up to its ultimate owners cannot be established: circular holding with Meridian Holdings II (I-018) declared from 2026-08-01, and change case K-006 on clearance CL-006 is open. Cure: resolve K-006 with ultimate ownership evidenced and the ownership-based limitation-on-benefits claim re-confirmed.",
+     "recorded_on": "2026-10-08",
+     "requirement": "FR-07",
+     "clearance_status": null,
+     "requirement_text": "For an ownership-based limitation-on-benefits claim: the owners of the recipient up to its ultimate owners"
+    },
+    {
+     "rule": "R-01",
+     "finding": "MF-001",
+     "version": "2026.1",
+     "found_by": "clearance",
+     "clearance": "CL-007",
+     "component": null,
+     "mandatory": true,
+     "assessment": null,
+     "party_name": "Client account 7731",
+     "source_ref": "clearance.missing_fact_finding:MF-001",
+     "about_party": "I-014",
+     "description": "No tax certification for the owner of 37.5% of the income Sterling Nominees receives",
+     "recorded_on": "2025-03-15",
+     "requirement": "FR-03",
+     "clearance_status": "admittedWithOpenItems",
+     "requirement_text": "For an intermediary or flow-through recipient: the tax certification of each underlying owner and its share"
+    },
+    {
+     "rule": "R-01",
+     "finding": "MF-R002",
+     "version": "2026.1",
+     "found_by": "assessment",
+     "clearance": null,
+     "component": "D-001-A",
+     "mandatory": true,
+     "assessment": "A-R014",
+     "party_name": "Client account 7731",
+     "source_ref": "clearance.missing_fact_finding:MF-R002",
+     "about_party": "I-014",
+     "description": "No tax certification on file for Client account 7731, owner of 37.5% of the income Sterling Nominees receives; no recorded tax residence either. Cure: a valid certification for this owner supplied through the nominee.",
+     "recorded_on": "2026-10-08",
+     "requirement": "FR-02",
+     "clearance_status": null,
+     "requirement_text": "Tax certification of the recipient, valid on the payment date"
+    },
+    {
+     "rule": "R-01",
+     "finding": "MF-002",
+     "version": "2026.1",
+     "found_by": "clearance",
+     "clearance": "CL-015W",
+     "component": null,
+     "mandatory": true,
+     "assessment": null,
+     "party_name": "Bertrange Capital S.A.",
+     "source_ref": "clearance.missing_fact_finding:MF-002",
+     "about_party": "I-015",
+     "description": "Form F-015 ended on 31 December 2025 and no new form was received",
+     "recorded_on": "2026-01-01",
+     "requirement": "FR-02",
+     "clearance_status": "withdrawn",
+     "requirement_text": "Tax certification of the recipient, valid on the payment date"
+    },
+    {
+     "rule": "R-01",
+     "finding": "MF-R003",
+     "version": "2026.1",
+     "found_by": "assessment",
+     "clearance": null,
+     "component": "D-001-A",
+     "mandatory": true,
+     "assessment": "A-R017",
+     "party_name": "Bertrange Capital S.A.",
+     "source_ref": "clearance.missing_fact_finding:MF-R003",
+     "about_party": "I-015",
+     "description": "No tax certification valid on the payment date: F-015 ended 2025-12-31 and no new form was received; clearance withdrawn (CL-015W). Cure: a new valid certification and a renewed clearance.",
+     "recorded_on": "2026-10-08",
+     "requirement": "FR-02",
+     "clearance_status": null,
+     "requirement_text": "Tax certification of the recipient, valid on the payment date"
+    }
+   ],
+   "row_count": 5,
+   "attested": true,
+   "verdict": "The sanctioned computation ran and the result is as reported."
+  }
+ ]
+}

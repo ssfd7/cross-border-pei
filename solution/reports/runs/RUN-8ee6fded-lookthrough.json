@@ -1,0 +1,505 @@
+{
+ "run": {
+  "run_id": "RUN-8ee6fded",
+  "arm": "lookthrough",
+  "procedure": "CQ6",
+  "subject": "Which clearances, assessments, determinations and open cases would have to be revisited if the status or ownership of Meridian Holdings I S.à r.l. changed?",
+  "model": "claude-opus-5-5",
+  "started_at": "2026-10-09T15:11:29.516313+00:00",
+  "finished_at": "2026-10-09T15:11:46.644391+00:00",
+  "outcome": "success",
+  "turns": 10,
+  "duration_ms": 16335,
+  "cost_usd": 0.1539,
+  "usage": {
+   "speed": "standard",
+   "iterations": [
+    {
+     "type": "message",
+     "input_tokens": 2,
+     "output_tokens": 1131,
+     "cache_creation": {
+      "ephemeral_1h_input_tokens": 1127,
+      "ephemeral_5m_input_tokens": 0
+     },
+     "cache_read_input_tokens": 15194,
+     "cache_creation_input_tokens": 1127
+    }
+   ],
+   "input_tokens": 8,
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "output_tokens": 1861,
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 13646,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "fallback_credit": null,
+   "server_tool_use": {
+    "web_fetch_requests": 0,
+    "web_search_requests": 0
+   },
+   "output_tokens_details": {
+    "thinking_tokens": 214
+   },
+   "cache_read_input_tokens": 32146,
+   "cache_creation_input_tokens": 13646
+  },
+  "final_text": "{\"status\": \"answered\", \"answer\": \"Meridian Holdings I S.à r.l. is party I-006 in the investor register. Six records rest on recorded facts about it and would have to be looked at again if its status or ownership changed: one clearance, two assessments, two determinations and one open case.\\n\\n- Clearance CL-006 (cleared) relies on tax form F-006 and ownership declaration DO-003.\\n- Assessment A-R012 (component D-001-A, undetermined) uses commitment C-006, ownership declarations DO-004, DO-005 and DO-006, the LU residence record from 2017-01-01 and tax form F-006.\\n- Assessment A-R027 (component D-001-B, not applicable) uses commitment C-006.\\n- Determination WS-R001-08 (component D-001-A, default rate) is supported by assessment A-R012.\\n- Determination WS-R001-23 (component D-001-B, not applicable) is supported by assessment A-R027.\\n- Case K-006 is an open change case concerning I-006, triggered by a change to ownership declaration DO-003.\\n\\nThis is a list of records to revisit, not of records that would change; whether a treatment changes depends on the new fact. The assessments and determinations are those of the last WF3 run, and only determinations of the latest withholding schedule are included.\\n\\nCL-006 relies on declaration DO-003, while the declarations in force for I-006 today (2026-10-09) are DO-004 and DO-005, valid from 2026-08-01. Case K-006 is already open on the change to DO-003.\", \"facts\": [{\"subject\": \"CL-006\", \"attribute\": \"kind\", \"value\": \"clearance\", \"source_ref\": \"clearance.clearance:CL-006\"}, {\"subject\": \"A-R012\", \"attribute\": \"kind\", \"value\": \"assessment\", \"source_ref\": \"clearance.obligation_assessment:A-R012\"}, {\"subject\": \"A-R027\", \"attribute\": \"kind\", \"value\": \"assessment\", \"source_ref\": \"clearance.obligation_assessment:A-R027\"}, {\"subject\": \"WS-R001-08\", \"attribute\": \"kind\", \"value\": \"determination\", \"source_ref\": \"clearance.withholding_determination:WS-R001-08\"}, {\"subject\": \"WS-R001-23\", \"attribute\": \"kind\", \"value\": \"determination\", \"source_ref\": \"clearance.withholding_determination:WS-R001-23\"}, {\"subject\": \"K-006\", \"attribute\": \"kind\", \"value\": \"case\", \"source_ref\": \"clearance.case:K-006\"}], \"unknown\": [\"Whether any of these records would actually change: that depends on the new fact, which the sources cannot record in advance.\", \"Determinations on withholding schedules earlier than the latest one are not listed by the computation.\"], \"conflicts\": []}",
+  "score": {
+   "total": 4,
+   "passed": 4,
+   "points": {
+    "clearance": true,
+    "open change case": true,
+    "assessments named": true,
+    "determinations named": true
+   }
+  }
+ },
+ "steps": [
+  {
+   "run_id": "RUN-8ee6fded",
+   "seq": 1,
+   "at": "2026-10-09T15:11:32.581225+00:00",
+   "kind": "computation",
+   "concept": "computations/structure-entities",
+   "terms": [
+    "xbpei:LegalEntity",
+    "xbpei:FundVehicle",
+    "xbpei:SPV",
+    "xbpei:PortfolioCompany",
+    "xbpei:identifier",
+    "xbpei:name",
+    "xbpei:legalForm"
+   ],
+   "parameters": {},
+   "executed": "SELECT e.entity_id AS entity, e.legal_name AS name, e.legal_form,\n       e.is_fund = 'Y' AS fund_vehicle, e.is_spv = 'Y' AS spv, e.is_portco = 'Y' AS portfolio_company,\n       'entity_mgmt.legal_entity:' || e.entity_id AS source_ref\nFROM entity_mgmt.legal_entity e\nORDER BY e.entity_id",
+   "result": [
+    {
+     "spv": false,
+     "name": "Atlas Growth Fund I LP",
+     "entity": "E-001",
+     "legal_form": "Delaware limited partnership",
+     "source_ref": "entity_mgmt.legal_entity:E-001",
+     "fund_vehicle": true,
+     "portfolio_company": false
+    },
+    {
+     "spv": true,
+     "name": "Atlas Acquisition SPV LLC",
+     "entity": "E-002",
+     "legal_form": "Delaware limited liability company",
+     "source_ref": "entity_mgmt.legal_entity:E-002",
+     "fund_vehicle": false,
+     "portfolio_company": false
+    },
+    {
+     "spv": false,
+     "name": "Orion Manufacturing Inc.",
+     "entity": "E-003",
+     "legal_form": "Delaware corporation",
+     "source_ref": "entity_mgmt.legal_entity:E-003",
+     "fund_vehicle": false,
+     "portfolio_company": true
+    },
+    {
+     "spv": false,
+     "name": "Atlas GP LLC",
+     "entity": "E-004",
+     "legal_form": "Delaware limited liability company",
+     "source_ref": "entity_mgmt.legal_entity:E-004",
+     "fund_vehicle": false,
+     "portfolio_company": false
+    },
+    {
+     "spv": false,
+     "name": "Atlas Lux Feeder SCSp",
+     "entity": "E-005",
+     "legal_form": "Luxembourg special limited partnership",
+     "source_ref": "entity_mgmt.legal_entity:E-005",
+     "fund_vehicle": true,
+     "portfolio_company": false
+    },
+    {
+     "spv": false,
+     "name": "Borealis Logistik GmbH",
+     "entity": "E-006",
+     "legal_form": "German limited liability company",
+     "source_ref": "entity_mgmt.legal_entity:E-006",
+     "fund_vehicle": false,
+     "portfolio_company": true
+    },
+    {
+     "spv": true,
+     "name": "Atlas Borealis Holdco S.à r.l.",
+     "entity": "E-007",
+     "legal_form": "Luxembourg private limited company",
+     "source_ref": "entity_mgmt.legal_entity:E-007",
+     "fund_vehicle": false,
+     "portfolio_company": false
+    },
+    {
+     "spv": false,
+     "name": "Atlas Co-Invest Vehicle LP",
+     "entity": "E-010",
+     "legal_form": "Delaware limited partnership",
+     "source_ref": "entity_mgmt.legal_entity:E-010",
+     "fund_vehicle": true,
+     "portfolio_company": false
+    }
+   ],
+   "row_count": 8,
+   "attested": true,
+   "verdict": "The sanctioned computation ran and the result is as reported."
+  },
+  {
+   "run_id": "RUN-8ee6fded",
+   "seq": 2,
+   "at": "2026-10-09T15:11:32.893023+00:00",
+   "kind": "lookup",
+   "concept": "ontology/find",
+   "terms": [],
+   "parameters": {
+    "text": "clearance assessment determination case"
+   },
+   "executed": null,
+   "result": [],
+   "row_count": null,
+   "attested": null,
+   "verdict": null
+  },
+  {
+   "run_id": "RUN-8ee6fded",
+   "seq": 3,
+   "at": "2026-10-09T15:11:35.154500+00:00",
+   "kind": "computation",
+   "concept": "computations/tax-residence",
+   "terms": [
+    "xbpei:JurisdictionFact",
+    "xbpei:aboutEntity",
+    "xbpei:hasJurisdiction",
+    "xbpei:hasFactType",
+    "xbpei:TaxResidence",
+    "xbpei:validDuring"
+   ],
+   "parameters": {
+    "on_date": "2026-10-09"
+   },
+   "executed": "SELECT r.inv_no AS party_no, i.display_name AS name, r.country, r.from_dt AS valid_from, r.to_dt AS valid_to,\n       'onboarding.residence_record:' || r.inv_no || '/' || r.country || '/' || r.from_dt AS source_ref\nFROM onboarding.residence_record r\nJOIN investor_register.investor i ON i.inv_no = r.inv_no\nWHERE r.from_dt <= %(on_date)s::date AND (r.to_dt IS NULL OR r.to_dt >= %(on_date)s::date)\nORDER BY r.inv_no",
+   "result": [
+    {
+     "name": "Harbor Pension Trust",
+     "country": "LU",
+     "party_no": "I-001",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-001/LU/2011-01-01",
+     "valid_from": "2011-01-01"
+    },
+    {
+     "name": "Kirchberg Industries S.A.",
+     "country": "LU",
+     "party_no": "I-003",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-003/LU/2004-01-01",
+     "valid_from": "2004-01-01"
+    },
+    {
+     "name": "Limpertsberg Holdings S.A.",
+     "country": "LU",
+     "party_no": "I-004",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-004/LU/2006-01-01",
+     "valid_from": "2006-01-01"
+    },
+    {
+     "name": "Grund Participations S.A.",
+     "country": "LU",
+     "party_no": "I-005",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-005/LU/2008-01-01",
+     "valid_from": "2008-01-01"
+    },
+    {
+     "name": "Meridian Holdings I S.à r.l.",
+     "country": "LU",
+     "party_no": "I-006",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-006/LU/2017-01-01",
+     "valid_from": "2017-01-01"
+    },
+    {
+     "name": "Sterling Nominees Ltd",
+     "country": "GB",
+     "party_no": "I-007",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-007/GB/2015-01-01",
+     "valid_from": "2015-01-01"
+    },
+    {
+     "name": "Alpha Holdings SA",
+     "country": "LU",
+     "party_no": "I-008",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-008/LU/2016-01-01",
+     "valid_from": "2016-01-01"
+    },
+    {
+     "name": "Alpha Holdings SA",
+     "country": "CH",
+     "party_no": "I-009",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-009/CH/2012-01-01",
+     "valid_from": "2012-01-01"
+    },
+    {
+     "name": "Ardennes Industrial Holding S.A.",
+     "country": "LU",
+     "party_no": "I-010",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-010/LU/2003-01-01",
+     "valid_from": "2003-01-01"
+    },
+    {
+     "name": "Moselle Capital S.A.",
+     "country": "LU",
+     "party_no": "I-011",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-011/LU/2010-01-01",
+     "valid_from": "2010-01-01"
+    },
+    {
+     "name": "Claire Dumont",
+     "country": "FR",
+     "party_no": "I-012",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-012/FR/1999-01-01",
+     "valid_from": "1999-01-01"
+    },
+    {
+     "name": "Echternach Pension Fund",
+     "country": "LU",
+     "party_no": "I-013",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-013/LU/2001-01-01",
+     "valid_from": "2001-01-01"
+    },
+    {
+     "name": "Bertrange Capital S.A.",
+     "country": "LU",
+     "party_no": "I-015",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-015/LU/2013-01-01",
+     "valid_from": "2013-01-01"
+    },
+    {
+     "name": "Atlas Co-Invest Vehicle LP",
+     "country": "US",
+     "party_no": "I-016",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-016/US/2024-01-15",
+     "valid_from": "2024-01-15"
+    },
+    {
+     "name": "Atlas GP LLC",
+     "country": "US",
+     "party_no": "I-017",
+     "valid_to": null,
+     "source_ref": "onboarding.residence_record:I-017/US/2023-10-20",
+     "valid_from": "2023-10-20"
+    }
+   ],
+   "row_count": 15,
+   "attested": true,
+   "verdict": "The sanctioned computation ran and the result is as reported."
+  },
+  {
+   "run_id": "RUN-8ee6fded",
+   "seq": 4,
+   "at": "2026-10-09T15:11:35.684193+00:00",
+   "kind": "computation",
+   "concept": "computations/declared-owners",
+   "terms": [
+    "xbpei:OwnershipInterest",
+    "xbpei:heldBy",
+    "xbpei:interestIn",
+    "xbpei:economicPercentage",
+    "xbpei:votingPercentage",
+    "xbpei:validDuring",
+    "xbpei:evidencedBy"
+   ],
+   "parameters": {
+    "on_date": "2026-10-09"
+   },
+   "executed": "SELECT o.owned_inv_no AS party_no, owned.display_name AS name, o.owner_inv_no AS owner_no, owner.display_name AS owner_name,\n       owner.country_res AS owner_residence, o.pct_econ AS economic_pct, o.pct_vote AS voting_pct,\n       o.from_dt AS valid_from, o.to_dt AS valid_to, o.doc_ref AS evidenced_by,\n       'onboarding.declared_owner:' || o.decl_id AS source_ref\nFROM onboarding.declared_owner o\nJOIN investor_register.investor owned ON owned.inv_no = o.owned_inv_no\nJOIN investor_register.investor owner ON owner.inv_no = o.owner_inv_no\nWHERE o.alloc_basis = 'OWNERSHIP'\n  AND o.from_dt <= %(on_date)s::date AND (o.to_dt IS NULL OR o.to_dt >= %(on_date)s::date)\nORDER BY o.owned_inv_no, o.owner_inv_no",
+   "result": [
+    {
+     "name": "Meridian Holdings I S.à r.l.",
+     "owner_no": "I-018",
+     "party_no": "I-006",
+     "valid_to": null,
+     "owner_name": "Meridian Holdings II S.à r.l.",
+     "source_ref": "onboarding.declared_owner:DO-004",
+     "valid_from": "2026-08-01",
+     "voting_pct": 30.0,
+     "economic_pct": 30.0,
+     "evidenced_by": "DOC-0106",
+     "owner_residence": "LU"
+    },
+    {
+     "name": "Meridian Holdings I S.à r.l.",
+     "owner_no": "I-019",
+     "party_no": "I-006",
+     "valid_to": null,
+     "owner_name": "Meridian Family Trust",
+     "source_ref": "onboarding.declared_owner:DO-005",
+     "valid_from": "2026-08-01",
+     "voting_pct": 70.0,
+     "economic_pct": 70.0,
+     "evidenced_by": "DOC-0106",
+     "owner_residence": "JE"
+    },
+    {
+     "name": "Meridian Holdings II S.à r.l.",
+     "owner_no": "I-006",
+     "party_no": "I-018",
+     "valid_to": null,
+     "owner_name": "Meridian Holdings I S.à r.l.",
+     "source_ref": "onboarding.declared_owner:DO-006",
+     "valid_from": "2026-08-01",
+     "voting_pct": 30.0,
+     "economic_pct": 30.0,
+     "evidenced_by": "DOC-0106",
+     "owner_residence": "LU"
+    },
+    {
+     "name": "Meridian Holdings II S.à r.l.",
+     "owner_no": "I-019",
+     "party_no": "I-018",
+     "valid_to": null,
+     "owner_name": "Meridian Family Trust",
+     "source_ref": "onboarding.declared_owner:DO-007",
+     "valid_from": "2026-08-01",
+     "voting_pct": 70.0,
+     "economic_pct": 70.0,
+     "evidenced_by": "DOC-0106",
+     "owner_residence": "JE"
+    }
+   ],
+   "row_count": 4,
+   "attested": true,
+   "verdict": "The sanctioned computation ran and the result is as reported."
+  },
+  {
+   "run_id": "RUN-8ee6fded",
+   "seq": 5,
+   "at": "2026-10-09T15:11:36.971900+00:00",
+   "kind": "computation",
+   "concept": "computations/records-resting-on-party",
+   "terms": [
+    "xbpei:Clearance",
+    "xbpei:clearanceOf",
+    "xbpei:clearanceStatus",
+    "xbpei:reliesOnCertification",
+    "xbpei:reliesOnFact",
+    "xbpei:ObligationAssessment",
+    "xbpei:usesFact",
+    "xbpei:assessmentResult",
+    "xbpei:WithholdingDetermination",
+    "xbpei:supportedBy",
+    "xbpei:reliesOnClearance",
+    "xbpei:determinationOutcome",
+    "xbpei:Case",
+    "xbpei:concernsParty",
+    "xbpei:triggeredBy",
+    "xbpei:ChangeEvent",
+    "xbpei:changes",
+    "xbpei:TaxCertification",
+    "xbpei:OwnershipInterest",
+    "xbpei:JurisdictionFact",
+    "xbpei:TaxStatusAssertion"
+   ],
+   "parameters": {
+    "party_no": "I-006"
+   },
+   "executed": "WITH fact (source_ref) AS (\n    SELECT 'onboarding.tax_form:' || form_id FROM onboarding.tax_form WHERE inv_no = %(party_no)s\n    UNION ALL SELECT 'onboarding.tax_status:' || status_id FROM onboarding.tax_status WHERE inv_no = %(party_no)s\n    UNION ALL SELECT 'onboarding.residence_record:' || inv_no || '/' || country || '/' || from_dt FROM onboarding.residence_record WHERE inv_no = %(party_no)s\n    UNION ALL SELECT 'investor_register.commitment:' || commit_id FROM investor_register.commitment WHERE inv_no = %(party_no)s\n    UNION ALL SELECT 'onboarding.declared_owner:' || decl_id FROM onboarding.declared_owner WHERE %(party_no)s IN (owned_inv_no, owner_inv_no)\n), cleared AS (\n    SELECT c.clearance_id, c.clearance_of, c.clearance_status, array_agg(r.source_ref ORDER BY r.source_ref) AS rests_on\n    FROM clearance.clearance c JOIN clearance.clearance_reliance r USING (clearance_id) JOIN fact USING (source_ref)\n    GROUP BY c.clearance_id, c.clearance_of, c.clearance_status\n), assessed AS (\n    SELECT a.assessment_id, a.subject_party, a.subject_event, a.assessment_result, array_agg(f.source_ref ORDER BY f.source_ref) AS rests_on\n    FROM clearance.obligation_assessment a JOIN clearance.assessment_fact f USING (assessment_id) JOIN fact USING (source_ref)\n    GROUP BY a.assessment_id, a.subject_party, a.subject_event, a.assessment_result\n)\nSELECT 'clearance' AS kind, clearance_id AS record, clearance_of AS party, NULL AS component, clearance_status AS state, rests_on,\n       'clearance.clearance:' || clearance_id AS source_ref\nFROM cleared\nUNION ALL\nSELECT 'assessment', assessment_id, subject_party, subject_event, assessment_result, rests_on, 'clearance.obligation_assessment:' || assessment_id\nFROM assessed\nUNION ALL\nSELECT 'determination', d.determination_id, d.determined_for, d.for_component, d.determination_outcome,\n       array_remove(ARRAY[(SELECT 'clearance.obligation_assessment:' || assessment_id FROM assessed WHERE assessment_id = d.supported_by),\n                          (SELECT 'clearance.clearance:' || clearance_id FROM cleared WHERE clearance_id = d.relies_on_clearance)], NULL),\n       'clearance.withholding_determination:' || d.determination_id\nFROM clearance.withholding_determination d\nWHERE d.schedule_id = (SELECT max(schedule_id) FROM clearance.withholding_schedule)\n  AND (d.supported_by IN (SELECT assessment_id FROM assessed) OR d.relies_on_clearance IN (SELECT clearance_id FROM cleared))\nUNION ALL\nSELECT 'case', k.case_id, k.concerns_party, NULL, k.case_kind || ', open', array_remove(ARRAY[e.changes_ref], NULL), 'clearance.case:' || k.case_id\nFROM clearance.case k LEFT JOIN clearance.change_event e ON e.change_id = k.triggered_by\nWHERE k.closed_on IS NULL AND (k.concerns_party = %(party_no)s OR e.changes_ref IN (SELECT source_ref FROM fact))\nORDER BY 1, 2",
+   "result": [
+    {
+     "kind": "assessment",
+     "party": "I-006",
+     "state": "undetermined",
+     "record": "A-R012",
+     "rests_on": [
+      "investor_register.commitment:C-006",
+      "onboarding.declared_owner:DO-004",
+      "onboarding.declared_owner:DO-005",
+      "onboarding.declared_owner:DO-006",
+      "onboarding.residence_record:I-006/LU/2017-01-01",
+      "onboarding.tax_form:F-006"
+     ],
+     "component": "D-001-A",
+     "source_ref": "clearance.obligation_assessment:A-R012"
+    },
+    {
+     "kind": "assessment",
+     "party": "I-006",
+     "state": "notApplicable",
+     "record": "A-R027",
+     "rests_on": [
+      "investor_register.commitment:C-006"
+     ],
+     "component": "D-001-B",
+     "source_ref": "clearance.obligation_assessment:A-R027"
+    },
+    {
+     "kind": "case",
+     "party": "I-006",
+     "state": "change, open",
+     "record": "K-006",
+     "rests_on": [
+      "onboarding.declared_owner:DO-003"
+     ],
+     "component": null,
+     "source_ref": "clearance.case:K-006"
+    },
+    {
+     "kind": "clearance",
+     "party": "I-006",
+     "state": "cleared",
+     "record": "CL-006",
+     "rests_on": [
+      "onboarding.declared_owner:DO-003",
+      "onboarding.tax_form:F-006"
+     ],
+     "component": null,
+     "source_ref": "clearance.clearance:CL-006"
+    },
+    {
+     "kind": "determination",
+     "party": "I-006",
+     "state": "defaultRate",
+     "record": "WS-R001-08",
+     "rests_on": [
+      "clearance.obligation_assessment:A-R012"
+     ],
+     "component": "D-001-A",
+     "source_ref": "clearance.withholding_determination:WS-R001-08"
+    },
+    {
+     "kind": "determination",
+     "party": "I-006",
+     "state": "notApplicable",
+     "record": "WS-R001-23",
+     "rests_on": [
+      "clearance.obligation_assessment:A-R027"
+     ],
+     "component": "D-001-B",
+     "source_ref": "clearance.withholding_determination:WS-R001-23"
+    }
+   ],
+   "row_count": 6,
+   "attested": true,
+   "verdict": "The sanctioned computation ran and the result is as reported."
+  }
+ ]
+}

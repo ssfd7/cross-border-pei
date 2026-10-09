@@ -161,6 +161,10 @@ lookthrough:
     undetermined:
       P-002: The payer is the feeder, whose tax residence is not recorded. It crosses a border on incorporation (LU→US).
       P-004: The payee, Atlas Capital Management LLC, is known only to treasury, which holds a country without saying in what capacity.
+  # CQ4 to CQ6 read what the last run of WF3 recorded, so the key names only what any correct run leaves.
+  CQ4_support_i001_d001a: {rule: R-02, rate: 15, clearance: CL-001, fact: "onboarding.tax_form:F-001"}
+  CQ5_missing_facts: {parties: [I-006, I-014, I-015], requirement_i006: FR-07}
+  CQ6_rests_on_i006: {clearance: [CL-006], case: [K-006]}
 
 # Questions put to the LookThrough agent (xbpei/ask.py), scored against the figures above by
 # xbpei/score.py. `report` tells the agent how to lay out the facts of its answer; it says nothing
@@ -179,6 +183,18 @@ lookthrough_questions:
     cq: CQ3
     text: Which payments between 1 January 2024 and 30 October 2026 cross a jurisdictional boundary?
     report: One fact per payment. Subject is the payment identifier; attribute is crossing; value is crossBorder, notCrossBorder or undetermined.
+  - id: Q6
+    cq: CQ4
+    text: What facts and rules support the withholding on Harbor Pension Trust's share of the dividend component D-001-A?
+    report: One fact per supporting item. Subject is the investor number; attribute is rule, rate, clearance or fact; value is the rule identifier, the rate in percent, the clearance identifier or the source_ref of a fact cited.
+  - id: Q7
+    cq: CQ5
+    text: Which required facts are missing before a tax treatment can be determined, and for which parties?
+    report: One fact per missing-fact finding. Subject is the investor number of the party the fact is about; attribute is unmetRequirement; value is the requirement identifier.
+  - id: Q8
+    cq: CQ6
+    text: Which clearances, assessments, determinations and open cases would have to be revisited if the status or ownership of Meridian Holdings I S.à r.l. changed?
+    report: One fact per record to revisit. Subject is the identifier of the record; attribute is kind; value is clearance, assessment, determination or case.
   - id: Q4
     cq: G9
     text: What is the vintage year of Atlas Growth Fund I?

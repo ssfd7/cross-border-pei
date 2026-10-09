@@ -24,6 +24,9 @@ ontology: { prefix: xbpei, namespace: "https://w3id.org/xb-pei/ontology#", resou
 * [Entities of the fund structure](computations/structure-entities.md) - The fund's own legal entities and what each is.
 * [Jurisdictions on the chain to a company](computations/chain-jurisdictions.md) - Recorded and unrecorded jurisdictions of every entity above a company.
 * [Payments that cross a border](computations/cross-border-payments.md) - Each payment tested on the tax residence of payer and payee.
+* [Support for a withholding determination](computations/determination-support.md) - The rules assessed for a recipient and component, and the facts each assessment cites.
+* [Facts missing before a treatment can be determined](computations/missing-facts.md) - Every missing-fact finding, from clearances and from assessments.
+* [Records that rest on a party's facts](computations/records-resting-on-party.md) - What to revisit if a party's status or ownership changes.
 
 # Tools
 
