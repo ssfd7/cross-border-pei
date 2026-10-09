@@ -1,10 +1,10 @@
-# Cross-border private equity conceptual model — draft v0.10
+# Cross-border private equity conceptual model — draft v0.11
 
 Open `xb-pei-model.drawio` in diagrams.net/draw.io. It contains an overview page and five editable detail pages with colored circular concepts and labeled, directed relationships. Dashed `subclassOf` arrows denote proposed specializations, not instance relationships. Other arrows describe candidate relationships, with one name per connector. Inheritance uses a dashed line and a small hollow triangle pointing to the superclass.
 
 ## Diagrams
 
-PNG renderings of each page are in `diagrams/`, for viewing on GitHub. The Draw.io file is the source; the images were rendered from draft v0.10 and must be regenerated when the diagram changes, with `python diagrams/render.py --model` from `solution/`.
+PNG renderings of each page are in `diagrams/`, for viewing on GitHub. The Draw.io file is the source; the images were rendered from draft v0.11 and must be regenerated when the diagram changes, with `python diagrams/render.py --model` from `solution/`.
 
 ### 00 Model overview
 
@@ -81,7 +81,6 @@ These references explain source limitations; they have not yet been translated i
 
 ## Next work
 
-- Settle whether Jurisdiction Fact and Tax Status Assertion are kinds of Fact Assertion (see the v0.8 section).
 - Review the nine clearance concepts and the proposed questions CL1–CL8.
 - Select one tax obligation and jurisdiction pair; source its rule conditions and evidence requirements.
 - Create synthetic scenarios covering applicable, not-applicable and undetermined outcomes, and validate each question against them.
@@ -113,7 +112,7 @@ Opposite-direction or parallel relationships between the same two concepts use s
 
 `00 Model overview` is the first page. It shows the union of the three detail pages: 28 concepts and 46 relationships, each concept drawn once, with all six competency questions and the legend in the right-side panel. Synthetic example notes are omitted and remain on the detail pages. Positions come from a deterministic Fruchterman–Reingold force-directed layout (seed 1075, chosen from seeds 1–3000 for the fewest crossings), followed by overlap and node-to-edge clearance relaxation; eight relationship crossings remain. A geometric preview was rendered and inspected outside Draw.io; the page has not been opened in Draw.io, so line jumps and label wrapping are not visually verified there.
 
-The overview makes one gap visible: Fact Assertion (page 03) has no relationship to Jurisdiction Fact or Tax Status Assertion (page 02). Whether those are kinds of Fact Assertion is an open modeling decision.
+The overview makes one gap visible: Fact Assertion (page 03) has no relationship to Jurisdiction Fact or Tax Status Assertion (page 02). Whether those are kinds of Fact Assertion was an open modeling decision; it was settled in v0.11.
 
 ## Clearance extension in v0.8
 
@@ -150,7 +149,7 @@ Decisions proposed for review:
 - Missing Fact Finding is reused for a clearance's open items. Obligation Assessment is reused as the support for a withholding determination.
 - A renewed or withdrawn clearance, and a corrected schedule, are new records. No `supersedes` relationship is modelled; history is read from dates.
 - `inContextOf` and `validDuring` are reused with wider domains.
-- Open: a change of tax residence is a Jurisdiction Fact or Tax Status Assertion, but Change Event `changes` only a Fact Assertion and Clearance `reliesOnFact` only a Fact Assertion. Until the v0.7 question of whether those two are kinds of Fact Assertion is settled, CL4 and WF2 scenario S2.3 cannot be answered from the model.
+- Open: a change of tax residence is a Jurisdiction Fact or Tax Status Assertion, but Change Event `changes` only a Fact Assertion and Clearance `reliesOnFact` only a Fact Assertion. Until the v0.7 question of whether those two are kinds of Fact Assertion is settled, CL4 and WF2 scenario S2.3 cannot be answered from the model. Settled in v0.11: both are kinds of Fact Assertion.
 - The page 02 example `[Distribution D-001]` sits under Payment Event; with Distribution Event introduced it now reads better as a payment within D-001. Not changed.
 
 Layout: pages 04 and 05 use a Fruchterman–Reingold layout (seeds 4197 and 5130, best of 400 by a crossing and overlap score), with example notes nudged by hand. The overview was laid out afresh for 37 concepts (seed 1193) on a taller page, followed by an automated spacing adjustment and label placement. The colour group Clearance was added to the legend of pages 00, 04 and 05.
@@ -198,6 +197,14 @@ Four terms that the source data holds and the model lacked were added. Three are
 
 Beneficial Owner is still held in no source system, by design: the investor register's mapping now says how membership follows from the interests a party holds, as the graph mapping already did.
 
+## Kinds of Fact Assertion in v0.11
+
+Jurisdiction Fact and Tax Status Assertion are now kinds of Fact Assertion. Both fit its definition, a statement recorded as true about a party or entity which an assessment can use, and the prototype's data already treated them so: assessments cite residence records as facts.
+
+This closes the gap first noted in v0.7 and left open in v0.8. A Change Event can now change a tax residence or a tax status, a Clearance can rely on one, and an assessment can use one, so clearance question CL4 and WF2 scenario S2.3 can be answered from the model. The two subclass links are on page `02 Payments and jurisdictions`, where Fact Assertion now also appears, and on the overview. The model has 38 concepts and 83 connectors (71 relationships and 12 subclass links).
+
+Ownership Interest and Tax Certification were left as they are. Assessments cite them as facts too, but each is a record in its own right, and calling them assertions is a larger claim that has not been reviewed.
+
 ## Sources of definitions
 
 Fourteen terms name an outside source, added on 2026-10-09 without a change of version. Thirteen carry `dcterms:source`; Legal Entity carries `skos:closeMatch`. The definitions are this model's own words: the source is the authority a definition is consistent with, not a text it quotes. Each citation was read in the source before it was recorded.
@@ -221,7 +228,7 @@ Reading the convention also tested one rule in the prototype. Article 10(2)(a)(i
 
 ## Formal ontology
 
-`xb-pei-model.ttl` is the OWL 2 counterpart of the diagram: the same 38 classes, 62 relationships (as object properties) and 10 subclass links as `00 Model overview`, plus 53 data properties, three restricted datatypes and five SKOS code lists for role, jurisdiction-fact, payment, certification and income types. The namespace `https://w3id.org/xb-pei/ontology#` is a placeholder and is not registered.
+`xb-pei-model.ttl` is the OWL 2 counterpart of the diagram: the same 38 classes, 62 relationships (as object properties) and 12 subclass links as `00 Model overview`, plus 53 data properties, three restricted datatypes and five SKOS code lists for role, jurisdiction-fact, payment, certification and income types. The namespace `https://w3id.org/xb-pei/ontology#` is a placeholder and is not registered.
 
 Reused vocabularies: OWL-Time and DCAT for periods (`TimeInterval` is a `time:ProperInterval` and `dcterms:PeriodOfTime`, with `dcat:startDate` and `dcat:endDate`), PROV-O and DCAT for evidence (`SourceDocument`, `AuthoritySource`), SKOS for code lists, Dublin Core and VANN for ontology metadata. External terms are declared, not imported.
 

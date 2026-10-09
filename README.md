@@ -26,7 +26,7 @@ Clearance runs on it for one procedure (WF3). LookThrough answers CQ1 to CQ6 on 
 | [`business/domain-glossary.md`](business/domain-glossary.md) | Acronyms |
 | `business/lookthrough-product/` | LookThrough business requirements |
 | `business/clearance-product/` | Clearance business requirements and three operating procedures (`wf1`–`wf3`), each with controls and scenarios |
-| [`model/`](model/README.md) | The ontology, draft v0.10: OWL Turtle, stewardship and status per term, the Draw.io diagram (overview and five detail pages) with PNG renderings, and a README with decisions, traceability and checks |
+| [`model/`](model/README.md) | The ontology, draft v0.11: OWL Turtle, stewardship and status per term, the Draw.io diagram (overview and five detail pages) with PNG renderings, and a README with decisions, traceability and checks |
 | `solution/` | The prototype: emulated source systems and gold dataset, the OKF bundle, the graph projection, the agent runner and the run report |
 | [`AGENTS.md`](AGENTS.md) | Modelling and Draw.io conventions for AI agents working in this repository |
 
@@ -69,7 +69,7 @@ To run it, see section 12 of the [first run report](solution/reports/2026-10-06-
 ## Open decisions
 
 - Whether to go further in separating a grounded agent from an ungrounded one: a larger and less legible dataset, or a smaller model in both arms. Neither has been tried.
-- Whether Jurisdiction Fact and Tax Status Assertion are kinds of Fact Assertion in the ontology.
+- Whether Ownership Interest and Tax Certification are also kinds of Fact Assertion. Jurisdiction Fact and Tax Status Assertion were made so in v0.11.
 - Whether to source more definitions. Fourteen terms now name a source that was read before it was recorded (the 1996 convention, the withholding regulation and statute, ISO 17442 and the OMG Commons ontology); the OECD Model Tax Convention, FATF, the other ISO standards and ILPA could not be reached to check and are not cited. See `model/README.md`.
 - Whether the 5 percent rule should test a direct holding. The convention says "owns directly at least 10 percent of the voting stock"; the prototype tests the holding multiplied through the tiers.
 - The clearance questions CL1–CL8 in the model are proposals and are not yet in the Clearance requirements.

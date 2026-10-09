@@ -24,9 +24,9 @@ xbpei:OwnershipInterest xbpei:steward "Fund tax team" ; xbpei:termStatus "review
 xbpei:TimeInterval xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
 xbpei:Jurisdiction xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
 xbpei:FactAssertion xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
-xbpei:JurisdictionFact xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
+xbpei:JurisdictionFact xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" ; skos:changeNote "Made a kind of Fact Assertion in v0.11."@en .
 xbpei:JurisdictionFactType xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
-xbpei:TaxStatusAssertion xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" .
+xbpei:TaxStatusAssertion xbpei:steward "Fund tax team" ; xbpei:termStatus "reviewed" ; skos:changeNote "Made a kind of Fact Assertion in v0.11."@en .
 xbpei:Event xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
 xbpei:PaymentEvent xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .
 xbpei:InvestmentTransaction xbpei:steward "Fund finance and treasury" ; xbpei:termStatus "reviewed" .

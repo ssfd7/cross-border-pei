@@ -19,8 +19,8 @@
     dcterms:description "Structural semantic model of a private equity fund investing through legal entities across jurisdictions, and of the facts, rules and evidence behind tax-obligation assessments. Formal counterpart of xb-pei-model.drawio. Not a tax engine; no jurisdiction-specific rule is encoded."@en ;
     dcterms:created "2026-10-05"^^xsd:date ;
     dcterms:modified "2026-10-09"^^xsd:date ;
-    owl:versionInfo "0.10" ;
-    owl:versionIRI <https://w3id.org/xb-pei/ontology/0.10> ;
+    owl:versionInfo "0.11" ;
+    owl:versionIRI <https://w3id.org/xb-pei/ontology/0.11> ;
     vann:preferredNamespacePrefix "xbpei" ;
     vann:preferredNamespaceUri "https://w3id.org/xb-pei/ontology#" ;
     dcat:keyword "private equity"@en , "cross-border"@en , "tax obligation"@en , "ownership"@en ;
@@ -178,6 +178,7 @@ xbpei:FactAssertion a owl:Class ;
     skos:definition "A statement recorded as true about a party, entity or event, which an assessment can use. Absence of an assertion means unknown, not false."@en .
 
 xbpei:JurisdictionFact a owl:Class ;
+    rdfs:subClassOf xbpei:FactAssertion ;
     rdfs:label "Jurisdiction Fact"@en ;
     skos:definition "A dated statement linking a legal entity to a jurisdiction in a stated capacity, such as incorporation, tax residence or operating location."@en .
 
@@ -187,6 +188,7 @@ xbpei:JurisdictionFactType a owl:Class ;
     skos:definition "The capacity in which an entity is linked to a jurisdiction."@en .
 
 xbpei:TaxStatusAssertion a owl:Class ;
+    rdfs:subClassOf xbpei:FactAssertion ;
     rdfs:label "Tax Status Assertion"@en ;
     skos:definition "A dated statement of a party's tax classification or status as assessed under one jurisdiction."@en .
 
