@@ -2,7 +2,7 @@
 
 A prototype showing how one ontology and one semantic layer ground AI agents across two business products, over data held in emulated legacy systems. All fund, investor and payment data is synthetic, and the tax rules are illustrative.
 
-**Status (2026-10-08):** business requirements and the semantic model are drafted. A first prototype exists for one procedure, WF3 withholding at distribution, with review screens and a documented extension to OKF that ties the bundle to the ontology. It has been run three times with a grounded agent and three times with an ungrounded one: the grounded agent produced the correct schedule every time, the ungrounded one in two runs of three. A read-only agent answers the first three LookThrough questions from the same bundle. See the [first run report](solution/reports/2026-10-06-wf3-two-arm-run.md) and the [second report](solution/reports/2026-10-08-controls-benchmark-and-lookthrough.md).
+**Status (2026-10-08):** business requirements and the semantic model are drafted. A first prototype exists for one procedure, WF3 withholding at distribution, with review screens and a documented extension to OKF that ties the bundle to the ontology. It has been run three times with a grounded agent and three times with an ungrounded one: the grounded agent produced the correct schedule every time, in a fourth run as well, the ungrounded one in two runs of three. A read-only agent answers the first three LookThrough questions from the same bundle. See the [first run report](solution/reports/2026-10-06-wf3-two-arm-run.md) and the [second report](solution/reports/2026-10-08-controls-benchmark-and-lookthrough.md).
 
 ## Two products, one ontology, one semantic layer
 
@@ -68,7 +68,6 @@ To run it, see section 12 of the [first run report](solution/reports/2026-10-06-
 
 ## Open decisions
 
-- Whether to close the four faulty drafts the write tool accepts (the second report lists them), and whether a line with outcome `notApplicable` must cite an assessment.
 - Whether to go further in separating a grounded agent from an ungrounded one: a larger and less legible dataset, or a smaller model in both arms. Neither has been tried.
 - Whether Jurisdiction Fact and Tax Status Assertion are kinds of Fact Assertion in the ontology.
 - Ontology terms the source data needs and the model lacks: the treaty a certification claims under, its limitation-on-benefits category, the treaty partner of a rule version, and the party a missing-fact finding concerns.
@@ -82,4 +81,4 @@ Copyright 2026 Radu Marian. Licensed under the [Apache License 2.0](LICENSE).
 
 ## Limits
 
-The operating procedures are illustrative and have not been reviewed by a practitioner. The ontology encodes no jurisdiction-specific tax rule. The three rule versions in the prototype's rule library are illustrative: their rates, citations and the way the holding threshold is measured have not been checked against primary law. The Turtle parses with rdflib and has not been run through a reasoner. The bundle's concepts are drafts and none has been verified by a person. Each agent arm has been run three times, and each LookThrough question once.
+The operating procedures are illustrative and have not been reviewed by a practitioner. The ontology encodes no jurisdiction-specific tax rule. The three rule versions in the prototype's rule library are illustrative: their rates, citations and the way the holding threshold is measured have not been checked against primary law. The Turtle parses with rdflib and has not been run through a reasoner. The bundle's concepts are drafts and none has been verified by a person. The ungrounded arm has been run three times, the grounded arm four times, and each LookThrough question once.

@@ -6,7 +6,7 @@ Date: 2026-10-08. Follows the [first run report](2026-10-06-wf3-two-arm-run.md),
 
 - Each arm of WF3 has now been run three times. The grounded agent produced the correct schedule in all three runs. The ungrounded agent produced it in two and, in the third, gave the investor in a circular holding the treaty rate, under-withholding by USD 45,000.
 - Five measures of what a reviewer or auditor gets from a run were added beside the accuracy score. The ungrounded arm has no result on four of them, because it has no write checks, no recorded evidence and no links from terms to steps.
-- The measures also show two gaps on the grounded side. The write tool accepts four of ten faulty drafts, and it accepts a line with outcome `notApplicable` that cites no assessment.
+- The measures also showed two gaps on the grounded side. The write tool accepted four of ten faulty drafts, and it accepted a line with outcome `notApplicable` that cites no assessment. Both were closed afterwards, and a fourth grounded run passed the stricter checks (section 6).
 - A read-only agent answered the first three LookThrough questions and refused two unanswerable ones from the same bundle, scoring 19 of 19 points against the answer key. Each question was asked once.
 
 Three runs per arm is a small number. One miss in three shows that the ungrounded arm can fail on this dataset; it does not measure how often.
@@ -98,13 +98,26 @@ The answers reported what the sources leave open without being asked for it: the
 - The faulty drafts were written by the same hand as the checks they test. A practitioner would add others.
 - The dataset is unchanged: small, and legible to a model without help. The limits in section 9 of the first report still apply.
 
-## 6. Options from here
+## 6. Checks added after these runs
 
-1. **Close the accepted faults.** F8 to F10 are three checks in `draft_schedule`: the assessment is about the party and is applicable, the clearance is in force on the payment date, and the rate is the rule version's. F7 needs the beneficial recipients of the distribution. A fifth check would require an assessment on every line.
+The results in sections 2 and 3 are as found. Afterwards the write tool was given four more checks, and an eleventh faulty draft was added (F11, a line with no assessment behind it):
+
+- each component has one line for every beneficial recipient of the distribution and for no other party (F7);
+- every line cites an assessment, and the assessment is about that party and that component (F10, F11);
+- the outcome follows from the assessment, and where the assessment found a rule version applicable the rate is that rule version's (F9);
+- a clearance relied on is in force on the payment date (F8).
+
+With these, the tool refuses 11 of 11 faulty drafts. One more grounded run, RUN-305c4912, was made against them: its first draft was accepted, with 15 of 15 lines correct, 13 of 13 points and evidence behind 30 of 30 lines (34 assessments, 179 of 179 cited facts resolve), in 78 turns for an estimated USD 1.52. The drafts of RUN-067ce03d and RUN-083167fd would now be refused for their return-of-capital lines.
+
+One run shows the agent can still complete the procedure under the stricter checks; it says nothing more. The checks are written against the same ten faults they were built to catch, so 11 of 11 is a regression test, not evidence that no faulty draft can pass.
+
+## 7. Options from here
+
+1. **Have a practitioner add faulty drafts** the present checks were not written for.
 2. **Build CQ4 to CQ6.** CQ4 and CQ5 can read the assessments and missing-fact findings that WF3 already records. Nothing supports CQ6 yet.
 3. **A harder dataset or a smaller model**, as set out in the first report. Neither has been tried.
 
-## 7. Files
+## 8. Files
 
 - `xbpei/measures.py`, `xbpei/ask.py`, and `score_answer` in `xbpei/score.py`
 - `gold/answer-key.yaml`: sections `lookthrough_questions`, `term_impact`, `term_lookup` and `faulty_drafts`

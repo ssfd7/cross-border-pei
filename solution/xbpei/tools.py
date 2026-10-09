@@ -13,7 +13,7 @@ from rdflib import Graph, Literal, URIRef
 from rdflib.namespace import RDF, XSD
 
 from . import DOCUMENTS, DSN, SHAPES, XBPEI, bundle
-from .execute import log_step
+from .execute import log_step, run_postgres
 from .ontology import mapping_files
 
 AGENT = "agent:xbpei-clearance"
@@ -160,12 +160,38 @@ def shape_violations(g: Graph) -> list[str]:
     return sorted(f"{str(r.focus).rsplit(':', 1)[-1]}{' ' + str(r.path).rsplit('#', 1)[-1] if r.path else ''}: {r.message}" for r in rows)
 
 
+def support_reasons(conn, d: dict, payment_date: date) -> list[str]:
+    """Why the assessment and clearance a line cites do not support it. They must exist, which is tested before this."""
+    assessment = d.get("supported_by") and source_row(conn, f"clearance.obligation_assessment:{d['supported_by']}")
+    if not d.get("supported_by"):
+        return ["no supporting assessment. Every line cites the assessment behind it, a notApplicable line included."]
+    reasons, outcome, rate = [], d.get("determination_outcome"), Decimal(str(d.get("withholding_rate") or 0))
+    if assessment:
+        result = assessment["assessment_result"]
+        rule = source_row(conn, f"rulebook.rule_version:{assessment['evaluates_rule']}/{assessment['evaluates_version']}")
+        if (assessment["subject_party"], assessment["subject_event"]) != (d.get("determined_for"), d.get("for_component")):
+            reasons.append(f"assessment {d['supported_by']} is about {assessment['subject_party']} and {assessment['subject_event']}, not this party and component.")
+        if (outcome == "cleared" and result != "applicable") or (outcome == "notApplicable" and result != "notApplicable") \
+                or (outcome == "defaultRate" and result == "notApplicable"):
+            reasons.append(f"outcome {outcome} is not supported by assessment {d['supported_by']}, whose result is {result}.")
+        elif result == "applicable" and outcome in ("cleared", "defaultRate") and rate != rule["rate_pct"]:
+            reasons.append(f"rate {rate} is not the {rule['rate_pct']} of {rule['rule_id']} {rule['version_label']}, the rule version assessment {d['supported_by']} found applicable.")
+        if outcome == "notApplicable" and rate != 0:
+            reasons.append("a notApplicable line carries a rate.")
+    clearance = d.get("relies_on_clearance") and source_row(conn, f"clearance.clearance:{d['relies_on_clearance']}")
+    if clearance and not (clearance["clearance_status"] in ("cleared", "admittedWithOpenItems") and clearance["valid_from"] <= payment_date
+                          and (clearance["valid_to"] is None or clearance["valid_to"] >= payment_date)):
+        reasons.append(f"clearance {d['relies_on_clearance']} is not in force on the payment date {payment_date}.")
+    return reasons
+
+
 def draft_reasons(conn, schedule_id: str, distribution_id: str, determinations: list[dict]) -> list[str]:
     """Why a draft schedule would be refused. Empty if it would be written. Writes nothing."""
     components = dict(conn.cursor(row_factory=tuple_row).execute(
         "SELECT comp_id, gross_amt FROM treasury.distribution_component WHERE dist_id = %s", (distribution_id,)).fetchall())
     if not components:
         return [f"No distribution {distribution_id}."]
+    distribution = source_row(conn, f"treasury.distribution:{distribution_id}")
     reasons = shape_violations(schedule_graph(schedule_id, distribution_id, determinations))
     for d in determinations:
         line = f"{d.get('determined_for')} {d.get('for_component')}"
@@ -177,6 +203,13 @@ def draft_reasons(conn, schedule_id: str, distribution_id: str, determinations: 
                 reasons.append(f"{line}: {key} {d[key]} does not resolve to a row.")
         if not d.get("rate_basis"):
             reasons.append(f"{line}: no rate basis.")
+        reasons += [f"{line}: {reason}" for reason in support_reasons(conn, d, distribution["pay_dt"])]
+    recipients = {r["recipient_no"] for r in run_postgres(bundle.concept("computations/beneficial-recipients").computation, {"distribution_id": distribution_id})}
+    for component in components:
+        named = {d.get("determined_for") for d in determinations if d.get("for_component") == component}
+        if named != recipients:
+            reasons.append(f"{component}: the lines are not for the beneficial recipients of {distribution_id}. "
+                           f"Not a recipient: {sorted(named - recipients) or 'none'}. Recipient without a line: {sorted(recipients - named) or 'none'}.")
     for component, gross in components.items():
         total = sum(Decimal(str(d.get("gross_amount") or 0)) for d in determinations if d.get("for_component") == component)
         if total != gross:

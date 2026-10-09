@@ -5,7 +5,7 @@ description: Record a draft withholding schedule for a distribution with one det
 status: draft
 performed_by: agent
 writes: [xbpei:WithholdingSchedule, xbpei:scheduleFor, xbpei:scheduleStatus, xbpei:preparedBy, xbpei:includes, xbpei:WithholdingDetermination, xbpei:determinedFor, xbpei:forComponent, xbpei:determinationOutcome, xbpei:grossAmount, xbpei:withholdingRate, xbpei:taxWithheld, xbpei:netAmount, xbpei:rateBasis, xbpei:reliesOnClearance, xbpei:supportedBy]
-supports: [WF3.9, C3.1, C3.3, C3.4]
+supports: [WF3.9, C3.1, C3.2, C3.3, C3.4]
 generated: { by: claude-code/claude-opus-5-5, at: 2026-10-06T16:57:20Z }
 ---
 
@@ -14,6 +14,10 @@ The draft is checked before anything is written, and refused with the reasons if
 - the shapes generated from the ontology (allowed outcomes, rates between 0 and 100, one value where one is allowed);
 - the control shapes: one outcome per party and component, a cleared rate cites its basis, tax and net follow from gross and rate;
 - the gross amounts of each component sum to the component's gross amount in the distribution.
+- each component has one line for every beneficial recipient of the distribution and for no other party, so a nominee or a feeder is not paid as if the income were its own;
+- every line cites an assessment, and the assessment is about that party and that component;
+- the outcome follows from the assessment: `cleared` needs an applicable one, `notApplicable` a not-applicable one, and where the assessment found a rule version applicable the rate is that rule version's rate;
+- a clearance relied on is in force on the payment date.
 
 The schedule is written as `draft`. Only a person can sign it.
 

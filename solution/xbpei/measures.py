@@ -92,13 +92,14 @@ def faulty(determinations: list[dict], case: dict) -> list[dict]:
 
 
 def bad_drafts(conn) -> dict:
-    """Each faulty draft put to the checks of the write tool. Needs an accepted draft whose assessments are still in the Clearance schema."""
+    """Each faulty draft put to the checks of the write tool. Starts from the latest accepted draft, which must itself pass the checks."""
     run = conn.execute("""SELECT run_id FROM runlog.step WHERE concept = 'tools/draft-schedule' AND verdict = 'Written.' ORDER BY at DESC LIMIT 1""").fetchone()
     if run is None:
         return {"cases": [], "note": "No accepted draft is recorded to start from."}
     draft = accepted_draft(conn, run["run_id"])
     if draft_reasons(conn, "WS-TEST", draft["distribution_id"], draft["determinations"]):
-        return {"cases": [], "note": f'The accepted draft of {run["run_id"]} no longer passes the checks; its records have been removed.'}
+        return {"cases": [], "note": f'The accepted draft of {run["run_id"]} does not pass the present checks, because its records have been removed '
+                                     "or checks have been added since. A grounded run is needed to start from."}
     cases = []
     for case in key()["faulty_drafts"]:
         reasons = draft_reasons(conn, "WS-TEST", draft["distribution_id"], faulty(draft["determinations"], case))

@@ -229,3 +229,4 @@ faulty_drafts:
   - {id: F9, fault: The 5% rate where the supporting assessment gives 15%, case: G6, control: C3.3,
      change: set, party: I-004, values: {withholding_rate: 5, tax_withheld: 62437.5, net_amount: 1186312.5}}
   - {id: F10, fault: A line supported by another party's assessment, control: C3.3, change: borrow, party: I-010, field: supported_by, from: I-001}
+  - {id: F11, fault: A line with no assessment behind it, control: C3.3, change: set, party: I-016, values: {supported_by: null}}
