@@ -70,6 +70,7 @@ mappings:
       xbpei:recordedOn: recorded_on
     links:
       xbpei:unmetRequirement: {column: unmet_requirement, references: rulebook.fact_requirement.req_id}
+      xbpei:concernsParty: {column: about_party, references: investor_register.investor.inv_no}
     inverse_links:
       xbpei:hasOpenItem: {column: clearance_id, references: clearance.clearance.clearance_id}
       xbpei:identifiesGap: {column: assessment_id, references: clearance.obligation_assessment.assessment_id}
@@ -141,6 +142,3 @@ mappings:
       xbpei:supportedBy: {column: supported_by, references: clearance.obligation_assessment.assessment_id}
     inverse_links:
       xbpei:includes: {column: schedule_id, references: clearance.withholding_schedule.schedule_id}
-
-unmapped_columns:
-  missing_fact_finding.about_party: The party a finding concerns. The ontology links a finding to its requirement and to the clearance or assessment that raised it, not to a party.

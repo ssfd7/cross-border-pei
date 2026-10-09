@@ -15,11 +15,11 @@ xbsh:AgreementShape a sh:NodeShape ;
     sh:targetClass xbpei:Agreement .
 
 xbsh:AuthoritySourceShape a sh:NodeShape ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:path xbpei:citation ],
-        [ sh:datatype xsd:date ;
+    sh:property [ sh:datatype xsd:date ;
             sh:maxCount 1 ;
             sh:path xbpei:documentDate ],
+        [ sh:datatype xsd:string ;
+            sh:path xbpei:citation ],
         [ sh:datatype xsd:string ;
             sh:path xbpei:name ],
         [ sh:datatype xsd:anyURI ;
@@ -30,22 +30,22 @@ xbsh:BeneficialOwnerShape a sh:NodeShape ;
     sh:targetClass xbpei:BeneficialOwner .
 
 xbsh:CaseShape a sh:NodeShape ;
-    sh:property [ sh:class xbpei:ChangeEvent ;
-            sh:path xbpei:triggeredBy ],
-        [ sh:class xbpei:Party ;
-            sh:path xbpei:concernsParty ],
+    sh:property [ sh:class xbpei:Clearance ;
+            sh:path xbpei:decides ],
         [ sh:datatype xsd:string ;
             sh:path xbpei:caseOutcome ],
-        [ sh:datatype xsd:date ;
-            sh:maxCount 1 ;
-            sh:path xbpei:closedOn ],
+        [ sh:class xbpei:Party ;
+            sh:path xbpei:concernsParty ],
+        [ sh:class xbpei:DistributionEvent ;
+            sh:path xbpei:concernsDistribution ],
+        [ sh:class xbpei:ChangeEvent ;
+            sh:path xbpei:triggeredBy ],
         [ sh:datatype xsd:date ;
             sh:maxCount 1 ;
             sh:path xbpei:openedOn ],
-        [ sh:class xbpei:DistributionEvent ;
-            sh:path xbpei:concernsDistribution ],
-        [ sh:class xbpei:Clearance ;
-            sh:path xbpei:decides ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:path xbpei:closedOn ],
         [ sh:in ( "onboarding" "renewal" "change" "distribution" ) ;
             sh:maxCount 1 ;
             sh:path xbpei:caseKind ] ;
@@ -57,65 +57,59 @@ xbsh:CertificationTypeShape a sh:NodeShape ;
 xbsh:ChangeEventShape a sh:NodeShape ;
     sh:property [ sh:datatype xsd:date ;
             sh:maxCount 1 ;
-            sh:path xbpei:learnedOn ],
+            sh:path xbpei:occurredOn ],
+        [ sh:class xbpei:ObligationAssessment ;
+            sh:path xbpei:triggersReassessment ],
         [ sh:datatype xsd:date ;
             sh:maxCount 1 ;
             sh:path xbpei:recordedOn ],
-        [ sh:datatype xsd:date ;
-            sh:maxCount 1 ;
-            sh:path xbpei:occurredOn ],
         [ sh:class xbpei:FactAssertion ;
             sh:path xbpei:changes ],
-        [ sh:class xbpei:ObligationAssessment ;
-            sh:path xbpei:triggersReassessment ] ;
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:path xbpei:learnedOn ] ;
     sh:targetClass xbpei:ChangeEvent .
 
 xbsh:ClearanceShape a sh:NodeShape ;
-    sh:property [ sh:class xbpei:Party ;
+    sh:property [ sh:class xbpei:TaxCertification ;
+            sh:path xbpei:reliesOnCertification ],
+        [ sh:class xbpei:Party ;
             sh:maxCount 1 ;
             sh:path xbpei:clearanceOf ],
-        [ sh:in ( "cleared" "admittedWithOpenItems" "notCleared" "withdrawn" ) ;
-            sh:maxCount 1 ;
-            sh:path xbpei:clearanceStatus ],
-        [ sh:class xbpei:FactAssertion ;
-            sh:path xbpei:reliesOnFact ],
+        [ sh:datatype xsd:string ;
+            sh:path xbpei:defaultTreatment ],
         [ sh:datatype xsd:date ;
             sh:maxCount 1 ;
             sh:path xbpei:decidedOn ],
-        [ sh:class xbpei:Party ;
-            sh:path xbpei:reviewedBy ],
-        [ sh:class xbpei:FundVehicle ;
-            sh:path xbpei:inContextOf ],
-        [ sh:class xbpei:TaxCertification ;
-            sh:path xbpei:reliesOnCertification ],
-        [ sh:datatype xsd:string ;
-            sh:path xbpei:defaultTreatment ],
         [ sh:class xbpei:TimeInterval ;
             sh:path xbpei:validDuring ],
+        [ sh:class xbpei:Party ;
+            sh:path xbpei:reviewedBy ],
+        [ sh:class xbpei:FactAssertion ;
+            sh:path xbpei:reliesOnFact ],
+        [ sh:class xbpei:FundVehicle ;
+            sh:path xbpei:inContextOf ],
         [ sh:class xbpei:MissingFactFinding ;
-            sh:path xbpei:hasOpenItem ] ;
+            sh:path xbpei:hasOpenItem ],
+        [ sh:in ( "cleared" "admittedWithOpenItems" "notCleared" "withdrawn" ) ;
+            sh:maxCount 1 ;
+            sh:path xbpei:clearanceStatus ] ;
     sh:targetClass xbpei:Clearance .
 
 xbsh:DistributionComponentShape a sh:NodeShape ;
-    sh:property [ sh:datatype xsd:decimal ;
-            sh:maxCount 1 ;
-            sh:path xbpei:grossAmount ],
-        [ sh:class xbpei:Jurisdiction ;
+    sh:property [ sh:class xbpei:Jurisdiction ;
             sh:maxCount 1 ;
             sh:path xbpei:sourcedIn ],
         [ sh:class xbpei:IncomeType ;
             sh:maxCount 1 ;
-            sh:path xbpei:hasIncomeType ] ;
+            sh:path xbpei:hasIncomeType ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:path xbpei:grossAmount ] ;
     sh:targetClass xbpei:DistributionComponent .
 
 xbsh:DistributionEventShape a sh:NodeShape ;
-    sh:property [ sh:datatype xsd:date ;
-            sh:maxCount 1 ;
-            sh:path xbpei:recordDate ],
-        [ sh:datatype xsd:decimal ;
-            sh:maxCount 1 ;
-            sh:path xbpei:grossAmount ],
-        [ sh:class xbpei:DistributionComponent ;
+    sh:property [ sh:class xbpei:DistributionComponent ;
             sh:path xbpei:hasComponent ],
         [ sh:datatype xsd:date ;
             sh:maxCount 1 ;
@@ -126,7 +120,13 @@ xbsh:DistributionEventShape a sh:NodeShape ;
         [ sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path xbpei:currencyCode ;
-            sh:pattern "^[A-Z]{3}$" ] ;
+            sh:pattern "^[A-Z]{3}$" ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:path xbpei:recordDate ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:path xbpei:grossAmount ] ;
     sh:targetClass xbpei:DistributionEvent .
 
 xbsh:EventShape a sh:NodeShape ;
@@ -136,11 +136,11 @@ xbsh:EventShape a sh:NodeShape ;
     sh:targetClass xbpei:Event .
 
 xbsh:FactAssertionShape a sh:NodeShape ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:path xbpei:statement ],
-        [ sh:datatype xsd:date ;
+    sh:property [ sh:datatype xsd:date ;
             sh:maxCount 1 ;
-            sh:path xbpei:recordedOn ] ;
+            sh:path xbpei:recordedOn ],
+        [ sh:datatype xsd:string ;
+            sh:path xbpei:statement ] ;
     sh:targetClass xbpei:FactAssertion .
 
 xbsh:FactRequirementShape a sh:NodeShape ;
@@ -150,16 +150,16 @@ xbsh:FactRequirementShape a sh:NodeShape ;
     sh:targetClass xbpei:FactRequirement .
 
 xbsh:FundVehicleShape a sh:NodeShape ;
-    sh:property [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:decimal ;
             sh:maxCount 1 ;
-            sh:path xbpei:currencyCode ;
-            sh:pattern "^[A-Z]{3}$" ],
+            sh:path xbpei:committedCapital ],
         [ sh:datatype xsd:gYear ;
             sh:maxCount 1 ;
             sh:path xbpei:vintageYear ],
-        [ sh:datatype xsd:decimal ;
+        [ sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path xbpei:committedCapital ] ;
+            sh:path xbpei:currencyCode ;
+            sh:pattern "^[A-Z]{3}$" ] ;
     sh:targetClass xbpei:FundVehicle .
 
 xbsh:IncomeTypeShape a sh:NodeShape ;
@@ -168,30 +168,30 @@ xbsh:IncomeTypeShape a sh:NodeShape ;
 xbsh:InvestmentTransactionShape a sh:NodeShape ;
     sh:property [ sh:class xbpei:LegalEntity ;
             sh:path xbpei:hasSubjectEntity ],
+        [ sh:class xbpei:OwnershipInterest ;
+            sh:path xbpei:affectsInterest ],
         [ sh:in ( "acquisition" "disposal" ) ;
             sh:maxCount 1 ;
-            sh:path xbpei:transactionKind ],
-        [ sh:class xbpei:OwnershipInterest ;
-            sh:path xbpei:affectsInterest ] ;
+            sh:path xbpei:transactionKind ] ;
     sh:targetClass xbpei:InvestmentTransaction .
 
 xbsh:JurisdictionFactShape a sh:NodeShape ;
-    sh:property [ sh:class xbpei:SourceDocument ;
+    sh:property [ sh:class xbpei:TimeInterval ;
+            sh:path xbpei:validDuring ],
+        [ sh:class xbpei:JurisdictionFactType ;
+            sh:maxCount 1 ;
+            sh:path xbpei:hasFactType ],
+        [ sh:class xbpei:SourceDocument ;
             sh:path xbpei:evidencedBy ],
         [ sh:datatype xsd:date ;
             sh:maxCount 1 ;
             sh:path xbpei:recordedOn ],
-        [ sh:class xbpei:JurisdictionFactType ;
-            sh:maxCount 1 ;
-            sh:path xbpei:hasFactType ],
-        [ sh:class xbpei:TimeInterval ;
-            sh:path xbpei:validDuring ],
-        [ sh:class xbpei:Jurisdiction ;
-            sh:maxCount 1 ;
-            sh:path xbpei:hasJurisdiction ],
         [ sh:class xbpei:LegalEntity ;
             sh:maxCount 1 ;
-            sh:path xbpei:aboutEntity ] ;
+            sh:path xbpei:aboutEntity ],
+        [ sh:class xbpei:Jurisdiction ;
+            sh:maxCount 1 ;
+            sh:path xbpei:hasJurisdiction ] ;
     sh:targetClass xbpei:JurisdictionFact .
 
 xbsh:JurisdictionFactTypeShape a sh:NodeShape ;
@@ -200,13 +200,13 @@ xbsh:JurisdictionFactTypeShape a sh:NodeShape ;
 xbsh:JurisdictionShape a sh:NodeShape ;
     sh:property [ sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path xbpei:subdivisionCode ],
+            sh:path xbpei:countryCode ;
+            sh:pattern "^[A-Z]{2}$" ],
         [ sh:datatype xsd:string ;
             sh:path xbpei:name ],
         [ sh:datatype xsd:string ;
             sh:maxCount 1 ;
-            sh:path xbpei:countryCode ;
-            sh:pattern "^[A-Z]{2}$" ] ;
+            sh:path xbpei:subdivisionCode ] ;
     sh:targetClass xbpei:Jurisdiction .
 
 xbsh:LegalEntityShape a sh:NodeShape ;
@@ -219,7 +219,9 @@ xbsh:LegalEntityShape a sh:NodeShape ;
     sh:targetClass xbpei:LegalEntity .
 
 xbsh:MissingFactFindingShape a sh:NodeShape ;
-    sh:property [ sh:datatype xsd:date ;
+    sh:property [ sh:class xbpei:Party ;
+            sh:path xbpei:concernsParty ],
+        [ sh:datatype xsd:date ;
             sh:maxCount 1 ;
             sh:path xbpei:recordedOn ],
         [ sh:class xbpei:FactRequirement ;
@@ -231,53 +233,57 @@ xbsh:NaturalPersonShape a sh:NodeShape ;
     sh:targetClass xbpei:NaturalPerson .
 
 xbsh:ObligationAssessmentShape a sh:NodeShape ;
-    sh:property [ sh:in ( "applicable" "notApplicable" "undetermined" ) ;
-            sh:maxCount 1 ;
-            sh:path xbpei:assessmentResult ],
-        [ sh:class xbpei:Event ;
-            sh:path xbpei:hasSubjectEvent ],
-        [ sh:class xbpei:Party ;
-            sh:path xbpei:hasSubjectParty ],
-        [ sh:class xbpei:Obligation ;
-            sh:path xbpei:identifies ],
-        [ sh:datatype xsd:date ;
+    sh:property [ sh:datatype xsd:date ;
             sh:maxCount 1 ;
             sh:path xbpei:assessedOn ],
-        [ sh:class xbpei:MissingFactFinding ;
-            sh:path xbpei:identifiesGap ],
         [ sh:class xbpei:FactAssertion ;
             sh:path xbpei:usesFact ],
+        [ sh:in ( "applicable" "notApplicable" "undetermined" ) ;
+            sh:maxCount 1 ;
+            sh:path xbpei:assessmentResult ],
+        [ sh:class xbpei:Party ;
+            sh:path xbpei:hasSubjectParty ],
+        [ sh:class xbpei:MissingFactFinding ;
+            sh:path xbpei:identifiesGap ],
         [ sh:datatype xsd:string ;
             sh:path xbpei:reasoning ],
+        [ sh:class xbpei:Obligation ;
+            sh:path xbpei:identifies ],
+        [ sh:class xbpei:Event ;
+            sh:path xbpei:hasSubjectEvent ],
         [ sh:class xbpei:RuleVersion ;
             sh:maxCount 1 ;
             sh:path xbpei:evaluates ] ;
     sh:targetClass xbpei:ObligationAssessment .
 
 xbsh:ObligationShape a sh:NodeShape ;
-    sh:property [ sh:class xbpei:Party ;
-            sh:path xbpei:obligatedParty ],
+    sh:property [ sh:class xbpei:RuleVersion ;
+            sh:path xbpei:basedOn ],
         [ sh:in ( "reporting" "withholding" ) ;
             sh:maxCount 1 ;
             sh:path xbpei:obligationKind ],
         [ sh:datatype xsd:date ;
             sh:maxCount 1 ;
             sh:path xbpei:dueDate ],
-        [ sh:class xbpei:RuleVersion ;
-            sh:path xbpei:basedOn ] ;
+        [ sh:class xbpei:Party ;
+            sh:path xbpei:obligatedParty ] ;
     sh:targetClass xbpei:Obligation .
 
 xbsh:OwnershipInterestShape a sh:NodeShape ;
-    sh:property [ sh:datatype xsd:decimal ;
+    sh:property [ sh:class xbpei:OwnershipInterest ;
+            sh:maxCount 1 ;
+            sh:path xbpei:heldThrough ],
+        [ sh:in ( "beneficial" "nominee" ) ;
+            sh:maxCount 1 ;
+            sh:path xbpei:holdingCapacity ],
+        [ sh:datatype xsd:decimal ;
             sh:maxCount 1 ;
             sh:maxInclusive 100.0 ;
             sh:minInclusive 0.0 ;
             sh:path xbpei:votingPercentage ],
-        [ sh:class xbpei:Party ;
+        [ sh:class xbpei:LegalEntity ;
             sh:maxCount 1 ;
-            sh:path xbpei:heldBy ],
-        [ sh:class xbpei:Agreement ;
-            sh:path xbpei:governedBy ],
+            sh:path xbpei:interestIn ],
         [ sh:datatype xsd:decimal ;
             sh:maxCount 1 ;
             sh:maxInclusive 100.0 ;
@@ -285,19 +291,15 @@ xbsh:OwnershipInterestShape a sh:NodeShape ;
             sh:path xbpei:economicPercentage ],
         [ sh:class xbpei:TimeInterval ;
             sh:path xbpei:validDuring ],
-        [ sh:in ( "beneficial" "nominee" ) ;
-            sh:maxCount 1 ;
-            sh:path xbpei:holdingCapacity ],
+        [ sh:class xbpei:Agreement ;
+            sh:path xbpei:governedBy ],
+        [ sh:class xbpei:SourceDocument ;
+            sh:path xbpei:evidencedBy ],
         [ sh:datatype xsd:string ;
             sh:path xbpei:shareClass ],
-        [ sh:class xbpei:LegalEntity ;
+        [ sh:class xbpei:Party ;
             sh:maxCount 1 ;
-            sh:path xbpei:interestIn ],
-        [ sh:class xbpei:OwnershipInterest ;
-            sh:maxCount 1 ;
-            sh:path xbpei:heldThrough ],
-        [ sh:class xbpei:SourceDocument ;
-            sh:path xbpei:evidencedBy ] ;
+            sh:path xbpei:heldBy ] ;
     sh:targetClass xbpei:OwnershipInterest .
 
 xbsh:PartyShape a sh:NodeShape ;
@@ -306,30 +308,30 @@ xbsh:PartyShape a sh:NodeShape ;
     sh:targetClass xbpei:Party .
 
 xbsh:PaymentEventShape a sh:NodeShape ;
-    sh:property [ sh:class xbpei:Party ;
+    sh:property [ sh:class xbpei:DistributionEvent ;
             sh:maxCount 1 ;
-            sh:path xbpei:payer ],
+            sh:path xbpei:partOfDistribution ],
+        [ sh:class xbpei:WithholdingSchedule ;
+            sh:maxCount 1 ;
+            sh:path xbpei:releasedAgainst ],
         [ sh:datatype xsd:decimal ;
             sh:maxCount 1 ;
             sh:path xbpei:amount ],
+        [ sh:class xbpei:InvestmentTransaction ;
+            sh:path xbpei:associatedWith ],
         [ sh:class xbpei:Party ;
             sh:maxCount 1 ;
-            sh:path xbpei:payee ],
+            sh:path xbpei:payer ],
         [ sh:datatype xsd:string ;
             sh:maxCount 1 ;
             sh:path xbpei:currencyCode ;
             sh:pattern "^[A-Z]{3}$" ],
-        [ sh:class xbpei:DistributionEvent ;
-            sh:maxCount 1 ;
-            sh:path xbpei:partOfDistribution ],
-        [ sh:class xbpei:InvestmentTransaction ;
-            sh:path xbpei:associatedWith ],
-        [ sh:class xbpei:WithholdingSchedule ;
-            sh:maxCount 1 ;
-            sh:path xbpei:releasedAgainst ],
         [ sh:class xbpei:PaymentType ;
             sh:maxCount 1 ;
-            sh:path xbpei:hasPaymentType ] ;
+            sh:path xbpei:hasPaymentType ],
+        [ sh:class xbpei:Party ;
+            sh:maxCount 1 ;
+            sh:path xbpei:payee ] ;
     sh:targetClass xbpei:PaymentEvent .
 
 xbsh:PaymentTypeShape a sh:NodeShape ;
@@ -339,44 +341,46 @@ xbsh:PortfolioCompanyShape a sh:NodeShape ;
     sh:targetClass xbpei:PortfolioCompany .
 
 xbsh:RoleAssignmentShape a sh:NodeShape ;
-    sh:property [ sh:class xbpei:Agreement ;
-            sh:path xbpei:governedBy ],
-        [ sh:class xbpei:RoleType ;
+    sh:property [ sh:class xbpei:RoleType ;
             sh:maxCount 1 ;
             sh:path xbpei:hasRoleType ],
-        [ sh:class xbpei:FundVehicle ;
-            sh:path xbpei:inContextOf ],
+        [ sh:class xbpei:Agreement ;
+            sh:path xbpei:governedBy ],
         [ sh:class xbpei:Party ;
             sh:maxCount 1 ;
-            sh:path xbpei:assignedTo ] ;
+            sh:path xbpei:assignedTo ],
+        [ sh:class xbpei:FundVehicle ;
+            sh:path xbpei:inContextOf ] ;
     sh:targetClass xbpei:RoleAssignment .
 
 xbsh:RoleTypeShape a sh:NodeShape ;
     sh:targetClass xbpei:RoleType .
 
 xbsh:RuleVersionShape a sh:NodeShape ;
-    sh:property [ sh:class xbpei:AuthoritySource ;
-            sh:path xbpei:derivedFrom ],
-        [ sh:datatype xsd:string ;
-            sh:maxCount 1 ;
-            sh:path xbpei:versionLabel ],
-        [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:string ;
             sh:path xbpei:name ],
-        [ sh:class xbpei:TimeInterval ;
-            sh:maxCount 1 ;
-            sh:path xbpei:effectiveDuring ],
-        [ sh:class xbpei:FactRequirement ;
-            sh:path xbpei:requiresFact ],
         [ sh:datatype xsd:decimal ;
             sh:maxCount 1 ;
             sh:maxInclusive 100.0 ;
             sh:minInclusive 0.0 ;
             sh:path xbpei:prescribedRate ],
+        [ sh:class xbpei:TimeInterval ;
+            sh:maxCount 1 ;
+            sh:path xbpei:effectiveDuring ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path xbpei:versionLabel ],
         [ sh:datatype xsd:decimal ;
             sh:maxCount 1 ;
             sh:maxInclusive 100.0 ;
             sh:minInclusive 0.0 ;
             sh:path xbpei:minimumVotingPercentage ],
+        [ sh:class xbpei:Jurisdiction ;
+            sh:path xbpei:hasTreatyPartner ],
+        [ sh:class xbpei:AuthoritySource ;
+            sh:path xbpei:derivedFrom ],
+        [ sh:class xbpei:FactRequirement ;
+            sh:path xbpei:requiresFact ],
         [ sh:class xbpei:Jurisdiction ;
             sh:path xbpei:appliesIn ] ;
     sh:targetClass xbpei:RuleVersion .
@@ -395,88 +399,94 @@ xbsh:SourceDocumentShape a sh:NodeShape ;
     sh:targetClass xbpei:SourceDocument .
 
 xbsh:TaxCertificationShape a sh:NodeShape ;
-    sh:property [ sh:class xbpei:CertificationType ;
+    sh:property [ sh:class xbpei:Party ;
+            sh:maxCount 1 ;
+            sh:path xbpei:certifiedBy ],
+        [ sh:class xbpei:CertificationType ;
             sh:maxCount 1 ;
             sh:path xbpei:hasCertificationType ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:path xbpei:limitationOnBenefitsCategory ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:path xbpei:isIntermediaryCertification ],
         [ sh:datatype xsd:boolean ;
             sh:maxCount 1 ;
             sh:path xbpei:claimsTreatyBenefit ],
-        [ sh:class xbpei:Party ;
+        [ sh:class xbpei:Jurisdiction ;
             sh:maxCount 1 ;
-            sh:path xbpei:certifiedBy ],
+            sh:path xbpei:claimsTreatyWith ],
         [ sh:class xbpei:TimeInterval ;
-            sh:path xbpei:validDuring ],
-        [ sh:datatype xsd:boolean ;
-            sh:maxCount 1 ;
-            sh:path xbpei:isIntermediaryCertification ] ;
+            sh:path xbpei:validDuring ] ;
     sh:targetClass xbpei:TaxCertification .
 
 xbsh:TaxStatusAssertionShape a sh:NodeShape ;
-    sh:property [ sh:datatype xsd:date ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:path xbpei:taxClassification ],
+        [ sh:class xbpei:SourceDocument ;
+            sh:path xbpei:evidencedBy ],
+        [ sh:datatype xsd:date ;
             sh:maxCount 1 ;
             sh:path xbpei:recordedOn ],
-        [ sh:datatype xsd:string ;
-            sh:path xbpei:taxClassification ],
+        [ sh:class xbpei:TimeInterval ;
+            sh:path xbpei:validDuring ],
         [ sh:class xbpei:Party ;
             sh:maxCount 1 ;
             sh:path xbpei:aboutParty ],
-        [ sh:class xbpei:SourceDocument ;
-            sh:path xbpei:evidencedBy ],
         [ sh:class xbpei:Jurisdiction ;
             sh:maxCount 1 ;
-            sh:path xbpei:assessedUnder ],
-        [ sh:class xbpei:TimeInterval ;
-            sh:path xbpei:validDuring ] ;
+            sh:path xbpei:assessedUnder ] ;
     sh:targetClass xbpei:TaxStatusAssertion .
 
 xbsh:TimeIntervalShape a sh:NodeShape ;
     sh:targetClass xbpei:TimeInterval .
 
 xbsh:WithholdingDeterminationShape a sh:NodeShape ;
-    sh:property [ sh:datatype xsd:decimal ;
-            sh:maxCount 1 ;
-            sh:maxInclusive 100.0 ;
-            sh:minInclusive 0.0 ;
-            sh:path xbpei:withholdingRate ],
-        [ sh:datatype xsd:decimal ;
-            sh:maxCount 1 ;
-            sh:path xbpei:netAmount ],
+    sh:property [ sh:datatype xsd:string ;
+            sh:path xbpei:rateBasis ],
         [ sh:class xbpei:Party ;
             sh:maxCount 1 ;
             sh:path xbpei:determinedFor ],
         [ sh:class xbpei:ObligationAssessment ;
             sh:path xbpei:supportedBy ],
-        [ sh:in ( "cleared" "defaultRate" "held" "notApplicable" ) ;
-            sh:maxCount 1 ;
-            sh:path xbpei:determinationOutcome ],
-        [ sh:datatype xsd:date ;
-            sh:maxCount 1 ;
-            sh:path xbpei:decidedOn ],
         [ sh:class xbpei:DistributionComponent ;
             sh:maxCount 1 ;
             sh:path xbpei:forComponent ],
         [ sh:datatype xsd:decimal ;
             sh:maxCount 1 ;
             sh:path xbpei:grossAmount ],
-        [ sh:class xbpei:Clearance ;
-            sh:path xbpei:reliesOnClearance ],
-        [ sh:datatype xsd:string ;
-            sh:path xbpei:rateBasis ],
         [ sh:datatype xsd:decimal ;
             sh:maxCount 1 ;
-            sh:path xbpei:taxWithheld ] ;
+            sh:path xbpei:taxWithheld ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:path xbpei:decidedOn ],
+        [ sh:class xbpei:Clearance ;
+            sh:path xbpei:reliesOnClearance ],
+        [ sh:in ( "cleared" "defaultRate" "held" "notApplicable" ) ;
+            sh:maxCount 1 ;
+            sh:path xbpei:determinationOutcome ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:maxInclusive 100.0 ;
+            sh:minInclusive 0.0 ;
+            sh:path xbpei:withholdingRate ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxCount 1 ;
+            sh:path xbpei:netAmount ] ;
     sh:targetClass xbpei:WithholdingDetermination .
 
 xbsh:WithholdingScheduleShape a sh:NodeShape ;
-    sh:property [ sh:class xbpei:Party ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:path xbpei:signedOffOn ],
+        [ sh:class xbpei:Party ;
+            sh:path xbpei:preparedBy ],
+        [ sh:class xbpei:Party ;
             sh:path xbpei:signedOffBy ],
         [ sh:class xbpei:WithholdingDetermination ;
             sh:path xbpei:includes ],
-        [ sh:class xbpei:Party ;
-            sh:path xbpei:preparedBy ],
-        [ sh:datatype xsd:date ;
-            sh:maxCount 1 ;
-            sh:path xbpei:signedOffOn ],
         [ sh:in ( "draft" "signed" "superseded" ) ;
             sh:maxCount 1 ;
             sh:path xbpei:scheduleStatus ],

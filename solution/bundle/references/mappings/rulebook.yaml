@@ -17,6 +17,7 @@ mappings:
       xbpei:minimumVotingPercentage: min_vote_pct
     links:
       xbpei:appliesIn: {columns: [applies_in]}
+      xbpei:hasTreatyPartner: {columns: [treaty_country]}
     link_tables:
       xbpei:derivedFrom: {table: rule_authority, from: [rule_id, version_label], to: authority_id, references: rulebook.authority_source.authority_id}
     interval: {property: xbpei:effectiveDuring, start: eff_from, end: eff_to}
@@ -44,6 +45,3 @@ mappings:
       xbpei:citation: citation
       xbpei:documentDate: doc_dt
       xbpei:sourceLocation: location
-
-unmapped_columns:
-  rule_version.treaty_country: The residence a recipient must have for a treaty rule. The ontology has no term for it.

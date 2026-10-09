@@ -14,6 +14,11 @@ mappings:
     also_when:
       xbpei:LegalEntity: "inv_type = 'ENT'"
       xbpei:NaturalPerson: "inv_type = 'IND'"
+    derived:
+      xbpei:BeneficialOwner: >-
+        Not stored. A party that holds at least one interest whose xbpei:holdingCapacity is
+        beneficial: an investor with a commitment it does not hold as nominee, or an owner named
+        in a NOMINEE_ALLOC row of onboarding.declared_owner.
     properties:
       xbpei:identifier: inv_no
       xbpei:name: display_name

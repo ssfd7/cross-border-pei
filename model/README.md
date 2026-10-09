@@ -1,10 +1,10 @@
-# Cross-border private equity conceptual model — draft v0.9
+# Cross-border private equity conceptual model — draft v0.10
 
 Open `xb-pei-model.drawio` in diagrams.net/draw.io. It contains an overview page and five editable detail pages with colored circular concepts and labeled, directed relationships. Dashed `subclassOf` arrows denote proposed specializations, not instance relationships. Other arrows describe candidate relationships, with one name per connector. Inheritance uses a dashed line and a small hollow triangle pointing to the superclass.
 
 ## Diagrams
 
-PNG renderings of each page are in `diagrams/`, for viewing on GitHub. The Draw.io file is the source; the images were rendered from draft v0.9 and must be regenerated when the diagram changes.
+PNG renderings of each page are in `diagrams/`, for viewing on GitHub. The Draw.io file is the source; the images were rendered from draft v0.10 and must be regenerated when the diagram changes, with `python diagrams/render.py --model` from `solution/`.
 
 ### 00 Model overview
 
@@ -181,9 +181,26 @@ Layout: the existing positions on both pages were kept. Beneficial Owner was not
 
 Checked: both Turtle files parse with rdflib; every one of the 179 terms has a steward and a status. The Draw.io XML parses; cell identifiers are unique per page; every connector has a name and existing endpoints; the overview equals the union of pages 01–05; the overview's concepts, relationship names and subclass links equal the Turtle's classes, object properties and subclass axioms. All six pages were rendered again with the diagrams.net viewer. Page 01 and the changed part of the overview were inspected: page 01 is clean; on the overview Beneficial Owner sits close to Ownership Interest and the `aboutParty` label touches its edge. Pages 02–05 changed only in the version in their titles and were compared with the earlier images for position, not inspected again. Not run through an OWL reasoner, so the Beneficial Owner definition is untested by inference.
 
+## Definitions and four terms in v0.10
+
+Every term now has a definition. The 34 relationships and 24 codes that had only a label, a domain and a range were given one, so no generated glossary reads "No definition in the ontology". The definitions are written for this model and name no outside source yet.
+
+Four terms that the source data holds and the model lacked were added. Three are structural and are on the diagram:
+
+| Term | From | To | Where the data is | Diagram |
+|---|---|---|---|---|
+| `claimsTreatyWith` | Tax Certification | Jurisdiction | `onboarding.tax_form.treaty_country` | Page 04, where Jurisdiction now also appears, and the overview |
+| `hasTreatyPartner` | Rule Version | Jurisdiction | `rulebook.rule_version.treaty_country` | Page 03 and the overview, curved beside `appliesIn` |
+| `concernsParty` | Missing Fact Finding | Party | `clearance.missing_fact_finding.about_party` | Page 03 and the overview |
+| `limitationOnBenefitsCategory` | Tax Certification | text | `onboarding.tax_form.lob_cd` | An attribute; not on the diagram |
+
+`concernsParty` is not new: it linked a Case to a Party, and its domain was widened to Missing Fact Finding. The model has 38 concepts and 81 connectors (71 relationships and 10 subclass links). The new terms are `proposed`.
+
+Beneficial Owner is still held in no source system, by design: the investor register's mapping now says how membership follows from the interests a party holds, as the graph mapping already did.
+
 ## Formal ontology
 
-`xb-pei-model.ttl` is the OWL 2 counterpart of the diagram: the same 38 classes, 60 relationships (as object properties) and 10 subclass links as `00 Model overview`, plus 52 data properties, three restricted datatypes and five SKOS code lists for role, jurisdiction-fact, payment, certification and income types. The namespace `https://w3id.org/xb-pei/ontology#` is a placeholder and is not registered.
+`xb-pei-model.ttl` is the OWL 2 counterpart of the diagram: the same 38 classes, 62 relationships (as object properties) and 10 subclass links as `00 Model overview`, plus 53 data properties, three restricted datatypes and five SKOS code lists for role, jurisdiction-fact, payment, certification and income types. The namespace `https://w3id.org/xb-pei/ontology#` is a placeholder and is not registered.
 
 Reused vocabularies: OWL-Time and DCAT for periods (`TimeInterval` is a `time:ProperInterval` and `dcterms:PeriodOfTime`, with `dcat:startDate` and `dcat:endDate`), PROV-O and DCAT for evidence (`SourceDocument`, `AuthoritySource`), SKOS for code lists, Dublin Core and VANN for ontology metadata. External terms are declared, not imported.
 

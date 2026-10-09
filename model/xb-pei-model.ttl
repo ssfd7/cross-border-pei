@@ -18,9 +18,9 @@
     dcterms:title "Cross-border private equity investment ontology"@en ;
     dcterms:description "Structural semantic model of a private equity fund investing through legal entities across jurisdictions, and of the facts, rules and evidence behind tax-obligation assessments. Formal counterpart of xb-pei-model.drawio. Not a tax engine; no jurisdiction-specific rule is encoded."@en ;
     dcterms:created "2026-10-05"^^xsd:date ;
-    dcterms:modified "2026-10-06"^^xsd:date ;
-    owl:versionInfo "0.9" ;
-    owl:versionIRI <https://w3id.org/xb-pei/ontology/0.9> ;
+    dcterms:modified "2026-10-09"^^xsd:date ;
+    owl:versionInfo "0.10" ;
+    owl:versionIRI <https://w3id.org/xb-pei/ontology/0.10> ;
     vann:preferredNamespacePrefix "xbpei" ;
     vann:preferredNamespaceUri "https://w3id.org/xb-pei/ontology#" ;
     dcat:keyword "private equity"@en , "cross-border"@en , "tax obligation"@en , "ownership"@en ;
@@ -305,28 +305,34 @@ xbpei:WithholdingSchedule a owl:Class ;
 
 xbpei:assignedTo a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "assignedTo"@en ;
+    skos:definition "The party that holds the role."@en ;
     rdfs:domain xbpei:RoleAssignment ; rdfs:range xbpei:Party .
 
 xbpei:hasRoleType a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "hasRoleType"@en ;
+    skos:definition "The role that is held."@en ;
     rdfs:domain xbpei:RoleAssignment ; rdfs:range xbpei:RoleType .
 
 xbpei:inContextOf a owl:ObjectProperty ;
     rdfs:label "inContextOf"@en ;
+    skos:definition "The fund vehicle in relation to which the role is held or the clearance is given."@en ;
     rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:RoleAssignment xbpei:Clearance ) ] ;
     rdfs:range xbpei:FundVehicle .
 
 xbpei:governedBy a owl:ObjectProperty ;
     rdfs:label "governedBy"@en ;
+    skos:definition "The agreement that sets the terms of the role or the interest."@en ;
     rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:RoleAssignment xbpei:OwnershipInterest ) ] ;
     rdfs:range xbpei:Agreement .
 
 xbpei:heldBy a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "heldBy"@en ;
+    skos:definition "The party that holds the interest."@en ;
     rdfs:domain xbpei:OwnershipInterest ; rdfs:range xbpei:Party .
 
 xbpei:interestIn a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "interestIn"@en ;
+    skos:definition "The legal entity in which the interest is held."@en ;
     rdfs:domain xbpei:OwnershipInterest ; rdfs:range xbpei:LegalEntity .
 
 xbpei:heldThrough a owl:ObjectProperty , owl:FunctionalProperty ;
@@ -336,11 +342,13 @@ xbpei:heldThrough a owl:ObjectProperty , owl:FunctionalProperty ;
 
 xbpei:validDuring a owl:ObjectProperty ;
     rdfs:label "validDuring"@en ;
+    skos:definition "The period during which the interest, statement, certification or clearance holds."@en ;
     rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:OwnershipInterest xbpei:JurisdictionFact xbpei:TaxStatusAssertion xbpei:TaxCertification xbpei:Clearance ) ] ;
     rdfs:range xbpei:TimeInterval .
 
 xbpei:evidencedBy a owl:ObjectProperty ;
     rdfs:label "evidencedBy"@en ;
+    skos:definition "A source document that supports the statement."@en ;
     rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:OwnershipInterest xbpei:JurisdictionFact xbpei:TaxStatusAssertion ) ] ;
     rdfs:range xbpei:SourceDocument .
 
@@ -350,46 +358,57 @@ xbpei:evidencedBy a owl:ObjectProperty ;
 
 xbpei:aboutEntity a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "aboutEntity"@en ;
+    skos:definition "The legal entity the jurisdiction fact is about."@en ;
     rdfs:domain xbpei:JurisdictionFact ; rdfs:range xbpei:LegalEntity .
 
 xbpei:hasJurisdiction a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "hasJurisdiction"@en ;
+    skos:definition "The jurisdiction the fact links the entity to."@en ;
     rdfs:domain xbpei:JurisdictionFact ; rdfs:range xbpei:Jurisdiction .
 
 xbpei:hasFactType a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "hasFactType"@en ;
+    skos:definition "The capacity in which the fact links the entity to the jurisdiction: incorporation, tax residence or operating location."@en ;
     rdfs:domain xbpei:JurisdictionFact ; rdfs:range xbpei:JurisdictionFactType .
 
 xbpei:payer a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "payer"@en ;
+    skos:definition "The party that makes the payment."@en ;
     rdfs:domain xbpei:PaymentEvent ; rdfs:range xbpei:Party .
 
 xbpei:payee a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "payee"@en ;
+    skos:definition "The party that receives the payment."@en ;
     rdfs:domain xbpei:PaymentEvent ; rdfs:range xbpei:Party .
 
 xbpei:hasPaymentType a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "hasPaymentType"@en ;
+    skos:definition "The kind of payment."@en ;
     rdfs:domain xbpei:PaymentEvent ; rdfs:range xbpei:PaymentType .
 
 xbpei:associatedWith a owl:ObjectProperty ;
     rdfs:label "associatedWith"@en ;
+    skos:definition "The investment transaction the payment settles or arises from."@en ;
     rdfs:domain xbpei:PaymentEvent ; rdfs:range xbpei:InvestmentTransaction .
 
 xbpei:affectsInterest a owl:ObjectProperty ;
     rdfs:label "affectsInterest"@en ;
+    skos:definition "An ownership interest the transaction creates, changes or ends."@en ;
     rdfs:domain xbpei:InvestmentTransaction ; rdfs:range xbpei:OwnershipInterest .
 
 xbpei:hasSubjectEntity a owl:ObjectProperty ;
     rdfs:label "hasSubjectEntity"@en ;
+    skos:definition "The legal entity that is acquired, sold or otherwise the object of the transaction."@en ;
     rdfs:domain xbpei:InvestmentTransaction ; rdfs:range xbpei:LegalEntity .
 
 xbpei:aboutParty a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "aboutParty"@en ;
+    skos:definition "The party whose tax status is asserted."@en ;
     rdfs:domain xbpei:TaxStatusAssertion ; rdfs:range xbpei:Party .
 
 xbpei:assessedUnder a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "assessedUnder"@en ;
+    skos:definition "The jurisdiction under whose tax law the status is asserted."@en ;
     rdfs:domain xbpei:TaxStatusAssertion ; rdfs:range xbpei:Jurisdiction .
 
 #################################################################
@@ -398,63 +417,83 @@ xbpei:assessedUnder a owl:ObjectProperty , owl:FunctionalProperty ;
 
 xbpei:evaluates a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "evaluates"@en ;
+    skos:definition "The rule version the assessment tests against the facts."@en ;
     rdfs:domain xbpei:ObligationAssessment ; rdfs:range xbpei:RuleVersion .
 
 xbpei:derivedFrom a owl:ObjectProperty ;
     rdfs:subPropertyOf prov:wasDerivedFrom ;
     rdfs:label "derivedFrom"@en ;
+    skos:definition "The legal material the rule version is drawn from."@en ;
     rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:AuthoritySource .
 
 xbpei:appliesIn a owl:ObjectProperty ;
     rdfs:label "appliesIn"@en ;
+    skos:definition "The jurisdiction whose law imposes the rule."@en ;
+    rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:Jurisdiction .
+
+xbpei:hasTreatyPartner a owl:ObjectProperty ;
+    rdfs:label "hasTreatyPartner"@en ;
+    skos:definition "For a rule version that gives a treaty rate: the jurisdiction in which the recipient must be resident to qualify for it."@en ;
     rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:Jurisdiction .
 
 xbpei:effectiveDuring a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "effectiveDuring"@en ;
+    skos:definition "The period during which the rule version is in force."@en ;
     rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:TimeInterval .
 
 xbpei:requiresFact a owl:ObjectProperty ;
     rdfs:label "requiresFact"@en ;
+    skos:definition "A fact that must be known to decide whether the rule version applies."@en ;
     rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:FactRequirement .
 
 xbpei:usesFact a owl:ObjectProperty ;
     rdfs:label "usesFact"@en ;
+    skos:definition "A fact assertion the assessment relied on."@en ;
     rdfs:domain xbpei:ObligationAssessment ; rdfs:range xbpei:FactAssertion .
 
 xbpei:hasSubjectEvent a owl:ObjectProperty ;
     rdfs:label "hasSubjectEvent"@en ;
+    skos:definition "The event the assessment is made for, such as a payment or a distribution."@en ;
     rdfs:domain xbpei:ObligationAssessment ; rdfs:range xbpei:Event .
 
 xbpei:hasSubjectParty a owl:ObjectProperty ;
     rdfs:label "hasSubjectParty"@en ;
+    skos:definition "The party whose treatment the assessment decides."@en ;
     rdfs:domain xbpei:ObligationAssessment ; rdfs:range xbpei:Party .
 
 xbpei:identifiesGap a owl:ObjectProperty ;
     rdfs:label "identifiesGap"@en ;
+    skos:definition "A missing fact the assessment finds, which prevents the rule version from being decided."@en ;
     rdfs:domain xbpei:ObligationAssessment ; rdfs:range xbpei:MissingFactFinding .
 
 xbpei:unmetRequirement a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "unmetRequirement"@en ;
+    skos:definition "The fact requirement the finding reports as not met."@en ;
     rdfs:domain xbpei:MissingFactFinding ; rdfs:range xbpei:FactRequirement .
 
 xbpei:identifies a owl:ObjectProperty ;
     rdfs:label "identifies"@en ;
+    skos:definition "An obligation the assessment finds to exist."@en ;
     rdfs:domain xbpei:ObligationAssessment ; rdfs:range xbpei:Obligation .
 
 xbpei:obligatedParty a owl:ObjectProperty ;
     rdfs:label "obligatedParty"@en ;
+    skos:definition "The party that must meet the obligation."@en ;
     rdfs:domain xbpei:Obligation ; rdfs:range xbpei:Party .
 
 xbpei:basedOn a owl:ObjectProperty ;
     rdfs:label "basedOn"@en ;
+    skos:definition "The rule version that gives rise to the obligation."@en ;
     rdfs:domain xbpei:Obligation ; rdfs:range xbpei:RuleVersion .
 
 xbpei:triggersReassessment a owl:ObjectProperty ;
     rdfs:label "triggersReassessment"@en ;
+    skos:definition "An assessment that must be made again because of the change."@en ;
     rdfs:domain xbpei:ChangeEvent ; rdfs:range xbpei:ObligationAssessment .
 
 xbpei:changes a owl:ObjectProperty ;
     rdfs:label "changes"@en ;
+    skos:definition "The fact assertion the change event alters or supersedes."@en ;
     rdfs:domain xbpei:ChangeEvent ; rdfs:range xbpei:FactAssertion .
 
 #################################################################
@@ -698,8 +737,13 @@ xbpei:hasOpenItem a owl:ObjectProperty ;
 
 xbpei:concernsParty a owl:ObjectProperty ;
     rdfs:label "concernsParty"@en ;
-    skos:definition "The party the case is about."@en ;
-    rdfs:domain xbpei:Case ; rdfs:range xbpei:Party .
+    skos:definition "The party the case or the missing fact is about."@en ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( xbpei:Case xbpei:MissingFactFinding ) ] ; rdfs:range xbpei:Party .
+
+xbpei:claimsTreatyWith a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:label "claimsTreatyWith"@en ;
+    skos:definition "The jurisdiction of residence under whose treaty with the source jurisdiction the certification claims a reduced rate."@en ;
+    rdfs:domain xbpei:TaxCertification ; rdfs:range xbpei:Jurisdiction .
 
 xbpei:triggeredBy a owl:ObjectProperty ;
     rdfs:label "triggeredBy"@en ;
@@ -799,6 +843,12 @@ xbpei:claimsTreatyBenefit a owl:DatatypeProperty , owl:FunctionalProperty ;
     skos:definition "Whether the certification claims a reduced rate under a treaty."@en ;
     rdfs:domain xbpei:TaxCertification ;
     rdfs:range xsd:boolean .
+
+xbpei:limitationOnBenefitsCategory a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:label "limitationOnBenefitsCategory"@en ;
+    skos:definition "The ground on which the certifying party states that it meets the treaty's limitation-on-benefits provision, as given on the certification."@en ;
+    rdfs:domain xbpei:TaxCertification ;
+    rdfs:range xsd:string .
 
 xbpei:isIntermediaryCertification a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:label "isIntermediaryCertification"@en ;
@@ -929,32 +979,32 @@ xbpei:TimeInterval rdfs:subClassOf
 # Code lists (SKOS concept schemes)
 #################################################################
 
-xbpei:RoleTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Role types"@en .
-xbpei:JurisdictionFactTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Jurisdiction fact types"@en .
-xbpei:PaymentTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Payment types"@en .
+xbpei:RoleTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Role types"@en ; skos:definition "The code list of roles a party holds in relation to a fund vehicle."@en .
+xbpei:JurisdictionFactTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Jurisdiction fact types"@en ; skos:definition "The code list of capacities in which a legal entity is linked to a jurisdiction."@en .
+xbpei:PaymentTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Payment types"@en ; skos:definition "The code list of kinds of payment."@en .
 
-xbpei:Investor a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "Investor"@en .
-xbpei:LimitedPartner a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "Limited partner"@en .
-xbpei:GeneralPartner a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "General partner"@en .
-xbpei:Manager a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "Manager"@en .
+xbpei:Investor a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "Investor"@en ; skos:definition "A party that commits capital to a fund vehicle."@en .
+xbpei:LimitedPartner a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "Limited partner"@en ; skos:definition "An investor in a limited partnership whose liability is limited to its commitment."@en .
+xbpei:GeneralPartner a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "General partner"@en ; skos:definition "The partner that manages a limited partnership and is liable for its debts without limit."@en .
+xbpei:Manager a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "Manager"@en ; skos:definition "The party that manages a fund vehicle under a management agreement."@en .
 
-xbpei:Incorporation a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Incorporation"@en .
-xbpei:TaxResidence a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Tax residence"@en .
-xbpei:OperatingLocation a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Operating location"@en .
+xbpei:Incorporation a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Incorporation"@en ; skos:definition "The jurisdiction under whose law the entity is formed and registered."@en .
+xbpei:TaxResidence a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Tax residence"@en ; skos:definition "The jurisdiction that treats the entity as resident for tax purposes under its own law."@en .
+xbpei:OperatingLocation a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Operating location"@en ; skos:definition "A jurisdiction in which the entity carries on business."@en .
 
-xbpei:CapitalContribution a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Capital contribution"@en .
-xbpei:Distribution a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Distribution"@en .
-xbpei:ManagementFee a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Management fee"@en .
-xbpei:CarriedInterest a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Carried interest"@en .
-xbpei:Dividend a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Dividend"@en .
-xbpei:InterestPayment a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Interest"@en .
-xbpei:AcquisitionPrice a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Acquisition price"@en .
-xbpei:DisposalProceeds a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Disposal proceeds"@en .
+xbpei:CapitalContribution a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Capital contribution"@en ; skos:definition "Cash an investor pays into a fund vehicle against its commitment."@en .
+xbpei:Distribution a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Distribution"@en ; skos:definition "Cash a fund vehicle pays to its investors."@en .
+xbpei:ManagementFee a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Management fee"@en ; skos:definition "The periodic fee a fund vehicle pays its manager."@en .
+xbpei:CarriedInterest a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Carried interest"@en ; skos:definition "The share of a fund's profits paid to the general partner or the manager, beyond the return on its own investment."@en .
+xbpei:Dividend a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Dividend"@en ; skos:definition "A payment a company makes to its shareholders out of profits."@en .
+xbpei:InterestPayment a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Interest"@en ; skos:definition "A payment of interest on a debt."@en .
+xbpei:AcquisitionPrice a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Acquisition price"@en ; skos:definition "Price paid to acquire an interest in a company."@en .
+xbpei:DisposalProceeds a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Disposal proceeds"@en ; skos:definition "Cash received from selling an interest in a company."@en .
 
-xbpei:CertificationTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Certification types"@en .
-xbpei:IncomeTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Income types"@en .
+xbpei:CertificationTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Certification types"@en ; skos:definition "The code list of kinds of tax certification."@en .
+xbpei:IncomeTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Income types"@en ; skos:definition "The code list of kinds of income a distribution component passes on."@en .
 
-xbpei:DividendIncome a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Dividend"@en .
-xbpei:InterestIncome a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Interest"@en .
-xbpei:GainOnDisposal a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Gain on disposal"@en .
-xbpei:ReturnOfCapital a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Return of capital"@en .
+xbpei:DividendIncome a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Dividend"@en ; skos:definition "Income that is a dividend in the hands of the recipient."@en .
+xbpei:InterestIncome a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Interest"@en ; skos:definition "Income that is interest in the hands of the recipient."@en .
+xbpei:GainOnDisposal a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Gain on disposal"@en ; skos:definition "Gain realised on the sale of an asset."@en .
+xbpei:ReturnOfCapital a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Return of capital"@en ; skos:definition "Repayment of capital an investor contributed. It is not income."@en .

@@ -123,7 +123,7 @@ xbpei:reviewedBy xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
 xbpei:reliesOnCertification xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
 xbpei:reliesOnFact xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
 xbpei:hasOpenItem xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
-xbpei:concernsParty xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:concernsParty xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" ; skos:changeNote "Widened to Missing Fact Finding in v0.10."@en .
 xbpei:triggeredBy xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
 xbpei:decides xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
 xbpei:distributedBy xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
@@ -143,6 +143,9 @@ xbpei:releasedAgainst xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed
 xbpei:concernsDistribution xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
 xbpei:claimsTreatyBenefit xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
 xbpei:isIntermediaryCertification xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
+xbpei:claimsTreatyWith xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" ; skos:changeNote "Added in v0.10."@en .
+xbpei:limitationOnBenefitsCategory xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" ; skos:changeNote "Added in v0.10."@en .
+xbpei:hasTreatyPartner xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" ; skos:changeNote "Added in v0.10."@en .
 xbpei:clearanceStatus xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
 xbpei:decidedOn xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .
 xbpei:defaultTreatment xbpei:steward "Fund tax team" ; xbpei:termStatus "proposed" .

@@ -14,8 +14,10 @@ mappings:
       xbpei:documentDate: signed_dt
       xbpei:claimsTreatyBenefit: treaty_claim
       xbpei:isIntermediaryCertification: is_intermediary
+      xbpei:limitationOnBenefitsCategory: lob_cd
     links:
       xbpei:certifiedBy: {column: inv_no, references: investor_register.investor.inv_no}
+      xbpei:claimsTreatyWith: {columns: [treaty_country]}
     codes:
       xbpei:hasCertificationType: {column: form_type}
     interval: {property: xbpei:validDuring, start: signed_dt, end: valid_to}
@@ -96,7 +98,5 @@ mappings:
 
 unmapped_columns:
   tax_form.doc_ref: The scan of the form in the document index. The certification is itself the source document, so there is no relationship to bind this to.
-  tax_form.treaty_country: The ontology has no term for the treaty a certification claims under.
-  tax_form.lob_cd: The ontology has no term for the limitation-on-benefits category claimed.
   tax_form.form_status: Processing state of the form in this system; not a fact about the certification.
   tax_form.recv_dt: Date of receipt; no term.

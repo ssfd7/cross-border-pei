@@ -26,7 +26,7 @@ Clearance runs on it for one procedure (WF3). LookThrough answers CQ1 to CQ6 on 
 | [`business/domain-glossary.md`](business/domain-glossary.md) | Acronyms |
 | `business/lookthrough-product/` | LookThrough business requirements |
 | `business/clearance-product/` | Clearance business requirements and three operating procedures (`wf1`–`wf3`), each with controls and scenarios |
-| [`model/`](model/README.md) | The ontology, draft v0.9: OWL Turtle, stewardship and status per term, the Draw.io diagram (overview and five detail pages) with PNG renderings, and a README with decisions, traceability and checks |
+| [`model/`](model/README.md) | The ontology, draft v0.10: OWL Turtle, stewardship and status per term, the Draw.io diagram (overview and five detail pages) with PNG renderings, and a README with decisions, traceability and checks |
 | `solution/` | The prototype: emulated source systems and gold dataset, the OKF bundle, the graph projection, the agent runner and the run report |
 | [`AGENTS.md`](AGENTS.md) | Modelling and Draw.io conventions for AI agents working in this repository |
 
@@ -70,7 +70,7 @@ To run it, see section 12 of the [first run report](solution/reports/2026-10-06-
 
 - Whether to go further in separating a grounded agent from an ungrounded one: a larger and less legible dataset, or a smaller model in both arms. Neither has been tried.
 - Whether Jurisdiction Fact and Tax Status Assertion are kinds of Fact Assertion in the ontology.
-- Ontology terms the source data needs and the model lacks: the treaty a certification claims under, its limitation-on-benefits category, the treaty partner of a rule version, and the party a missing-fact finding concerns.
+- Which definitions should name an outside source (the OECD Model Tax Convention, the Internal Revenue Code and its regulations, the treaty, FIBO, ILPA), and who checks each citation against the primary text. Every term has a definition; none cites a source yet.
 - The clearance questions CL1–CL8 in the model are proposals and are not yet in the Clearance requirements.
 
 ## Sources and licence

@@ -214,10 +214,10 @@ term_impact:
     concepts: [computations/declared-owners, computations/effective-holding, computations/frozen-investor-list, computations/record-conflicts]
     steps: [1, 6]
   - term: xbpei:TaxCertification
-    concepts: [computations/beneficial-recipients, computations/tax-certifications]
+    concepts: [computations/beneficial-recipients, computations/records-resting-on-party, computations/tax-certifications]
     steps: [4, 5]
   - term: xbpei:withholdingRate
-    concepts: [tools/draft-schedule]
+    concepts: [computations/determination-support, tools/draft-schedule]
     steps: [9]
 
 # What a lookup must say about a term: answer (the term is mapped), unmapped (a term of the
