@@ -65,5 +65,6 @@ Meanings from ontology version 0.10, [xb-pei-model.ttl](../../../model/xb-pei-mo
   - Meaning: Special purpose vehicle: a legal entity created for a specific transaction or holding. Kind of `xbpei:LegalEntity`.
   - In the graph: a `Party` node where `isSPV`.
 - **`xbpei:BeneficialOwner`** (class; proposed; steward: Fund administration)
-  - Meaning: A party that holds at least one ownership interest for its own benefit, so that the income from it is its own. Membership follows from the interests held and is not asserted. The tax sense: the party entitled to the income. Not the natural person who ultimately controls an entity, as the term is used in know-your-customer work. Kind of `xbpei:Party`.
+  - Meaning: A party that holds at least one ownership interest for its own benefit, so that the income from it is its own. Membership follows from the interests held and is not asserted. The tax sense: the party entitled to the income. Not the natural person who ultimately controls an entity, as the term is used in know-your-customer work. The regulation cited defines the term for payments on which no treaty rate is claimed; for a treaty claim the treaty governs. Kind of `xbpei:Party`.
   - In the graph: Not stored. A Party with at least one outgoing HOLDS edge whose holdingCapacity is 'beneficial'.
+  - Source: 26 CFR 1.1441-1(c)(6)(i); Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 3(1)(i).

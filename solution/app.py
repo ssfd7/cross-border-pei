@@ -272,6 +272,8 @@ def ontology_page() -> None:
     st.write(described.get("definition") or "No definition recorded.")
     if described.get("scope_note"):
         st.caption("Scope: " + described["scope_note"])
+    if described.get("sources"):
+        st.caption("Source: " + "; ".join(described["sources"]))
     st.write(f'Steward: **{described.get("steward", "none")}**. Status: **{described.get("status", "none")}**. Kind: {described["kind"]}.')
     for label in ("kinds_of", "of", "range", "properties"):
         if described.get(label):

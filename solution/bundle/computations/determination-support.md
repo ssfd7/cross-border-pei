@@ -91,6 +91,7 @@ Meanings from ontology version 0.10, [xb-pei-model.ttl](../../../model/xb-pei-mo
 - **`xbpei:withholdingRate`** (attribute; proposed; steward: Fund tax team)
   - Meaning: Rate of tax to withhold. Of `xbpei:WithholdingDetermination`. Value: `xbpei:Percentage`.
   - In Postgres: `clearance.withholding_determination.withholding_rate`.
+  - Source: 26 U.S.C. 1441(a).
 - **`xbpei:reliesOnClearance`** (relationship; proposed; steward: Fund tax team)
   - Meaning: The clearance whose validity on the payment date the determination relied on. Of `xbpei:WithholdingDetermination`. Value: `xbpei:Clearance`.
   - In Postgres: `clearance.withholding_determination.relies_on_clearance`.

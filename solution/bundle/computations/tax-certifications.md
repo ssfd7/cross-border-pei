@@ -39,6 +39,7 @@ Meanings from ontology version 0.10, [xb-pei-model.ttl](../../../model/xb-pei-mo
 - **`xbpei:TaxCertification`** (class; proposed; steward: Fund tax team)
   - Meaning: A signed self-certification of tax status supplied by a party, valid for a stated period. Which form applies is jurisdiction-specific and is given by its certification type. Kind of `xbpei:SourceDocument`.
   - In Postgres: `onboarding.tax_form`.
+  - Source: 26 CFR 1.1441-1(c)(16).
 - **`xbpei:certifiedBy`** (relationship; proposed; steward: Fund tax team)
   - Meaning: The party whose status the certification states and who signed it. Of `xbpei:TaxCertification`. Value: `xbpei:Party`.
   - In Postgres: `onboarding.tax_form.inv_no`.
@@ -48,15 +49,19 @@ Meanings from ontology version 0.10, [xb-pei-model.ttl](../../../model/xb-pei-mo
 - **`xbpei:claimsTreatyBenefit`** (attribute; proposed; steward: Fund tax team)
   - Meaning: Whether the certification claims a reduced rate under a treaty. Of `xbpei:TaxCertification`. Value: `xsd:boolean`.
   - In Postgres: `onboarding.tax_form.treaty_claim`.
+  - Source: Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 10(2).
 - **`xbpei:claimsTreatyWith`** (relationship; proposed; steward: Fund tax team)
   - Meaning: The jurisdiction of residence under whose treaty with the source jurisdiction the certification claims a reduced rate. Of `xbpei:TaxCertification`. Value: `xbpei:Jurisdiction`.
   - In Postgres: `onboarding.tax_form.treaty_country`.
+  - Source: Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 10(2).
 - **`xbpei:limitationOnBenefitsCategory`** (attribute; proposed; steward: Fund tax team)
   - Meaning: The ground on which the certifying party states that it meets the treaty's limitation-on-benefits provision, as given on the certification. Of `xbpei:TaxCertification`. Value: `xsd:string`.
   - In Postgres: `onboarding.tax_form.lob_cd`.
+  - Source: Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 24.
 - **`xbpei:isIntermediaryCertification`** (attribute; proposed; steward: Fund tax team)
   - Meaning: Whether the certifying party acts as an intermediary or flow-through entity, so that certifications of its underlying owners are also required. Of `xbpei:TaxCertification`. Value: `xsd:boolean`.
   - In Postgres: `onboarding.tax_form.is_intermediary`.
+  - Source: 26 CFR 1.1441-1(c)(13).
 - **`xbpei:validDuring`** (relationship; reviewed; steward: Fund administration)
   - Meaning: The period during which the interest, statement, certification or clearance holds. Of `xbpei:OwnershipInterest`, `xbpei:JurisdictionFact`, `xbpei:TaxStatusAssertion`, `xbpei:TaxCertification`, `xbpei:Clearance`. Value: `xbpei:TimeInterval`.
   - In Postgres: `onboarding.tax_form.signed_dt` to `onboarding.tax_form.valid_to`.

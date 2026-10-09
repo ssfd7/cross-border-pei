@@ -14,7 +14,7 @@ from functools import lru_cache
 import yaml
 from rdflib import BNode, Graph, URIRef
 from rdflib.collection import Collection
-from rdflib.namespace import OWL, RDF, RDFS, SKOS
+from rdflib.namespace import DCTERMS, OWL, RDF, RDFS, SKOS
 
 from . import GOVERNANCE, GRAPH_MAPPING, MAPPINGS, MODEL, XBPEI
 
@@ -100,6 +100,8 @@ def describe_term(term: str) -> dict | None:
         "kind": kind(iri),
         "definition": str(g.value(iri, SKOS.definition) or ""),
         "scope_note": str(g.value(iri, SKOS.scopeNote) or "") or None,
+        "sources": sorted(str(o) for o in g.objects(iri, DCTERMS.source)) or None,
+        "close_match": sorted(str(o) for o in g.objects(iri, SKOS.closeMatch)) or None,
         "steward": str(g.value(iri, XBPEI.steward) or "") or None,
         "status": str(g.value(iri, XBPEI.termStatus) or "") or None,
     }

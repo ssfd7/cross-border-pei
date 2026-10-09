@@ -121,4 +121,4 @@ The checks are `python -m xbpei.bundle check` for rules 1, 3 and 5 and the `onto
 
 The three points the generated glossaries first showed were settled in ontology v0.10: `computations/record-conflicts` no longer declares `xbpei:evidencedBy`, which it never read; the investor register's mapping says how `xbpei:BeneficialOwner` follows from the interests a party holds; and every term has a definition.
 
-One remains: the definitions name no outside source. A glossary can show a term's source beside its meaning once the ontology records one.
+A glossary now shows a `Source` line under a term whose definition names one in the ontology (`dcterms:source`). Thirteen terms do; `model/README.md` lists them and how each citation was checked.

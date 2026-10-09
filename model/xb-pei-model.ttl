@@ -58,6 +58,8 @@ vann:preferredNamespaceUri a owl:AnnotationProperty .
 skos:definition a owl:AnnotationProperty .
 skos:prefLabel a owl:AnnotationProperty .
 skos:scopeNote a owl:AnnotationProperty .
+skos:closeMatch a owl:AnnotationProperty .
+dcterms:source a owl:AnnotationProperty .
 skos:changeNote a owl:AnnotationProperty .
 skos:inScheme a owl:ObjectProperty .
 prov:wasDerivedFrom a owl:ObjectProperty .
@@ -105,6 +107,7 @@ xbpei:Party a owl:Class ;
     skos:definition "A person or legal entity that can hold interests, play roles, pay or receive payments, and bear obligations. Identity is separate from the roles a party plays."@en .
 
 xbpei:LegalEntity a owl:Class ;
+    skos:closeMatch <https://www.omg.org/spec/Commons/Organizations/LegalEntity> ;
     rdfs:subClassOf xbpei:Party ;
     owl:disjointWith xbpei:NaturalPerson ;
     rdfs:label "Legal Entity"@en ;
@@ -122,7 +125,8 @@ xbpei:BeneficialOwner a owl:Class ;
           owl:someValuesFrom [ a owl:Restriction ; owl:onProperty xbpei:holdingCapacity ; owl:hasValue "beneficial" ] ] ) ] ;
     rdfs:label "Beneficial Owner"@en ;
     skos:definition "A party that holds at least one ownership interest for its own benefit, so that the income from it is its own. Membership follows from the interests held and is not asserted."@en ;
-    skos:scopeNote "The tax sense: the party entitled to the income. Not the natural person who ultimately controls an entity, as the term is used in know-your-customer work."@en .
+    dcterms:source "26 CFR 1.1441-1(c)(6)(i)"@en ; dcterms:source "Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 3(1)(i)"@en ;
+    skos:scopeNote "The tax sense: the party entitled to the income. Not the natural person who ultimately controls an entity, as the term is used in know-your-customer work. The regulation cited defines the term for payments on which no treaty rate is claimed; for a treaty claim the treaty governs."@en .
 
 xbpei:FundVehicle a owl:Class ;
     rdfs:subClassOf xbpei:LegalEntity ;
@@ -262,7 +266,7 @@ xbpei:AuthoritySource a owl:Class ;
 xbpei:TaxCertification a owl:Class ;
     rdfs:subClassOf xbpei:SourceDocument ;
     rdfs:label "Tax Certification"@en ;
-    skos:definition "A signed self-certification of tax status supplied by a party, valid for a stated period. Which form applies is jurisdiction-specific and is given by its certification type."@en .
+    skos:definition "A signed self-certification of tax status supplied by a party, valid for a stated period. Which form applies is jurisdiction-specific and is given by its certification type."@en ; dcterms:source "26 CFR 1.1441-1(c)(16)"@en .
 
 xbpei:CertificationType a owl:Class ;
     rdfs:subClassOf skos:Concept ;
@@ -434,6 +438,7 @@ xbpei:appliesIn a owl:ObjectProperty ;
 xbpei:hasTreatyPartner a owl:ObjectProperty ;
     rdfs:label "hasTreatyPartner"@en ;
     skos:definition "For a rule version that gives a treaty rate: the jurisdiction in which the recipient must be resident to qualify for it."@en ;
+    dcterms:source "Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 10(2)"@en ;
     rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:Jurisdiction .
 
 xbpei:effectiveDuring a owl:ObjectProperty , owl:FunctionalProperty ;
@@ -534,6 +539,7 @@ xbpei:legalForm a owl:DatatypeProperty ;
 xbpei:leiCode a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:label "leiCode"@en ;
     skos:definition "ISO 17442 Legal Entity Identifier, where one exists."@en ;
+    dcterms:source "ISO 17442, Legal entity identifier (LEI)"@en ;
     rdfs:domain xbpei:LegalEntity ;
     rdfs:range [ a rdfs:Datatype ; owl:onDatatype xsd:string ;
         owl:withRestrictions ( [ xsd:pattern "[A-Z0-9]{18}[0-9]{2}" ] ) ] .
@@ -641,6 +647,7 @@ xbpei:prescribedRate a owl:DatatypeProperty , owl:FunctionalProperty ;
 xbpei:minimumVotingPercentage a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:label "minimumVotingPercentage"@en ;
     skos:definition "The lowest share of voting rights in the paying company at which the rule version applies, inclusive. Absent where the rule has no holding threshold."@en ;
+    dcterms:source "Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 10(2)(a)(i)"@en ;
     rdfs:domain xbpei:RuleVersion ; rdfs:range xbpei:Percentage .
 
 xbpei:isMandatory a owl:DatatypeProperty , owl:FunctionalProperty ;
@@ -743,6 +750,7 @@ xbpei:concernsParty a owl:ObjectProperty ;
 xbpei:claimsTreatyWith a owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "claimsTreatyWith"@en ;
     skos:definition "The jurisdiction of residence under whose treaty with the source jurisdiction the certification claims a reduced rate."@en ;
+    dcterms:source "Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 10(2)"@en ;
     rdfs:domain xbpei:TaxCertification ; rdfs:range xbpei:Jurisdiction .
 
 xbpei:triggeredBy a owl:ObjectProperty ;
@@ -841,18 +849,21 @@ xbpei:concernsDistribution a owl:ObjectProperty ;
 xbpei:claimsTreatyBenefit a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:label "claimsTreatyBenefit"@en ;
     skos:definition "Whether the certification claims a reduced rate under a treaty."@en ;
+    dcterms:source "Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 10(2)"@en ;
     rdfs:domain xbpei:TaxCertification ;
     rdfs:range xsd:boolean .
 
 xbpei:limitationOnBenefitsCategory a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:label "limitationOnBenefitsCategory"@en ;
     skos:definition "The ground on which the certifying party states that it meets the treaty's limitation-on-benefits provision, as given on the certification."@en ;
+    dcterms:source "Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 24"@en ;
     rdfs:domain xbpei:TaxCertification ;
     rdfs:range xsd:string .
 
 xbpei:isIntermediaryCertification a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:label "isIntermediaryCertification"@en ;
     skos:definition "Whether the certifying party acts as an intermediary or flow-through entity, so that certifications of its underlying owners are also required."@en ;
+    dcterms:source "26 CFR 1.1441-1(c)(13)"@en ;
     rdfs:domain xbpei:TaxCertification ;
     rdfs:range xsd:boolean .
 
@@ -931,6 +942,7 @@ xbpei:determinationOutcome a owl:DatatypeProperty , owl:FunctionalProperty ;
 xbpei:withholdingRate a owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:label "withholdingRate"@en ;
     skos:definition "Rate of tax to withhold."@en ;
+    dcterms:source "26 U.S.C. 1441(a)"@en ;
     rdfs:domain xbpei:WithholdingDetermination ;
     rdfs:range xbpei:Percentage .
 
@@ -989,14 +1001,14 @@ xbpei:GeneralPartner a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpe
 xbpei:Manager a xbpei:RoleType , owl:NamedIndividual ; skos:inScheme xbpei:RoleTypeScheme ; skos:prefLabel "Manager"@en ; skos:definition "The party that manages a fund vehicle under a management agreement."@en .
 
 xbpei:Incorporation a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Incorporation"@en ; skos:definition "The jurisdiction under whose law the entity is formed and registered."@en .
-xbpei:TaxResidence a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Tax residence"@en ; skos:definition "The jurisdiction that treats the entity as resident for tax purposes under its own law."@en .
+xbpei:TaxResidence a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Tax residence"@en ; skos:definition "The jurisdiction that treats the entity as resident for tax purposes under its own law."@en ; dcterms:source "Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 4(1)"@en .
 xbpei:OperatingLocation a xbpei:JurisdictionFactType , owl:NamedIndividual ; skos:inScheme xbpei:JurisdictionFactTypeScheme ; skos:prefLabel "Operating location"@en ; skos:definition "A jurisdiction in which the entity carries on business."@en .
 
 xbpei:CapitalContribution a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Capital contribution"@en ; skos:definition "Cash an investor pays into a fund vehicle against its commitment."@en .
 xbpei:Distribution a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Distribution"@en ; skos:definition "Cash a fund vehicle pays to its investors."@en .
 xbpei:ManagementFee a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Management fee"@en ; skos:definition "The periodic fee a fund vehicle pays its manager."@en .
 xbpei:CarriedInterest a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Carried interest"@en ; skos:definition "The share of a fund's profits paid to the general partner or the manager, beyond the return on its own investment."@en .
-xbpei:Dividend a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Dividend"@en ; skos:definition "A payment a company makes to its shareholders out of profits."@en .
+xbpei:Dividend a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Dividend"@en ; skos:definition "A payment a company makes to its shareholders out of profits."@en ; dcterms:source "Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 10(3)(a)"@en .
 xbpei:InterestPayment a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Interest"@en ; skos:definition "A payment of interest on a debt."@en .
 xbpei:AcquisitionPrice a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Acquisition price"@en ; skos:definition "Price paid to acquire an interest in a company."@en .
 xbpei:DisposalProceeds a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme xbpei:PaymentTypeScheme ; skos:prefLabel "Disposal proceeds"@en ; skos:definition "Cash received from selling an interest in a company."@en .
@@ -1004,7 +1016,7 @@ xbpei:DisposalProceeds a xbpei:PaymentType , owl:NamedIndividual ; skos:inScheme
 xbpei:CertificationTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Certification types"@en ; skos:definition "The code list of kinds of tax certification."@en .
 xbpei:IncomeTypeScheme a skos:ConceptScheme , owl:NamedIndividual ; skos:prefLabel "Income types"@en ; skos:definition "The code list of kinds of income a distribution component passes on."@en .
 
-xbpei:DividendIncome a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Dividend"@en ; skos:definition "Income that is a dividend in the hands of the recipient."@en .
+xbpei:DividendIncome a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Dividend"@en ; skos:definition "Income that is a dividend in the hands of the recipient."@en ; dcterms:source "Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 10(3)(a)"@en .
 xbpei:InterestIncome a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Interest"@en ; skos:definition "Income that is interest in the hands of the recipient."@en .
 xbpei:GainOnDisposal a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Gain on disposal"@en ; skos:definition "Gain realised on the sale of an asset."@en .
 xbpei:ReturnOfCapital a xbpei:IncomeType , owl:NamedIndividual ; skos:inScheme xbpei:IncomeTypeScheme ; skos:prefLabel "Return of capital"@en ; skos:definition "Repayment of capital an investor contributed. It is not income."@en .

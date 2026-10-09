@@ -50,6 +50,7 @@ Meanings from ontology version 0.10, [xb-pei-model.ttl](../../../model/xb-pei-mo
 - **`xbpei:hasTreatyPartner`** (relationship; proposed; steward: Fund tax team)
   - Meaning: For a rule version that gives a treaty rate: the jurisdiction in which the recipient must be resident to qualify for it. Of `xbpei:RuleVersion`. Value: `xbpei:Jurisdiction`.
   - In Postgres: `rulebook.rule_version.treaty_country`.
+  - Source: Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 10(2).
 - **`xbpei:effectiveDuring`** (relationship; proposed; steward: Fund tax team)
   - Meaning: The period during which the rule version is in force. Of `xbpei:RuleVersion`. Value: `xbpei:TimeInterval`.
   - In Postgres: `rulebook.rule_version.eff_from` to `rulebook.rule_version.eff_to`.
@@ -62,6 +63,7 @@ Meanings from ontology version 0.10, [xb-pei-model.ttl](../../../model/xb-pei-mo
 - **`xbpei:minimumVotingPercentage`** (attribute; proposed; steward: Fund tax team)
   - Meaning: The lowest share of voting rights in the paying company at which the rule version applies, inclusive. Absent where the rule has no holding threshold. Of `xbpei:RuleVersion`. Value: `xbpei:Percentage`.
   - In Postgres: `rulebook.rule_version.min_vote_pct`.
+  - Source: Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 10(2)(a)(i).
 - **`xbpei:derivedFrom`** (relationship; proposed; steward: Fund tax team)
   - Meaning: The legal material the rule version is drawn from. Of `xbpei:RuleVersion`. Value: `xbpei:AuthoritySource`.
   - In Postgres: `rulebook.rule_authority`.

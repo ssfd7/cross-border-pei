@@ -117,6 +117,7 @@ Meanings from ontology version 0.10, [xb-pei-model.ttl](../../../model/xb-pei-mo
 - **`xbpei:TaxCertification`** (class; proposed; steward: Fund tax team)
   - Meaning: A signed self-certification of tax status supplied by a party, valid for a stated period. Which form applies is jurisdiction-specific and is given by its certification type. Kind of `xbpei:SourceDocument`.
   - In Postgres: `onboarding.tax_form`.
+  - Source: 26 CFR 1.1441-1(c)(16).
 - **`xbpei:OwnershipInterest`** (class; reviewed; steward: Fund tax team)
   - Meaning: A holding by one party in one legal entity, with its own percentages, share class, validity period, governing agreement and evidence.
   - In Postgres: `investor_register.commitment`; `onboarding.declared_owner` where `alloc_basis = 'OWNERSHIP'`; `onboarding.declared_owner` where `alloc_basis = 'NOMINEE_ALLOC'`.

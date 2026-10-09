@@ -48,6 +48,7 @@ Meanings from ontology version 0.10, [xb-pei-model.ttl](../../../model/xb-pei-mo
 - **`xbpei:TaxResidence`** (code; reviewed; steward: Knowledge engineering)
   - Meaning: The jurisdiction that treats the entity as resident for tax purposes under its own law.
   - In Postgres: the `xbpei:hasFactType` of every `xbpei:JurisdictionFact` in `investor_register.investor`; the `xbpei:hasFactType` of every `xbpei:JurisdictionFact` in `onboarding.residence_record`.
+  - Source: Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 4(1).
 - **`xbpei:validDuring`** (relationship; reviewed; steward: Fund administration)
   - Meaning: The period during which the interest, statement, certification or clearance holds. Of `xbpei:OwnershipInterest`, `xbpei:JurisdictionFact`, `xbpei:TaxStatusAssertion`, `xbpei:TaxCertification`, `xbpei:Clearance`. Value: `xbpei:TimeInterval`.
   - In Postgres: `onboarding.residence_record.from_dt` to `onboarding.residence_record.to_dt`.

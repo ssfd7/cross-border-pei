@@ -103,6 +103,7 @@ Meanings from ontology version 0.10, [xb-pei-model.ttl](../../../model/xb-pei-mo
 - **`xbpei:leiCode`** (attribute; reviewed; steward: Fund administration)
   - Meaning: ISO 17442 Legal Entity Identifier, where one exists. Of `xbpei:LegalEntity`.
   - In Postgres: `entity_mgmt.legal_entity.lei`; `investor_register.investor.lei`; `treasury.counterparty.lei`.
+  - Source: ISO 17442, Legal entity identifier (LEI).
 - **`xbpei:JurisdictionFact`** (class; reviewed; steward: Fund tax team)
   - Meaning: A dated statement linking a legal entity to a jurisdiction in a stated capacity, such as incorporation, tax residence or operating location.
   - In Postgres: `entity_mgmt.entity_jurisdiction`; `investor_register.investor`; `onboarding.residence_record`.
@@ -118,6 +119,7 @@ Meanings from ontology version 0.10, [xb-pei-model.ttl](../../../model/xb-pei-mo
 - **`xbpei:TaxResidence`** (code; reviewed; steward: Knowledge engineering)
   - Meaning: The jurisdiction that treats the entity as resident for tax purposes under its own law.
   - In Postgres: `entity_mgmt.entity_jurisdiction.capacity_cd` = 'TAXRES'; the `xbpei:hasFactType` of every `xbpei:JurisdictionFact` in `investor_register.investor`; the `xbpei:hasFactType` of every `xbpei:JurisdictionFact` in `onboarding.residence_record`.
+  - Source: Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 4(1).
 - **`xbpei:Incorporation`** (code; reviewed; steward: Knowledge engineering)
   - Meaning: The jurisdiction under whose law the entity is formed and registered.
   - In Postgres: `entity_mgmt.entity_jurisdiction.capacity_cd` = 'INC'; the `xbpei:hasFactType` of every `xbpei:JurisdictionFact` in `investor_register.investor`.

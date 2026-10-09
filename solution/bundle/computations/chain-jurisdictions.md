@@ -76,6 +76,7 @@ Meanings from ontology version 0.10, [xb-pei-model.ttl](../../../model/xb-pei-mo
 - **`xbpei:TaxResidence`** (code; reviewed; steward: Knowledge engineering)
   - Meaning: The jurisdiction that treats the entity as resident for tax purposes under its own law.
   - In Postgres: `entity_mgmt.entity_jurisdiction.capacity_cd` = 'TAXRES'.
+  - Source: Convention between the United States and Luxembourg signed at Luxembourg on 3 April 1996, Senate Treaty Doc. 104-33, Article 4(1).
 - **`xbpei:OperatingLocation`** (code; reviewed; steward: Knowledge engineering)
   - Meaning: A jurisdiction in which the entity carries on business.
   - In Postgres: `entity_mgmt.entity_jurisdiction.capacity_cd` = 'OPS'.

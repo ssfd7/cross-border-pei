@@ -70,7 +70,8 @@ To run it, see section 12 of the [first run report](solution/reports/2026-10-06-
 
 - Whether to go further in separating a grounded agent from an ungrounded one: a larger and less legible dataset, or a smaller model in both arms. Neither has been tried.
 - Whether Jurisdiction Fact and Tax Status Assertion are kinds of Fact Assertion in the ontology.
-- Which definitions should name an outside source (the OECD Model Tax Convention, the Internal Revenue Code and its regulations, the treaty, FIBO, ILPA), and who checks each citation against the primary text. Every term has a definition; none cites a source yet.
+- Whether to source more definitions. Fourteen terms now name a source that was read before it was recorded (the 1996 convention, the withholding regulation and statute, ISO 17442 and the OMG Commons ontology); the OECD Model Tax Convention, FATF, the other ISO standards and ILPA could not be reached to check and are not cited. See `model/README.md`.
+- Whether the 5 percent rule should test a direct holding. The convention says "owns directly at least 10 percent of the voting stock"; the prototype tests the holding multiplied through the tiers.
 - The clearance questions CL1–CL8 in the model are proposals and are not yet in the Clearance requirements.
 
 ## Sources and licence
@@ -81,4 +82,4 @@ Copyright 2026 Radu Marian. Licensed under the [Apache License 2.0](LICENSE).
 
 ## Limits
 
-The operating procedures are illustrative and have not been reviewed by a practitioner. The ontology encodes no jurisdiction-specific tax rule. The three rule versions in the prototype's rule library are illustrative: their rates, citations and the way the holding threshold is measured have not been checked against primary law. The Turtle parses with rdflib and has not been run through a reasoner. The bundle's concepts are drafts and none has been verified by a person. The ungrounded arm has been run three times, the grounded arm four times, and each LookThrough question once.
+The operating procedures are illustrative and have not been reviewed by a practitioner. The ontology encodes no jurisdiction-specific tax rule. The three rule versions in the prototype's rule library are illustrative. The treaty rates, the 10 percent voting threshold and the 30 percent statutory rate were read in the 1996 convention and the Code on 2026-10-09; nothing else in them has been checked, the 2009 protocol was not read, and the prototype applies the threshold to an indirect holding where the convention says a direct one. The Turtle parses with rdflib and has not been run through a reasoner. The bundle's concepts are drafts and none has been verified by a person. The ungrounded arm has been run three times, the grounded arm four times, and each LookThrough question once.

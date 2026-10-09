@@ -198,6 +198,27 @@ Four terms that the source data holds and the model lacked were added. Three are
 
 Beneficial Owner is still held in no source system, by design: the investor register's mapping now says how membership follows from the interests a party holds, as the graph mapping already did.
 
+## Sources of definitions
+
+Fourteen terms name an outside source, added on 2026-10-09 without a change of version. Thirteen carry `dcterms:source`; Legal Entity carries `skos:closeMatch`. The definitions are this model's own words: the source is the authority a definition is consistent with, not a text it quotes. Each citation was read in the source before it was recorded.
+
+| Source | How it was checked | Terms |
+|---|---|---|
+| Convention between the United States and Luxembourg, signed at Luxembourg on 3 April 1996 (Senate Treaty Doc. 104-33): Articles 3(1)(i), 4(1), 10(2), 10(3)(a) and 24 | Read in the scanned Senate document on govinfo.gov, which the IRS treaty page links to | Tax Residence, Beneficial Owner, `claimsTreatyBenefit`, `claimsTreatyWith`, `hasTreatyPartner`, `minimumVotingPercentage`, `limitationOnBenefitsCategory`, Dividend, Dividend Income |
+| 26 CFR 1.1441-1, paragraphs (c)(6)(i), (c)(13) and (c)(16) | Read in the Cornell Legal Information Institute copy of the regulation | Beneficial Owner, `isIntermediaryCertification`, Tax Certification |
+| 26 U.S.C. 1441(a) | Read in the Cornell Legal Information Institute copy of the Code | `withholdingRate` |
+| ISO 17442 | Named on gleif.org as the standard behind the LEI; the standard itself was not read | `leiCode` |
+| OMG Commons Ontology Library, Organizations, version 20250801 | Class and definition read from the published ontology file | Legal Entity, as `skos:closeMatch` to `cmns-org:LegalEntity`, the class FIBO now uses |
+
+Limits of the check:
+
+- Only the 1996 text of the convention was read. A protocol was signed in 2009; whether it changed the articles cited was not checked.
+- The regulation's paragraph (c)(6) defines beneficial owner for payments on which no treaty rate is claimed. For a treaty claim the treaty governs, and the convention's own definition, Article 3(1)(i), covers only companies treated as transparent. The scope note on Beneficial Owner says so.
+- The sources are United States and treaty material because that is the example pair the procedures use. The terms themselves are meant to be neutral; a second jurisdiction pair would add its own sources.
+- Not sourced, because the text could not be reached to check: the OECD Model Tax Convention (its site refuses automated access; only the publication's existence and DOI, 10.1787/mtc_cond-2017-en, were confirmed), the FATF definition of beneficial owner, the ISO pages for 3166, 4217 and 20275, and the ILPA glossary for the fund terms.
+
+Reading the convention also tested one rule in the prototype. Article 10(2)(a)(i) gives 5 percent where the beneficial owner is a company that owns **directly** at least 10 percent of the voting stock of the paying company, and 15 percent otherwise. The prototype's rule library has the same rates and threshold and measures voting stock, but it tests the holding multiplied through the tiers of the structure, not a direct holding. The rules remain illustrative.
+
 ## Formal ontology
 
 `xb-pei-model.ttl` is the OWL 2 counterpart of the diagram: the same 38 classes, 62 relationships (as object properties) and 10 subclass links as `00 Model overview`, plus 53 data properties, three restricted datatypes and five SKOS code lists for role, jurisdiction-fact, payment, certification and income types. The namespace `https://w3id.org/xb-pei/ontology#` is a placeholder and is not registered.

@@ -155,6 +155,8 @@ def glossary(concept_id: str) -> str:
         lines += [f'- **`{term}`** ({"; ".join(f for f in facts if f)})',
                   f'  - Meaning: {" ".join(m for m in meaning if m) or "No definition in the ontology."}',
                   f'  - {"In the graph" if on_graph else "In Postgres"}: {("; ".join(places) or "not held").rstrip(".")}.']
+        if d.get("sources"):
+            lines.append(f'  - Source: {"; ".join(d["sources"])}.')
     here = (BUNDLE / c.id).parent
     mapping = GRAPH_MAPPING if on_graph else MAPPINGS
     head = (f"Meanings from ontology version {version()}, [{MODEL.name}]({os.path.relpath(MODEL, here)}). "
