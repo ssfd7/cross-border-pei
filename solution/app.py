@@ -8,6 +8,7 @@ import json
 import re
 import textwrap
 from datetime import date
+from urllib.parse import urlencode
 
 import altair as alt
 import pandas as pd
@@ -16,7 +17,7 @@ import streamlit as st
 import yaml
 from psycopg.rows import dict_row
 
-from xbpei import BUSINESS, GOLD, REVIEWER_DSN, bundle, measures, ontology
+from xbpei import BUSINESS, GOLD, REVIEWER_DSN, ROOT, bundle, measures, ontology
 from xbpei.ask import ask
 from xbpei.execute import run_computation
 from xbpei.tools import source_row
@@ -49,11 +50,13 @@ EXAMPLE_VALUES = {"on_date": "2026-10-30", "distribution_id": "D-001", "fund_cod
 BAND_CSS = """<style>
 .band {font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:#52514e; margin:2px 0 6px 0}
 .down {text-align:center; color:#7a7872; font-size:20px; line-height:1; margin:2px 0 4px 0}
+.side {text-align:center; color:#7a7872; font-size:26px; line-height:1; margin-top:96px}
+.sidenote {text-align:center; color:#7a7872; font-size:11px; line-height:1.25; margin-top:4px}
 </style>"""
 
 
 def go_to(page: str) -> None:
-    st.query_params["page"] = page
+    st.session_state["page"] = page
 
 
 @st.cache_data(ttl=120)
@@ -74,70 +77,170 @@ def questions() -> dict[str, str]:
     return dict(re.findall(r"^\| (CQ\d) \| ([^|]+?) \|$", text, re.M))  # the two-column table of questions, not the objectives
 
 
+GITHUB = "https://github.com/ssfd7/cross-border-pei/blob/main/"
+IN_BUNDLE = "solution/bundle/"
+MARK = '<mark style="background:#fff2cc;color:#0b0b0b;font-weight:700;padding:0 3px;border-radius:3px">'
+PRE = ('<pre style="font:12px/1.55 ui-monospace,Menlo,monospace;background:#f6f6f4;color:#0b0b0b;padding:10px 12px;border-radius:8px;'
+       'overflow-x:auto;white-space:pre-wrap;word-break:break-word;margin:0 0 8px 0">')
+REQUIREMENTS = {"clearance": "business/clearance-product/clearance-business-product.md",
+                "wf3": "business/clearance-product/wf3-withholding-at-distribution.md",
+                "lookthrough": "business/lookthrough-product/lookthrough-business-product.md"}
+ONTOLOGY_FILES = ["model/xb-pei-model.ttl", "model/xb-pei-governance.ttl", "model/README.md"]
+KINDS_OF_FILE = (("business/", "Requirement"), ("model/", "Ontology"), (IN_BUNDLE + "procedures/", "Bundle procedure"),
+                 (IN_BUNDLE + "computations/", "Bundle computation"), (IN_BUNDLE + "tools/", "Bundle tool"), (IN_BUNDLE + "references/", "Bundle mapping"))
+
+
+READABLE = ("business/", "model/", IN_BUNDLE, "solution/shapes/", "solution/gold/")
+
+
+def file_kind(path: str) -> str:
+    return next((name for prefix, name in KINDS_OF_FILE if path.startswith(prefix)), "File")
+
+
+def render_file(path: str) -> None:
+    st.markdown(f"`{path}` · [the same file on GitHub]({GITHUB}{path})")
+    if path.startswith("business/"):  # a requirement is read as a document; the other files are shown as written
+        st.markdown((ROOT / path).read_text())
+    else:
+        st.code((ROOT / path).read_text(), language={"yaml": "yaml", "ttl": "turtle"}.get(path.rsplit(".", 1)[-1], "markdown"))
+
+
+def file_link(label: str, path: str) -> str:
+    """A link that opens a requirement, ontology or bundle file over the page it is on. For use in HTML."""
+    here = {k: st.query_params[k] for k in st.query_params if k != "file"}
+    return f'<a href="?{urlencode({**here, "file": path})}" target="_self" title="Open {html.escape(path)}">{label}</a>'
+
+
+def close_file() -> None:
+    st.session_state.pop("open_file", None)
+
+
+@st.dialog("Source file", width="large", on_dismiss=close_file)
+def show_file(path: str) -> None:
+    st.caption(file_kind(path))
+    render_file(path)
+
+
+def open_linked_file() -> None:
+    """Open the file a link named, if it is one of the project's own documents. It stays open until it is dismissed."""
+    path = st.query_params.get("file")
+    if path:
+        del st.query_params["file"]
+        target = (ROOT / path).resolve()
+        if path.startswith(READABLE) and target.is_file() and target.is_relative_to(ROOT) and target.suffix in (".md", ".yaml", ".ttl"):
+            st.session_state["open_file"] = path
+    if st.session_state.get("open_file"):
+        show_file(st.session_state["open_file"])
+
+
+def source_files(paths: list[str], key: str) -> None:
+    """A reader for the requirements, ontology and bundle files behind what a page shows, each with its place on GitHub."""
+    with st.expander("All the requirements, ontology and bundle files behind this"):
+        render_file(st.selectbox("File", list(dict.fromkeys(paths)), key=key, format_func=lambda f: f"{file_kind(f)}: {f.removeprefix(IN_BUNDLE)}"))
+
+
+def marked(text: str, names: set[str]) -> str:
+    """Text as HTML with the given names highlighted and anything in backticks set as code."""
+    out = re.sub(r"`([^`]+)`", r"<code>\1</code>", html.escape(text))
+    for name in sorted(names, key=len, reverse=True):
+        out = re.sub(rf"(?<![\w>])({re.escape(name)})(?!\w)", MARK + r"\1</mark>", out)
+    return out
+
+
 def trace(term: str) -> None:
     """One term followed from the work that needs it to the rows that hold it. Everything shown is read from the bundle, the ontology and the data."""
     described, reach = ontology.describe_term(term), bundle.affected_by(term)
     concepts = [bundle.concept(c) for c in reach["concepts"]]
+    by_runtime = {runtime: [c for c in concepts if c.meta.get("runtime") == runtime] for runtime in ("postgres", "ladybug")}
+    places = {"postgres": list(dict.fromkeys(place for c in by_runtime["postgres"] for place in bundle.in_tables(term, c))),
+              "ladybug": bundle.in_graph(term) if by_runtime["ladybug"] else []}
+    # What carries the term in the data: the last part of each mapped table, column or property name.
+    # For an attribute that is a column or a property, not the table that holds it.
+    whole = described["kind"] == "class"
+    names = {name.split(".")[-1] for runtime, side in places.items() for place in side for name in re.findall(r"`([\w.]+)`", place)
+             if whole or name.count(".") == (2 if runtime == "postgres" else 1)}
+    spoken = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", term.split(":")[1]).lower()
     asked = questions()
     st.markdown(BAND_CSS, unsafe_allow_html=True)
 
-    st.markdown('<div class="band">1 · Business: the work that needs the term</div>', unsafe_allow_html=True)
-    left, right = st.columns(2)
-    with left.container(border=True):
-        st.markdown("**Clearance workflow** · operating procedure WF3")
-        for step in reach["steps"]:
-            st.write(f'Step {step["step"]}: {step["title"]}')
-        if not reach["steps"]:
-            st.caption("No step of WF3 uses this term.")
-    with right.container(border=True):
-        st.markdown("**LookThrough analytics** · competency questions")
-        supported = sorted({q for c in concepts for q in c.meta.get("supports", []) if q in asked})
-        for q in supported:
-            st.write(f"{q}: {asked[q]}")
-        if not supported:
-            st.caption("No LookThrough question uses this term.")
-
-    st.markdown('<div class="down">&darr;</div><div class="band">2 · Ontology: what the term means</div>', unsafe_allow_html=True)
-    with st.container(border=True):
-        st.markdown(f'**`{term}`** · {described["kind"]} · steward: {described.get("steward", "none")} · status: {described.get("status", "none")}')
-        st.write(described.get("definition") or "No definition recorded.")
-        if described.get("of"):
-            st.caption("Of " + ", ".join(f"`{c}`" for c in described["of"]) + ".")
-        if described.get("sources"):
-            st.caption("Source: " + "; ".join(described["sources"]))
-
-    st.markdown('<div class="down">&darr;</div><div class="band">3 · Mapping: where its instances live</div>', unsafe_allow_html=True)
-    by_runtime = {runtime: [c for c in concepts if c.meta.get("runtime") == runtime] for runtime in ("postgres", "ladybug")}
-    left, right = st.columns(2)
-    with left.container(border=True):
-        st.markdown("**Postgres** · the emulated source systems")
-        places = list(dict.fromkeys(place for c in by_runtime["postgres"] for place in bundle.in_tables(term, c)))
-        st.markdown("\n".join(f"- {place}" for place in places) or "Not read from Postgres by any computation.")
-    with right.container(border=True):
-        st.markdown("**LadybugDB** · the graph projection")
-        st.markdown("\n".join(f"- {place}" for place in bundle.in_graph(term)) if by_runtime["ladybug"] else "Not read from the graph by any computation.")
+    business, to_left, core, to_right, mapping = st.columns([1.25, 0.2, 1, 0.2, 1.25])
+    to_left.markdown('<div class="side">&larr;</div><div class="sidenote">means</div>', unsafe_allow_html=True)
+    to_right.markdown('<div class="side">&rarr;</div><div class="sidenote">maps to</div>', unsafe_allow_html=True)
+    with business:
+        st.markdown('<div class="band">1 · Business: the work that needs it</div>', unsafe_allow_html=True)
+        with st.container(border=True):
+            st.markdown(f'<b>Clearance workflow</b> · {file_link("operating procedure WF3", REQUIREMENTS["wf3"])} · '
+                        f'{file_link("as a bundle procedure", IN_BUNDLE + "procedures/wf3-withholding-at-distribution.md")}', unsafe_allow_html=True)
+            for step in reach["steps"]:
+                through = ", ".join(file_link(f"<code>{c.split('/')[1]}</code>", f"{IN_BUNDLE}{c}.md") for c in step["through"])
+                st.markdown(f'Step {step["step"]}: {html.escape(step["title"])}<br><small>reads {MARK}{spoken}</mark> through {through}</small>', unsafe_allow_html=True)
+            if not reach["steps"]:
+                st.caption("No step of WF3 uses this term.")
+        with st.container(border=True):
+            st.markdown(f'<b>LookThrough analytics</b> · {file_link("competency questions", REQUIREMENTS["lookthrough"])}', unsafe_allow_html=True)
+            supported = sorted({q for c in concepts for q in c.meta.get("supports", []) if q in asked})
+            for q in supported:
+                st.write(f"{q}: {asked[q]}")
+            if not supported:
+                st.caption("No LookThrough question uses this term.")
+    with core:
+        st.markdown('<div class="band">2 · Ontology: what it means</div>', unsafe_allow_html=True)
+        with st.container(border=True):
+            st.markdown(f'<div style="font-size:24px;font-weight:700;line-height:1.3;margin-bottom:6px">{MARK}{spoken}</mark></div>'
+                        + file_link(f"<code>{term}</code>", "model/xb-pei-model.ttl") + " · " + file_link("stewardship", "model/xb-pei-governance.ttl"),
+                        unsafe_allow_html=True)
+            st.write(described.get("definition") or "No definition recorded.")
+            st.caption(f'{described["kind"].capitalize()}' + (" of " + ", ".join(f"`{c}`" for c in described["of"]) if described.get("of") else "")
+                       + f'. Steward: {described.get("steward", "none")}. Status: {described.get("status", "none")}.')
+            if described.get("sources"):
+                st.caption("Source: " + "; ".join(described["sources"]))
+    with mapping:
+        st.markdown('<div class="band">3 · Mapping: where it lives</div>', unsafe_allow_html=True)
+        held_in = sorted({m["source"] for m in ontology.mappings_for(term).get("mappings", [])})
+        mapping_links = {"postgres": ", ".join(file_link(source, f"{IN_BUNDLE}references/mappings/{source}.yaml") for source in held_in),
+                         "ladybug": file_link("graph mapping", IN_BUNDLE + "references/mappings/graph/ladybug.yaml")}
+        for runtime, title in (("postgres", "<b>Postgres</b> · the emulated source systems"), ("ladybug", "<b>LadybugDB</b> · the graph projection")):
+            with st.container(border=True):
+                st.markdown(f'{title}<br><small>mapping files: {mapping_links[runtime] or "none"}</small>', unsafe_allow_html=True)
+                if places[runtime]:
+                    st.markdown("<ul style='margin:0;padding-left:18px'>" + "".join(f"<li>{marked(place, names)}</li>" for place in places[runtime]) + "</ul>",
+                                unsafe_allow_html=True)
+                else:
+                    st.caption("No computation reads the term here.")
 
     st.markdown('<div class="down">&darr;</div><div class="band">4 · Attested query and the rows it returns</div>', unsafe_allow_html=True)
+    stem = re.split(r"(?<=[a-z])(?=[A-Z])", term.split(":")[1])[0].lower()  # voting, for votingPercentage
     left, right = st.columns(2)
-    for column, runtime, language in ((left, "postgres", "sql"), (right, "ladybug", "cypher")):
+    for column, runtime in ((left, "postgres"), (right, "ladybug")):
         with column.container(border=True):
             if not by_runtime[runtime]:
                 st.caption("No computation on this side reads the term.")
                 continue
             c = by_runtime[runtime][0]
-            st.markdown(f'**{c.meta["title"]}** · `{c.id}` · supports {", ".join(c.meta.get("supports", []))}')
+            st.markdown(f'<b>{html.escape(c.meta["title"])}</b> · {file_link(f"<code>{c.id}</code>", f"{IN_BUNDLE}{c.id}.md")} · '
+                        f'supports {", ".join(c.meta.get("supports", []))}', unsafe_allow_html=True)
             code = c.computation.strip().splitlines()
-            st.code("\n".join(code[:9] + (["…"] if len(code) > 9 else [])), language=language)
+            st.html(PRE + marked("\n".join(code[:12] + (["…"] if len(code) > 12 else [])), names).replace("<code>", "").replace("</code>", "") + "</pre>")
             values = {p["name"]: EXAMPLE_VALUES[p["name"]] for p in c.meta["parameters"]}
             result = run_computation(c.id, values)
             st.caption(f'Run with {values}: {result.get("row_count")} rows, attested: {result.get("attested")}. The first three:')
             found = result.get("rows", [])  # who the row is about, then its figures, which is where a percentage or an amount shows
-            figures = [k for k, v in (found[0] if found else {}).items() if isinstance(v, (int, float)) and not isinstance(v, bool)]
-            keep = list(dict.fromkeys(list(found[0])[:2] + figures + list(found[0])[2:]))[:5] if found else []
-            sample = [{k: (", ".join(map(str, row[k])) if isinstance(row[k], list) else row[k]) for k in keep} for row in found[:3]]
-            if sample:
-                table(sample)
-    st.caption("An agent supplies only the parameter values. It cannot change the query, and each run is checked against the bundle before its rows are used.")
+            if found:
+                figures = [k for k, v in found[0].items() if isinstance(v, (int, float)) and not isinstance(v, bool)]
+                keep = list(dict.fromkeys(list(found[0])[:2] + figures + list(found[0])[2:]))[:5]
+                frame = pd.DataFrame([{k: (", ".join(map(str, row[k])) if isinstance(row[k], list) else row[k]) for k in keep} for row in found[:3]])
+                carrying = [k for k in keep if described["kind"] != "class" and (k in names or stem in k.lower())]
+                styled = frame.style.format({k: "{:g}" for k in figures if k in keep})
+                st.dataframe(styled.set_properties(subset=carrying, **{"background-color": "#fff2cc", "color": "#0b0b0b", "font-weight": "700"}),
+                             hide_index=True, width="stretch")
+    st.caption("An agent supplies only the parameter values. It cannot change the query, and each run is checked against the bundle before its rows are used. "
+               "The highlight follows the term: its name, the columns and properties mapped to it, those names in the queries, and its values in the rows.")
+    sources = {m["source"] for m in ontology.mappings_for(term).get("mappings", [])}
+    supported = {q for c in concepts for q in c.meta.get("supports", []) if q in asked}
+    source_files(([REQUIREMENTS["clearance"], REQUIREMENTS["wf3"]] if reach["steps"] else []) + ([REQUIREMENTS["lookthrough"]] if supported else [])
+                 + ONTOLOGY_FILES + ([IN_BUNDLE + "procedures/wf3-withholding-at-distribution.md"] if reach["steps"] else [])
+                 + [f"{IN_BUNDLE}{c.id}.md" for c in concepts] + [f"{IN_BUNDLE}references/mappings/{source}.yaml" for source in sorted(sources)]
+                 + ([IN_BUNDLE + "references/mappings/graph/ladybug.yaml"] if by_runtime["ladybug"] else []), key="overview-files")
 
 
 def overview_page() -> None:
@@ -156,7 +259,10 @@ def overview_page() -> None:
     st.caption("Read from the run log just now. Synthetic data, illustrative rules, and a handful of runs: these show what happened, not rates.")
 
     st.subheader("One term, from the business question to the rows")
-    term = st.selectbox("Follow a term", TRACE_TERMS, format_func=lambda t: f'{ontology.describe_term(t).get("label") or t}  ({t})')
+    if st.session_state.get("term") not in TRACE_TERMS:
+        st.session_state["term"] = st.query_params.get("term") if st.query_params.get("term") in TRACE_TERMS else TRACE_TERMS[0]
+    term = st.selectbox("Follow a term", TRACE_TERMS, key="term", format_func=lambda t: f'{ontology.describe_term(t).get("label") or t}  ({t})')
+    st.query_params["term"] = term
     trace(term)
 
     st.subheader("See it work")
@@ -200,8 +306,19 @@ def workflow_strip(status: str) -> None:
         parts.append(f'<div class="step {"person" if person else ""} {state}"><b>{step["id"]} &middot; {"person" if person else "agent"}'
                      f'{" &middot; " + tag if tag else ""}</b>{html.escape(textwrap.shorten(step["title"], 78, placeholder="…"))}</div>')
     st.markdown(STRIP_CSS + f'<div class="wf">{"".join(parts)}</div>', unsafe_allow_html=True)
-    st.caption("Generated from the WF3 procedure in the bundle, which is what the agent follows. The agent reads through attested computations and writes "
-               "drafts through checked tools; a heavy border marks the steps only a person performs.")
+    procedure = IN_BUNDLE + "procedures/wf3-withholding-at-distribution.md"
+    st.markdown(f'<small>Generated from the {file_link("WF3 procedure in the bundle", procedure)}, which is what the agent follows, and which carries out the '
+                f'{file_link("WF3 operating procedure", REQUIREMENTS["wf3"])} of the {file_link("Clearance requirements", REQUIREMENTS["clearance"])}. '
+                "The agent reads through attested computations and writes drafts through checked tools; a heavy border marks the steps only a person "
+                "performs.</small>", unsafe_allow_html=True)
+    used = lambda step: [u.strip("/") for u in step.get("uses", [])]
+    with st.expander("What each step uses in the bundle"):
+        st.markdown("<ol style='padding-left:20px'>" + "".join(
+            f'<li>{html.escape(step["title"])} <small>({"person" if step["performed_by"] != "agent" else "agent"})</small><br><small>'
+            + (", ".join(file_link(f"<code>{u.removesuffix('.md')}</code>", IN_BUNDLE + u) for u in used(step)) or "nothing from the bundle") + "</small></li>"
+            for step in steps) + "</ol>", unsafe_allow_html=True)
+    source_files([REQUIREMENTS["wf3"], REQUIREMENTS["clearance"], IN_BUNDLE + "procedures/wf3-withholding-at-distribution.md"]
+                 + [IN_BUNDLE + u for step in steps for u in used(step)] + ["solution/shapes/controls.ttl"], key="workflow-files")
 
 
 def clearance_page() -> None:
@@ -572,10 +689,13 @@ def lookthrough_page() -> None:
         if not runs:
             st.caption("Nothing yet.")
             return
-        wanted = st.session_state.get("lookthrough_run") or st.query_params.get("run")
-        run = st.radio("Asked so far", runs, index=next((i for i, r in enumerate(runs) if r["run_id"] == wanted), 0), label_visibility="collapsed",
-                       format_func=lambda r: f'{r["procedure"] or "live"} · {textwrap.shorten(r["subject"] or "", 70, placeholder="…")}')
+        by_id = {r["run_id"]: r for r in runs}
+        if st.session_state.get("lookthrough_run") not in by_id:
+            st.session_state["lookthrough_run"] = st.query_params.get("run") if st.query_params.get("run") in by_id else runs[0]["run_id"]
+        run = by_id[st.radio("Asked so far", list(by_id), key="lookthrough_run", label_visibility="collapsed",
+                             format_func=lambda i: f'{by_id[i]["procedure"] or "live"} · {textwrap.shorten(by_id[i]["subject"] or "", 70, placeholder="…")}')]
 
+    st.query_params["run"] = run["run_id"]
     with main:
         st.subheader(run["subject"])
         st.caption(f'{run["run_id"]}, asked {run["started_at"]:%d %b %Y %H:%M}: {run["turns"] or "?"} turns, {round((run["duration_ms"] or 0) / 1000)} seconds, '
@@ -621,6 +741,11 @@ def lookthrough_page() -> None:
                     "attested": s["attested"], "ontology terms": ", ".join(s["terms"] or [])} for s in steps])
         else:
             st.caption("The run recorded no lookup and no computation.")
+        ran = list(dict.fromkeys(s["concept"] for s in steps if s["kind"] == "computation"))
+        st.markdown("<small>Open: " + " · ".join([file_link("LookThrough requirements", REQUIREMENTS["lookthrough"])]
+                    + [file_link(f"<code>{c}</code>", f"{IN_BUNDLE}{c}.md") for c in ran]) + "</small>", unsafe_allow_html=True)
+        source_files([REQUIREMENTS["lookthrough"], "solution/gold/answer-key.yaml"] + [f"{IN_BUNDLE}{c}.md" for c in ran]
+                     + [IN_BUNDLE + "references/mappings/graph/ladybug.yaml"] + ONTOLOGY_FILES, key="lookthrough-files")
 
 
 # Ontology -------------------------------------------------------------------
@@ -678,5 +803,9 @@ def ontology_page() -> None:
 PAGES = {"Overview": overview_page, "Clearance workflow": clearance_page, "LookThrough analytics": lookthrough_page, "Run replay": replay_page, "Benchmark": benchmark_page, "Ontology": ontology_page}
 st.sidebar.title("PEI prototype")
 st.sidebar.caption("Synthetic data. Rules are illustrative.")
-linked = st.query_params.get("page")  # a link can open a page: ?page=LookThrough analytics
-PAGES[st.sidebar.radio("Page", list(PAGES), index=list(PAGES).index(linked) if linked in PAGES else 0)]()
+if st.session_state.get("page") not in PAGES:  # a link can open a page: ?page=LookThrough analytics
+    st.session_state["page"] = st.query_params.get("page") if st.query_params.get("page") in PAGES else "Overview"
+chosen = st.sidebar.radio("Page", list(PAGES), key="page")
+st.query_params["page"] = chosen  # kept in the address, so a link to a file returns to the page it was on
+open_linked_file()
+PAGES[chosen]()
