@@ -1,16 +1,24 @@
-"""Review screens over the prototype's data. Nothing here runs an agent.
+"""Review screens over the prototype's data. Only the LookThrough page runs an agent, when a question is asked.
 
     streamlit run app.py
 """
+import asyncio
+import html
 import json
+import re
+import textwrap
+from datetime import date
 
+import altair as alt
 import pandas as pd
 import psycopg
 import streamlit as st
 import yaml
 from psycopg.rows import dict_row
 
-from xbpei import GOLD, REVIEWER_DSN, bundle, measures, ontology
+from xbpei import BUSINESS, GOLD, REVIEWER_DSN, bundle, measures, ontology
+from xbpei.ask import ask
+from xbpei.execute import run_computation
 from xbpei.tools import source_row
 
 st.set_page_config(page_title="PEI Clearance and LookThrough prototype", layout="wide")
@@ -33,15 +41,177 @@ def table(data: list[dict], max_rows: int = 30) -> None:
     st.dataframe(frame, hide_index=True, width="stretch", column_config=money, height=38 + 35 * min(len(frame), max_rows))
 
 
+# Overview -------------------------------------------------------------------
+
+TRACE_TERMS = ["xbpei:votingPercentage", "xbpei:JurisdictionFact", "xbpei:OwnershipInterest", "xbpei:TaxCertification", "xbpei:Clearance"]
+EXAMPLE_VALUES = {"on_date": "2026-10-30", "distribution_id": "D-001", "fund_code": "AGF1", "company_id": "E-003", "jurisdiction": "US", "party_no": "I-001",
+                  "component_id": "D-001-A", "from_date": "2024-01-01", "to_date": "2026-10-30"}
+BAND_CSS = """<style>
+.band {font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:#52514e; margin:2px 0 6px 0}
+.down {text-align:center; color:#7a7872; font-size:20px; line-height:1; margin:2px 0 4px 0}
+</style>"""
+
+
+def go_to(page: str) -> None:
+    st.query_params["page"] = page
+
+
+@st.cache_data(ttl=120)
+def headline() -> dict:
+    """The results on record, read from the run log and recomputed by the measures."""
+    found = measures.report(REVIEWER_DSN)
+    runs = [r for r in all_runs() if r["score"]]
+    right = lambda arm: [r["score"]["lines_correct"] == r["score"]["lines_expected"] for r in runs if r["arm"] == arm]
+    asked = [r["score"] for r in runs if r["arm"] == "lookthrough"]
+    grounded = [e for e in found["evidence"].values() if e["arm"] == "grounded"]
+    return {"grounded": right("grounded"), "control": right("control"), "drafts": found["bad_drafts"],
+            "points": (sum(a["passed"] for a in asked), sum(a["total"] for a in asked)), "evidence": grounded[-1] if grounded else None}
+
+
+def questions() -> dict[str, str]:
+    """The competency questions of LookThrough, from its requirements."""
+    text = (BUSINESS / "lookthrough-product" / "lookthrough-business-product.md").read_text()
+    return dict(re.findall(r"^\| (CQ\d) \| ([^|]+?) \|$", text, re.M))  # the two-column table of questions, not the objectives
+
+
+def trace(term: str) -> None:
+    """One term followed from the work that needs it to the rows that hold it. Everything shown is read from the bundle, the ontology and the data."""
+    described, reach = ontology.describe_term(term), bundle.affected_by(term)
+    concepts = [bundle.concept(c) for c in reach["concepts"]]
+    asked = questions()
+    st.markdown(BAND_CSS, unsafe_allow_html=True)
+
+    st.markdown('<div class="band">1 · Business: the work that needs the term</div>', unsafe_allow_html=True)
+    left, right = st.columns(2)
+    with left.container(border=True):
+        st.markdown("**Clearance workflow** · operating procedure WF3")
+        for step in reach["steps"]:
+            st.write(f'Step {step["step"]}: {step["title"]}')
+        if not reach["steps"]:
+            st.caption("No step of WF3 uses this term.")
+    with right.container(border=True):
+        st.markdown("**LookThrough analytics** · competency questions")
+        supported = sorted({q for c in concepts for q in c.meta.get("supports", []) if q in asked})
+        for q in supported:
+            st.write(f"{q}: {asked[q]}")
+        if not supported:
+            st.caption("No LookThrough question uses this term.")
+
+    st.markdown('<div class="down">&darr;</div><div class="band">2 · Ontology: what the term means</div>', unsafe_allow_html=True)
+    with st.container(border=True):
+        st.markdown(f'**`{term}`** · {described["kind"]} · steward: {described.get("steward", "none")} · status: {described.get("status", "none")}')
+        st.write(described.get("definition") or "No definition recorded.")
+        if described.get("of"):
+            st.caption("Of " + ", ".join(f"`{c}`" for c in described["of"]) + ".")
+        if described.get("sources"):
+            st.caption("Source: " + "; ".join(described["sources"]))
+
+    st.markdown('<div class="down">&darr;</div><div class="band">3 · Mapping: where its instances live</div>', unsafe_allow_html=True)
+    by_runtime = {runtime: [c for c in concepts if c.meta.get("runtime") == runtime] for runtime in ("postgres", "ladybug")}
+    left, right = st.columns(2)
+    with left.container(border=True):
+        st.markdown("**Postgres** · the emulated source systems")
+        places = list(dict.fromkeys(place for c in by_runtime["postgres"] for place in bundle.in_tables(term, c)))
+        st.markdown("\n".join(f"- {place}" for place in places) or "Not read from Postgres by any computation.")
+    with right.container(border=True):
+        st.markdown("**LadybugDB** · the graph projection")
+        st.markdown("\n".join(f"- {place}" for place in bundle.in_graph(term)) if by_runtime["ladybug"] else "Not read from the graph by any computation.")
+
+    st.markdown('<div class="down">&darr;</div><div class="band">4 · Attested query and the rows it returns</div>', unsafe_allow_html=True)
+    left, right = st.columns(2)
+    for column, runtime, language in ((left, "postgres", "sql"), (right, "ladybug", "cypher")):
+        with column.container(border=True):
+            if not by_runtime[runtime]:
+                st.caption("No computation on this side reads the term.")
+                continue
+            c = by_runtime[runtime][0]
+            st.markdown(f'**{c.meta["title"]}** · `{c.id}` · supports {", ".join(c.meta.get("supports", []))}')
+            code = c.computation.strip().splitlines()
+            st.code("\n".join(code[:9] + (["…"] if len(code) > 9 else [])), language=language)
+            values = {p["name"]: EXAMPLE_VALUES[p["name"]] for p in c.meta["parameters"]}
+            result = run_computation(c.id, values)
+            st.caption(f'Run with {values}: {result.get("row_count")} rows, attested: {result.get("attested")}. The first three:')
+            found = result.get("rows", [])  # who the row is about, then its figures, which is where a percentage or an amount shows
+            figures = [k for k, v in (found[0] if found else {}).items() if isinstance(v, (int, float)) and not isinstance(v, bool)]
+            keep = list(dict.fromkeys(list(found[0])[:2] + figures + list(found[0])[2:]))[:5] if found else []
+            sample = [{k: (", ".join(map(str, row[k])) if isinstance(row[k], list) else row[k]) for k in keep} for row in found[:3]]
+            if sample:
+                table(sample)
+    st.caption("An agent supplies only the parameter values. It cannot change the query, and each run is checked against the bundle before its rows are used.")
+
+
+def overview_page() -> None:
+    st.header("One ontology grounding two products")
+    st.write("Every business term has one meaning, kept in an ontology with a steward and a status. A semantic layer, packaged as an OKF bundle, ties each "
+             "meaning to where its data lives in Postgres and in the graph, and to the procedure steps and questions that need it. An agent reads and "
+             "writes only through that layer, so every draft it prepares and every answer it gives can be traced back to a defined term and a source row.")
+    h = headline()
+    tiles = st.columns(5)
+    tiles[0].metric("Grounded agent, correct schedule", f'{sum(h["grounded"])} of {len(h["grounded"])} runs')
+    tiles[1].metric("Ungrounded agent, correct schedule", f'{sum(h["control"])} of {len(h["control"])} runs')
+    tiles[2].metric("Faulty drafts refused", f'{h["drafts"].get("caught", "?")} of {h["drafts"].get("total", "?")}')
+    tiles[3].metric("LookThrough points", f'{h["points"][0]} of {h["points"][1]}')
+    if h["evidence"]:
+        tiles[4].metric("Schedule lines with evidence", f'{h["evidence"]["lines_with_evidence"]} of {h["evidence"]["lines"]}')
+    st.caption("Read from the run log just now. Synthetic data, illustrative rules, and a handful of runs: these show what happened, not rates.")
+
+    st.subheader("One term, from the business question to the rows")
+    term = st.selectbox("Follow a term", TRACE_TERMS, format_func=lambda t: f'{ontology.describe_term(t).get("label") or t}  ({t})')
+    trace(term)
+
+    st.subheader("See it work")
+    left, right, _ = st.columns([1, 1, 2])
+    left.button("Open the Clearance workflow", on_click=go_to, args=("Clearance workflow",), help="A procedure run by an agent and signed by a person")
+    right.button("Open LookThrough analytics", on_click=go_to, args=("LookThrough analytics",), help="Ask a question and see what the answer rests on")
+
+    st.subheader("How the pieces fit")
+    st.image("diagrams/okf-extension-overview.png")
+
+
 # Clearance ------------------------------------------------------------------
 
+STRIP_CSS = """<style>
+.wf {display:flex; flex-wrap:wrap; gap:6px 4px; align-items:stretch; margin:4px 0 14px 0; font-family:inherit}
+.wf .lane {flex-basis:100%; font-size:12px; font-weight:600; color:#52514e; margin-top:6px; letter-spacing:.02em}
+.wf .step {width:150px; padding:7px 9px; border:1px solid #c9c7c0; border-radius:8px; background:#fcfcfb; color:#0b0b0b; font-size:12px; line-height:1.3}
+.wf .step b {display:block; font-size:11px; color:#52514e; font-weight:600; margin-bottom:2px}
+.wf .person {border:2px solid #0b0b0b}
+.wf .done {background:#eef3ee}
+.wf .now {background:#fff2cc; box-shadow:0 0 0 2px #0b0b0b}
+.wf .out {color:#7a7872; border-style:dashed}
+.wf .arrow {align-self:center; color:#7a7872; font-size:14px}
+</style>"""
+
+
+def workflow_strip(status: str) -> None:
+    """The steps of WF3 as the bundle's procedure gives them, with who performs each and where the schedule stands."""
+    steps = bundle.concept("procedures/wf3-withholding-at-distribution").meta["steps"]
+    reached = {"draft": 10, "signed": 11}.get(status, 10)  # the step the schedule is waiting at
+    parts, lane = [], None
+    for step in steps:
+        person = step["performed_by"] != "agent"
+        if step["performed_by"] != lane:
+            lane = step["performed_by"]
+            parts.append(f'<div class="lane">{"Person" if person else "Agent"}: steps {step["id"]} to {[s["id"] for s in steps if s["performed_by"] == lane][-1]}</div>')
+        elif parts:
+            parts.append('<div class="arrow">&rarr;</div>')
+        state = "done" if step["id"] < reached else "now" if step["id"] == reached and step["id"] == 10 else "out" if step["id"] > 10 else ""
+        tag = "done" if state == "done" else "waiting here" if state == "now" else "outside the prototype" if state == "out" else ""
+        parts.append(f'<div class="step {"person" if person else ""} {state}"><b>{step["id"]} &middot; {"person" if person else "agent"}'
+                     f'{" &middot; " + tag if tag else ""}</b>{html.escape(textwrap.shorten(step["title"], 78, placeholder="…"))}</div>')
+    st.markdown(STRIP_CSS + f'<div class="wf">{"".join(parts)}</div>', unsafe_allow_html=True)
+    st.caption("Generated from the WF3 procedure in the bundle, which is what the agent follows. The agent reads through attested computations and writes "
+               "drafts through checked tools; a heavy border marks the steps only a person performs.")
+
+
 def clearance_page() -> None:
-    st.header("Clearance: withholding schedule")
+    st.header("Clearance workflow: withholding at distribution")
     schedules = rows("SELECT * FROM clearance.withholding_schedule ORDER BY schedule_id DESC")
     if not schedules:
         st.info("No schedule has been drafted. Run the grounded agent: `python -m xbpei.agent grounded D-001`.")
         return
     schedule = st.selectbox("Schedule", schedules, format_func=lambda s: f'{s["schedule_id"]} for {s["schedule_for"]} ({s["schedule_status"]})')
+    workflow_strip(schedule["schedule_status"])
     dist = rows("SELECT record_dt, pay_dt, gross_amt, ccy FROM treasury.distribution WHERE dist_id = %s", (schedule["schedule_for"],))[0]
     st.write(f'Distribution **{schedule["schedule_for"]}**: record date {dist["record_dt"]}, payment date {dist["pay_dt"]}, '
              f'{dist["ccy"]} {dist["gross_amt"]:,.2f}. Prepared by `{schedule["prepared_by"]}`. Status: **{schedule["schedule_status"]}**'
@@ -223,37 +393,234 @@ def spread(values) -> str:
 
 # LookThrough ----------------------------------------------------------------
 
+SERIES = {"Economic %": "#2a78d6", "Voting %": "#eb6834"}   # slots 1 and 2 of the validated categorical palette
+RELATIONS = {"holds": "Holdings", "jurisdictionFact": "Jurisdiction facts", "payment": "Payments"}
+DEFAULT_RELATIONS = {"CQ2": ["holds", "jurisdictionFact"], "CQ3": ["payment"]}
+SHAPES = {"FundVehicle": "round-rectangle", "SPV": "diamond", "PortfolioCompany": "hexagon", "LegalEntity": "ellipse",
+          "NaturalPerson": "ellipse", "Jurisdiction": "round-tag"}
+GRAPH_HTML = """<div id="cy" style="width:100%;height:@@height@@px;background:#fcfcfb;border:1px solid #dddbd4;border-radius:8px"></div>
+<div id="tip" style="position:absolute;display:none;background:#0b0b0b;color:#fff;font:12px sans-serif;padding:4px 7px;border-radius:4px;pointer-events:none"></div>
+<script src="https://unpkg.com/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+<script>
+const shapes = @@shapes@@, dim = @@dim@@;
+const cy = cytoscape({container: document.getElementById('cy'), elements: @@elements@@, wheelSensitivity: 0.2,
+  layout: {name: @@layout@@, padding: 24, animate: false, nodeDimensionsIncludeLabels: true},
+  style: [
+    {selector: 'node', style: {'label': 'data(label)', 'font-size': 11, 'color': '#0b0b0b', 'text-wrap': 'wrap', 'text-max-width': 110,
+      'text-valign': 'bottom', 'text-margin-y': 4, 'width': 34, 'height': 34, 'border-width': 1, 'border-color': '#666',
+      'background-color': '#FFF2CC', 'shape': e => shapes[e.data('kind')] || 'ellipse', 'opacity': e => dim && !e.data('named') ? 0.45 : 1}},
+    {selector: 'node[kind = "Jurisdiction"]', style: {'background-color': '#E4F1E3', 'width': 34, 'height': 22, 'text-valign': 'center', 'text-margin-y': 0}},
+    {selector: 'node[kind = "NaturalPerson"]', style: {'border-style': 'double', 'border-width': 3}},
+    {selector: 'node[?named]', style: {'border-width': 4, 'border-color': '#0b0b0b', 'font-weight': 'bold'}},
+    {selector: 'edge', style: {'label': 'data(label)', 'font-size': 8, 'color': '#52514e', 'text-background-color': '#fcfcfb', 'text-background-opacity': 1,
+      'text-background-padding': 1, 'curve-style': 'bezier', 'target-arrow-shape': 'triangle', 'arrow-scale': 0.8, 'width': 1.2,
+      'line-color': '#8a8882', 'target-arrow-color': '#8a8882', 'opacity': e => dim && !e.data('named') ? 0.5 : 1}},
+    {selector: 'edge[relation = "jurisdictionFact"]', style: {'line-style': 'dotted'}},
+    {selector: 'edge[relation = "payment"]', style: {'line-style': 'dashed', 'line-color': '#2a78d6', 'target-arrow-color': '#2a78d6', 'width': 1.6}},
+    {selector: 'edge[?named]', style: {'width': 3}}]});
+const tip = document.getElementById('tip');
+cy.on('mouseover', 'node, edge', e => { tip.textContent = e.target.data('tip'); tip.style.display = 'block'; });
+cy.on('mousemove', e => { tip.style.left = (e.renderedPosition.x + 14) + 'px'; tip.style.top = (e.renderedPosition.y + 14) + 'px'; });
+cy.on('mouseout', 'node, edge', () => { tip.style.display = 'none'; });
+</script>"""
+
+
+def structure(on_date: date) -> list[dict]:
+    """The structure as edges, from the bundle's attested graph computation."""
+    return run_computation("computations/structure-graph", {"on_date": on_date.isoformat()}).get("rows", [])
+
+
+def named_in(output: dict | None, edges: list[dict]) -> tuple[set[str], set[str]]:
+    """The graph nodes and payments an answer names, by any identifier a source system gives them."""
+    text = json.dumps(output or {})
+    alias = {}
+    for e in edges:
+        for node, refs in ((e["source"], e["source_refs"]), (e["target"], e["target_refs"])):
+            alias[node] = node
+            for ref in refs or []:
+                alias[ref.split(":")[-1]] = node
+    tokens = set(re.findall(r"\b(?:I|E|CP)-\d+\b", text))
+    return {alias[t] for t in tokens if t in alias}, set(re.findall(r"\bP-\d+\b", text))
+
+
+def draw_graph(edges: list[dict], relations: list[str], nodes_named: set[str], payments_named: set[str], only_named: bool) -> None:
+    shown = [e for e in edges if e["relation"] in relations
+             and (not only_named or e["label"].split()[0] in payments_named
+                  or (e["source"] in nodes_named and (e["target"] in nodes_named or e["relation"] == "jurisdictionFact")))]
+    if not shown:
+        st.info("Nothing on record for these relations on this date.")
+        return
+    # Tiers for the layout: what holds nothing is at the bottom, and each holder sits above what it holds.
+    held = {}
+    for e in shown:
+        if e["relation"] == "holds":
+            held.setdefault(e["source"], set()).add(e["target"])
+
+    def tier(node: str, path: tuple = ()) -> int:
+        return 0 if node in path else 1 + max((tier(t, path + (node,)) for t in held.get(node, ())), default=0)
+
+    kinds = {}
+    for e in shown:
+        kinds.update({e["source"]: (e["source_name"], e["source_kind"]), e["target"]: (e["target_name"], e["target_kind"])})
+    tiers = {}
+    for node, (_, kind) in sorted(kinds.items()):
+        tiers.setdefault(-1 if kind == "Jurisdiction" else tier(node), []).append(node)
+    position, y, per_row, width = {}, 0, 6, 900
+    for level in sorted(tiers, reverse=True):  # a wide tier wraps into staggered rows; jurisdictions form the last tier
+        members = tiers[level]
+        for start in range(0, len(members), per_row):
+            row = members[start:start + per_row]
+            for k, node in enumerate(row):
+                position[node] = {"x": width * (k + 1) / (len(row) + 1) + (40 if (start // per_row) % 2 else 0), "y": y}
+            y += 105
+        y += 25
+
+    elements = []
+    for node, (name, kind) in kinds.items():
+        elements.append({"data": {"id": node, "label": node if kind == "Jurisdiction" else f"{name}\n{node}", "kind": kind,
+                                  "named": node in nodes_named, "tip": f"{name or node} ({kind})"}, "position": position[node]})
+    for e in shown:
+        label = e["label"]
+        if e["relation"] == "holds":  # economic percentage of this one interest, and the capacity where it is a nominee's
+            pct, capacity = label.split("% ")
+            label = f"{float(pct):g}%" + (" nominee" if capacity == "nominee" else "")
+        elements.append({"data": {"id": f'{e["relation"]}:{e["source_ref"]}:{e["target"]}', "source": e["source"], "target": e["target"],
+                                  "label": label, "relation": e["relation"], "named": e["label"].split()[0] in payments_named,
+                                  "tip": f'{RELATIONS[e["relation"]]}: {e["label"]} ({e["source_ref"]})'}})
+    height = 640
+    page = GRAPH_HTML
+    for key, value in {"height": height, "shapes": SHAPES, "dim": bool(nodes_named or payments_named), "elements": elements,
+                       "layout": "preset" if "holds" in relations else "cose"}.items():
+        page = page.replace(f"@@{key}@@", json.dumps(value).replace("</", "<\\/"))  # names from the data cannot close the script
+    st.iframe(page, height=height + 10)
+    st.caption("Shapes: rounded box fund vehicle, diamond SPV, hexagon portfolio company, circle other legal entity, double-ringed circle natural person, "
+               "tag jurisdiction. Lines: solid holding (labelled with the percentage of that one interest), dotted jurisdiction fact, dashed payment. "
+               "A heavy outline marks what the answer names. From `computations/structure-graph`, attested; the graph library loads from the network.")
+
+
+def facts_frame(output: dict) -> pd.DataFrame:
+    return pd.DataFrame(output["facts"] or [], columns=["subject", "attribute", "value", "source_ref"])
+
+
+def analytics(cq: str | None, output: dict, names: dict[str, str]) -> None:
+    """The figures of an answer, in the form that suits the question."""
+    facts = facts_frame(output)
+    if facts.empty:
+        return
+    if cq == "CQ1":
+        wide = facts[facts["attribute"].isin(["economicPercentage", "votingPercentage"])].copy()
+        wide["value"] = pd.to_numeric(wide["value"].astype(str).str.rstrip("%"), errors="coerce")
+        wide["measure"] = wide["attribute"].map({"economicPercentage": "Economic %", "votingPercentage": "Voting %"})
+        wide["investor"] = wide["subject"].map(lambda s: f"{names.get(s, s)} ({s})")
+        order = wide[wide["measure"] == "Economic %"].sort_values("value", ascending=False)["investor"].tolist()
+        chart = alt.Chart(wide).mark_bar(cornerRadiusEnd=4).encode(
+            y=alt.Y("investor:N", sort=order, title=None, axis=alt.Axis(labelLimit=320), scale=alt.Scale(paddingInner=0.4)),
+            yOffset=alt.YOffset("measure:N", sort=list(SERIES), scale=alt.Scale(paddingInner=0.2)),
+            x=alt.X("value:Q", title="Effective holding in the company, percent"),
+            color=alt.Color("measure:N", scale=alt.Scale(domain=list(SERIES), range=list(SERIES.values())), legend=alt.Legend(title=None, orient="top")),
+            tooltip=[alt.Tooltip("investor:N"), alt.Tooltip("measure:N"), alt.Tooltip("value:Q", format=".2f")],
+        ).properties(height=max(200, 36 * len(order)))
+        st.altair_chart(chart, width="stretch")
+        st.caption("Each investor's holding multiplied through every tier of the chain. Voting and economic percentages differ where a share class carries more votes.")
+    elif cq == "CQ2":
+        st.dataframe(facts.groupby(["subject", "attribute"])["value"].agg(lambda v: ", ".join(sorted(set(v)))).unstack(fill_value="not recorded")
+                     .rename(index=lambda s: f"{names.get(s, s)} ({s})"), width="stretch")
+    elif cq in ("CQ3", "CQ6"):
+        attribute = "crossing" if cq == "CQ3" else "kind"
+        counts = facts[facts["attribute"] == attribute]["value"].value_counts()
+        for column, (value, count) in zip(st.columns(max(len(counts), 1)), counts.items()):
+            column.metric(value, count)
+    elif cq == "CQ5":
+        missing = facts[facts["attribute"] == "unmetRequirement"]
+        left, right = st.columns(2)
+        left.metric("Parties with a missing fact", missing["subject"].nunique())
+        right.metric("Findings", len(missing))
+    else:  # a question outside the answer key: one figure per subject is drawn as a bar, anything else stays a table
+        numbers = pd.to_numeric(facts["value"].astype(str).str.rstrip("%"), errors="coerce")
+        if len(facts) >= 3 and numbers.notna().all() and facts["subject"].is_unique:
+            one = facts.assign(value=numbers, subject=facts["subject"].map(lambda s: f"{names.get(s, s)} ({s})"))
+            chart = alt.Chart(one).mark_bar(cornerRadiusEnd=4, color=SERIES["Economic %"]).encode(
+                y=alt.Y("subject:N", sort="-x", title=None, axis=alt.Axis(labelLimit=320), scale=alt.Scale(paddingInner=0.45)),
+                x=alt.X("value:Q", title="Value given in the answer"),
+                tooltip=[alt.Tooltip("subject:N"), alt.Tooltip("attribute:N"), alt.Tooltip("value:Q")],
+            ).properties(height=max(160, 26 * len(one)))
+            st.altair_chart(chart, width="stretch")
+            st.caption("One bar per subject of the answer. What each figure measures is in the table below and in the tooltip.")
+    with st.expander("Table of the answer's figures", expanded=cq != "CQ1"):
+        table(facts.fillna("").to_dict("records"), max_rows=16)
+
+
 def lookthrough_page() -> None:
-    st.header("LookThrough: questions answered")
-    runs = [r for r in all_runs() if r["arm"] == "lookthrough"]
-    if not runs:
-        st.info("No question has been asked. Run `python -m xbpei.ask Q1` from `solution/`.")
-        return
-    st.write("Each answer was given by an agent that can only look terms up and run the bundle's attested computations. It writes no queries. "
-             "A question about a term outside the ontology, or one no source holds, is refused.")
-    run = st.selectbox("Question", runs, format_func=lambda r: f'{r["procedure"] or "unscored"}  {r["subject"]}')
-    st.caption(f'{run["run_id"]}: {run["turns"] or "?"} turns, {round((run["duration_ms"] or 0) / 1000)} seconds, estimated USD {run["cost_usd"] or 0}')
-    try:
-        output = json.loads(run["final_text"])
-    except (TypeError, ValueError):
-        st.warning(f'The run left no answer. Outcome: {run["outcome"]}.')
-        return
-    st.subheader("Refused" if output["status"] == "refused" else "Answer")
-    st.write(output["answer"])
-    if output["facts"]:
-        table(output["facts"])
-    for label in ("unknown", "conflicts"):
-        if output[label]:
-            st.write(f"**{'Not recorded in the sources' if label == 'unknown' else 'Where the sources disagree'}**")
-            for item in output[label]:
-                st.write("- " + item)
-    if run["score"]:
-        st.subheader(f'Against the answer key: {run["score"]["passed"]} of {run["score"]["total"]}')
-        table([{"point": p, "result": "pass" if ok else "fail"} for p, ok in run["score"]["points"].items()])
-    st.subheader("What the answer rests on")
-    steps = rows("SELECT * FROM runlog.step WHERE run_id = %s AND kind IN ('computation', 'lookup') ORDER BY seq", (run["run_id"],))
-    table([{"seq": s["seq"], "kind": s["kind"], "concept": s["concept"], "parameters": json.dumps(s["parameters"]), "rows": s["row_count"],
-            "attested": s["attested"], "ontology terms": ", ".join(s["terms"] or [])} for s in steps])
+    st.header("LookThrough analytics")
+    st.write("Ask a question about the structure, its jurisdictions, payments or the obligations on record. An agent answers it live: it looks terms up in "
+             "the ontology and runs the bundle's attested computations, and writes no queries of its own. A question outside the ontology, or about a "
+             "term no source holds, is refused.")
+    main, panel = st.columns([3.1, 1.25], gap="large")
+
+    with panel:
+        st.subheader("Ask")
+        samples = yaml.safe_load(GOLD.read_text())["lookthrough_questions"]
+        picked = st.selectbox("From the answer key", [None] + samples, format_func=lambda q: "Write your own" if q is None else f'{q["cq"]}: {q["text"][:48]}…')
+        text = st.text_area("Question", value=picked["text"] if picked else "", height=130, placeholder="Which investors have indirect exposure to Borealis Logistik?")
+        if st.button("Ask", type="primary", disabled=not text.strip()):
+            with st.spinner("The agent is looking terms up and running computations. This takes about 10 to 30 seconds."):
+                result = asyncio.run(ask(picked["id"] if picked and text == picked["text"] else text.strip()))
+            st.session_state["lookthrough_run"] = result["run"]
+            st.rerun()
+        runs = [r for r in all_runs() if r["arm"] == "lookthrough"][::-1]
+        st.subheader("Asked so far")
+        if not runs:
+            st.caption("Nothing yet.")
+            return
+        wanted = st.session_state.get("lookthrough_run") or st.query_params.get("run")
+        run = st.radio("Asked so far", runs, index=next((i for i, r in enumerate(runs) if r["run_id"] == wanted), 0), label_visibility="collapsed",
+                       format_func=lambda r: f'{r["procedure"] or "live"} · {textwrap.shorten(r["subject"] or "", 70, placeholder="…")}')
+
+    with main:
+        st.subheader(run["subject"])
+        st.caption(f'{run["run_id"]}, asked {run["started_at"]:%d %b %Y %H:%M}: {run["turns"] or "?"} turns, {round((run["duration_ms"] or 0) / 1000)} seconds, '
+                   f'estimated USD {float(run["cost_usd"] or 0):.2f}')
+        try:
+            output = json.loads(run["final_text"])
+        except (TypeError, ValueError):
+            output = None
+            st.error(f'The agent gave no answer. Outcome: {run["outcome"] or "the run did not finish"}.')
+        if output:
+            (st.warning if output["status"] == "refused" else st.success)("Refused" if output["status"] == "refused" else "Answered")
+            st.write(output["answer"])
+
+        st.subheader("Where the answer sits in the structure")
+        left, middle, right = st.columns([1, 2, 1.4])
+        on_date = left.date_input("On date", date(2026, 10, 30))
+        relations = middle.multiselect("Show", list(RELATIONS), default=DEFAULT_RELATIONS.get(run["procedure"], ["holds"]), format_func=RELATIONS.get)
+        edges = structure(on_date)
+        nodes_named, payments_named = named_in(output, edges)
+        nodes_named |= {e[end] for e in edges if e["relation"] == "payment" and e["label"].split()[0] in payments_named for end in ("source", "target")}
+        only_named = right.checkbox("Only what the answer names", value=run["procedure"] == "CQ2", disabled=not nodes_named,
+                                    key=f'only-{run["run_id"]}')
+        draw_graph(edges, relations, nodes_named, payments_named, only_named)
+
+        if output:
+            if output["facts"]:
+                st.subheader("Figures")
+                names = {key: e[f"{end}_name"] for e in edges for end in ("source", "target")
+                         for key in [e[end]] + [ref.split(":")[-1] for ref in e[f"{end}_refs"] or []]}
+                analytics(run["procedure"], output, names)
+            for label, title in (("unknown", "Not recorded in the sources"), ("conflicts", "Where the sources disagree")):
+                if output[label]:
+                    st.subheader(title)
+                    for item in output[label]:
+                        st.write("- " + item)
+            if run["score"]:
+                st.subheader(f'Against the answer key: {run["score"]["passed"]} of {run["score"]["total"]}')
+                table([{"point": p, "result": "pass" if ok else "fail"} for p, ok in run["score"]["points"].items()])
+        st.subheader("What the answer rests on")
+        steps = rows("SELECT * FROM runlog.step WHERE run_id = %s AND kind IN ('computation', 'lookup') ORDER BY seq", (run["run_id"],))
+        if steps:
+            table([{"seq": s["seq"], "kind": s["kind"], "concept": s["concept"], "parameters": json.dumps(s["parameters"]), "rows": s["row_count"],
+                    "attested": s["attested"], "ontology terms": ", ".join(s["terms"] or [])} for s in steps])
+        else:
+            st.caption("The run recorded no lookup and no computation.")
 
 
 # Ontology -------------------------------------------------------------------
@@ -308,7 +675,8 @@ def ontology_page() -> None:
     table([{"steward": s, "status": t, "terms": n} for (s, t), n in sorted(status.items())])
 
 
-PAGES = {"Clearance": clearance_page, "LookThrough": lookthrough_page, "Run replay": replay_page, "Benchmark": benchmark_page, "Ontology": ontology_page}
+PAGES = {"Overview": overview_page, "Clearance workflow": clearance_page, "LookThrough analytics": lookthrough_page, "Run replay": replay_page, "Benchmark": benchmark_page, "Ontology": ontology_page}
 st.sidebar.title("PEI prototype")
 st.sidebar.caption("Synthetic data. Rules are illustrative.")
-PAGES[st.sidebar.radio("Page", list(PAGES))]()
+linked = st.query_params.get("page")  # a link can open a page: ?page=LookThrough analytics
+PAGES[st.sidebar.radio("Page", list(PAGES), index=list(PAGES).index(linked) if linked in PAGES else 0)]()

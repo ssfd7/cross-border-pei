@@ -46,10 +46,10 @@ Everything is under `solution/`. It covers WF3 and the LookThrough questions CQ1
 | `solution/db/` | Postgres schemas and seed data: six emulated source systems (entity management, investor register, onboarding, treasury, documents, rule library), the Clearance schema and the run log. Agents read the source systems and never write to them |
 | `solution/gold/` | The answer key for the gold dataset and a script that recomputes its figures from the data |
 | `solution/documents/` | Five synthetic documents |
-| `solution/bundle/` | An [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle: the WF3 procedure, eighteen attested computations, five tools, and the mapping files that say where instances of each ontology term live |
+| `solution/bundle/` | An [OKF v0.2](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) bundle: the WF3 procedure, nineteen attested computations, five tools, and the mapping files that say where instances of each ontology term live |
 | `solution/shapes/` | SHACL shapes generated from the ontology, and hand-written shapes for four procedure controls |
 | `solution/xbpei/` | Python: ontology and mapping lookups, checks, the graph projection (LadybugDB), the executor and attester, the write tools, the two agent runners (`agent` for WF3, `ask` for LookThrough questions), the scorer and the reviewer measures |
-| `solution/app.py` | A Streamlit app with five review screens: the draft schedule with the evidence behind each line and reviewer sign-off, the LookThrough answers with what each rests on, a replay of recorded runs, the benchmark with the reviewer measures, and an ontology browser |
+| `solution/app.py` | A Streamlit app with six pages: an overview (the results on record, and one term followed from the procedure step and question that need it, through its meaning and mappings, to the SQL and Cypher that read it and the rows they return), the Clearance workflow (the WF3 steps with who performs each, the draft schedule, the evidence behind each line and reviewer sign-off), LookThrough analytics (ask a question live, see where the answer sits in the structure graph, its figures and what it rests on), a replay of recorded runs, the benchmark with the reviewer measures, and an ontology browser |
 | `solution/reports/` | The two reports and the exported runs |
 
 How the pieces relate:
@@ -64,7 +64,7 @@ How the bundle ties the questions, the workflow and the data to one ontology. Th
 
 ![One ontology at the core, a Semantic Layer (OKF bundle) around it](solution/diagrams/okf-extension-overview.png)
 
-To run it, see section 12 of the [first run report](solution/reports/2026-10-06-wf3-two-arm-run.md). To ask a LookThrough question, run `.venv/bin/python -m xbpei.ask Q1` from `solution/`, or pass a question in quotes. `.venv/bin/python -m xbpei.measures` prints the reviewer measures. To open the review screens, run `.venv/bin/streamlit run app.py` from `solution/` with the database up. The screens read the live database, so they are empty until an agent run has been recorded.
+To run it, see section 12 of the [first run report](solution/reports/2026-10-06-wf3-two-arm-run.md). To ask a LookThrough question, run `.venv/bin/python -m xbpei.ask Q1` from `solution/`, or pass a question in quotes. `.venv/bin/python -m xbpei.measures` prints the reviewer measures. To open the review screens, run `.venv/bin/streamlit run app.py` from `solution/` with the database up. The pages read the live database, so they are empty until an agent run has been recorded. Asking a question on the LookThrough page runs the agent, which needs a Claude Code login or an API key, takes about 10 to 40 seconds and costs a few cents. The structure graph loads its drawing library from the network. A page can be opened by link, for example `?page=LookThrough analytics`.
 
 ## Open decisions
 

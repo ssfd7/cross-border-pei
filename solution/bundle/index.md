@@ -27,6 +27,7 @@ ontology: { prefix: xbpei, namespace: "https://w3id.org/xb-pei/ontology#", resou
 * [Support for a withholding determination](computations/determination-support.md) - The rules assessed for a recipient and component, and the facts each assessment cites.
 * [Facts missing before a treatment can be determined](computations/missing-facts.md) - Every missing-fact finding, from clearances and from assessments.
 * [Records that rest on a party's facts](computations/records-resting-on-party.md) - What to revisit if a party's status or ownership changes.
+* [The structure as a graph on a date](computations/structure-graph.md) - Holdings, jurisdiction facts and payments as edges, for drawing.
 
 # Tools
 
