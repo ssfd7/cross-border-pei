@@ -121,7 +121,7 @@ According to the [project README](../README.md) and [ontology-grounding extensio
 4. **OKF bundle:** Computations, tools, and the WF3 procedure under `bundle/`.
 5. **Application execution:** Query execution, attestation, write tools, checks, and human sign-off.
 
-The repository documents WF3 and LookThrough CQ1–CQ3 as implemented, with WF1, WF2, and CQ4–CQ6 outstanding. This note records that documented state; it does not independently rerun or validate the prototype.
+The repository documents WF3 and LookThrough CQ1–CQ6 as implemented, with WF1 and WF2 outstanding. This note records that documented state; it does not independently rerun or validate the prototype.
 
 The project-specific extension adds `reads`, `writes`, `supports`, procedure `steps`, generated glossaries, mapping files, and an ontology declaration. Those additions provide ontology grounding and traceability beyond base OKF. Existing source-to-ontology mappings are not automatically OSSIE models.
 

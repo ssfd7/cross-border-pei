@@ -94,6 +94,19 @@ flowchart TD
     WF3 --> P["Payment cleared<br/>rate and basis recorded"]
 ```
 
+The clearance questions the record must answer, derived from the controls in the operating procedures:
+
+| ID | Question | Workflow | Controls |
+|---|---|---|---|
+| CL1 | Which investors are not yet cleared, and which items are still open? | WF1 | C1.1, C1.5 |
+| CL2 | Which certification does each clearance rely on, and until when is it valid? | WF1 | C1.4 |
+| CL3 | Which clearances end within a given period without an open renewal case? | WF2 | C2.1, C2.4 |
+| CL4 | Which clearances relied on a fact that has since changed? | WF2 | C2.3 |
+| CL5 | Which investors hold a clearance valid on a distribution's payment date? | WF3 | C3.2 |
+| CL6 | What rate applies to each investor and component, and on what basis? | WF3 | C3.3 |
+| CL7 | Does every investor have exactly one outcome for each component of a distribution? | WF3 | C3.1 |
+| CL8 | Which payments were released against which signed schedule? | WF3 | C3.6 |
+
 Scope of the first release:
 
 - The three workflows above, run on the same synthetic fund and investors used by LookThrough.

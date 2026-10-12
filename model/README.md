@@ -81,7 +81,7 @@ These references explain source limitations; they have not yet been translated i
 
 ## Next work
 
-- Review the nine clearance concepts and the proposed questions CL1–CL8.
+- Review the nine clearance concepts.
 - Select one tax obligation and jurisdiction pair; source its rule conditions and evidence requirements.
 - Create synthetic scenarios covering applicable, not-applicable and undetermined outcomes, and validate each question against them.
 - Run the Turtle through a reasoner and a profile check. It parses with rdflib.
@@ -130,7 +130,7 @@ Pages `04 Investor clearance` and `05 Withholding at distribution` add the conce
 | Withholding Determination | Outcome, rate and basis for one investor and component | WF3 |
 | Withholding Schedule | The determinations for a distribution, prepared and signed off | WF3 |
 
-Proposed clearance questions, derived from the controls in the procedures. They are not yet in `clearance-business-product.md`.
+Clearance questions, derived from the controls in the procedures. They are stated in section 3 of `clearance-business-product.md`.
 
 | ID | Question | Page and controls |
 |---|---|---|

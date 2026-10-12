@@ -72,7 +72,6 @@ To run it, see section 12 of the [first run report](solution/reports/2026-10-06-
 - Whether Ownership Interest and Tax Certification are also kinds of Fact Assertion. Jurisdiction Fact and Tax Status Assertion were made so in v0.11.
 - Whether to source more definitions. Fourteen terms now name a source that was read before it was recorded (the 1996 convention, the withholding regulation and statute, ISO 17442 and the OMG Commons ontology); the OECD Model Tax Convention, FATF, the other ISO standards and ILPA could not be reached to check and are not cited. See `model/README.md`.
 - Whether the 5 percent rule should test a direct holding. The convention says "owns directly at least 10 percent of the voting stock"; the prototype tests the holding multiplied through the tiers.
-- The clearance questions CL1–CL8 in the model are proposals and are not yet in the Clearance requirements.
 
 ## Sources and licence
 
