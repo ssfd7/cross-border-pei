@@ -4,7 +4,9 @@ A prototype showing how one ontology and one semantic layer ground AI agents acr
 
 **Status (2026-10-08):** business requirements and the semantic model are drafted. A first prototype exists for one procedure, WF3 withholding at distribution, with review screens and a documented extension to OKF that ties the bundle to the ontology. It has been run three times with a grounded agent and three times with an ungrounded one: the grounded agent produced the correct schedule every time, in a fourth run as well, the ungrounded one in two runs of three. A read-only agent answers the six LookThrough questions from the same bundle. See the [first run report](solution/reports/2026-10-06-wf3-two-arm-run.md) and the [second report](solution/reports/2026-10-08-controls-benchmark-and-lookthrough.md).
 
-**Demo:** a two-minute captioned walkthrough of the review screens is in [`solution/demo/xb-pei-demo.mp4`](solution/demo/xb-pei-demo.mp4). It has no sound. [`solution/demo/record.py`](solution/demo/record.py) records it again from the running app.
+[![Demo video: a two-minute captioned walkthrough of the review screens](solution/demo/xb-pei-demo-poster.png)](solution/demo/xb-pei-demo.mp4)
+
+**Demo:** select the image for a two-minute captioned walkthrough of the review screens, [`solution/demo/xb-pei-demo.mp4`](solution/demo/xb-pei-demo.mp4). It has no sound. [`solution/demo/record.py`](solution/demo/record.py) records it again from the running app.
 
 ## Two products, one ontology, one semantic layer
 
@@ -68,12 +70,9 @@ How the bundle ties the questions, the workflow and the data to one ontology. Th
 
 To run it, see section 12 of the [first run report](solution/reports/2026-10-06-wf3-two-arm-run.md). To ask a LookThrough question, run `.venv/bin/python -m xbpei.ask Q1` from `solution/`, or pass a question in quotes. `.venv/bin/python -m xbpei.measures` prints the reviewer measures. To open the review screens, run `.venv/bin/streamlit run app.py` from `solution/` with the database up. The pages read the live database, so they are empty until an agent run has been recorded. Asking a question on the LookThrough page runs the agent, which needs a Claude Code login or an API key, takes about 10 to 40 seconds and costs a few cents. The structure graph loads its drawing library from the network. A page can be opened by link, for example `?page=LookThrough analytics`.
 
-## Open decisions
+## Roadmap
 
-- Whether to go further in separating a grounded agent from an ungrounded one: a larger and less legible dataset, or a smaller model in both arms. Neither has been tried.
-- Whether Ownership Interest and Tax Certification are also kinds of Fact Assertion. Jurisdiction Fact and Tax Status Assertion were made so in v0.11.
-- Whether to source more definitions. Fourteen terms now name a source that was read before it was recorded (the 1996 convention, the withholding regulation and statute, ISO 17442 and the OMG Commons ontology); the OECD Model Tax Convention, FATF, the other ISO standards and ILPA could not be reached to check and are not cited. See `model/README.md`.
-- Whether the 5 percent rule should test a direct holding. The convention says "owns directly at least 10 percent of the voting stock"; the prototype tests the holding multiplied through the tiers.
+What comes next, and the questions still open, are in [`ROADMAP.md`](ROADMAP.md). The first phase is a more realistic synthetic dataset, so that the benchmark separates a grounded agent from an ungrounded one.
 
 ## Sources and licence
 
