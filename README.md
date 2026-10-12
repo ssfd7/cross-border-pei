@@ -4,6 +4,8 @@ A prototype showing how one ontology and one semantic layer ground AI agents acr
 
 **Status (2026-10-08):** business requirements and the semantic model are drafted. A first prototype exists for one procedure, WF3 withholding at distribution, with review screens and a documented extension to OKF that ties the bundle to the ontology. It has been run three times with a grounded agent and three times with an ungrounded one: the grounded agent produced the correct schedule every time, in a fourth run as well, the ungrounded one in two runs of three. A read-only agent answers the six LookThrough questions from the same bundle. See the [first run report](solution/reports/2026-10-06-wf3-two-arm-run.md) and the [second report](solution/reports/2026-10-08-controls-benchmark-and-lookthrough.md).
 
+**Demo:** a two-minute captioned walkthrough of the review screens is in [`solution/demo/xb-pei-demo.mp4`](solution/demo/xb-pei-demo.mp4). It has no sound. [`solution/demo/record.py`](solution/demo/record.py) records it again from the running app.
+
 ## Two products, one ontology, one semantic layer
 
 | Product | What it does | Requirements |
