@@ -16,6 +16,7 @@ import psycopg
 import streamlit as st
 import yaml
 from psycopg.rows import dict_row
+from rdflib.namespace import SKOS
 
 from xbpei import BUSINESS, GOLD, REVIEWER_DSN, ROOT, bundle, measures, ontology
 from xbpei.ask import ask
@@ -131,6 +132,14 @@ def open_linked_file() -> None:
             st.session_state["open_file"] = path
     if st.session_state.get("open_file"):
         show_file(st.session_state["open_file"])
+
+
+def files_tab(paths: list[str], key: str, note: str = "") -> None:
+    """A tab that shows one of a page's source files."""
+    if note:
+        st.caption(note)
+    paths = list(dict.fromkeys(paths))
+    render_file(paths[0] if len(paths) == 1 else st.selectbox("File", paths, key=key, format_func=lambda f: f"{file_kind(f)}: {f.removeprefix(IN_BUNDLE)}"))
 
 
 def source_files(paths: list[str], key: str) -> None:
@@ -323,6 +332,22 @@ def workflow_strip(status: str) -> None:
 
 def clearance_page() -> None:
     st.header("Clearance workflow: withholding at distribution")
+    workflow, requirements, in_bundle, controls = st.tabs(["Workflow", "Requirements", "Bundle", "Controls"])
+    with workflow:
+        clearance_workflow()
+    with requirements:
+        files_tab([REQUIREMENTS["wf3"], REQUIREMENTS["clearance"]], "clearance-requirements",
+                  "What the business asks for: the operating procedure the agent carries out, and the product requirements it belongs to.")
+    with in_bundle:
+        steps = bundle.concept("procedures/wf3-withholding-at-distribution").meta["steps"]
+        files_tab([IN_BUNDLE + "procedures/wf3-withholding-at-distribution.md"] + [IN_BUNDLE + u.strip("/") for step in steps for u in step.get("uses", [])],
+                  "clearance-bundle", "The same procedure as the agent reads it, and every computation and tool its steps use.")
+    with controls:
+        files_tab(["solution/shapes/controls.ttl", "solution/shapes/generated.ttl"], "clearance-controls",
+                  "The shapes a draft schedule must pass before it is written: the procedure's controls, written by hand, and those generated from the ontology.")
+
+
+def clearance_workflow() -> None:
     schedules = rows("SELECT * FROM clearance.withholding_schedule ORDER BY schedule_id DESC")
     if not schedules:
         st.info("No schedule has been drafted. Run the grounded agent: `python -m xbpei.agent grounded D-001`.")
@@ -669,6 +694,20 @@ def analytics(cq: str | None, output: dict, names: dict[str, str]) -> None:
 
 def lookthrough_page() -> None:
     st.header("LookThrough analytics")
+    analytics_tab, requirements, in_bundle, key_tab = st.tabs(["Analytics", "Requirements", "Bundle", "Answer key"])
+    with analytics_tab:
+        lookthrough_analytics()
+    with requirements:
+        files_tab([REQUIREMENTS["lookthrough"]], "lookthrough-requirements", "What the business asks for: the product and its competency questions, CQ1 to CQ6.")
+    with in_bundle:
+        answering = [c.id for c in bundle.concepts().values() if any(q.startswith("CQ") for q in c.meta.get("supports", []))]
+        files_tab([f"{IN_BUNDLE}{c}.md" for c in answering] + [IN_BUNDLE + "references/mappings/graph/ladybug.yaml"], "lookthrough-bundle",
+                  "The attested computations that support a competency question, and the mapping of ontology terms to the graph.")
+    with key_tab:
+        files_tab(["solution/gold/answer-key.yaml"], "lookthrough-key", "The questions put to the agent and the answers it is scored against.")
+
+
+def lookthrough_analytics() -> None:
     st.write("Ask a question about the structure, its jurisdictions, payments or the obligations on record. An agent answers it live: it looks terms up in "
              "the ontology and runs the bundle's attested computations, and writes no queries of its own. A question outside the ontology, or about a "
              "term no source holds, is refused.")
@@ -750,14 +789,73 @@ def lookthrough_page() -> None:
 
 # Ontology -------------------------------------------------------------------
 
+@st.cache_data
+def diagram_pages() -> dict[str, dict]:
+    """Each page of the ontology diagram: its image and the concepts and relationships drawn on it."""
+    import xml.etree.ElementTree as ET
+    pages = {}
+    for diagram in ET.parse(ROOT / "model" / "xb-pei-model.drawio").getroot().findall("diagram"):
+        cells = list(diagram.iter("mxCell"))
+        shown = {" ".join(re.sub(r"<[^>]+>", " ", c.get("value") or "").split()) for c in cells if c.get("vertex") == "1" or c.get("edge") == "1"}
+        name = diagram.get("name")
+        pages[name] = {"image": ROOT / "model" / "diagrams" / (re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-") + ".png"), "shown": shown}
+    return pages
+
+
+@st.cache_data
+def turtle_blocks() -> list[str]:
+    return [block for block in (ROOT / "model" / "xb-pei-model.ttl").read_text().split("\n\n") if block.strip()]
+
+
+@st.cache_data
+def governance_rows() -> list[dict]:
+    g, out = ontology.graph(), []
+    for found in ontology.find_term(""):
+        d = ontology.describe_term(found["term"])
+        out.append({"term": found["term"], "kind": d["kind"], "steward": d.get("steward", ""), "status": d.get("status", ""),
+                    "source": "; ".join(d.get("sources") or []), "change note": str(g.value(ontology.to_iri(found["term"]), SKOS.changeNote) or "")})
+    return sorted(out, key=lambda r: (r["kind"], r["term"]))
+
+
 def ontology_page() -> None:
     st.header("Ontology")
-    st.write("What a term means, who stewards it, where its instances live, and which procedure steps depend on it.")
+    st.write(f"Draft v{ontology.version()}. What a term means, who stewards it, where its instances live, and which procedure steps depend on it.")
+    terms, diagrams, turtle, governance = st.tabs(["Terms", "Diagrams", "Turtle", "Governance"])
+    with terms:
+        term = ontology_terms()
+    with diagrams:
+        pages = diagram_pages()
+        described = ontology.describe_term(term) if term else None
+        label = (described.get("label") or "") if described else ""
+        st.caption("The structural model: concepts as circles, named relationships as arrows, a dashed arrow with a hollow triangle for a kind-of link. "
+                   "Bold text in square brackets is a synthetic example. Attributes and codes are in the Turtle and are not drawn. "
+                   "The source is `model/xb-pei-model.drawio`.")
+        for name, page in pages.items():
+            st.subheader(name + (f" · shows {label}" if label and label in page["shown"] else ""))
+            st.image(str(page["image"]))
+    with turtle:
+        st.caption("The formal ontology, `model/xb-pei-model.ttl`: classes, relationships, attributes, datatypes and code lists in OWL Turtle.")
+        wanted = st.text_input("Show only the blocks that mention", term.split(":")[1] if term else "", key="turtle-filter")
+        blocks = [b for b in turtle_blocks() if wanted.lower() in b.lower()] if wanted.strip() else turtle_blocks()
+        st.markdown(f"{len(blocks)} of {len(turtle_blocks())} blocks · [the file on GitHub]({GITHUB}model/xb-pei-model.ttl)")
+        st.code("\n\n".join(blocks) or "# Nothing in the Turtle mentions this.", language="turtle")
+    with governance:
+        st.caption("Who stewards each term and where it stands, from `model/xb-pei-governance.ttl`, with the source a definition names where it names one.")
+        everything = governance_rows()
+        counts = {}
+        for row in everything:
+            counts[row["steward"], row["status"]] = counts.get((row["steward"], row["status"]), 0) + 1
+        table([{"steward": s, "status": t, "terms": n} for (s, t), n in sorted(counts.items())])
+        table(everything, max_rows=18)
+
+
+def ontology_terms() -> str | None:
+    """The term browser. Returns the term chosen, for the other tabs to follow."""
     text = st.text_input("Find a term", "ownership interest")
     found = ontology.find_term(text) if text.strip() else []
     if not found:
         st.info("No term of the ontology matches. A question about it is out of scope and is not answered from the data.")
-        return
+        return None
     term = st.selectbox("Term", [f["term"] for f in found], format_func=lambda t: f'{t}  ({next(f["kind"] for f in found if f["term"] == t)})')
     described = ontology.describe_term(term)
     st.subheader(described.get("label") or term)
@@ -771,6 +869,10 @@ def ontology_page() -> None:
         if described.get(label):
             value = described[label]
             st.write(f'{label.replace("_", " ").capitalize()}: ' + (", ".join(f"`{v}`" for v in value) if isinstance(value, list) else f"`{value}`"))
+    written = [b for b in turtle_blocks() if b.lstrip().startswith(term + " ")]
+    if written:
+        with st.expander("As written in the Turtle"):
+            st.code(written[0], language="turtle")
 
     st.subheader("Where its instances live")
     mapped = ontology.mappings_for(term)
@@ -790,14 +892,7 @@ def ontology_page() -> None:
         st.write("Read or written by: " + ", ".join(f"`{c}`" for c in affected["concepts"]))
         table([{"procedure": s["procedure"], "step": s["id"] if "id" in s else s["step"], "title": s["title"], "through": ", ".join(s["through"])}
                for s in affected["steps"]])
-
-    st.subheader("Stewardship of the whole model")
-    g = ontology.graph()
-    status = {}
-    for subject, steward in g.subject_objects(ontology.XBPEI.steward):
-        key = (str(steward), str(g.value(subject, ontology.XBPEI.termStatus)))
-        status[key] = status.get(key, 0) + 1
-    table([{"steward": s, "status": t, "terms": n} for (s, t), n in sorted(status.items())])
+    return term
 
 
 PAGES = {"Overview": overview_page, "Clearance workflow": clearance_page, "LookThrough analytics": lookthrough_page, "Run replay": replay_page, "Benchmark": benchmark_page, "Ontology": ontology_page}
