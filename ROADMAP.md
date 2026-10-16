@@ -8,7 +8,7 @@ Where the prototype stands today, and what has not been checked, is in the [READ
 
 | Phase | Outcome | Why it matters | Exit criterion |
 |---|---|---|---|
-| 1 | Realistic synthetic data: a generated dataset that an agent without the semantic layer cannot read its way through | The ungrounded agent produced a correct schedule in 2 of 3 runs, so the benchmark barely separates the two arms | The ungrounded arm fails for stated reasons on the new data, and the answer key is generated with it |
+| 1 | Realistic synthetic data: a generated dataset that an agent without the semantic layer cannot read its way through | Hand-set traps that only the semantic layer settles separate the arms, narrowly with Opus (3 of 3 against 2 of 3) and fully with Haiku (3 of 3 against 0 of 3); a generated dataset is needed to show it at scale | The ungrounded arm fails for stated reasons on the new data, and the answer key is generated with it |
 | 2 | A benchmark that can be quoted: enough runs in each arm to report rates, with cost and time per run | The current figures are counts from three or four runs, not rates | Each arm run often enough to report a rate with its spread |
 | 3 | Reuse shown: WF1 investor tax onboarding on the same ontology, mappings and computations | Reuse is claimed today and evidenced only between WF3 and LookThrough | WF1 runs end to end, with a count of what it reused and what was new |
 | 4 | Governance in motion: a term moves from proposed to reviewed to released, and a change shows what it reaches | Most terms are still proposed, so the lifecycle exists and has not been exercised | One term taken through the lifecycle, with the affected computations and steps re-checked |
@@ -19,7 +19,7 @@ Phases 1 and 2 belong together and come first. Phase 6 depends on finding a prac
 
 ## Phase 1: realistic synthetic data
 
-The present dataset is small and legible: a model can read every row, and some answers are written out in plain words. A benchmark on it measures little. The replacement should have the properties that make the real problem hard.
+The present dataset is small and legible: a model can read every row, and some answers are written out in plain words. Traps whose answer sits anywhere in the data, even in a less obvious table, do not separate the arms with a frontier model; only traps whose deciding fact is held by the semantic layer alone do (D-002, cases G13 and G14). The replacement should have the properties that make the real problem hard, and keep that rule for every trap it sets. Writing the grounded arm's assessments in batches comes first: one tool call per recipient will not fit hundreds of recipients in a run.
 
 | Property | What changes | What it tests |
 |---|---|---|
@@ -32,8 +32,8 @@ The present dataset is small and legible: a model can read every row, and some a
 
 Two further steps widen the gap between the arms at little cost:
 
-- Run a smaller model in both arms. If grounding lets a cheaper model do the work, that is a cost result as well as a quality one.
-- Record cost, turns and elapsed time per run beside correctness, so the benchmark reports what a correct answer costs.
+- A smaller model in both arms: done on D-002. Grounded Haiku was right in 3 of 3 runs at about USD 0.30 a run; ungrounded Haiku in none. Repeat at scale.
+- Cost, turns and elapsed time are recorded per run beside correctness.
 
 ## Smaller items
 
