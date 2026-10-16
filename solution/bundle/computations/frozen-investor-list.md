@@ -16,13 +16,13 @@ supports: [WF3.1, C3.1, C3.4]
 generated: { by: claude-code/claude-opus-5-5, at: 2026-10-06T16:57:20Z }
 ---
 
-Treasury payees are matched to investors on LEI, never on name: two investors share a name. Only interests valid on the record date are used; ended interests are history.
+Treasury payees are matched to investors on LEI, never on name: two investors share a name. Only interests valid on the record date are used; ended interests are history. Class A2 units carry no votes: their holders waived them by side letter, and the register still shows the LPA's figure.
 
 # Computation
 
 ```sql
 SELECT i.inv_no AS investor_no, i.display_name AS name, i.reg_no AS registration_no, c.commit_id AS interest,
-       c.unit_pct AS economic_pct, c.vote_pct AS voting_pct, l.comp_id AS component, l.gross_amt AS gross_amount,
+       c.unit_pct AS economic_pct, CASE WHEN c.unit_class = 'A2' THEN 0 ELSE c.vote_pct END AS voting_pct, l.comp_id AS component, l.gross_amt AS gross_amount,
        'investor_register.commitment:' || c.commit_id AS source_ref
 FROM treasury.distribution d
 JOIN treasury.counterparty fund_cp ON fund_cp.cp_id = d.fund_cp

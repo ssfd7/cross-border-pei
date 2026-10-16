@@ -1,0 +1,1376 @@
+{
+  "run": {
+    "run_id": "RUN-6bad835a",
+    "arm": "control",
+    "procedure": "procedures/wf3-withholding-at-distribution",
+    "subject": "D-002",
+    "model": "claude-haiku-4-5-20251001",
+    "started_at": "2026-10-14T19:01:25.745343+00:00",
+    "finished_at": "2026-10-14T19:03:49.086511+00:00",
+    "outcome": "success",
+    "turns": 34,
+    "duration_ms": 142584,
+    "cost_usd": 0.1608,
+    "usage": {
+      "speed": "standard",
+      "iterations": [
+        {
+          "type": "message",
+          "input_tokens": 8,
+          "output_tokens": 3236,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 1030,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_read_input_tokens": 26809,
+          "cache_creation_input_tokens": 1030
+        }
+      ],
+      "input_tokens": 162,
+      "service_tier": "standard",
+      "inference_geo": "not_available",
+      "output_tokens": 16501,
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 23478,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "fallback_credit": null,
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "output_tokens_details": {
+        "thinking_tokens": 10406
+      },
+      "cache_read_input_tokens": 301676,
+      "cache_creation_input_tokens": 23478
+    },
+    "final_text": "{\"lines\":[{\"recipient_no\":\"I-001\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":800000,\"withholding_rate\":0.1,\"tax_withheld\":80000,\"net_amount\":720000,\"basis\":\"Form F-001 (W-8BEN-E certificate of tax residence), Rule R-02 v2027.1 (US-Luxembourg protocol of 2026, Article 3), treaty rate 10% for Luxembourg resident\"},{\"recipient_no\":\"I-002\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":1920000,\"withholding_rate\":0.3,\"tax_withheld\":576000,\"net_amount\":1344000,\"basis\":\"Form F-002 (W-8IMY intermediary), Rule R-01 v2026.1 (statutory rate for foreign person with no treaty claim), 30% statutory rate\"},{\"recipient_no\":\"I-003\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":1000000,\"withholding_rate\":0.1,\"tax_withheld\":100000,\"net_amount\":900000,\"basis\":\"Form F-003 (W-8BEN-E certificate of tax residence), Rule R-02 v2027.1 (US-Luxembourg protocol of 2026, Article 3), treaty rate 10% for Luxembourg resident\"},{\"recipient_no\":\"I-004\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":999000,\"withholding_rate\":0.1,\"tax_withheld\":99900,\"net_amount\":899100,\"basis\":\"Form F-004 (W-8BEN-E certificate of tax residence), Rule R-02 v2027.1 (US-Luxembourg protocol of 2026, Article 3), treaty rate 10% for Luxembourg resident\"},{\"recipient_no\":\"I-005\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":1040000,\"withholding_rate\":0.1,\"tax_withheld\":104000,\"net_amount\":936000,\"basis\":\"Form F-005 (W-8BEN-E certificate of tax residence), Rule R-02 v2027.1 (US-Luxembourg protocol of 2026, Article 3), treaty rate 10% for Luxembourg resident\"},{\"recipient_no\":\"I-006\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":240000,\"withholding_rate\":0.1,\"tax_withheld\":24000,\"net_amount\":216000,\"basis\":\"Form F-006 (W-8BEN-E certificate of tax residence), Rule R-02 v2027.1 (US-Luxembourg protocol of 2026, Article 3), treaty rate 10% for Luxembourg resident\"},{\"recipient_no\":\"I-007\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":480000,\"withholding_rate\":0.3,\"tax_withheld\":144000,\"net_amount\":336000,\"basis\":\"Form F-007 (W-8IMY intermediary), Rule R-01 v2026.1 (statutory rate), 30% statutory rate; clearance status admittedWithOpenItems due to undocumented underlying owner (I-014, 37.5% share)\"},{\"recipient_no\":\"I-008\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":480000,\"withholding_rate\":0.1,\"tax_withheld\":48000,\"net_amount\":432000,\"basis\":\"Form F-008 (W-8BEN-E certificate of tax residence), Rule R-02 v2027.1 (US-Luxembourg protocol of 2026, Article 3), treaty rate 10% for Luxembourg resident\"},{\"recipient_no\":\"I-009\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":80000,\"withholding_rate\":0.3,\"tax_withheld\":24000,\"net_amount\":56000,\"basis\":\"Form F-009 (W-8BEN-E certificate of tax residence), Rule R-01 v2026.1 (statutory rate), 30% statutory rate; no treaty claim for Switzerland resident\"},{\"recipient_no\":\"I-015\",\"component\":\"D-002-A\",\"outcome\":\"defaultRate\",\"gross_amount\":400000,\"withholding_rate\":0.3,\"tax_withheld\":120000,\"net_amount\":280000,\"basis\":\"Clearance CL-015W withdrawn effective 2026-01-01; prior form F-015 expired 2025-12-31 with no new form received; Rule R-01 v2026.1 (default rate), 30% default rate applies until valid tax form is supplied\"},{\"recipient_no\":\"I-016\",\"component\":\"D-002-A\",\"outcome\":\"notApplicable\",\"gross_amount\":240000,\"withholding_rate\":0,\"tax_withheld\":0,\"net_amount\":240000,\"basis\":\"Form F-016 (W-9), US resident; no withholding required on US-source dividend paid to US person\"},{\"recipient_no\":\"I-017\",\"component\":\"D-002-A\",\"outcome\":\"notApplicable\",\"gross_amount\":321000,\"withholding_rate\":0,\"tax_withheld\":0,\"net_amount\":321000,\"basis\":\"Form F-017 (W-9), US resident; no withholding required on US-source dividend paid to US person\"}],\"notes\":\"WF3 WITHHOLDING DETERMINATION — DISTRIBUTION D-002\\n\\nDISTRIBUTION SUMMARY\\n- Fund: Atlas Growth Fund I LP (CP-001)\\n- Record date: 15 December 2026\\n- Payment date: 12 January 2027\\n- Component: D-002-A, US-source dividend from Orion Manufacturing Inc.\\n- Total gross: USD 8,000,000\\n- Total withholding: USD 1,319,900\\n- Total net: USD 6,680,100\\n\\nCLEARANCE VALIDATION (as at payment date 2027-01-12)\\nAll investors have valid clearances, with the following exception:\\n\\nCRITICAL: I-015 (Bertrange Capital S.A.) — CLEARANCE WITHDRAWN\\n- Clearance CL-015 was valid to 2025-12-31 and has been superseded by CL-015W (withdrawn effective 2026-01-01)\\n- Underlying cause: Prior tax form F-015 (W-8BEN-E) expired on 2025-12-31 with no new form received\\n- Current treatment: Default rate (30%) applied per R-01 v2026.1\\n- Cure opportunity: A new tax form can be obtained from the investor with approximately 3 months before payment. Consider initiating WF2 (tax form review and re-clearance) to cure this before payment date, if the fund's procedures allow.\\n- Investor notification required: Per control C3.7, investor must be notified of the default rate and the item needed to cure (valid tax form).\\n\\nTREATY RATES\\nLuxembourg treaty determinations use the current protocol (R-02 v2027.1, effective 2027-01-01):\\n- Treaty: US-Luxembourg protocol of 2026\\n- Article: 3 (illustrative — dividends)\\n- Rate: 10%\\n- Affected investors: I-001, I-003, I-004, I-005, I-006, I-008\\n\\nINTERMEDIARY TREATMENT\\n- I-002 (Atlas Lux Feeder SCSp, W-8IMY): Subject to 30% statutory rate despite Luxembourg jurisdiction, as it claims no treaty benefits\\n- I-007 (Sterling Nominees Ltd, W-8IMY): Subject to 30% statutory rate; additionally noted as admitted with open items due to undocumented underlying owner (I-014, 37.5% share)\\n\\nUS PERSONS\\n- I-016, I-017: Both are US residents on W-9 forms; no withholding applies\\n\\nSCHEDULE TOTALS — RECONCILIATION TO DISTRIBUTION NOTICE\\n- Gross per distribution notice: USD 8,000,000 ✓\\n- Total gross per schedule: USD 8,000,000 ✓\\n- Total withholding: USD 1,319,900\\n- Total net: USD 6,680,100\\n- Check: USD 1,319,900 + USD 6,680,100 = USD 8,000,000 ✓\\n\\nPREPARED BY: WF3 Withholding Determination — [Preparer name to be added]\\nSTATUS: Ready for tax reviewer second review and sign-off per control C3.5\"}",
+    "score": {
+      "cases": {
+        "G7 expired form": false,
+        "G4 nominee looked through": false,
+        "G8 US person not withheld": true,
+        "G6 threshold: exactly on it": false,
+        "G10 residence moved: no treaty rate": false,
+        "G3 circular holding: no treaty rate": false,
+        "G12 rule version on the payment date": false,
+        "G11 form ended before payment: no treaty rate": false
+      },
+      "tax_error": 194000.0,
+      "tax_total": 1319900.0,
+      "cases_total": 8,
+      "gross_total": 8000000.0,
+      "lines_given": 12,
+      "cases_passed": 1,
+      "tax_expected": 1125900.0,
+      "lines_correct": 2,
+      "lines_expected": 15
+    }
+  },
+  "steps": [
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 1,
+      "at": "2026-10-14T19:01:30.961309+00:00",
+      "kind": "message",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": null,
+      "result": {
+        "text": "I'll help you run WF3 withholding determination for distribution D-002. Let me start by gathering the distribution details and investor information."
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 2,
+      "at": "2026-10-14T19:01:31.587606+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT dist_id, fund_cp, record_dt, pay_dt, gross_amt, ccy, status FROM treasury.distribution WHERE dist_id = 'D-002'",
+      "result": [
+        {
+          "ccy": "USD",
+          "pay_dt": "2027-01-12",
+          "status": "PROPOSED",
+          "dist_id": "D-002",
+          "fund_cp": "CP-001",
+          "gross_amt": 8000000.0,
+          "record_dt": "2026-12-15"
+        }
+      ],
+      "row_count": 1,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 3,
+      "at": "2026-10-14T19:01:32.040296+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT comp_id, dist_id, income_cd, source_country, gross_amt FROM treasury.distribution_component WHERE dist_id = 'D-002'",
+      "result": [
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        }
+      ],
+      "row_count": 1,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 4,
+      "at": "2026-10-14T19:01:32.427467+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT comp_id, payee_cp, gross_amt FROM treasury.distribution_line WHERE comp_id IN (SELECT comp_id FROM treasury.distribution_component WHERE dist_id = 'D-002')",
+      "result": [
+        {
+          "comp_id": "D-002-A",
+          "payee_cp": "CP-101",
+          "gross_amt": 800000.0
+        },
+        {
+          "comp_id": "D-002-A",
+          "payee_cp": "CP-102",
+          "gross_amt": 1920000.0
+        },
+        {
+          "comp_id": "D-002-A",
+          "payee_cp": "CP-103",
+          "gross_amt": 1000000.0
+        },
+        {
+          "comp_id": "D-002-A",
+          "payee_cp": "CP-104",
+          "gross_amt": 999000.0
+        },
+        {
+          "comp_id": "D-002-A",
+          "payee_cp": "CP-105",
+          "gross_amt": 1040000.0
+        },
+        {
+          "comp_id": "D-002-A",
+          "payee_cp": "CP-106",
+          "gross_amt": 240000.0
+        },
+        {
+          "comp_id": "D-002-A",
+          "payee_cp": "CP-107",
+          "gross_amt": 480000.0
+        },
+        {
+          "comp_id": "D-002-A",
+          "payee_cp": "CP-108",
+          "gross_amt": 480000.0
+        },
+        {
+          "comp_id": "D-002-A",
+          "payee_cp": "CP-109",
+          "gross_amt": 80000.0
+        },
+        {
+          "comp_id": "D-002-A",
+          "payee_cp": "CP-115",
+          "gross_amt": 400000.0
+        },
+        {
+          "comp_id": "D-002-A",
+          "payee_cp": "CP-116",
+          "gross_amt": 240000.0
+        },
+        {
+          "comp_id": "D-002-A",
+          "payee_cp": "CP-117",
+          "gross_amt": 321000.0
+        }
+      ],
+      "row_count": 12,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 5,
+      "at": "2026-10-14T19:01:35.755798+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT cp_id, cp_name, country FROM treasury.counterparty WHERE cp_id IN ('CP-101', 'CP-102', 'CP-103', 'CP-104', 'CP-105', 'CP-106', 'CP-107', 'CP-108', 'CP-109', 'CP-115', 'CP-116', 'CP-117')",
+      "result": [
+        {
+          "cp_id": "CP-101",
+          "country": "LU",
+          "cp_name": "HARBOR PENSION TRUST"
+        },
+        {
+          "cp_id": "CP-102",
+          "country": "LU",
+          "cp_name": "ATLAS LUX FEEDER SCSP"
+        },
+        {
+          "cp_id": "CP-103",
+          "country": "LU",
+          "cp_name": "KIRCHBERG INDUSTRIES SA"
+        },
+        {
+          "cp_id": "CP-104",
+          "country": "LU",
+          "cp_name": "LIMPERTSBERG HOLDINGS SA"
+        },
+        {
+          "cp_id": "CP-105",
+          "country": "LU",
+          "cp_name": "GRUND PARTICIPATIONS SA"
+        },
+        {
+          "cp_id": "CP-106",
+          "country": "LU",
+          "cp_name": "MERIDIAN HOLDINGS I SARL"
+        },
+        {
+          "cp_id": "CP-107",
+          "country": "GB",
+          "cp_name": "STERLING NOMINEES LTD"
+        },
+        {
+          "cp_id": "CP-108",
+          "country": "LU",
+          "cp_name": "ALPHA HOLDINGS SA"
+        },
+        {
+          "cp_id": "CP-109",
+          "country": "CH",
+          "cp_name": "ALPHA HOLDINGS SA"
+        },
+        {
+          "cp_id": "CP-115",
+          "country": "LU",
+          "cp_name": "BERTRANGE CAPITAL SA"
+        },
+        {
+          "cp_id": "CP-116",
+          "country": "US",
+          "cp_name": "ATLAS CO-INVEST VEHICLE LP"
+        },
+        {
+          "cp_id": "CP-117",
+          "country": "US",
+          "cp_name": "ATLAS GP LLC"
+        }
+      ],
+      "row_count": 12,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 6,
+      "at": "2026-10-14T19:01:36.022274+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT cp_id, cp_name, country FROM treasury.counterparty WHERE cp_id = 'CP-001'",
+      "result": [
+        {
+          "cp_id": "CP-001",
+          "country": "US",
+          "cp_name": "ATLAS GROWTH FUND I LP"
+        }
+      ],
+      "row_count": 1,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 7,
+      "at": "2026-10-14T19:01:39.333341+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT inv_no, display_name, country_inc, country_res FROM investor_register.investor WHERE display_name IN ('HARBOR PENSION TRUST', 'ATLAS LUX FEEDER SCSP', 'KIRCHBERG INDUSTRIES SA', 'LIMPERTSBERG HOLDINGS SA', 'GRUND PARTICIPATIONS SA', 'MERIDIAN HOLDINGS I SARL', 'STERLING NOMINEES LTD', 'ALPHA HOLDINGS SA', 'BERTRANGE CAPITAL SA', 'ATLAS CO-INVEST VEHICLE LP', 'ATLAS GP LLC')",
+      "result": [],
+      "row_count": 0,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 8,
+      "at": "2026-10-14T19:01:40.885415+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT inv_no, display_name FROM investor_register.investor LIMIT 20",
+      "result": [
+        {
+          "inv_no": "I-001",
+          "display_name": "Harbor Pension Trust"
+        },
+        {
+          "inv_no": "I-002",
+          "display_name": "Atlas Lux Feeder SCSp"
+        },
+        {
+          "inv_no": "I-003",
+          "display_name": "Kirchberg Industries S.A."
+        },
+        {
+          "inv_no": "I-004",
+          "display_name": "Limpertsberg Holdings S.A."
+        },
+        {
+          "inv_no": "I-005",
+          "display_name": "Grund Participations S.A."
+        },
+        {
+          "inv_no": "I-006",
+          "display_name": "Meridian Holdings I S.à r.l."
+        },
+        {
+          "inv_no": "I-007",
+          "display_name": "Sterling Nominees Ltd"
+        },
+        {
+          "inv_no": "I-008",
+          "display_name": "Alpha Holdings SA"
+        },
+        {
+          "inv_no": "I-009",
+          "display_name": "Alpha Holdings SA"
+        },
+        {
+          "inv_no": "I-010",
+          "display_name": "Ardennes Industrial Holding S.A."
+        },
+        {
+          "inv_no": "I-011",
+          "display_name": "Moselle Capital S.A."
+        },
+        {
+          "inv_no": "I-012",
+          "display_name": "Claire Dumont"
+        },
+        {
+          "inv_no": "I-013",
+          "display_name": "Echternach Pension Fund"
+        },
+        {
+          "inv_no": "I-014",
+          "display_name": "Client account 7731"
+        },
+        {
+          "inv_no": "I-015",
+          "display_name": "Bertrange Capital S.A."
+        },
+        {
+          "inv_no": "I-016",
+          "display_name": "Atlas Co-Invest Vehicle LP"
+        },
+        {
+          "inv_no": "I-017",
+          "display_name": "Atlas GP LLC"
+        },
+        {
+          "inv_no": "I-018",
+          "display_name": "Meridian Holdings II S.à r.l."
+        },
+        {
+          "inv_no": "I-019",
+          "display_name": "Meridian Family Trust"
+        }
+      ],
+      "row_count": 19,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 9,
+      "at": "2026-10-14T19:01:44.264119+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT clearance_id, clearance_of, clearance_status, decided_on, valid_from, valid_to, default_treatment FROM clearance.clearance WHERE clearance_of IN ('I-001', 'I-002', 'I-003', 'I-004', 'I-005', 'I-006', 'I-007', 'I-008', 'I-009', 'I-015', 'I-016', 'I-017')",
+      "result": [
+        {
+          "valid_to": "2028-12-31",
+          "decided_on": "2025-02-10",
+          "valid_from": "2025-02-10",
+          "clearance_id": "CL-001",
+          "clearance_of": "I-001",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "valid_to": "2028-12-31",
+          "decided_on": "2025-02-12",
+          "valid_from": "2025-02-12",
+          "clearance_id": "CL-002",
+          "clearance_of": "I-002",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "valid_to": "2027-12-31",
+          "decided_on": "2024-06-20",
+          "valid_from": "2024-06-20",
+          "clearance_id": "CL-003",
+          "clearance_of": "I-003",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "valid_to": "2027-12-31",
+          "decided_on": "2024-06-20",
+          "valid_from": "2024-06-20",
+          "clearance_id": "CL-004",
+          "clearance_of": "I-004",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "valid_to": "2027-12-31",
+          "decided_on": "2024-07-25",
+          "valid_from": "2024-07-25",
+          "clearance_id": "CL-005",
+          "clearance_of": "I-005",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "valid_to": "2027-12-31",
+          "decided_on": "2024-03-20",
+          "valid_from": "2024-03-20",
+          "clearance_id": "CL-006",
+          "clearance_of": "I-006",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "valid_to": "2028-12-31",
+          "decided_on": "2025-03-15",
+          "valid_from": "2025-03-15",
+          "clearance_id": "CL-007",
+          "clearance_of": "I-007",
+          "clearance_status": "admittedWithOpenItems",
+          "default_treatment": "30% default rate on the share of the undocumented owner"
+        },
+        {
+          "valid_to": "2024-12-31",
+          "decided_on": "2021-05-20",
+          "valid_from": "2021-05-20",
+          "clearance_id": "CL-008A",
+          "clearance_of": "I-008",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "valid_to": "2027-12-31",
+          "decided_on": "2024-12-02",
+          "valid_from": "2025-01-01",
+          "clearance_id": "CL-008",
+          "clearance_of": "I-008",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "valid_to": "2028-12-31",
+          "decided_on": "2025-04-20",
+          "valid_from": "2025-04-20",
+          "clearance_id": "CL-009",
+          "clearance_of": "I-009",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "valid_to": "2025-12-31",
+          "decided_on": "2022-03-20",
+          "valid_from": "2022-03-20",
+          "clearance_id": "CL-015",
+          "clearance_of": "I-015",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "valid_to": null,
+          "decided_on": "2026-01-01",
+          "valid_from": "2026-01-01",
+          "clearance_id": "CL-015W",
+          "clearance_of": "I-015",
+          "clearance_status": "withdrawn",
+          "default_treatment": "30% default rate until a valid form is supplied"
+        },
+        {
+          "valid_to": null,
+          "decided_on": "2024-02-05",
+          "valid_from": "2024-02-05",
+          "clearance_id": "CL-016",
+          "clearance_of": "I-016",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "valid_to": null,
+          "decided_on": "2024-02-05",
+          "valid_from": "2024-02-05",
+          "clearance_id": "CL-017",
+          "clearance_of": "I-017",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        }
+      ],
+      "row_count": 14,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 10,
+      "at": "2026-10-14T19:01:44.835842+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT inv_no, country_res FROM investor_register.investor WHERE inv_no IN ('I-001', 'I-002', 'I-003', 'I-004', 'I-005', 'I-006', 'I-007', 'I-008', 'I-009', 'I-015', 'I-016', 'I-017')",
+      "result": [
+        {
+          "inv_no": "I-001",
+          "country_res": "LU"
+        },
+        {
+          "inv_no": "I-002",
+          "country_res": null
+        },
+        {
+          "inv_no": "I-003",
+          "country_res": "LU"
+        },
+        {
+          "inv_no": "I-004",
+          "country_res": "LU"
+        },
+        {
+          "inv_no": "I-005",
+          "country_res": "LU"
+        },
+        {
+          "inv_no": "I-006",
+          "country_res": "LU"
+        },
+        {
+          "inv_no": "I-007",
+          "country_res": "GB"
+        },
+        {
+          "inv_no": "I-008",
+          "country_res": "LU"
+        },
+        {
+          "inv_no": "I-009",
+          "country_res": "CH"
+        },
+        {
+          "inv_no": "I-015",
+          "country_res": "LU"
+        },
+        {
+          "inv_no": "I-016",
+          "country_res": "US"
+        },
+        {
+          "inv_no": "I-017",
+          "country_res": "US"
+        }
+      ],
+      "row_count": 12,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 11,
+      "at": "2026-10-14T19:01:52.023904+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT form_id, inv_no, form_type, signed_dt, valid_to, treaty_claim, treaty_country, form_status FROM onboarding.tax_form WHERE inv_no IN ('I-001', 'I-002', 'I-003', 'I-004', 'I-005', 'I-006', 'I-007', 'I-008', 'I-009', 'I-015', 'I-016', 'I-017') AND form_status = 'valid'",
+      "result": [],
+      "row_count": 0,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 12,
+      "at": "2026-10-14T19:01:52.714618+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT clearance_id, clearance_of FROM clearance.clearance WHERE clearance_of IN ('I-001', 'I-002', 'I-003', 'I-004', 'I-005', 'I-006', 'I-007', 'I-008', 'I-009', 'I-015', 'I-016', 'I-017') AND clearance_status = 'cleared'",
+      "result": [
+        {
+          "clearance_id": "CL-001",
+          "clearance_of": "I-001"
+        },
+        {
+          "clearance_id": "CL-002",
+          "clearance_of": "I-002"
+        },
+        {
+          "clearance_id": "CL-003",
+          "clearance_of": "I-003"
+        },
+        {
+          "clearance_id": "CL-004",
+          "clearance_of": "I-004"
+        },
+        {
+          "clearance_id": "CL-005",
+          "clearance_of": "I-005"
+        },
+        {
+          "clearance_id": "CL-006",
+          "clearance_of": "I-006"
+        },
+        {
+          "clearance_id": "CL-008A",
+          "clearance_of": "I-008"
+        },
+        {
+          "clearance_id": "CL-008",
+          "clearance_of": "I-008"
+        },
+        {
+          "clearance_id": "CL-009",
+          "clearance_of": "I-009"
+        },
+        {
+          "clearance_id": "CL-015",
+          "clearance_of": "I-015"
+        },
+        {
+          "clearance_id": "CL-016",
+          "clearance_of": "I-016"
+        },
+        {
+          "clearance_id": "CL-017",
+          "clearance_of": "I-017"
+        }
+      ],
+      "row_count": 12,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 13,
+      "at": "2026-10-14T19:01:54.662487+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT form_id, inv_no, form_type, signed_dt, valid_to, treaty_claim, treaty_country, form_status FROM onboarding.tax_form WHERE inv_no IN ('I-001', 'I-002', 'I-003', 'I-004', 'I-005', 'I-006', 'I-007', 'I-008', 'I-009', 'I-015', 'I-016', 'I-017')",
+      "result": [
+        {
+          "inv_no": "I-001",
+          "form_id": "F-001",
+          "valid_to": "2028-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2025-02-01",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU"
+        },
+        {
+          "inv_no": "I-002",
+          "form_id": "F-002",
+          "valid_to": null,
+          "form_type": "W-8IMY",
+          "signed_dt": "2025-01-20",
+          "form_status": "VALIDATED",
+          "treaty_claim": "N",
+          "treaty_country": null
+        },
+        {
+          "inv_no": "I-003",
+          "form_id": "F-003",
+          "valid_to": "2027-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2024-06-03",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU"
+        },
+        {
+          "inv_no": "I-004",
+          "form_id": "F-004",
+          "valid_to": "2027-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2024-06-05",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU"
+        },
+        {
+          "inv_no": "I-005",
+          "form_id": "F-005",
+          "valid_to": "2027-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2024-07-11",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU"
+        },
+        {
+          "inv_no": "I-006",
+          "form_id": "F-006",
+          "valid_to": "2027-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2024-03-05",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU"
+        },
+        {
+          "inv_no": "I-007",
+          "form_id": "F-007",
+          "valid_to": null,
+          "form_type": "W-8IMY",
+          "signed_dt": "2025-03-01",
+          "form_status": "VALIDATED",
+          "treaty_claim": "N",
+          "treaty_country": null
+        },
+        {
+          "inv_no": "I-008",
+          "form_id": "F-008a",
+          "valid_to": "2024-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2021-05-10",
+          "form_status": "SUPERSEDED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU"
+        },
+        {
+          "inv_no": "I-008",
+          "form_id": "F-008",
+          "valid_to": "2027-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2024-11-20",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU"
+        },
+        {
+          "inv_no": "I-009",
+          "form_id": "F-009",
+          "valid_to": "2028-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2025-04-14",
+          "form_status": "VALIDATED",
+          "treaty_claim": "N",
+          "treaty_country": null
+        },
+        {
+          "inv_no": "I-015",
+          "form_id": "F-015",
+          "valid_to": "2025-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2022-03-10",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU"
+        },
+        {
+          "inv_no": "I-016",
+          "form_id": "F-016",
+          "valid_to": null,
+          "form_type": "W-9",
+          "signed_dt": "2024-02-01",
+          "form_status": "VALIDATED",
+          "treaty_claim": "N",
+          "treaty_country": null
+        },
+        {
+          "inv_no": "I-017",
+          "form_id": "F-017",
+          "valid_to": null,
+          "form_type": "W-9",
+          "signed_dt": "2024-02-01",
+          "form_status": "VALIDATED",
+          "treaty_claim": "N",
+          "treaty_country": null
+        }
+      ],
+      "row_count": 13,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 14,
+      "at": "2026-10-14T19:01:55.362226+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT investor_id, subject_party, assessment_result FROM clearance.obligation_assessment WHERE subject_party IN ('I-001', 'I-002', 'I-003', 'I-004', 'I-005', 'I-006', 'I-007', 'I-008', 'I-009', 'I-015', 'I-016', 'I-017')",
+      "result": null,
+      "row_count": null,
+      "attested": null,
+      "verdict": "column \"investor_id\" does not exist\nLINE 1: SELECT investor_id, subject_party, assessment_result FROM cl...\n               ^"
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 15,
+      "at": "2026-10-14T19:02:07.262677+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT rule_id, rule_name, applies_in, treaty_country, rate_pct FROM rulebook.rule_version WHERE applies_in = 'US' AND rule_name LIKE '%dividend%' ORDER BY rule_id",
+      "result": [
+        {
+          "rule_id": "R-01",
+          "rate_pct": 30.0,
+          "rule_name": "Statutory withholding on US-source dividends paid to foreign persons; also the default where documentation is missing or not valid",
+          "applies_in": "US",
+          "treaty_country": null
+        },
+        {
+          "rule_id": "R-02",
+          "rate_pct": 15.0,
+          "rule_name": "Treaty rate on US-source dividends paid to a resident of Luxembourg",
+          "applies_in": "US",
+          "treaty_country": "LU"
+        },
+        {
+          "rule_id": "R-02",
+          "rate_pct": 10.0,
+          "rule_name": "Treaty rate on US-source dividends paid to a resident of Luxembourg",
+          "applies_in": "US",
+          "treaty_country": "LU"
+        },
+        {
+          "rule_id": "R-03",
+          "rate_pct": 5.0,
+          "rule_name": "Treaty rate on US-source dividends paid to a Luxembourg company with a qualifying holding in the paying company",
+          "applies_in": "US",
+          "treaty_country": "LU"
+        }
+      ],
+      "row_count": 4,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 16,
+      "at": "2026-10-14T19:02:07.820525+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT * FROM clearance.clearance_reliance WHERE clearance_id IN ('CL-001', 'CL-002', 'CL-003', 'CL-004', 'CL-005', 'CL-006', 'CL-008', 'CL-009')",
+      "result": [
+        {
+          "source_ref": "onboarding.tax_form:F-001",
+          "clearance_id": "CL-001",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-002",
+          "clearance_id": "CL-002",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-010",
+          "clearance_id": "CL-002",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-011",
+          "clearance_id": "CL-002",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-012",
+          "clearance_id": "CL-002",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-003",
+          "clearance_id": "CL-003",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-004",
+          "clearance_id": "CL-004",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-005",
+          "clearance_id": "CL-005",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-006",
+          "clearance_id": "CL-006",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.declared_owner:DO-003",
+          "clearance_id": "CL-006",
+          "reliance_kind": "fact"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-008",
+          "clearance_id": "CL-008",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-009",
+          "clearance_id": "CL-009",
+          "reliance_kind": "certification"
+        }
+      ],
+      "row_count": 12,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 17,
+      "at": "2026-10-14T19:02:11.592843+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT clearance_id, case_id FROM clearance.clearance WHERE clearance_id IN ('CL-001', 'CL-002', 'CL-003', 'CL-004', 'CL-005', 'CL-006', 'CL-008', 'CL-009')",
+      "result": [
+        {
+          "case_id": null,
+          "clearance_id": "CL-001"
+        },
+        {
+          "case_id": null,
+          "clearance_id": "CL-002"
+        },
+        {
+          "case_id": null,
+          "clearance_id": "CL-003"
+        },
+        {
+          "case_id": null,
+          "clearance_id": "CL-004"
+        },
+        {
+          "case_id": null,
+          "clearance_id": "CL-005"
+        },
+        {
+          "case_id": null,
+          "clearance_id": "CL-006"
+        },
+        {
+          "case_id": "K-008",
+          "clearance_id": "CL-008"
+        },
+        {
+          "case_id": null,
+          "clearance_id": "CL-009"
+        }
+      ],
+      "row_count": 8,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 18,
+      "at": "2026-10-14T19:02:11.913695+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT * FROM clearance.obligation WHERE based_on_rule IN ('R-01', 'R-02', 'R-03')",
+      "result": [],
+      "row_count": 0,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 19,
+      "at": "2026-10-14T19:02:15.315696+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT rule_id, version_label, rule_name, applies_in, treaty_country, rate_pct, eff_from, eff_to FROM rulebook.rule_version WHERE rule_id IN ('R-01', 'R-02', 'R-03') ORDER BY rule_id, eff_from DESC",
+      "result": [
+        {
+          "eff_to": null,
+          "rule_id": "R-01",
+          "eff_from": "2026-01-01",
+          "rate_pct": 30.0,
+          "rule_name": "Statutory withholding on US-source dividends paid to foreign persons; also the default where documentation is missing or not valid",
+          "applies_in": "US",
+          "version_label": "2026.1",
+          "treaty_country": null
+        },
+        {
+          "eff_to": null,
+          "rule_id": "R-02",
+          "eff_from": "2027-01-01",
+          "rate_pct": 10.0,
+          "rule_name": "Treaty rate on US-source dividends paid to a resident of Luxembourg",
+          "applies_in": "US",
+          "version_label": "2027.1",
+          "treaty_country": "LU"
+        },
+        {
+          "eff_to": null,
+          "rule_id": "R-02",
+          "eff_from": "2026-01-01",
+          "rate_pct": 15.0,
+          "rule_name": "Treaty rate on US-source dividends paid to a resident of Luxembourg",
+          "applies_in": "US",
+          "version_label": "2026.1",
+          "treaty_country": "LU"
+        },
+        {
+          "eff_to": null,
+          "rule_id": "R-03",
+          "eff_from": "2026-01-01",
+          "rate_pct": 5.0,
+          "rule_name": "Treaty rate on US-source dividends paid to a Luxembourg company with a qualifying holding in the paying company",
+          "applies_in": "US",
+          "version_label": "2026.1",
+          "treaty_country": "LU"
+        }
+      ],
+      "row_count": 4,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 20,
+      "at": "2026-10-14T19:02:20.484065+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT decl_id, owned_inv_no, owner_inv_no, pct_econ FROM onboarding.declared_owner WHERE owned_inv_no = 'I-007'",
+      "result": [
+        {
+          "decl_id": "DO-001",
+          "pct_econ": 62.5,
+          "owned_inv_no": "I-007",
+          "owner_inv_no": "I-013"
+        },
+        {
+          "decl_id": "DO-002",
+          "pct_econ": 37.5,
+          "owned_inv_no": "I-007",
+          "owner_inv_no": "I-014"
+        }
+      ],
+      "row_count": 2,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 21,
+      "at": "2026-10-14T19:02:21.326974+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT holding_id, owner_entity_id, owned_entity_id, pct_econ FROM entity_mgmt.shareholding WHERE owner_entity_id IN (SELECT legal_entity.entity_id FROM entity_mgmt.legal_entity WHERE legal_name LIKE '%Harbor%' OR legal_name LIKE '%Kirchberg%' OR legal_name LIKE '%Limpertsberg%' OR legal_name LIKE '%Grund%')",
+      "result": [],
+      "row_count": 0,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 22,
+      "at": "2026-10-14T19:02:23.780388+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT finding_id, clearance_id, unmet_requirement, about_party, description FROM clearance.missing_fact_finding WHERE clearance_id = 'CL-007'",
+      "result": [
+        {
+          "finding_id": "MF-001",
+          "about_party": "I-014",
+          "description": "No tax certification for the owner of 37.5% of the income Sterling Nominees receives",
+          "clearance_id": "CL-007",
+          "unmet_requirement": "FR-03"
+        }
+      ],
+      "row_count": 1,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 23,
+      "at": "2026-10-14T19:02:28.009660+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT form_id, inv_no, form_type, form_status FROM onboarding.tax_form WHERE inv_no IN ('I-013', 'I-014')",
+      "result": [
+        {
+          "inv_no": "I-013",
+          "form_id": "F-013",
+          "form_type": "W-8BEN-E",
+          "form_status": "VALIDATED"
+        }
+      ],
+      "row_count": 1,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 24,
+      "at": "2026-10-14T19:02:28.341179+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT finding_id, clearance_id, unmet_requirement, about_party, description FROM clearance.missing_fact_finding WHERE clearance_id = 'CL-015W'",
+      "result": [
+        {
+          "finding_id": "MF-002",
+          "about_party": "I-015",
+          "description": "Form F-015 ended on 31 December 2025 and no new form was received",
+          "clearance_id": "CL-015W",
+          "unmet_requirement": "FR-02"
+        }
+      ],
+      "row_count": 1,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 25,
+      "at": "2026-10-14T19:02:31.654491+00:00",
+      "kind": "tool",
+      "concept": "tools/read-document",
+      "terms": null,
+      "parameters": {
+        "doc_ref": "DOC-0201"
+      },
+      "executed": null,
+      "result": {
+        "found": true,
+        "title": "Distribution notice D-001",
+        "digitised": true,
+        "source_ref": "documents.document:DOC-0201"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 26,
+      "at": "2026-10-14T19:02:33.533200+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT doc_ref, title, doc_dt FROM documents.document WHERE about_ref LIKE '%D-002%' OR title LIKE '%D-002%'",
+      "result": [
+        {
+          "title": "Distribution notice D-002",
+          "doc_dt": "2026-12-07",
+          "doc_ref": "DOC-0202"
+        }
+      ],
+      "row_count": 1,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 27,
+      "at": "2026-10-14T19:02:34.955837+00:00",
+      "kind": "tool",
+      "concept": "tools/read-document",
+      "terms": null,
+      "parameters": {
+        "doc_ref": "DOC-0202"
+      },
+      "executed": null,
+      "result": {
+        "found": true,
+        "title": "Distribution notice D-002",
+        "digitised": true,
+        "source_ref": "documents.document:DOC-0202"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 28,
+      "at": "2026-10-14T19:03:11.297826+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT rule_id, rule_name FROM rulebook.rule_version WHERE rule_id = 'R-02'",
+      "result": [
+        {
+          "rule_id": "R-02",
+          "rule_name": "Treaty rate on US-source dividends paid to a resident of Luxembourg"
+        },
+        {
+          "rule_id": "R-02",
+          "rule_name": "Treaty rate on US-source dividends paid to a resident of Luxembourg"
+        }
+      ],
+      "row_count": 2,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 29,
+      "at": "2026-10-14T19:03:11.650946+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT * FROM rulebook.authority_source WHERE rule_id = 'R-02' OR title LIKE '%Luxembourg%'",
+      "result": null,
+      "row_count": null,
+      "attested": null,
+      "verdict": "column \"rule_id\" does not exist\nLINE 1: SELECT * FROM rulebook.authority_source WHERE rule_id = 'R-0...\n                                                      ^"
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 30,
+      "at": "2026-10-14T19:03:13.781783+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT authority_id, title, citation FROM rulebook.authority_source WHERE title LIKE '%Luxembourg%' OR title LIKE '%treaty%'",
+      "result": [
+        {
+          "title": "United States – Luxembourg income tax convention, dividends",
+          "citation": "Convention of 3 April 1996, Article 10",
+          "authority_id": "AU-02"
+        },
+        {
+          "title": "Protocol amending the United States – Luxembourg convention (illustrative)",
+          "citation": "Protocol of 2026, Article 3 (illustrative)",
+          "authority_id": "AU-03"
+        }
+      ],
+      "row_count": 2,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 31,
+      "at": "2026-10-14T19:03:14.029870+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT * FROM rulebook.rule_authority WHERE rule_id = 'R-02'",
+      "result": [
+        {
+          "rule_id": "R-02",
+          "authority_id": "AU-02",
+          "version_label": "2026.1"
+        },
+        {
+          "rule_id": "R-02",
+          "authority_id": "AU-03",
+          "version_label": "2027.1"
+        }
+      ],
+      "row_count": 2,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 32,
+      "at": "2026-10-14T19:03:25.008302+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "SELECT decl_id, owned_inv_no, owner_inv_no, pct_econ FROM onboarding.declared_owner WHERE decl_id = 'DO-003'",
+      "result": [
+        {
+          "decl_id": "DO-003",
+          "pct_econ": 100.0,
+          "owned_inv_no": "I-006",
+          "owner_inv_no": "I-019"
+        }
+      ],
+      "row_count": 1,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-6bad835a",
+      "seq": 33,
+      "at": "2026-10-14T19:03:32.780895+00:00",
+      "kind": "message",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": null,
+      "result": {
+        "text": "Now let me compile the withholding schedule based on the distribution details and investor clearances:"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    }
+  ]
+}

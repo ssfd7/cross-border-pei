@@ -74,6 +74,7 @@ def holdings(pg, node_of: dict) -> list[dict]:
     for cid, inv, code, econ, vote, cls, start, end in pg.execute(
             "SELECT commit_id, inv_no, fund_code, unit_pct, vote_pct, unit_class, from_dt, to_dt FROM investor_register.commitment ORDER BY 1"):
         commitments.append((cid, inv, code, econ, vote, start, end))
+        vote = 0 if cls == "A2" else vote  # votes waived by side letter: see the investor register mapping
         edges.append({"from": node_of[investor, inv], "to": node_of[fund, code], "identifier": cid, "econ": econ, "vote": vote,
                       "shareClass": cls, "capacity": "nominee" if inv in nominees else "beneficial", "heldThrough": None,
                       "start": start, "end": end, "sourceRef": f"investor_register.commitment:{cid}", "systemOfRecord": True})

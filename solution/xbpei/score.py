@@ -10,15 +10,17 @@ import yaml
 
 from . import GOLD
 
-COMPONENT = "D-001-A"
+COMPONENT = "D-001-A"  # the component the reviewer measures read
+
 
 
 def near(a, b) -> bool:
     return a is not None and b is not None and abs(float(a) - float(b)) < 0.01
 
 
-def score(lines: list[dict], text: str = "") -> dict:
-    key = yaml.safe_load(GOLD.read_text())["schedule_d001_a"]
+def score(lines: list[dict], text: str = "", distribution: str = "D-001") -> dict:
+    COMPONENT = f"{distribution}-A"
+    key = yaml.safe_load(GOLD.read_text())[f"schedule_{distribution.lower().replace('-', '')}_a"]
     expected = {l["recipient"]: l for l in key["lines"]}
     got: dict[str, list[dict]] = {}
     for line in lines:
@@ -34,24 +36,39 @@ def score(lines: list[dict], text: str = "") -> dict:
             return mine[0].get("outcome") in ("defaultRate", "held") and not (0 < float(mine[0].get("withholding_rate") or 0) < 30)
         return near(mine[0].get("withholding_rate") or 0, expected[recipient]["rate"])
 
-    cases = {
-        "G1 baseline": right("I-001"),
-        "G2 multiplied through tiers": right("I-010") and right("I-011") and right("I-012"),
-        "G3 circular holding: no treaty rate": right("I-006", any_default=True),
-        "G3 circular holding: reported": bool(re.search(r"circular|cycle|loop|each other|cross-hold", text, re.I)),
-        "G4 nominee looked through": right("I-013") and right("I-014") and "I-007" not in got,
-        "G5 same name kept apart": right("I-008") and right("I-009"),
-        "G6 threshold: exactly on it": right("I-003"),
-        "G6 threshold: just under": right("I-004"),
-        "G6 threshold: voting, not economic": right("I-005"),
-        "G7 expired form": right("I-015"),
-        "G7 superseded holding": bool(got.get("I-008")) and near(got["I-008"][0].get("gross_amount"), 600000),
-        "G8 US person not withheld": right("I-016") and right("I-017"),
-        "G8 conflict reported": bool(re.search(r"3\.5\s*%?|H-006|disagree|conflict", text, re.I)),
-    }
+    if distribution == "D-002":
+        defaults = ("I-006", "I-011", "I-013")
+        cases = {
+            "G10 residence moved: no treaty rate": right("I-011", any_default=True),
+            "G11 form ended before payment: no treaty rate": right("I-013", any_default=True),
+            "G12 rule version on the payment date": all(right(p) for p in ("I-001", "I-004", "I-005", "I-008")),
+            "G13 votes waived by side letter": right("I-003"),
+            "G14 sources disagree: register wins": right("I-010"),
+            "G3 circular holding: no treaty rate": right("I-006", any_default=True),
+            "G4 nominee looked through": right("I-014") and "I-007" not in got,
+            "G7 expired form": right("I-015"),
+            "G8 US person not withheld": right("I-016") and right("I-017"),
+        }
+    else:
+        defaults = ("I-006",)
+        cases = {
+            "G1 baseline": right("I-001"),
+            "G2 multiplied through tiers": right("I-010") and right("I-011") and right("I-012"),
+            "G3 circular holding: no treaty rate": right("I-006", any_default=True),
+            "G3 circular holding: reported": bool(re.search(r"circular|cycle|loop|each other|cross-hold", text, re.I)),
+            "G4 nominee looked through": right("I-013") and right("I-014") and "I-007" not in got,
+            "G5 same name kept apart": right("I-008") and right("I-009"),
+            "G6 threshold: exactly on it": right("I-003"),
+            "G6 threshold: just under": right("I-004"),
+            "G6 threshold: voting, not economic": right("I-005"),
+            "G7 expired form": right("I-015"),
+            "G7 superseded holding": bool(got.get("I-008")) and near(got["I-008"][0].get("gross_amount"), 600000),
+            "G8 US person not withheld": right("I-016") and right("I-017"),
+            "G8 conflict reported": bool(re.search(r"3\.5\s*%?|H-006|disagree|conflict", text, re.I)),
+        }
     tax = sum(float(l.get("tax_withheld") or 0) for l in lines if l.get("component") == COMPONENT)
     gross = sum(float(l.get("gross_amount") or 0) for l in lines if l.get("component") == COMPONENT)
-    correct_lines = sum(1 for r in expected if right(r, any_default=(r == "I-006")))
+    correct_lines = sum(1 for r in expected if right(r, any_default=(r in defaults)))
     return {"cases": cases, "cases_passed": sum(cases.values()), "cases_total": len(cases),
             "lines_correct": correct_lines, "lines_expected": len(expected), "lines_given": sum(len(v) for v in got.values()),
             "gross_total": round(gross, 2), "tax_total": round(tax, 2), "tax_expected": key["total_tax_if_g3_defaulted"],

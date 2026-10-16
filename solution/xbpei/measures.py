@@ -93,7 +93,9 @@ def faulty(determinations: list[dict], case: dict) -> list[dict]:
 
 def bad_drafts(conn) -> dict:
     """Each faulty draft put to the checks of the write tool. Starts from the latest accepted draft, which must itself pass the checks."""
-    run = conn.execute("""SELECT run_id FROM runlog.step WHERE concept = 'tools/draft-schedule' AND verdict = 'Written.' ORDER BY at DESC LIMIT 1""").fetchone()
+    run = conn.execute("""SELECT s.run_id FROM runlog.step s JOIN runlog.run r ON r.run_id = s.run_id
+                          WHERE s.concept = 'tools/draft-schedule' AND s.verdict = 'Written.' AND r.subject = 'D-001'
+                          ORDER BY s.at DESC LIMIT 1""").fetchone()
     if run is None:
         return {"cases": [], "note": "No accepted draft is recorded to start from."}
     draft = accepted_draft(conn, run["run_id"])
@@ -147,7 +149,7 @@ def consistency(conn, runs: list[dict]) -> dict:
 
 def report(dsn: str = DSN) -> dict:
     with psycopg.connect(dsn, row_factory=dict_row) as conn:
-        runs = conn.execute("SELECT * FROM runlog.run WHERE arm IN ('grounded', 'control') AND outcome = 'success' AND score IS NOT NULL ORDER BY started_at").fetchall()
+        runs = conn.execute("SELECT * FROM runlog.run WHERE arm IN ('grounded', 'control') AND subject = 'D-001' AND model = 'claude-opus-5-5' AND outcome = 'success' AND score IS NOT NULL ORDER BY started_at").fetchall()
         return {"evidence": {r["run_id"]: dict(evidence(conn, r), arm=r["arm"]) for r in runs}, "bad_drafts": bad_drafts(conn),
                 "term_impact": term_impact(), "term_lookup": term_lookup(), "consistency": consistency(conn, runs)}
 

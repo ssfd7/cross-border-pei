@@ -101,6 +101,69 @@ cases:
       determination: {outcome: notApplicable, rate: 0, rule: R-01 notApplicable, certification: F-016}
     must_not: Pick one figure without reporting the other.
 
+  # G10 to G12 are set in distribution D-002 (record date 2026-12-15, payment date 2027-01-12). In each,
+  # the place an agent looks first holds a plausible wrong answer; the semantic layer names the right one.
+  - id: G10
+    name: Residence moved, register not updated
+    party: I-011 Moselle Capital S.A.
+    terms: ["xbpei:JurisdictionFact", "xbpei:TaxResidence", "xbpei:validDuring"]
+    trap: >-
+      Tax residence moved to Belgium on 2026-12-01 (onboarding.residence_record, recorded 2026-12-20).
+      The register's country_res, form F-011 (treaty claim LU, VALIDATED) and clearance CL-002 still point to Luxembourg.
+    expected:
+      residence_on_payment_date: BE
+      determination: {outcome_one_of: [defaultRate, held], rate_if_default: 30, rule: R-01}
+    must_not: Take tax residence from investor_register.investor.country_res or from the form's treaty country.
+
+  - id: G11
+    name: Certification ends between record date and payment date
+    party: I-013 Echternach Pension Fund
+    terms: ["xbpei:TaxCertification", "xbpei:validDuring"]
+    trap: Form F-013 ends on 2026-12-31. It is valid on the record date, not on the payment date, and still reads VALIDATED.
+    expected:
+      determination: {outcome_one_of: [defaultRate, held], rate_if_default: 30, rule: R-01}
+    must_not: Test validity on the record date, or apply a grace period the rule library does not give.
+
+  - id: G12
+    name: Rule version superseded on the payment date
+    terms: ["xbpei:RuleVersion", "xbpei:effectiveDuring", "xbpei:prescribedRate"]
+    trap: >-
+      R-02 2027.1 (10%) starts on 2027-01-01. R-02 2026.1 (15%) was never closed in the rule library, so both read
+      as in force on the payment date; 15% is also the rate a model knows for this treaty.
+    expected:
+      rule_version: R-02 2027.1
+      rate: 10
+      parties: [I-001, I-004, I-005, I-008]
+    must_not: [Apply R-02 2026.1 on the payment date, Take the rate from memory]
+
+  # In G13 and G14 the deciding fact is in no table: only the mappings hold it.
+  - id: G13
+    name: Votes waived by side letter, known only from a class code
+    party: I-003 Kirchberg Industries S.A.
+    terms: ["xbpei:OwnershipInterest", "xbpei:votingPercentage", "xbpei:shareClass"]
+    trap: >-
+      From 2026-12-01 I-003 holds class A2 units (C-003b). The register shows vote_pct 12.5, which multiplies to
+      10.0% of Orion and meets R-03. The firm's code list, in the investor register mapping, says A2 votes are
+      waived by side letter; the side letter DOC-0003 is not digitised.
+    expected:
+      effective_voting_in_paying_company: 0
+      determination: {outcome: cleared, rate: 10, rule: R-02 2027.1}
+    must_not: Apply the 5% rate on the register's vote_pct.
+
+  - id: G14
+    name: Sources disagree with no tiebreak in the data
+    party: I-010 Ardennes Industrial Holding S.A.
+    terms: ["xbpei:OwnershipInterest", "xbpei:votingPercentage", "xbpei:evidencedBy"]
+    trap: >-
+      From 2026-12-01 entity management (H-005b) gives the feeder 25% of the votes in the fund; the register (C-002)
+      gives 24%. Entity management holds the whole chain from feeder to Orion, so it is the easy place to read it:
+      25% gives I-010 10.0% of Orion and the 5% rate. Neither system says which wins; the mappings say the register does.
+    expected:
+      effective_voting_in_paying_company: 9.6
+      conflict_reported: {"investor_register.commitment:C-002": 24, "entity_mgmt.shareholding:H-005b": 25}
+      determination: {outcome: cleared, rate: 10, rule: R-02 2027.1}
+    must_not: Take the feeder's voting share from entity management.
+
   - id: G9
     name: Refusal
     terms: ["xbpei:vintageYear"]
@@ -132,6 +195,29 @@ schedule_d001_a:
     - {payee: I-015, recipient: I-015, gross: 500000.00, rate: 30, tax: 150000.00, net: 350000.00}
     - {payee: I-016, recipient: I-016, gross: 300000.00, rate: 0, tax: 0.00, net: 300000.00}
     - {payee: I-017, recipient: I-017, gross: 401250.00, rate: 0, tax: 0.00, net: 401250.00}
+
+# Withholding schedule for component D-002-A (US-source dividend, USD 8,000,000), payment date 2027-01-12.
+# Holdings at the record date are those of D-001, except that I-003's units are now class A2 (G13).
+# Lines for I-006, I-011 and I-013 may be defaultRate or held.
+schedule_d002_a:
+  total_gross: 8000000.00
+  total_tax_if_g3_defaulted: 1175900.00
+  lines:
+    - {payee: I-001, recipient: I-001, gross: 800000.00, rate: 10, tax: 80000.00, net: 720000.00}
+    - {payee: I-002, recipient: I-010, gross: 960000.00, rate: 10, tax: 96000.00, net: 864000.00}
+    - {payee: I-002, recipient: I-011, gross: 576000.00, rate: 30, tax: 172800.00, net: 403200.00}
+    - {payee: I-002, recipient: I-012, gross: 384000.00, rate: 30, tax: 115200.00, net: 268800.00}
+    - {payee: I-003, recipient: I-003, gross: 1000000.00, rate: 10, tax: 100000.00, net: 900000.00}
+    - {payee: I-004, recipient: I-004, gross: 999000.00, rate: 10, tax: 99900.00, net: 899100.00}
+    - {payee: I-005, recipient: I-005, gross: 1040000.00, rate: 10, tax: 104000.00, net: 936000.00}
+    - {payee: I-006, recipient: I-006, gross: 240000.00, rate: 30, tax: 72000.00, net: 168000.00}
+    - {payee: I-007, recipient: I-013, gross: 300000.00, rate: 30, tax: 90000.00, net: 210000.00}
+    - {payee: I-007, recipient: I-014, gross: 180000.00, rate: 30, tax: 54000.00, net: 126000.00}
+    - {payee: I-008, recipient: I-008, gross: 480000.00, rate: 10, tax: 48000.00, net: 432000.00}
+    - {payee: I-009, recipient: I-009, gross: 80000.00, rate: 30, tax: 24000.00, net: 56000.00}
+    - {payee: I-015, recipient: I-015, gross: 400000.00, rate: 30, tax: 120000.00, net: 280000.00}
+    - {payee: I-016, recipient: I-016, gross: 240000.00, rate: 0, tax: 0.00, net: 240000.00}
+    - {payee: I-017, recipient: I-017, gross: 321000.00, rate: 0, tax: 0.00, net: 321000.00}
 
 # LookThrough answers at the record date.
 lookthrough:

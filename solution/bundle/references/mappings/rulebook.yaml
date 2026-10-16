@@ -21,6 +21,8 @@ mappings:
     link_tables:
       xbpei:derivedFrom: {table: rule_authority, from: [rule_id, version_label], to: authority_id, references: rulebook.authority_source.authority_id}
     interval: {property: xbpei:effectiveDuring, start: eff_from, end: eff_to}
+    warnings:
+      - eff_to is not maintained. A version stays open after a later version of the same rule starts; the later version supersedes it from its eff_from.
 
   - term: xbpei:FactRequirement
     table: fact_requirement

@@ -36,12 +36,14 @@ INSERT INTO entity_mgmt.entity_jurisdiction (entity_id, country, subdivision, ca
 ('E-010', 'US', NULL,    'TAXRES', '2024-01-15', NULL, '2024-01-17', NULL);
 
 -- H-006 disagrees with the investor register (3.50 here, 3.00 there): case G8.
+-- H-005b disagrees with the register on the feeder's voting share (25 here, 24 there): case G14.
 INSERT INTO entity_mgmt.shareholding (holding_id, owner_entity_id, owned_entity_id, pct_econ, pct_vote, share_class, eff_from, eff_to, doc_ref) VALUES
 ('H-001', 'E-001', 'E-002', 100,    100,    'Membership interest', '2024-02-12', NULL, NULL),
 ('H-002', 'E-002', 'E-003', 80,     80,     'Common stock',        '2024-04-02', NULL, 'DOC-0301'),
 ('H-003', 'E-001', 'E-007', 100,    100,    'Ordinary shares',     '2024-11-05', NULL, NULL),
 ('H-004', 'E-007', 'E-006', 60,     60,     'Ordinary shares',     '2025-01-22', NULL, NULL),
-('H-005', 'E-005', 'E-001', 24,     24,     'LP interest',         '2024-03-01', NULL, NULL),
+('H-005', 'E-005', 'E-001', 24,     24,     'LP interest',         '2024-03-01', '2026-11-30', NULL),
+('H-005b', 'E-005', 'E-001', 24,    25,     'LP interest',         '2026-12-01', NULL, NULL),
 ('H-006', 'E-010', 'E-001', 3.5,    3.5,    'LP interest',         '2024-03-01', NULL, NULL),
 ('H-007', 'E-004', 'E-001', 4.0125, 7.0125, 'GP interest',         '2024-03-01', NULL, NULL);
 
@@ -76,10 +78,12 @@ INSERT INTO investor_register.investor (inv_no, display_name, inv_type, rec_type
 -- Fund size USD 200m; feeder size USD 48m. Current rows sum to 100 per fund.
 -- C-003 and C-004 sit on and just under the threshold once multiplied through to Orion: case G6.
 -- C-005 has more economic than voting rights: case G6. C-008a and C-015a are superseded: case G7.
+-- From 1 December 2026 I-003 holds class A2 units, whose votes are waived by side letter: case G13.
 INSERT INTO investor_register.commitment (commit_id, inv_no, fund_code, commit_amt, unit_pct, vote_pct, unit_class, from_dt, to_dt, lpa_ref) VALUES
 ('C-001',  'I-001', 'AGF1', 20000000, 10,      10,      'A',                  '2024-03-01', NULL,         'DOC-0001'),
 ('C-002',  'I-002', 'AGF1', 48000000, 24,      24,      'A',                  '2024-03-01', NULL,         'DOC-0001'),
-('C-003',  'I-003', 'AGF1', 25000000, 12.5,    12.5,    'A',                  '2024-03-01', NULL,         'DOC-0001'),
+('C-003',  'I-003', 'AGF1', 25000000, 12.5,    12.5,    'A',                  '2024-03-01', '2026-11-30', 'DOC-0001'),
+('C-003b', 'I-003', 'AGF1', 25000000, 12.5,    12.5,    'A2',                 '2026-12-01', NULL,         'DOC-0003'),
 ('C-004',  'I-004', 'AGF1', 24975000, 12.4875, 12.4875, 'A',                  '2024-03-01', NULL,         'DOC-0001'),
 ('C-005',  'I-005', 'AGF1', 26000000, 13,      10,      'B (limited voting)', '2024-03-01', NULL,         'DOC-0001'),
 ('C-006',  'I-006', 'AGF1',  6000000, 3,       3,       'A',                  '2024-03-01', NULL,         'DOC-0001'),
@@ -99,6 +103,7 @@ INSERT INTO investor_register.commitment (commit_id, inv_no, fund_code, commit_a
 -- onboarding ----------------------------------------------------------------
 
 -- F-015 still reads VALIDATED but ended on 31 December 2025: case G7. F-008a is superseded by F-008.
+-- F-013 ends on 31 December 2026, after the record date of D-002 and before its payment date: case G11.
 INSERT INTO onboarding.tax_form (form_id, inv_no, form_type, signed_dt, valid_to, treaty_claim, treaty_country, lob_cd, is_intermediary, form_status, recv_dt, doc_ref) VALUES
 ('F-001',  'I-001', 'W-8BEN-E', '2025-02-01', '2028-12-31', 'Y', 'LU', 'PENSION',                'N', 'VALIDATED',  '2025-02-03', 'DOC-0101'),
 ('F-002',  'I-002', 'W-8IMY',   '2025-01-20', NULL,         'N', NULL, NULL,                     'Y', 'VALIDATED',  '2025-01-21', NULL),
@@ -113,7 +118,7 @@ INSERT INTO onboarding.tax_form (form_id, inv_no, form_type, signed_dt, valid_to
 ('F-010',  'I-010', 'W-8BEN-E', '2025-01-15', '2028-12-31', 'Y', 'LU', 'ACTIVE_TRADE',           'N', 'VALIDATED',  '2025-01-16', NULL),
 ('F-011',  'I-011', 'W-8BEN-E', '2025-01-18', '2028-12-31', 'Y', 'LU', 'ACTIVE_TRADE',           'N', 'VALIDATED',  '2025-01-20', NULL),
 ('F-012',  'I-012', 'W-8BEN',   '2025-01-22', '2028-12-31', 'N', NULL, NULL,                     'N', 'VALIDATED',  '2025-01-23', NULL),
-('F-013',  'I-013', 'W-8BEN-E', '2025-03-04', '2028-12-31', 'Y', 'LU', 'PENSION',                'N', 'VALIDATED',  '2025-03-05', NULL),
+('F-013',  'I-013', 'W-8BEN-E', '2023-03-06', '2026-12-31', 'Y', 'LU', 'PENSION',                'N', 'VALIDATED',  '2023-03-07', NULL),
 ('F-015',  'I-015', 'W-8BEN-E', '2022-03-10', '2025-12-31', 'Y', 'LU', 'ACTIVE_TRADE',           'N', 'VALIDATED',  '2022-03-11', 'DOC-0115'),
 ('F-016',  'I-016', 'W-9',      '2024-02-01', NULL,         'N', NULL, NULL,                     'N', 'VALIDATED',  '2024-02-02', NULL),
 ('F-017',  'I-017', 'W-9',      '2024-02-01', NULL,         'N', NULL, NULL,                     'N', 'VALIDATED',  '2024-02-02', NULL);
@@ -144,6 +149,7 @@ INSERT INTO onboarding.tax_status (status_id, inv_no, assessed_country, classifi
 ('TS-013', 'I-013', 'US', 'opaque',      '2025-03-04', NULL, '2025-03-15', NULL),
 ('TS-015', 'I-015', 'US', 'opaque',      '2022-03-10', NULL, '2022-03-20', 'DOC-0115');
 
+-- I-011 moved its seat to Belgium on 1 December 2026; the register and form F-011 still say Luxembourg: case G10.
 INSERT INTO onboarding.residence_record (inv_no, country, from_dt, to_dt, recorded_dt, doc_ref) VALUES
 ('I-001', 'LU', '2011-01-01', NULL, '2025-02-10', 'DOC-0101'),
 ('I-003', 'LU', '2004-01-01', NULL, '2024-06-20', NULL),
@@ -154,7 +160,8 @@ INSERT INTO onboarding.residence_record (inv_no, country, from_dt, to_dt, record
 ('I-008', 'LU', '2016-01-01', NULL, '2021-05-20', NULL),
 ('I-009', 'CH', '2012-01-01', NULL, '2025-04-20', NULL),
 ('I-010', 'LU', '2003-01-01', NULL, '2025-02-12', NULL),
-('I-011', 'LU', '2010-01-01', NULL, '2025-02-12', NULL),
+('I-011', 'LU', '2010-01-01', '2026-11-30', '2025-02-12', NULL),
+('I-011', 'BE', '2026-12-01', NULL,         '2026-12-20', 'DOC-0111'),
 ('I-012', 'FR', '1999-01-01', NULL, '2025-02-12', NULL),
 ('I-013', 'LU', '2001-01-01', NULL, '2025-03-15', NULL),
 ('I-015', 'LU', '2013-01-01', NULL, '2022-03-20', 'DOC-0115'),
@@ -185,11 +192,13 @@ INSERT INTO treasury.counterparty (cp_id, cp_name, reg_no, lei, country) VALUES
 ('CP-117', 'ATLAS GP LLC',                   'DE 7104402',      'XBPEISYNTH0000E00400', 'US');
 
 INSERT INTO treasury.distribution (dist_id, fund_cp, record_dt, pay_dt, gross_amt, ccy, status) VALUES
-('D-001', 'CP-001', '2026-10-30', '2026-11-16', 12000000, 'USD', 'PROPOSED');
+('D-001', 'CP-001', '2026-10-30', '2026-11-16', 12000000, 'USD', 'PROPOSED'),
+('D-002', 'CP-001', '2026-12-15', '2027-01-12',  8000000, 'USD', 'PROPOSED');
 
 INSERT INTO treasury.distribution_component (comp_id, dist_id, income_cd, source_country, gross_amt) VALUES
 ('D-001-A', 'D-001', 'DIV', 'US', 10000000),
-('D-001-B', 'D-001', 'ROC', NULL,  2000000);
+('D-001-B', 'D-001', 'ROC', NULL,  2000000),
+('D-002-A', 'D-002', 'DIV', 'US', 8000000);
 
 -- One line per investor of record and component, on the register's holdings at the record date.
 INSERT INTO treasury.distribution_line (comp_id, payee_cp, gross_amt)
@@ -210,18 +219,23 @@ INSERT INTO treasury.payment (pay_id, payer_cp, payee_cp, pay_type_cd, amt, ccy,
 ('P-005', 'CP-006', 'CP-007', 'DIV',     3000000,  'EUR', '2026-09-18', NULL),
 ('P-006', 'CP-007', 'CP-001', 'DIV',     3000000,  'EUR', '2026-09-25', NULL),
 ('P-007', 'CP-003', 'CP-002', 'DIV',     10000000, 'USD', '2026-10-09', NULL),
-('P-008', 'CP-002', 'CP-001', 'DIV',     10000000, 'USD', '2026-10-12', NULL);
+('P-008', 'CP-002', 'CP-001', 'DIV',     10000000, 'USD', '2026-10-12', NULL),
+('P-009', 'CP-003', 'CP-002', 'DIV',     8000000,  'USD', '2026-12-01', NULL),
+('P-010', 'CP-002', 'CP-001', 'DIV',     8000000,  'USD', '2026-12-04', NULL);
 
 -- documents -----------------------------------------------------------------
 
 INSERT INTO documents.document (doc_ref, doc_type, title, doc_dt, about_ref, file_path) VALUES
 ('DOC-0001', 'LPA',          'Atlas Growth Fund I LP limited partnership agreement',  '2024-02-20', 'AGF1',   NULL),
+('DOC-0003', 'SIDELETTER',   'Kirchberg Industries S.A. side letter',                 '2026-11-24', 'I-003',  NULL),
 ('DOC-0002', 'LPA',          'Atlas Lux Feeder SCSp limited partnership agreement',   '2024-02-22', 'ALF1',   NULL),
 ('DOC-0101', 'TAXFORM',      'Harbor Pension Trust W-8BEN-E',                         '2025-02-01', 'I-001',  'DOC-0101-harbor-w8bene.md'),
 ('DOC-0106', 'OWNERSHIP',    'Meridian Holdings I ownership declaration',             '2026-08-18', 'I-006',  'DOC-0106-meridian-ownership-declaration.md'),
 ('DOC-0107', 'TAXFORM',      'Sterling Nominees W-8IMY and withholding statement',    '2025-03-01', 'I-007',  'DOC-0107-sterling-w8imy-statement.md'),
+('DOC-0111', 'RESIDENCE',    'Moselle Capital notice of transfer of seat to Belgium',  '2026-12-18', 'I-011',  NULL),
 ('DOC-0115', 'TAXFORM',      'Bertrange Capital W-8BEN-E',                            '2022-03-10', 'I-015',  'DOC-0115-bertrange-w8bene.md'),
 ('DOC-0201', 'DISTNOTICE',   'Distribution notice D-001',                             '2026-10-02', 'D-001',  'DOC-0201-distribution-notice-d001.md'),
+('DOC-0202', 'DISTNOTICE',   'Distribution notice D-002',                             '2026-12-07', 'D-002',  'DOC-0202-distribution-notice-d002.md'),
 ('DOC-0301', 'SPA',          'Orion Manufacturing share purchase agreement',          '2024-04-02', 'E-003',  NULL);
 
 -- rulebook ------------------------------------------------------------------
@@ -230,18 +244,22 @@ INSERT INTO documents.document (doc_ref, doc_type, title, doc_dt, about_ref, fil
 
 INSERT INTO rulebook.authority_source (authority_id, title, citation, doc_dt, location) VALUES
 ('AU-01', 'US Internal Revenue Code, withholding of tax on foreign persons', '26 U.S.C. §§ 1441, 1442', NULL, 'https://www.irs.gov/publications/p515'),
-('AU-02', 'United States – Luxembourg income tax convention, dividends',     'Convention of 3 April 1996, Article 10', '1996-04-03', NULL);
+('AU-02', 'United States – Luxembourg income tax convention, dividends',     'Convention of 3 April 1996, Article 10', '1996-04-03', NULL),
+('AU-03', 'Protocol amending the United States – Luxembourg convention (illustrative)', 'Protocol of 2026, Article 3 (illustrative)', '2026-06-30', NULL);
 
 -- A recipient certified as a US person is outside R-01: the assessment result is notApplicable.
+-- R-02 2027.1 starts on 1 January 2027 and R-02 2026.1 was not closed: case G12.
 INSERT INTO rulebook.rule_version (rule_id, version_label, rule_name, applies_in, eff_from, eff_to, rate_pct, treaty_country, min_vote_pct) VALUES
 ('R-01', '2026.1', 'Statutory withholding on US-source dividends paid to foreign persons; also the default where documentation is missing or not valid', 'US', '2026-01-01', NULL, 30, NULL, NULL),
 ('R-02', '2026.1', 'Treaty rate on US-source dividends paid to a resident of Luxembourg',                                                                'US', '2026-01-01', NULL, 15, 'LU', NULL),
-('R-03', '2026.1', 'Treaty rate on US-source dividends paid to a Luxembourg company with a qualifying holding in the paying company',                    'US', '2026-01-01', NULL, 5,  'LU', 10);
+('R-03', '2026.1', 'Treaty rate on US-source dividends paid to a Luxembourg company with a qualifying holding in the paying company',                    'US', '2026-01-01', NULL, 5,  'LU', 10),
+('R-02', '2027.1', 'Treaty rate on US-source dividends paid to a resident of Luxembourg',                                                                'US', '2027-01-01', NULL, 10, 'LU', NULL);
 
 INSERT INTO rulebook.rule_authority (rule_id, version_label, authority_id) VALUES
 ('R-01', '2026.1', 'AU-01'),
 ('R-02', '2026.1', 'AU-02'),
-('R-03', '2026.1', 'AU-02');
+('R-03', '2026.1', 'AU-02'),
+('R-02', '2027.1', 'AU-03');
 
 INSERT INTO rulebook.fact_requirement (req_id, rule_id, version_label, description, mandatory) VALUES
 ('FR-01', 'R-01', '2026.1', 'Income type and source jurisdiction of the distribution component', true),
@@ -250,4 +268,7 @@ INSERT INTO rulebook.fact_requirement (req_id, rule_id, version_label, descripti
 ('FR-04', 'R-02', '2026.1', 'Tax residence of the recipient in the treaty jurisdiction', true),
 ('FR-05', 'R-02', '2026.1', 'A treaty claim with a completed limitation-on-benefits statement', true),
 ('FR-07', 'R-02', '2026.1', 'For an ownership-based limitation-on-benefits claim: the owners of the recipient up to its ultimate owners', false),
-('FR-06', 'R-03', '2026.1', 'Effective voting percentage of the recipient in the paying company, and every fact R-02 requires', true);
+('FR-06', 'R-03', '2026.1', 'Effective voting percentage of the recipient in the paying company, and every fact R-02 requires', true),
+('FR-08', 'R-02', '2027.1', 'Tax residence of the recipient in the treaty jurisdiction', true),
+('FR-09', 'R-02', '2027.1', 'A treaty claim with a completed limitation-on-benefits statement', true),
+('FR-10', 'R-02', '2027.1', 'For an ownership-based limitation-on-benefits claim: the owners of the recipient up to its ultimate owners', false);

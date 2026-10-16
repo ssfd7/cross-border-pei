@@ -81,3 +81,41 @@ WITH expected (payee_cp, recipient, share_pct, rate_pct) AS (VALUES
 SELECT payee_cp, recipient, rate_pct, gross, tax, gross - tax AS net,
        sum(gross) OVER () AS total_gross, sum(tax) OVER () AS total_tax
 FROM line ORDER BY payee_cp, recipient;
+
+\echo '8. Facts that decide G10 to G14 in D-002 (H-006 is the G8 conflict)'
+SELECT 'G10' AS case_id, r.inv_no AS about, r.country || ' from ' || r.from_dt AS fact, 'register says ' || i.country_res AS obvious_source
+FROM onboarding.residence_record r JOIN investor_register.investor i ON i.inv_no = r.inv_no CROSS JOIN treasury.distribution d
+WHERE d.dist_id = 'D-002' AND r.from_dt <= d.pay_dt AND (r.to_dt IS NULL OR r.to_dt >= d.pay_dt) AND r.country <> i.country_res
+UNION ALL
+SELECT 'G11', f.form_id, 'valid to ' || f.valid_to, 'reads ' || f.form_status
+FROM onboarding.tax_form f CROSS JOIN treasury.distribution d
+WHERE d.dist_id = 'D-002' AND f.valid_to >= d.record_dt AND f.valid_to < d.pay_dt
+UNION ALL
+SELECT 'G12', r.rule_id || ' ' || r.version_label, r.rate_pct || '% superseded from ' || later.eff_from, 'eff_to ' || coalesce(r.eff_to::text, 'not set')
+FROM rulebook.rule_version r JOIN rulebook.rule_version later ON later.rule_id = r.rule_id AND later.eff_from > r.eff_from
+CROSS JOIN treasury.distribution d WHERE d.dist_id = 'D-002' AND later.eff_from <= d.pay_dt
+UNION ALL
+SELECT 'G13', c.commit_id, 'class ' || c.unit_class || ', vote_pct ' || c.vote_pct, 'votes waived: see the investor register mapping'
+FROM investor_register.commitment c CROSS JOIN treasury.distribution d
+WHERE d.dist_id = 'D-002' AND c.unit_class = 'A2' AND c.from_dt <= d.record_dt AND (c.to_dt IS NULL OR c.to_dt >= d.record_dt)
+UNION ALL
+SELECT 'G14', s.holding_id, 'vote ' || s.pct_vote || ' against register ' || c.vote_pct, 'register wins: see the entity management mapping'
+FROM entity_mgmt.shareholding s
+JOIN entity_mgmt.legal_entity o ON o.entity_id = s.owner_entity_id
+JOIN investor_register.investor i ON i.lei = o.lei
+JOIN investor_register.commitment c ON c.inv_no = i.inv_no
+CROSS JOIN treasury.distribution d
+WHERE d.dist_id = 'D-002' AND s.eff_from <= d.record_dt AND (s.eff_to IS NULL OR s.eff_to >= d.record_dt)
+  AND c.from_dt <= d.record_dt AND (c.to_dt IS NULL OR c.to_dt >= d.record_dt) AND c.vote_pct <> s.pct_vote;
+
+\echo '9. Expected withholding on component D-002-A, by beneficial recipient'
+WITH expected (payee_cp, recipient, share_pct, rate_pct) AS (VALUES
+    ('CP-101', 'I-001', 100.0, 10), ('CP-102', 'I-010', 50.0, 10), ('CP-102', 'I-011', 30.0, 30),
+    ('CP-102', 'I-012', 20.0, 30),  ('CP-103', 'I-003', 100.0, 10), ('CP-104', 'I-004', 100.0, 10),
+    ('CP-105', 'I-005', 100.0, 10), ('CP-106', 'I-006', 100.0, 30), ('CP-107', 'I-013', 62.5, 30),
+    ('CP-107', 'I-014', 37.5, 30),  ('CP-108', 'I-008', 100.0, 10), ('CP-109', 'I-009', 100.0, 30),
+    ('CP-115', 'I-015', 100.0, 30), ('CP-116', 'I-016', 100.0, 0),  ('CP-117', 'I-017', 100.0, 0)
+)
+SELECT sum(round(l.gross_amt * e.share_pct / 100, 2)) AS total_gross,
+       sum(round(l.gross_amt * e.share_pct / 100 * e.rate_pct / 100, 2)) AS total_tax
+FROM expected e JOIN treasury.distribution_line l ON l.payee_cp = e.payee_cp AND l.comp_id = 'D-002-A';

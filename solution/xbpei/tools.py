@@ -178,6 +178,10 @@ def support_reasons(conn, d: dict, payment_date: date) -> list[str]:
             reasons.append(f"rate {rate} is not the {rule['rate_pct']} of {rule['rule_id']} {rule['version_label']}, the rule version assessment {d['supported_by']} found applicable.")
         if outcome == "notApplicable" and rate != 0:
             reasons.append("a notApplicable line carries a rate.")
+        later = conn.execute("SELECT version_label FROM rulebook.rule_version WHERE rule_id = %s AND eff_from > %s AND eff_from <= %s",
+                             (rule["rule_id"], rule["eff_from"], payment_date)).fetchone()
+        if rule["eff_from"] > payment_date or (rule["eff_to"] and rule["eff_to"] < payment_date) or later:
+            reasons.append(f"rule version {rule['rule_id']} {rule['version_label']} is not in force on the payment date {payment_date}.")
     clearance = d.get("relies_on_clearance") and source_row(conn, f"clearance.clearance:{d['relies_on_clearance']}")
     if clearance and not (clearance["clearance_status"] in ("cleared", "admittedWithOpenItems") and clearance["valid_from"] <= payment_date
                           and (clearance["valid_to"] is None or clearance["valid_to"] >= payment_date)):

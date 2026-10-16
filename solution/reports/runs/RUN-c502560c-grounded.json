@@ -1,0 +1,4026 @@
+{
+  "run": {
+    "run_id": "RUN-c502560c",
+    "arm": "grounded",
+    "procedure": "procedures/wf3-withholding-at-distribution",
+    "subject": "D-001",
+    "model": "claude-opus-5-5",
+    "started_at": "2026-10-13T16:09:10.830030+00:00",
+    "finished_at": "2026-10-13T16:13:22.049973+00:00",
+    "outcome": "success",
+    "turns": 75,
+    "duration_ms": 250452,
+    "cost_usd": 1.498,
+    "usage": {
+      "speed": "standard",
+      "iterations": [
+        {
+          "type": "message",
+          "input_tokens": 2,
+          "output_tokens": 2039,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 6680,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_read_input_tokens": 85110,
+          "cache_creation_input_tokens": 6680
+        }
+      ],
+      "input_tokens": 22,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "output_tokens": 32441,
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 91790,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "fallback_credit": null,
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "output_tokens_details": {
+        "thinking_tokens": 5553
+      },
+      "cache_read_input_tokens": 568667,
+      "cache_creation_input_tokens": 91790
+    },
+    "final_text": "Steps 1–9 of WF3 are done for D-001: draft schedule **WS-R001** is recorded with 30 determinations under case K-R001, and I have stopped at step 10 for your review and sign-off.\n\n# Hand-over note: D-001, Atlas Growth Fund I LP (AGF1)\n\nRecord date is 2026-10-30 and payment date is 2026-11-16. Validity of every clearance and certification was tested on the payment date.\n\n## Totals (USD)\n\n| Component | Gross | Tax withheld | Net |\n|---|---|---|---|\n| D-001-A, US-source dividend | 10,000,000.00 | 1,510,562.50 | 8,489,437.50 |\n| D-001-B, return of capital | 2,000,000.00 | 0.00 | 2,000,000.00 |\n| **Total** | **12,000,000.00** | **1,510,562.50** | **10,489,437.50** |\n\n- **Paying company:** the dividend in D-001-A was paid by Orion Manufacturing Inc (E-003) through Atlas Acquisition SPV LLC (P-007, P-008), so the holding threshold was tested against Orion.\n- **Rules in force (US, version 2026.1):** R-01 statutory and default 30%; R-02 Luxembourg treaty 15%; R-03 Luxembourg qualifying holding 5% at 10% or more of the votes, inclusive.\n- **Default-rate lines:** 307,500 of the tax withheld sits on the three default-rate lines below.\n\n## Lines not cleared (all on D-001-A)\n\n| Recipient | Gross | Outcome | Why | What would cure it |\n|---|---|---|---|---|\n| I-006 Meridian Holdings I S.à r.l. | 300,000 | Default rate 30%, tax 90,000 | Its treaty claim (F-006) rests on ownership. Clearance CL-006 has open change case K-006. Since 2026-08-01 it and Meridian Holdings II (I-018) each hold 30% of the other (DOC-0106), so ultimate owners cannot be read. R-02 is assessed undetermined (A-R008, finding MF-R001). | A person resolves the circular holding and closes K-006 with a re-decided clearance. |\n| I-014 Client account 7731, behind Sterling Nominees (I-007), 37.5% | 225,000 | Default rate 30%, tax 67,500 | No certification and no recorded tax residence (A-R016, findings MF-R002 and MF-R003; existing open item MF-001 on CL-007). | The nominee supplies the owner's certification. |\n| I-015 Bertrange Capital S.A. | 500,000 | Default rate 30%, tax 150,000 | Form F-015 ended 2025-12-31 and clearance CL-015W is withdrawn (A-R017, finding MF-R004; existing MF-002). | A new form and a new clearance before the payment date. |\n| I-016 Atlas Co-Invest Vehicle LP | 300,000 | Not applicable, paid gross | Certified US person on W-9 F-016. | None needed. |\n| I-017 Atlas GP LLC | 401,250 | Not applicable, paid gross | Certified US person on W-9 F-017. | None needed. |\n\nAll 15 lines of D-001-B are `notApplicable` at rate 0, because a return of capital is outside every rule in force.\n\n**Default rate rather than hold:** I could not read the fund's terms. No computation returns the governing agreement of a commitment, so nothing is held. If the partnership agreement allows a hold on I-006, I-014 or I-015, that is your call.\n\n## Cleared lines to look at\n\n- **I-003 Kirchberg Industries, 5% (R-03):** its effective voting holding in Orion is exactly 10.0%, which meets the inclusive threshold.\n- **I-004 Limpertsberg Holdings, 15%:** its effective voting holding is 9.99%, just under the threshold; I did not round it up.\n- **I-005 Grund Participations, 15%:** its economic holding is 10.4% but its voting holding is 8.0%, and the threshold is tested on votes.\n- **I-010 Ardennes Industrial Holding, 15%:** it holds 9.6% through the feeder; the feeder's own 24% is not its holding.\n- **I-012 Claire Dumont (French resident) and I-009 Alpha Holdings SA (Swiss resident):** both are `cleared` at the statutory 30% as a documented rate. Each has a valid form with no treaty claim, and no treaty rule is in force for their residence.\n- **I-013 Echternach Pension Fund, 15%:** it relies on CL-007, which is \"admitted with open items\". The open item concerns only the other owner, I-014.\n- **Remaining lines:** I-001, I-008 and I-011 are cleared at 15% under R-02 with nothing unusual.\n\n## Disagreements and unknowns\n\n- **I-016 holding:** the investor register (C-016, system of record) holds 3.0%; entity management (H-006) holds 3.5%. I used the register; the treasury line of 300,000 matches 3.0%. The rate is unaffected.\n- **Two investors named \"Alpha Holdings SA\":** I-008 is the Luxembourg one (B 214 577) and I-009 the Swiss one (CHE-318.442.907). They were matched on LEI and treated separately.\n- **F-015 status flag:** the onboarding system still shows it as VALIDATED although it ended on 2025-12-31. I tested validity on the dates.\n- **\"US person\":** this is not a term in the ontology. I-016 and I-017 were treated as US persons on their W-9 forms and recorded US residence only.\n- **Look-through depth:** Atlas Lux Feeder (I-002) and Sterling Nominees (I-007) have no lines of their own; their shares go to the recipients behind them. No recipient is itself an intermediary.\n- **Rule text:** the bundle notes that the rule versions are illustrative and have not been checked against the primary text.",
+    "score": {
+      "cases": {
+        "G1 baseline": true,
+        "G7 expired form": true,
+        "G8 conflict reported": true,
+        "G7 superseded holding": true,
+        "G5 same name kept apart": true,
+        "G6 threshold: just under": true,
+        "G4 nominee looked through": true,
+        "G8 US person not withheld": true,
+        "G2 multiplied through tiers": true,
+        "G6 threshold: exactly on it": true,
+        "G3 circular holding: reported": true,
+        "G6 threshold: voting, not economic": true,
+        "G3 circular holding: no treaty rate": true
+      },
+      "tax_error": 0.0,
+      "tax_total": 1510562.5,
+      "cases_total": 13,
+      "gross_total": 10000000.0,
+      "lines_given": 15,
+      "cases_passed": 13,
+      "tax_expected": 1510562.5,
+      "lines_correct": 15,
+      "lines_expected": 15
+    }
+  },
+  "steps": [
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 1,
+      "at": "2026-10-13T16:09:21.207290+00:00",
+      "kind": "tool",
+      "concept": "tools/open-case",
+      "terms": [
+        "xbpei:Case",
+        "xbpei:caseKind",
+        "xbpei:concernsParty",
+        "xbpei:concernsDistribution",
+        "xbpei:openedOn"
+      ],
+      "parameters": {
+        "case_kind": "distribution",
+        "concerns_party": null,
+        "concerns_distribution": "D-001"
+      },
+      "executed": null,
+      "result": {
+        "case": "K-R001"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 2,
+      "at": "2026-10-13T16:09:21.755165+00:00",
+      "kind": "computation",
+      "concept": "computations/distribution",
+      "terms": [
+        "xbpei:DistributionEvent",
+        "xbpei:DistributionComponent",
+        "xbpei:distributedBy",
+        "xbpei:hasComponent",
+        "xbpei:hasIncomeType",
+        "xbpei:sourcedIn",
+        "xbpei:recordDate",
+        "xbpei:paymentDate",
+        "xbpei:grossAmount",
+        "xbpei:currencyCode"
+      ],
+      "parameters": {
+        "distribution_id": "D-001"
+      },
+      "executed": "SELECT d.dist_id AS distribution, f.fund_code, e.entity_id AS fund_entity, f.fund_name, d.record_dt AS record_date,\n       d.pay_dt AS payment_date, d.ccy AS currency, d.gross_amt AS distribution_gross, dc.comp_id AS component,\n       dc.income_cd AS income_code, dc.source_country, dc.gross_amt AS component_gross,\n       'treasury.distribution_component:' || dc.comp_id AS source_ref\nFROM treasury.distribution d\nJOIN treasury.counterparty cp ON cp.cp_id = d.fund_cp\nJOIN investor_register.fund f ON f.lei = cp.lei\nLEFT JOIN entity_mgmt.legal_entity e ON e.lei = cp.lei\nJOIN treasury.distribution_component dc ON dc.dist_id = d.dist_id\nWHERE d.dist_id = %(distribution_id)s\nORDER BY dc.comp_id",
+      "result": [
+        {
+          "currency": "USD",
+          "component": "D-001-A",
+          "fund_code": "AGF1",
+          "fund_name": "Atlas Growth Fund I LP",
+          "source_ref": "treasury.distribution_component:D-001-A",
+          "fund_entity": "E-001",
+          "income_code": "DIV",
+          "record_date": "2026-10-30",
+          "distribution": "D-001",
+          "payment_date": "2026-11-16",
+          "source_country": "US",
+          "component_gross": 10000000.0,
+          "distribution_gross": 12000000.0
+        },
+        {
+          "currency": "USD",
+          "component": "D-001-B",
+          "fund_code": "AGF1",
+          "fund_name": "Atlas Growth Fund I LP",
+          "source_ref": "treasury.distribution_component:D-001-B",
+          "fund_entity": "E-001",
+          "income_code": "ROC",
+          "record_date": "2026-10-30",
+          "distribution": "D-001",
+          "payment_date": "2026-11-16",
+          "source_country": null,
+          "component_gross": 2000000.0,
+          "distribution_gross": 12000000.0
+        }
+      ],
+      "row_count": 2,
+      "attested": true,
+      "verdict": "The sanctioned computation ran and the result is as reported."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 3,
+      "at": "2026-10-13T16:09:22.565897+00:00",
+      "kind": "computation",
+      "concept": "computations/frozen-investor-list",
+      "terms": [
+        "xbpei:OwnershipInterest",
+        "xbpei:heldBy",
+        "xbpei:interestIn",
+        "xbpei:economicPercentage",
+        "xbpei:votingPercentage",
+        "xbpei:validDuring",
+        "xbpei:Party",
+        "xbpei:recordDate",
+        "xbpei:grossAmount"
+      ],
+      "parameters": {
+        "distribution_id": "D-001"
+      },
+      "executed": "SELECT i.inv_no AS investor_no, i.display_name AS name, i.reg_no AS registration_no, c.commit_id AS interest,\n       c.unit_pct AS economic_pct, c.vote_pct AS voting_pct, l.comp_id AS component, l.gross_amt AS gross_amount,\n       'investor_register.commitment:' || c.commit_id AS source_ref\nFROM treasury.distribution d\nJOIN treasury.counterparty fund_cp ON fund_cp.cp_id = d.fund_cp\nJOIN investor_register.fund f ON f.lei = fund_cp.lei\nJOIN treasury.distribution_component dc ON dc.dist_id = d.dist_id\nJOIN treasury.distribution_line l ON l.comp_id = dc.comp_id\nJOIN treasury.counterparty cp ON cp.cp_id = l.payee_cp\nJOIN investor_register.investor i ON i.lei = cp.lei\nJOIN investor_register.commitment c ON c.inv_no = i.inv_no AND c.fund_code = f.fund_code\n     AND c.from_dt <= d.record_dt AND (c.to_dt IS NULL OR c.to_dt >= d.record_dt)\nWHERE d.dist_id = %(distribution_id)s\nORDER BY i.inv_no, l.comp_id",
+      "result": [
+        {
+          "name": "Harbor Pension Trust",
+          "interest": "C-001",
+          "component": "D-001-A",
+          "source_ref": "investor_register.commitment:C-001",
+          "voting_pct": 10.0,
+          "investor_no": "I-001",
+          "economic_pct": 10.0,
+          "gross_amount": 1000000.0,
+          "registration_no": "B 198 220"
+        },
+        {
+          "name": "Harbor Pension Trust",
+          "interest": "C-001",
+          "component": "D-001-B",
+          "source_ref": "investor_register.commitment:C-001",
+          "voting_pct": 10.0,
+          "investor_no": "I-001",
+          "economic_pct": 10.0,
+          "gross_amount": 200000.0,
+          "registration_no": "B 198 220"
+        },
+        {
+          "name": "Atlas Lux Feeder SCSp",
+          "interest": "C-002",
+          "component": "D-001-A",
+          "source_ref": "investor_register.commitment:C-002",
+          "voting_pct": 24.0,
+          "investor_no": "I-002",
+          "economic_pct": 24.0,
+          "gross_amount": 2400000.0,
+          "registration_no": "B 281 904"
+        },
+        {
+          "name": "Atlas Lux Feeder SCSp",
+          "interest": "C-002",
+          "component": "D-001-B",
+          "source_ref": "investor_register.commitment:C-002",
+          "voting_pct": 24.0,
+          "investor_no": "I-002",
+          "economic_pct": 24.0,
+          "gross_amount": 480000.0,
+          "registration_no": "B 281 904"
+        },
+        {
+          "name": "Kirchberg Industries S.A.",
+          "interest": "C-003",
+          "component": "D-001-A",
+          "source_ref": "investor_register.commitment:C-003",
+          "voting_pct": 12.5,
+          "investor_no": "I-003",
+          "economic_pct": 12.5,
+          "gross_amount": 1250000.0,
+          "registration_no": "B 144 061"
+        },
+        {
+          "name": "Kirchberg Industries S.A.",
+          "interest": "C-003",
+          "component": "D-001-B",
+          "source_ref": "investor_register.commitment:C-003",
+          "voting_pct": 12.5,
+          "investor_no": "I-003",
+          "economic_pct": 12.5,
+          "gross_amount": 250000.0,
+          "registration_no": "B 144 061"
+        },
+        {
+          "name": "Limpertsberg Holdings S.A.",
+          "interest": "C-004",
+          "component": "D-001-A",
+          "source_ref": "investor_register.commitment:C-004",
+          "voting_pct": 12.4875,
+          "investor_no": "I-004",
+          "economic_pct": 12.4875,
+          "gross_amount": 1248750.0,
+          "registration_no": "B 152 733"
+        },
+        {
+          "name": "Limpertsberg Holdings S.A.",
+          "interest": "C-004",
+          "component": "D-001-B",
+          "source_ref": "investor_register.commitment:C-004",
+          "voting_pct": 12.4875,
+          "investor_no": "I-004",
+          "economic_pct": 12.4875,
+          "gross_amount": 249750.0,
+          "registration_no": "B 152 733"
+        },
+        {
+          "name": "Grund Participations S.A.",
+          "interest": "C-005",
+          "component": "D-001-A",
+          "source_ref": "investor_register.commitment:C-005",
+          "voting_pct": 10.0,
+          "investor_no": "I-005",
+          "economic_pct": 13.0,
+          "gross_amount": 1300000.0,
+          "registration_no": "B 167 408"
+        },
+        {
+          "name": "Grund Participations S.A.",
+          "interest": "C-005",
+          "component": "D-001-B",
+          "source_ref": "investor_register.commitment:C-005",
+          "voting_pct": 10.0,
+          "investor_no": "I-005",
+          "economic_pct": 13.0,
+          "gross_amount": 260000.0,
+          "registration_no": "B 167 408"
+        },
+        {
+          "name": "Meridian Holdings I S.à r.l.",
+          "interest": "C-006",
+          "component": "D-001-A",
+          "source_ref": "investor_register.commitment:C-006",
+          "voting_pct": 3.0,
+          "investor_no": "I-006",
+          "economic_pct": 3.0,
+          "gross_amount": 300000.0,
+          "registration_no": "B 221 590"
+        },
+        {
+          "name": "Meridian Holdings I S.à r.l.",
+          "interest": "C-006",
+          "component": "D-001-B",
+          "source_ref": "investor_register.commitment:C-006",
+          "voting_pct": 3.0,
+          "investor_no": "I-006",
+          "economic_pct": 3.0,
+          "gross_amount": 60000.0,
+          "registration_no": "B 221 590"
+        },
+        {
+          "name": "Sterling Nominees Ltd",
+          "interest": "C-007",
+          "component": "D-001-A",
+          "source_ref": "investor_register.commitment:C-007",
+          "voting_pct": 6.0,
+          "investor_no": "I-007",
+          "economic_pct": 6.0,
+          "gross_amount": 600000.0,
+          "registration_no": "09417265"
+        },
+        {
+          "name": "Sterling Nominees Ltd",
+          "interest": "C-007",
+          "component": "D-001-B",
+          "source_ref": "investor_register.commitment:C-007",
+          "voting_pct": 6.0,
+          "investor_no": "I-007",
+          "economic_pct": 6.0,
+          "gross_amount": 120000.0,
+          "registration_no": "09417265"
+        },
+        {
+          "name": "Alpha Holdings SA",
+          "interest": "C-008",
+          "component": "D-001-A",
+          "source_ref": "investor_register.commitment:C-008",
+          "voting_pct": 6.0,
+          "investor_no": "I-008",
+          "economic_pct": 6.0,
+          "gross_amount": 600000.0,
+          "registration_no": "B 214 577"
+        },
+        {
+          "name": "Alpha Holdings SA",
+          "interest": "C-008",
+          "component": "D-001-B",
+          "source_ref": "investor_register.commitment:C-008",
+          "voting_pct": 6.0,
+          "investor_no": "I-008",
+          "economic_pct": 6.0,
+          "gross_amount": 120000.0,
+          "registration_no": "B 214 577"
+        },
+        {
+          "name": "Alpha Holdings SA",
+          "interest": "C-009",
+          "component": "D-001-A",
+          "source_ref": "investor_register.commitment:C-009",
+          "voting_pct": 1.0,
+          "investor_no": "I-009",
+          "economic_pct": 1.0,
+          "gross_amount": 100000.0,
+          "registration_no": "CHE-318.442.907"
+        },
+        {
+          "name": "Alpha Holdings SA",
+          "interest": "C-009",
+          "component": "D-001-B",
+          "source_ref": "investor_register.commitment:C-009",
+          "voting_pct": 1.0,
+          "investor_no": "I-009",
+          "economic_pct": 1.0,
+          "gross_amount": 20000.0,
+          "registration_no": "CHE-318.442.907"
+        },
+        {
+          "name": "Bertrange Capital S.A.",
+          "interest": "C-015",
+          "component": "D-001-A",
+          "source_ref": "investor_register.commitment:C-015",
+          "voting_pct": 5.0,
+          "investor_no": "I-015",
+          "economic_pct": 5.0,
+          "gross_amount": 500000.0,
+          "registration_no": "B 188 371"
+        },
+        {
+          "name": "Bertrange Capital S.A.",
+          "interest": "C-015",
+          "component": "D-001-B",
+          "source_ref": "investor_register.commitment:C-015",
+          "voting_pct": 5.0,
+          "investor_no": "I-015",
+          "economic_pct": 5.0,
+          "gross_amount": 100000.0,
+          "registration_no": "B 188 371"
+        },
+        {
+          "name": "Atlas Co-Invest Vehicle LP",
+          "interest": "C-016",
+          "component": "D-001-A",
+          "source_ref": "investor_register.commitment:C-016",
+          "voting_pct": 3.0,
+          "investor_no": "I-016",
+          "economic_pct": 3.0,
+          "gross_amount": 300000.0,
+          "registration_no": "DE 7230016"
+        },
+        {
+          "name": "Atlas Co-Invest Vehicle LP",
+          "interest": "C-016",
+          "component": "D-001-B",
+          "source_ref": "investor_register.commitment:C-016",
+          "voting_pct": 3.0,
+          "investor_no": "I-016",
+          "economic_pct": 3.0,
+          "gross_amount": 60000.0,
+          "registration_no": "DE 7230016"
+        },
+        {
+          "name": "Atlas GP LLC",
+          "interest": "C-017",
+          "component": "D-001-A",
+          "source_ref": "investor_register.commitment:C-017",
+          "voting_pct": 7.0125,
+          "investor_no": "I-017",
+          "economic_pct": 4.0125,
+          "gross_amount": 401250.0,
+          "registration_no": "DE 7104402"
+        },
+        {
+          "name": "Atlas GP LLC",
+          "interest": "C-017",
+          "component": "D-001-B",
+          "source_ref": "investor_register.commitment:C-017",
+          "voting_pct": 7.0125,
+          "investor_no": "I-017",
+          "economic_pct": 4.0125,
+          "gross_amount": 80250.0,
+          "registration_no": "DE 7104402"
+        }
+      ],
+      "row_count": 24,
+      "attested": true,
+      "verdict": "The sanctioned computation ran and the result is as reported."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 4,
+      "at": "2026-10-13T16:09:22.644832+00:00",
+      "kind": "computation",
+      "concept": "computations/upstream-income",
+      "terms": [
+        "xbpei:PaymentEvent",
+        "xbpei:payer",
+        "xbpei:payee",
+        "xbpei:hasPaymentType",
+        "xbpei:amount",
+        "xbpei:currencyCode",
+        "xbpei:occurredOn"
+      ],
+      "parameters": {
+        "distribution_id": "D-001"
+      },
+      "executed": "SELECT p.pay_id AS payment, p.value_dt AS occurred_on, p.pay_type_cd AS payment_code, p.amt AS amount, p.ccy AS currency,\n       payer.cp_name AS payer_name, payer_entity.entity_id AS payer_entity,\n       payee.cp_name AS payee_name, payee_entity.entity_id AS payee_entity,\n       'treasury.payment:' || p.pay_id AS source_ref\nFROM treasury.distribution d\nJOIN treasury.payment p ON p.pay_type_cd IN ('DIV', 'INT') AND p.value_dt BETWEEN d.record_dt - 60 AND d.record_dt\nJOIN treasury.counterparty payer ON payer.cp_id = p.payer_cp\nJOIN treasury.counterparty payee ON payee.cp_id = p.payee_cp\nLEFT JOIN entity_mgmt.legal_entity payer_entity ON payer_entity.lei = payer.lei\nLEFT JOIN entity_mgmt.legal_entity payee_entity ON payee_entity.lei = payee.lei\nWHERE d.dist_id = %(distribution_id)s\nORDER BY p.value_dt, p.pay_id",
+      "result": [
+        {
+          "amount": 3000000.0,
+          "payment": "P-005",
+          "currency": "EUR",
+          "payee_name": "ATLAS BOREALIS HOLDCO SARL",
+          "payer_name": "BOREALIS LOGISTIK GMBH",
+          "source_ref": "treasury.payment:P-005",
+          "occurred_on": "2026-09-18",
+          "payee_entity": "E-007",
+          "payer_entity": "E-006",
+          "payment_code": "DIV"
+        },
+        {
+          "amount": 3000000.0,
+          "payment": "P-006",
+          "currency": "EUR",
+          "payee_name": "ATLAS GROWTH FUND I LP",
+          "payer_name": "ATLAS BOREALIS HOLDCO SARL",
+          "source_ref": "treasury.payment:P-006",
+          "occurred_on": "2026-09-25",
+          "payee_entity": "E-001",
+          "payer_entity": "E-007",
+          "payment_code": "DIV"
+        },
+        {
+          "amount": 10000000.0,
+          "payment": "P-007",
+          "currency": "USD",
+          "payee_name": "ATLAS ACQUISITION SPV LLC",
+          "payer_name": "ORION MANUFACTURING INC",
+          "source_ref": "treasury.payment:P-007",
+          "occurred_on": "2026-10-09",
+          "payee_entity": "E-002",
+          "payer_entity": "E-003",
+          "payment_code": "DIV"
+        },
+        {
+          "amount": 10000000.0,
+          "payment": "P-008",
+          "currency": "USD",
+          "payee_name": "ATLAS GROWTH FUND I LP",
+          "payer_name": "ATLAS ACQUISITION SPV LLC",
+          "source_ref": "treasury.payment:P-008",
+          "occurred_on": "2026-10-12",
+          "payee_entity": "E-001",
+          "payer_entity": "E-002",
+          "payment_code": "DIV"
+        }
+      ],
+      "row_count": 4,
+      "attested": true,
+      "verdict": "The sanctioned computation ran and the result is as reported."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 5,
+      "at": "2026-10-13T16:09:23.219169+00:00",
+      "kind": "computation",
+      "concept": "computations/beneficial-recipients",
+      "terms": [
+        "xbpei:BeneficialOwner",
+        "xbpei:OwnershipInterest",
+        "xbpei:holdingCapacity",
+        "xbpei:heldThrough",
+        "xbpei:heldBy",
+        "xbpei:economicPercentage",
+        "xbpei:isIntermediaryCertification",
+        "xbpei:TaxCertification"
+      ],
+      "parameters": {
+        "distribution_id": "D-001"
+      },
+      "executed": "WITH dist AS (\n    SELECT d.record_dt, d.pay_dt, f.fund_code\n    FROM treasury.distribution d\n    JOIN treasury.counterparty cp ON cp.cp_id = d.fund_cp\n    JOIN investor_register.fund f ON f.lei = cp.lei\n    WHERE d.dist_id = %(distribution_id)s\n), intermediary AS (\n    SELECT DISTINCT t.inv_no\n    FROM onboarding.tax_form t, dist\n    WHERE t.is_intermediary = 'Y' AND t.form_status <> 'SUPERSEDED'\n      AND t.signed_dt <= dist.pay_dt AND (t.valid_to IS NULL OR t.valid_to >= dist.pay_dt)\n), payee AS (\n    SELECT c.inv_no, c.commit_id, i.lei, c.inv_no IN (SELECT inv_no FROM intermediary) AS looked_through\n    FROM dist\n    JOIN investor_register.commitment c ON c.fund_code = dist.fund_code\n         AND c.from_dt <= dist.record_dt AND (c.to_dt IS NULL OR c.to_dt >= dist.record_dt)\n    JOIN investor_register.investor i ON i.inv_no = c.inv_no\n), recipient AS (\n    SELECT p.inv_no AS investor_no, p.inv_no AS recipient_no, 100::numeric AS share_pct, 'own account' AS basis,\n           'investor_register.commitment:' || p.commit_id AS source_ref\n    FROM payee p WHERE NOT p.looked_through\n    UNION ALL\n    SELECT p.inv_no, c.inv_no, c.unit_pct, 'investor in a flow-through fund vehicle',\n           'investor_register.commitment:' || c.commit_id\n    FROM payee p\n    JOIN investor_register.fund f ON f.lei = p.lei\n    JOIN investor_register.commitment c ON c.fund_code = f.fund_code\n    CROSS JOIN dist\n    WHERE p.looked_through AND c.from_dt <= dist.record_dt AND (c.to_dt IS NULL OR c.to_dt >= dist.record_dt)\n    UNION ALL\n    SELECT p.inv_no, o.owner_inv_no, o.pct_econ, 'beneficial owner behind a nominee',\n           'onboarding.declared_owner:' || o.decl_id\n    FROM payee p\n    JOIN onboarding.declared_owner o ON o.owned_inv_no = p.inv_no AND o.alloc_basis = 'NOMINEE_ALLOC'\n    CROSS JOIN dist\n    WHERE p.looked_through AND o.from_dt <= dist.record_dt AND (o.to_dt IS NULL OR o.to_dt >= dist.record_dt)\n)\nSELECT r.investor_no, r.recipient_no, i.display_name AS recipient_name, r.share_pct, r.basis,\n       r.recipient_no IN (SELECT inv_no FROM intermediary) AS recipient_is_intermediary, r.source_ref\nFROM recipient r JOIN investor_register.investor i ON i.inv_no = r.recipient_no\nORDER BY r.investor_no, r.recipient_no",
+      "result": [
+        {
+          "basis": "own account",
+          "share_pct": 100.0,
+          "source_ref": "investor_register.commitment:C-001",
+          "investor_no": "I-001",
+          "recipient_no": "I-001",
+          "recipient_name": "Harbor Pension Trust",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "investor in a flow-through fund vehicle",
+          "share_pct": 50.0,
+          "source_ref": "investor_register.commitment:C-110",
+          "investor_no": "I-002",
+          "recipient_no": "I-010",
+          "recipient_name": "Ardennes Industrial Holding S.A.",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "investor in a flow-through fund vehicle",
+          "share_pct": 30.0,
+          "source_ref": "investor_register.commitment:C-111",
+          "investor_no": "I-002",
+          "recipient_no": "I-011",
+          "recipient_name": "Moselle Capital S.A.",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "investor in a flow-through fund vehicle",
+          "share_pct": 20.0,
+          "source_ref": "investor_register.commitment:C-112",
+          "investor_no": "I-002",
+          "recipient_no": "I-012",
+          "recipient_name": "Claire Dumont",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "own account",
+          "share_pct": 100.0,
+          "source_ref": "investor_register.commitment:C-003",
+          "investor_no": "I-003",
+          "recipient_no": "I-003",
+          "recipient_name": "Kirchberg Industries S.A.",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "own account",
+          "share_pct": 100.0,
+          "source_ref": "investor_register.commitment:C-004",
+          "investor_no": "I-004",
+          "recipient_no": "I-004",
+          "recipient_name": "Limpertsberg Holdings S.A.",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "own account",
+          "share_pct": 100.0,
+          "source_ref": "investor_register.commitment:C-005",
+          "investor_no": "I-005",
+          "recipient_no": "I-005",
+          "recipient_name": "Grund Participations S.A.",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "own account",
+          "share_pct": 100.0,
+          "source_ref": "investor_register.commitment:C-006",
+          "investor_no": "I-006",
+          "recipient_no": "I-006",
+          "recipient_name": "Meridian Holdings I S.à r.l.",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "beneficial owner behind a nominee",
+          "share_pct": 62.5,
+          "source_ref": "onboarding.declared_owner:DO-001",
+          "investor_no": "I-007",
+          "recipient_no": "I-013",
+          "recipient_name": "Echternach Pension Fund",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "beneficial owner behind a nominee",
+          "share_pct": 37.5,
+          "source_ref": "onboarding.declared_owner:DO-002",
+          "investor_no": "I-007",
+          "recipient_no": "I-014",
+          "recipient_name": "Client account 7731",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "own account",
+          "share_pct": 100.0,
+          "source_ref": "investor_register.commitment:C-008",
+          "investor_no": "I-008",
+          "recipient_no": "I-008",
+          "recipient_name": "Alpha Holdings SA",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "own account",
+          "share_pct": 100.0,
+          "source_ref": "investor_register.commitment:C-009",
+          "investor_no": "I-009",
+          "recipient_no": "I-009",
+          "recipient_name": "Alpha Holdings SA",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "own account",
+          "share_pct": 100.0,
+          "source_ref": "investor_register.commitment:C-015",
+          "investor_no": "I-015",
+          "recipient_no": "I-015",
+          "recipient_name": "Bertrange Capital S.A.",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "own account",
+          "share_pct": 100.0,
+          "source_ref": "investor_register.commitment:C-016",
+          "investor_no": "I-016",
+          "recipient_no": "I-016",
+          "recipient_name": "Atlas Co-Invest Vehicle LP",
+          "recipient_is_intermediary": false
+        },
+        {
+          "basis": "own account",
+          "share_pct": 100.0,
+          "source_ref": "investor_register.commitment:C-017",
+          "investor_no": "I-017",
+          "recipient_no": "I-017",
+          "recipient_name": "Atlas GP LLC",
+          "recipient_is_intermediary": false
+        }
+      ],
+      "row_count": 15,
+      "attested": true,
+      "verdict": "The sanctioned computation ran and the result is as reported."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 6,
+      "at": "2026-10-13T16:09:26.206227+00:00",
+      "kind": "computation",
+      "concept": "computations/record-conflicts",
+      "terms": [
+        "xbpei:OwnershipInterest",
+        "xbpei:economicPercentage",
+        "xbpei:votingPercentage"
+      ],
+      "parameters": {
+        "on_date": "2026-10-30"
+      },
+      "executed": "MATCH (a:Party)-[r:HOLDS]->(b:Party), (a)-[s:HOLDS]->(b)\nWHERE r.systemOfRecord AND NOT s.systemOfRecord AND r.validFrom <= date($on_date) AND (r.validTo IS NULL OR r.validTo >= date($on_date))\n  AND s.validFrom <= date($on_date) AND (s.validTo IS NULL OR s.validTo >= date($on_date))\n  AND (r.economicPercentage <> s.economicPercentage OR r.votingPercentage <> s.votingPercentage)\nRETURN a.id AS holder, a.name AS name, a.sourceRefs AS source_refs, b.id AS held_entity,\n       r.sourceRef AS record_ref, r.economicPercentage AS record_economic_pct, r.votingPercentage AS record_voting_pct,\n       s.sourceRef AS other_ref, s.economicPercentage AS other_economic_pct, s.votingPercentage AS other_voting_pct\nORDER BY holder",
+      "result": [
+        {
+          "name": "Atlas Co-Invest Vehicle LP",
+          "holder": "E-010",
+          "other_ref": "entity_mgmt.shareholding:H-006",
+          "record_ref": "investor_register.commitment:C-016",
+          "held_entity": "E-001",
+          "source_refs": [
+            "entity_mgmt.legal_entity:E-010",
+            "investor_register.investor:I-016",
+            "treasury.counterparty:CP-116"
+          ],
+          "other_voting_pct": 3.5,
+          "record_voting_pct": 3.0,
+          "other_economic_pct": 3.5,
+          "record_economic_pct": 3.0
+        }
+      ],
+      "row_count": 1,
+      "attested": true,
+      "verdict": "The sanctioned computation ran and the result is as reported."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 7,
+      "at": "2026-10-13T16:09:26.763907+00:00",
+      "kind": "computation",
+      "concept": "computations/rules-in-force",
+      "terms": [
+        "xbpei:RuleVersion",
+        "xbpei:appliesIn",
+        "xbpei:hasTreatyPartner",
+        "xbpei:effectiveDuring",
+        "xbpei:versionLabel",
+        "xbpei:prescribedRate",
+        "xbpei:minimumVotingPercentage",
+        "xbpei:derivedFrom",
+        "xbpei:AuthoritySource",
+        "xbpei:citation",
+        "xbpei:requiresFact",
+        "xbpei:FactRequirement",
+        "xbpei:isMandatory"
+      ],
+      "parameters": {
+        "on_date": "2026-11-16",
+        "jurisdiction": "US"
+      },
+      "executed": "SELECT r.rule_id, r.version_label, r.rule_name, r.rate_pct AS prescribed_rate, r.min_vote_pct AS minimum_voting_pct,\n       r.treaty_country, r.eff_from AS effective_from, r.eff_to AS effective_to,\n       (SELECT string_agg(a.citation, '; ' ORDER BY a.authority_id)\n        FROM rulebook.rule_authority ra JOIN rulebook.authority_source a ON a.authority_id = ra.authority_id\n        WHERE ra.rule_id = r.rule_id AND ra.version_label = r.version_label) AS derived_from,\n       (SELECT json_agg(json_build_object('requirement', q.req_id, 'description', q.description, 'mandatory', q.mandatory) ORDER BY q.req_id)\n        FROM rulebook.fact_requirement q\n        WHERE q.rule_id = r.rule_id AND q.version_label = r.version_label) AS requires_facts,\n       'rulebook.rule_version:' || r.rule_id || '/' || r.version_label AS source_ref\nFROM rulebook.rule_version r\nWHERE r.applies_in = %(jurisdiction)s\n  AND r.eff_from <= %(on_date)s::date AND (r.eff_to IS NULL OR r.eff_to >= %(on_date)s::date)\nORDER BY r.rule_id",
+      "result": [
+        {
+          "rule_id": "R-01",
+          "rule_name": "Statutory withholding on US-source dividends paid to foreign persons; also the default where documentation is missing or not valid",
+          "source_ref": "rulebook.rule_version:R-01/2026.1",
+          "derived_from": "26 U.S.C. §§ 1441, 1442",
+          "effective_to": null,
+          "version_label": "2026.1",
+          "effective_from": "2026-01-01",
+          "requires_facts": [
+            {
+              "mandatory": true,
+              "description": "Income type and source jurisdiction of the distribution component",
+              "requirement": "FR-01"
+            },
+            {
+              "mandatory": true,
+              "description": "Tax certification of the recipient, valid on the payment date",
+              "requirement": "FR-02"
+            },
+            {
+              "mandatory": true,
+              "description": "For an intermediary or flow-through recipient: the tax certification of each underlying owner and its share",
+              "requirement": "FR-03"
+            }
+          ],
+          "treaty_country": null,
+          "prescribed_rate": 30.0,
+          "minimum_voting_pct": null
+        },
+        {
+          "rule_id": "R-02",
+          "rule_name": "Treaty rate on US-source dividends paid to a resident of Luxembourg",
+          "source_ref": "rulebook.rule_version:R-02/2026.1",
+          "derived_from": "Convention of 3 April 1996, Article 10",
+          "effective_to": null,
+          "version_label": "2026.1",
+          "effective_from": "2026-01-01",
+          "requires_facts": [
+            {
+              "mandatory": true,
+              "description": "Tax residence of the recipient in the treaty jurisdiction",
+              "requirement": "FR-04"
+            },
+            {
+              "mandatory": true,
+              "description": "A treaty claim with a completed limitation-on-benefits statement",
+              "requirement": "FR-05"
+            },
+            {
+              "mandatory": false,
+              "description": "For an ownership-based limitation-on-benefits claim: the owners of the recipient up to its ultimate owners",
+              "requirement": "FR-07"
+            }
+          ],
+          "treaty_country": "LU",
+          "prescribed_rate": 15.0,
+          "minimum_voting_pct": null
+        },
+        {
+          "rule_id": "R-03",
+          "rule_name": "Treaty rate on US-source dividends paid to a Luxembourg company with a qualifying holding in the paying company",
+          "source_ref": "rulebook.rule_version:R-03/2026.1",
+          "derived_from": "Convention of 3 April 1996, Article 10",
+          "effective_to": null,
+          "version_label": "2026.1",
+          "effective_from": "2026-01-01",
+          "requires_facts": [
+            {
+              "mandatory": true,
+              "description": "Effective voting percentage of the recipient in the paying company, and every fact R-02 requires",
+              "requirement": "FR-06"
+            }
+          ],
+          "treaty_country": "LU",
+          "prescribed_rate": 5.0,
+          "minimum_voting_pct": 10.0
+        }
+      ],
+      "row_count": 3,
+      "attested": true,
+      "verdict": "The sanctioned computation ran and the result is as reported."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 8,
+      "at": "2026-10-13T16:09:27.391406+00:00",
+      "kind": "computation",
+      "concept": "computations/clearance-in-force",
+      "terms": [
+        "xbpei:Clearance",
+        "xbpei:clearanceOf",
+        "xbpei:inContextOf",
+        "xbpei:clearanceStatus",
+        "xbpei:decidedOn",
+        "xbpei:validDuring",
+        "xbpei:defaultTreatment",
+        "xbpei:hasOpenItem",
+        "xbpei:reliesOnCertification",
+        "xbpei:reliesOnFact",
+        "xbpei:Case",
+        "xbpei:ChangeEvent",
+        "xbpei:triggeredBy"
+      ],
+      "parameters": {
+        "on_date": "2026-11-16",
+        "fund_code": "AGF1"
+      },
+      "executed": "WITH latest AS (\n    SELECT c.*, row_number() OVER (PARTITION BY c.clearance_of ORDER BY c.decided_on DESC, c.valid_from DESC) AS position\n    FROM clearance.clearance c\n    WHERE c.in_context_of = %(fund_code)s AND c.decided_on <= %(on_date)s::date AND c.valid_from <= %(on_date)s::date\n)\nSELECT l.clearance_id AS clearance, l.clearance_of AS party_no, l.clearance_status, l.decided_on, l.valid_from, l.valid_to,\n       (l.clearance_status IN ('cleared', 'admittedWithOpenItems')\n        AND (l.valid_to IS NULL OR l.valid_to >= %(on_date)s::date)) AS in_force_on_date,\n       l.default_treatment,\n       (SELECT array_agg(m.finding_id || ' (' || m.unmet_requirement || '): ' || m.description ORDER BY m.finding_id)\n        FROM clearance.missing_fact_finding m WHERE m.clearance_id = l.clearance_id) AS open_items,\n       (SELECT array_agg(k.case_id || ': ' || e.description ORDER BY k.case_id)\n        FROM clearance.case k LEFT JOIN clearance.change_event e ON e.change_id = k.triggered_by\n        WHERE k.concerns_party = l.clearance_of AND k.case_kind = 'change'\n          AND k.opened_on <= %(on_date)s::date AND (k.closed_on IS NULL OR k.closed_on > %(on_date)s::date)) AS open_change_cases,\n       (SELECT array_agg(r.source_ref ORDER BY r.source_ref) FROM clearance.clearance_reliance r\n        WHERE r.clearance_id = l.clearance_id) AS relies_on,\n       'clearance.clearance:' || l.clearance_id AS source_ref\nFROM latest l\nWHERE l.position = 1\nORDER BY l.clearance_of",
+      "result": [
+        {
+          "party_no": "I-001",
+          "valid_to": "2028-12-31",
+          "clearance": "CL-001",
+          "relies_on": [
+            "onboarding.tax_form:F-001"
+          ],
+          "decided_on": "2025-02-10",
+          "open_items": null,
+          "source_ref": "clearance.clearance:CL-001",
+          "valid_from": "2025-02-10",
+          "clearance_status": "cleared",
+          "in_force_on_date": true,
+          "default_treatment": null,
+          "open_change_cases": null
+        },
+        {
+          "party_no": "I-002",
+          "valid_to": "2028-12-31",
+          "clearance": "CL-002",
+          "relies_on": [
+            "onboarding.tax_form:F-002",
+            "onboarding.tax_form:F-010",
+            "onboarding.tax_form:F-011",
+            "onboarding.tax_form:F-012"
+          ],
+          "decided_on": "2025-02-12",
+          "open_items": null,
+          "source_ref": "clearance.clearance:CL-002",
+          "valid_from": "2025-02-12",
+          "clearance_status": "cleared",
+          "in_force_on_date": true,
+          "default_treatment": null,
+          "open_change_cases": null
+        },
+        {
+          "party_no": "I-003",
+          "valid_to": "2027-12-31",
+          "clearance": "CL-003",
+          "relies_on": [
+            "onboarding.tax_form:F-003"
+          ],
+          "decided_on": "2024-06-20",
+          "open_items": null,
+          "source_ref": "clearance.clearance:CL-003",
+          "valid_from": "2024-06-20",
+          "clearance_status": "cleared",
+          "in_force_on_date": true,
+          "default_treatment": null,
+          "open_change_cases": null
+        },
+        {
+          "party_no": "I-004",
+          "valid_to": "2027-12-31",
+          "clearance": "CL-004",
+          "relies_on": [
+            "onboarding.tax_form:F-004"
+          ],
+          "decided_on": "2024-06-20",
+          "open_items": null,
+          "source_ref": "clearance.clearance:CL-004",
+          "valid_from": "2024-06-20",
+          "clearance_status": "cleared",
+          "in_force_on_date": true,
+          "default_treatment": null,
+          "open_change_cases": null
+        },
+        {
+          "party_no": "I-005",
+          "valid_to": "2027-12-31",
+          "clearance": "CL-005",
+          "relies_on": [
+            "onboarding.tax_form:F-005"
+          ],
+          "decided_on": "2024-07-25",
+          "open_items": null,
+          "source_ref": "clearance.clearance:CL-005",
+          "valid_from": "2024-07-25",
+          "clearance_status": "cleared",
+          "in_force_on_date": true,
+          "default_treatment": null,
+          "open_change_cases": null
+        },
+        {
+          "party_no": "I-006",
+          "valid_to": "2027-12-31",
+          "clearance": "CL-006",
+          "relies_on": [
+            "onboarding.declared_owner:DO-003",
+            "onboarding.tax_form:F-006"
+          ],
+          "decided_on": "2024-03-20",
+          "open_items": null,
+          "source_ref": "clearance.clearance:CL-006",
+          "valid_from": "2024-03-20",
+          "clearance_status": "cleared",
+          "in_force_on_date": true,
+          "default_treatment": null,
+          "open_change_cases": [
+            "K-006: Meridian Holdings I reports a restructuring: Meridian Holdings II now holds 30% of it"
+          ]
+        },
+        {
+          "party_no": "I-007",
+          "valid_to": "2028-12-31",
+          "clearance": "CL-007",
+          "relies_on": [
+            "onboarding.tax_form:F-007",
+            "onboarding.tax_form:F-013"
+          ],
+          "decided_on": "2025-03-15",
+          "open_items": [
+            "MF-001 (FR-03): No tax certification for the owner of 37.5% of the income Sterling Nominees receives"
+          ],
+          "source_ref": "clearance.clearance:CL-007",
+          "valid_from": "2025-03-15",
+          "clearance_status": "admittedWithOpenItems",
+          "in_force_on_date": true,
+          "default_treatment": "30% default rate on the share of the undocumented owner",
+          "open_change_cases": null
+        },
+        {
+          "party_no": "I-008",
+          "valid_to": "2027-12-31",
+          "clearance": "CL-008",
+          "relies_on": [
+            "onboarding.tax_form:F-008"
+          ],
+          "decided_on": "2024-12-02",
+          "open_items": null,
+          "source_ref": "clearance.clearance:CL-008",
+          "valid_from": "2025-01-01",
+          "clearance_status": "cleared",
+          "in_force_on_date": true,
+          "default_treatment": null,
+          "open_change_cases": null
+        },
+        {
+          "party_no": "I-009",
+          "valid_to": "2028-12-31",
+          "clearance": "CL-009",
+          "relies_on": [
+            "onboarding.tax_form:F-009"
+          ],
+          "decided_on": "2025-04-20",
+          "open_items": null,
+          "source_ref": "clearance.clearance:CL-009",
+          "valid_from": "2025-04-20",
+          "clearance_status": "cleared",
+          "in_force_on_date": true,
+          "default_treatment": null,
+          "open_change_cases": null
+        },
+        {
+          "party_no": "I-015",
+          "valid_to": null,
+          "clearance": "CL-015W",
+          "relies_on": null,
+          "decided_on": "2026-01-01",
+          "open_items": [
+            "MF-002 (FR-02): Form F-015 ended on 31 December 2025 and no new form was received"
+          ],
+          "source_ref": "clearance.clearance:CL-015W",
+          "valid_from": "2026-01-01",
+          "clearance_status": "withdrawn",
+          "in_force_on_date": false,
+          "default_treatment": "30% default rate until a valid form is supplied",
+          "open_change_cases": null
+        },
+        {
+          "party_no": "I-016",
+          "valid_to": null,
+          "clearance": "CL-016",
+          "relies_on": [
+            "onboarding.tax_form:F-016"
+          ],
+          "decided_on": "2024-02-05",
+          "open_items": null,
+          "source_ref": "clearance.clearance:CL-016",
+          "valid_from": "2024-02-05",
+          "clearance_status": "cleared",
+          "in_force_on_date": true,
+          "default_treatment": null,
+          "open_change_cases": null
+        },
+        {
+          "party_no": "I-017",
+          "valid_to": null,
+          "clearance": "CL-017",
+          "relies_on": [
+            "onboarding.tax_form:F-017"
+          ],
+          "decided_on": "2024-02-05",
+          "open_items": null,
+          "source_ref": "clearance.clearance:CL-017",
+          "valid_from": "2024-02-05",
+          "clearance_status": "cleared",
+          "in_force_on_date": true,
+          "default_treatment": null,
+          "open_change_cases": null
+        }
+      ],
+      "row_count": 12,
+      "attested": true,
+      "verdict": "The sanctioned computation ran and the result is as reported."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 9,
+      "at": "2026-10-13T16:09:27.992726+00:00",
+      "kind": "computation",
+      "concept": "computations/tax-certifications",
+      "terms": [
+        "xbpei:TaxCertification",
+        "xbpei:certifiedBy",
+        "xbpei:hasCertificationType",
+        "xbpei:claimsTreatyBenefit",
+        "xbpei:claimsTreatyWith",
+        "xbpei:limitationOnBenefitsCategory",
+        "xbpei:isIntermediaryCertification",
+        "xbpei:validDuring",
+        "xbpei:documentDate"
+      ],
+      "parameters": {
+        "on_date": "2026-11-16"
+      },
+      "executed": "SELECT t.form_id AS certification, t.inv_no AS party_no, i.display_name AS name, t.form_type AS certification_type,\n       t.signed_dt AS signed_on, t.valid_to, t.treaty_claim = 'Y' AS claims_treaty_benefit, t.treaty_country,\n       t.lob_cd AS limitation_on_benefits, t.is_intermediary = 'Y' AS is_intermediary, t.form_status AS system_status,\n       (t.form_status <> 'SUPERSEDED' AND t.signed_dt <= %(on_date)s::date\n        AND (t.valid_to IS NULL OR t.valid_to >= %(on_date)s::date)) AS valid_on_date,\n       'onboarding.tax_form:' || t.form_id AS source_ref\nFROM onboarding.tax_form t\nJOIN investor_register.investor i ON i.inv_no = t.inv_no\nORDER BY t.inv_no, t.signed_dt",
+      "result": [
+        {
+          "name": "Harbor Pension Trust",
+          "party_no": "I-001",
+          "valid_to": "2028-12-31",
+          "signed_on": "2025-02-01",
+          "source_ref": "onboarding.tax_form:F-001",
+          "certification": "F-001",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": "LU",
+          "is_intermediary": false,
+          "certification_type": "W-8BEN-E",
+          "claims_treaty_benefit": true,
+          "limitation_on_benefits": "PENSION"
+        },
+        {
+          "name": "Atlas Lux Feeder SCSp",
+          "party_no": "I-002",
+          "valid_to": null,
+          "signed_on": "2025-01-20",
+          "source_ref": "onboarding.tax_form:F-002",
+          "certification": "F-002",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": null,
+          "is_intermediary": true,
+          "certification_type": "W-8IMY",
+          "claims_treaty_benefit": false,
+          "limitation_on_benefits": null
+        },
+        {
+          "name": "Kirchberg Industries S.A.",
+          "party_no": "I-003",
+          "valid_to": "2027-12-31",
+          "signed_on": "2024-06-03",
+          "source_ref": "onboarding.tax_form:F-003",
+          "certification": "F-003",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": "LU",
+          "is_intermediary": false,
+          "certification_type": "W-8BEN-E",
+          "claims_treaty_benefit": true,
+          "limitation_on_benefits": "ACTIVE_TRADE"
+        },
+        {
+          "name": "Limpertsberg Holdings S.A.",
+          "party_no": "I-004",
+          "valid_to": "2027-12-31",
+          "signed_on": "2024-06-05",
+          "source_ref": "onboarding.tax_form:F-004",
+          "certification": "F-004",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": "LU",
+          "is_intermediary": false,
+          "certification_type": "W-8BEN-E",
+          "claims_treaty_benefit": true,
+          "limitation_on_benefits": "ACTIVE_TRADE"
+        },
+        {
+          "name": "Grund Participations S.A.",
+          "party_no": "I-005",
+          "valid_to": "2027-12-31",
+          "signed_on": "2024-07-11",
+          "source_ref": "onboarding.tax_form:F-005",
+          "certification": "F-005",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": "LU",
+          "is_intermediary": false,
+          "certification_type": "W-8BEN-E",
+          "claims_treaty_benefit": true,
+          "limitation_on_benefits": "ACTIVE_TRADE"
+        },
+        {
+          "name": "Meridian Holdings I S.à r.l.",
+          "party_no": "I-006",
+          "valid_to": "2027-12-31",
+          "signed_on": "2024-03-05",
+          "source_ref": "onboarding.tax_form:F-006",
+          "certification": "F-006",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": "LU",
+          "is_intermediary": false,
+          "certification_type": "W-8BEN-E",
+          "claims_treaty_benefit": true,
+          "limitation_on_benefits": "OWNERSHIP_BASE_EROSION"
+        },
+        {
+          "name": "Sterling Nominees Ltd",
+          "party_no": "I-007",
+          "valid_to": null,
+          "signed_on": "2025-03-01",
+          "source_ref": "onboarding.tax_form:F-007",
+          "certification": "F-007",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": null,
+          "is_intermediary": true,
+          "certification_type": "W-8IMY",
+          "claims_treaty_benefit": false,
+          "limitation_on_benefits": null
+        },
+        {
+          "name": "Alpha Holdings SA",
+          "party_no": "I-008",
+          "valid_to": "2024-12-31",
+          "signed_on": "2021-05-10",
+          "source_ref": "onboarding.tax_form:F-008a",
+          "certification": "F-008a",
+          "system_status": "SUPERSEDED",
+          "valid_on_date": false,
+          "treaty_country": "LU",
+          "is_intermediary": false,
+          "certification_type": "W-8BEN-E",
+          "claims_treaty_benefit": true,
+          "limitation_on_benefits": "ACTIVE_TRADE"
+        },
+        {
+          "name": "Alpha Holdings SA",
+          "party_no": "I-008",
+          "valid_to": "2027-12-31",
+          "signed_on": "2024-11-20",
+          "source_ref": "onboarding.tax_form:F-008",
+          "certification": "F-008",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": "LU",
+          "is_intermediary": false,
+          "certification_type": "W-8BEN-E",
+          "claims_treaty_benefit": true,
+          "limitation_on_benefits": "ACTIVE_TRADE"
+        },
+        {
+          "name": "Alpha Holdings SA",
+          "party_no": "I-009",
+          "valid_to": "2028-12-31",
+          "signed_on": "2025-04-14",
+          "source_ref": "onboarding.tax_form:F-009",
+          "certification": "F-009",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": null,
+          "is_intermediary": false,
+          "certification_type": "W-8BEN-E",
+          "claims_treaty_benefit": false,
+          "limitation_on_benefits": null
+        },
+        {
+          "name": "Ardennes Industrial Holding S.A.",
+          "party_no": "I-010",
+          "valid_to": "2028-12-31",
+          "signed_on": "2025-01-15",
+          "source_ref": "onboarding.tax_form:F-010",
+          "certification": "F-010",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": "LU",
+          "is_intermediary": false,
+          "certification_type": "W-8BEN-E",
+          "claims_treaty_benefit": true,
+          "limitation_on_benefits": "ACTIVE_TRADE"
+        },
+        {
+          "name": "Moselle Capital S.A.",
+          "party_no": "I-011",
+          "valid_to": "2028-12-31",
+          "signed_on": "2025-01-18",
+          "source_ref": "onboarding.tax_form:F-011",
+          "certification": "F-011",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": "LU",
+          "is_intermediary": false,
+          "certification_type": "W-8BEN-E",
+          "claims_treaty_benefit": true,
+          "limitation_on_benefits": "ACTIVE_TRADE"
+        },
+        {
+          "name": "Claire Dumont",
+          "party_no": "I-012",
+          "valid_to": "2028-12-31",
+          "signed_on": "2025-01-22",
+          "source_ref": "onboarding.tax_form:F-012",
+          "certification": "F-012",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": null,
+          "is_intermediary": false,
+          "certification_type": "W-8BEN",
+          "claims_treaty_benefit": false,
+          "limitation_on_benefits": null
+        },
+        {
+          "name": "Echternach Pension Fund",
+          "party_no": "I-013",
+          "valid_to": "2028-12-31",
+          "signed_on": "2025-03-04",
+          "source_ref": "onboarding.tax_form:F-013",
+          "certification": "F-013",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": "LU",
+          "is_intermediary": false,
+          "certification_type": "W-8BEN-E",
+          "claims_treaty_benefit": true,
+          "limitation_on_benefits": "PENSION"
+        },
+        {
+          "name": "Bertrange Capital S.A.",
+          "party_no": "I-015",
+          "valid_to": "2025-12-31",
+          "signed_on": "2022-03-10",
+          "source_ref": "onboarding.tax_form:F-015",
+          "certification": "F-015",
+          "system_status": "VALIDATED",
+          "valid_on_date": false,
+          "treaty_country": "LU",
+          "is_intermediary": false,
+          "certification_type": "W-8BEN-E",
+          "claims_treaty_benefit": true,
+          "limitation_on_benefits": "ACTIVE_TRADE"
+        },
+        {
+          "name": "Atlas Co-Invest Vehicle LP",
+          "party_no": "I-016",
+          "valid_to": null,
+          "signed_on": "2024-02-01",
+          "source_ref": "onboarding.tax_form:F-016",
+          "certification": "F-016",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": null,
+          "is_intermediary": false,
+          "certification_type": "W-9",
+          "claims_treaty_benefit": false,
+          "limitation_on_benefits": null
+        },
+        {
+          "name": "Atlas GP LLC",
+          "party_no": "I-017",
+          "valid_to": null,
+          "signed_on": "2024-02-01",
+          "source_ref": "onboarding.tax_form:F-017",
+          "certification": "F-017",
+          "system_status": "VALIDATED",
+          "valid_on_date": true,
+          "treaty_country": null,
+          "is_intermediary": false,
+          "certification_type": "W-9",
+          "claims_treaty_benefit": false,
+          "limitation_on_benefits": null
+        }
+      ],
+      "row_count": 17,
+      "attested": true,
+      "verdict": "The sanctioned computation ran and the result is as reported."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 10,
+      "at": "2026-10-13T16:09:28.627147+00:00",
+      "kind": "computation",
+      "concept": "computations/tax-residence",
+      "terms": [
+        "xbpei:JurisdictionFact",
+        "xbpei:aboutEntity",
+        "xbpei:hasJurisdiction",
+        "xbpei:hasFactType",
+        "xbpei:TaxResidence",
+        "xbpei:validDuring"
+      ],
+      "parameters": {
+        "on_date": "2026-11-16"
+      },
+      "executed": "SELECT r.inv_no AS party_no, i.display_name AS name, r.country, r.from_dt AS valid_from, r.to_dt AS valid_to,\n       'onboarding.residence_record:' || r.inv_no || '/' || r.country || '/' || r.from_dt AS source_ref\nFROM onboarding.residence_record r\nJOIN investor_register.investor i ON i.inv_no = r.inv_no\nWHERE r.from_dt <= %(on_date)s::date AND (r.to_dt IS NULL OR r.to_dt >= %(on_date)s::date)\nORDER BY r.inv_no",
+      "result": [
+        {
+          "name": "Harbor Pension Trust",
+          "country": "LU",
+          "party_no": "I-001",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-001/LU/2011-01-01",
+          "valid_from": "2011-01-01"
+        },
+        {
+          "name": "Kirchberg Industries S.A.",
+          "country": "LU",
+          "party_no": "I-003",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-003/LU/2004-01-01",
+          "valid_from": "2004-01-01"
+        },
+        {
+          "name": "Limpertsberg Holdings S.A.",
+          "country": "LU",
+          "party_no": "I-004",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-004/LU/2006-01-01",
+          "valid_from": "2006-01-01"
+        },
+        {
+          "name": "Grund Participations S.A.",
+          "country": "LU",
+          "party_no": "I-005",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-005/LU/2008-01-01",
+          "valid_from": "2008-01-01"
+        },
+        {
+          "name": "Meridian Holdings I S.à r.l.",
+          "country": "LU",
+          "party_no": "I-006",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-006/LU/2017-01-01",
+          "valid_from": "2017-01-01"
+        },
+        {
+          "name": "Sterling Nominees Ltd",
+          "country": "GB",
+          "party_no": "I-007",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-007/GB/2015-01-01",
+          "valid_from": "2015-01-01"
+        },
+        {
+          "name": "Alpha Holdings SA",
+          "country": "LU",
+          "party_no": "I-008",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-008/LU/2016-01-01",
+          "valid_from": "2016-01-01"
+        },
+        {
+          "name": "Alpha Holdings SA",
+          "country": "CH",
+          "party_no": "I-009",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-009/CH/2012-01-01",
+          "valid_from": "2012-01-01"
+        },
+        {
+          "name": "Ardennes Industrial Holding S.A.",
+          "country": "LU",
+          "party_no": "I-010",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-010/LU/2003-01-01",
+          "valid_from": "2003-01-01"
+        },
+        {
+          "name": "Moselle Capital S.A.",
+          "country": "LU",
+          "party_no": "I-011",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-011/LU/2010-01-01",
+          "valid_from": "2010-01-01"
+        },
+        {
+          "name": "Claire Dumont",
+          "country": "FR",
+          "party_no": "I-012",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-012/FR/1999-01-01",
+          "valid_from": "1999-01-01"
+        },
+        {
+          "name": "Echternach Pension Fund",
+          "country": "LU",
+          "party_no": "I-013",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-013/LU/2001-01-01",
+          "valid_from": "2001-01-01"
+        },
+        {
+          "name": "Bertrange Capital S.A.",
+          "country": "LU",
+          "party_no": "I-015",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-015/LU/2013-01-01",
+          "valid_from": "2013-01-01"
+        },
+        {
+          "name": "Atlas Co-Invest Vehicle LP",
+          "country": "US",
+          "party_no": "I-016",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-016/US/2024-01-15",
+          "valid_from": "2024-01-15"
+        },
+        {
+          "name": "Atlas GP LLC",
+          "country": "US",
+          "party_no": "I-017",
+          "valid_to": null,
+          "source_ref": "onboarding.residence_record:I-017/US/2023-10-20",
+          "valid_from": "2023-10-20"
+        }
+      ],
+      "row_count": 15,
+      "attested": true,
+      "verdict": "The sanctioned computation ran and the result is as reported."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 11,
+      "at": "2026-10-13T16:09:29.427884+00:00",
+      "kind": "computation",
+      "concept": "computations/effective-holding",
+      "terms": [
+        "xbpei:OwnershipInterest",
+        "xbpei:heldBy",
+        "xbpei:interestIn",
+        "xbpei:economicPercentage",
+        "xbpei:votingPercentage",
+        "xbpei:holdingCapacity",
+        "xbpei:validDuring",
+        "xbpei:FundVehicle",
+        "xbpei:SPV",
+        "xbpei:BeneficialOwner"
+      ],
+      "parameters": {
+        "on_date": "2026-11-16",
+        "company_id": "E-003"
+      },
+      "executed": "MATCH p = (h:Party)-[e:HOLDS* ACYCLIC 1..8 (r, n | WHERE r.systemOfRecord AND r.holdingCapacity = 'beneficial'\n        AND r.validFrom <= date($on_date) AND (r.validTo IS NULL OR r.validTo >= date($on_date)) AND (n.isFundVehicle OR n.isSPV))]->(c:Party {id: $company_id})\nWHERE NOT h.isSPV AND NOT (h.isFundVehicle AND EXISTS {\n        MATCH (:Party)-[r:HOLDS]->(h) WHERE r.systemOfRecord AND r.validFrom <= date($on_date) AND (r.validTo IS NULL OR r.validTo >= date($on_date)) })\nWITH h, list_product(properties(rels(p), 'economicPercentage')) / pow(100, size(rels(p)) - 1) AS economic,\n     list_product(properties(rels(p), 'votingPercentage')) / pow(100, size(rels(p)) - 1) AS voting\nRETURN h.id AS holder, h.name AS name, h.sourceRefs AS source_refs,\n       round(sum(economic), 4) AS effective_economic_pct, round(sum(voting), 4) AS effective_voting_pct\nORDER BY holder",
+      "result": [
+        {
+          "name": "Atlas GP LLC",
+          "holder": "E-004",
+          "source_refs": [
+            "entity_mgmt.legal_entity:E-004",
+            "investor_register.investor:I-017",
+            "treasury.counterparty:CP-117"
+          ],
+          "effective_voting_pct": 5.61,
+          "effective_economic_pct": 3.21
+        },
+        {
+          "name": "Atlas Co-Invest Vehicle LP",
+          "holder": "E-010",
+          "source_refs": [
+            "entity_mgmt.legal_entity:E-010",
+            "investor_register.investor:I-016",
+            "treasury.counterparty:CP-116"
+          ],
+          "effective_voting_pct": 2.4,
+          "effective_economic_pct": 2.4
+        },
+        {
+          "name": "Harbor Pension Trust",
+          "holder": "I-001",
+          "source_refs": [
+            "investor_register.investor:I-001",
+            "treasury.counterparty:CP-101"
+          ],
+          "effective_voting_pct": 8.0,
+          "effective_economic_pct": 8.0
+        },
+        {
+          "name": "Kirchberg Industries S.A.",
+          "holder": "I-003",
+          "source_refs": [
+            "investor_register.investor:I-003",
+            "treasury.counterparty:CP-103"
+          ],
+          "effective_voting_pct": 10.0,
+          "effective_economic_pct": 10.0
+        },
+        {
+          "name": "Limpertsberg Holdings S.A.",
+          "holder": "I-004",
+          "source_refs": [
+            "investor_register.investor:I-004",
+            "treasury.counterparty:CP-104"
+          ],
+          "effective_voting_pct": 9.99,
+          "effective_economic_pct": 9.99
+        },
+        {
+          "name": "Grund Participations S.A.",
+          "holder": "I-005",
+          "source_refs": [
+            "investor_register.investor:I-005",
+            "treasury.counterparty:CP-105"
+          ],
+          "effective_voting_pct": 8.0,
+          "effective_economic_pct": 10.4
+        },
+        {
+          "name": "Meridian Holdings I S.à r.l.",
+          "holder": "I-006",
+          "source_refs": [
+            "investor_register.investor:I-006",
+            "treasury.counterparty:CP-106"
+          ],
+          "effective_voting_pct": 2.4,
+          "effective_economic_pct": 2.4
+        },
+        {
+          "name": "Alpha Holdings SA",
+          "holder": "I-008",
+          "source_refs": [
+            "investor_register.investor:I-008",
+            "treasury.counterparty:CP-108"
+          ],
+          "effective_voting_pct": 4.8,
+          "effective_economic_pct": 4.8
+        },
+        {
+          "name": "Alpha Holdings SA",
+          "holder": "I-009",
+          "source_refs": [
+            "investor_register.investor:I-009",
+            "treasury.counterparty:CP-109"
+          ],
+          "effective_voting_pct": 0.8,
+          "effective_economic_pct": 0.8
+        },
+        {
+          "name": "Ardennes Industrial Holding S.A.",
+          "holder": "I-010",
+          "source_refs": [
+            "investor_register.investor:I-010"
+          ],
+          "effective_voting_pct": 9.6,
+          "effective_economic_pct": 9.6
+        },
+        {
+          "name": "Moselle Capital S.A.",
+          "holder": "I-011",
+          "source_refs": [
+            "investor_register.investor:I-011"
+          ],
+          "effective_voting_pct": 5.76,
+          "effective_economic_pct": 5.76
+        },
+        {
+          "name": "Claire Dumont",
+          "holder": "I-012",
+          "source_refs": [
+            "investor_register.investor:I-012"
+          ],
+          "effective_voting_pct": 3.84,
+          "effective_economic_pct": 3.84
+        },
+        {
+          "name": "Echternach Pension Fund",
+          "holder": "I-013",
+          "source_refs": [
+            "investor_register.investor:I-013"
+          ],
+          "effective_voting_pct": 3.0,
+          "effective_economic_pct": 3.0
+        },
+        {
+          "name": "Client account 7731",
+          "holder": "I-014",
+          "source_refs": [
+            "investor_register.investor:I-014"
+          ],
+          "effective_voting_pct": 1.8,
+          "effective_economic_pct": 1.8
+        },
+        {
+          "name": "Bertrange Capital S.A.",
+          "holder": "I-015",
+          "source_refs": [
+            "investor_register.investor:I-015",
+            "treasury.counterparty:CP-115"
+          ],
+          "effective_voting_pct": 4.0,
+          "effective_economic_pct": 4.0
+        }
+      ],
+      "row_count": 15,
+      "attested": true,
+      "verdict": "The sanctioned computation ran and the result is as reported."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 12,
+      "at": "2026-10-13T16:09:29.991223+00:00",
+      "kind": "computation",
+      "concept": "computations/declared-owners",
+      "terms": [
+        "xbpei:OwnershipInterest",
+        "xbpei:heldBy",
+        "xbpei:interestIn",
+        "xbpei:economicPercentage",
+        "xbpei:votingPercentage",
+        "xbpei:validDuring",
+        "xbpei:evidencedBy"
+      ],
+      "parameters": {
+        "on_date": "2026-11-16"
+      },
+      "executed": "SELECT o.owned_inv_no AS party_no, owned.display_name AS name, o.owner_inv_no AS owner_no, owner.display_name AS owner_name,\n       owner.country_res AS owner_residence, o.pct_econ AS economic_pct, o.pct_vote AS voting_pct,\n       o.from_dt AS valid_from, o.to_dt AS valid_to, o.doc_ref AS evidenced_by,\n       'onboarding.declared_owner:' || o.decl_id AS source_ref\nFROM onboarding.declared_owner o\nJOIN investor_register.investor owned ON owned.inv_no = o.owned_inv_no\nJOIN investor_register.investor owner ON owner.inv_no = o.owner_inv_no\nWHERE o.alloc_basis = 'OWNERSHIP'\n  AND o.from_dt <= %(on_date)s::date AND (o.to_dt IS NULL OR o.to_dt >= %(on_date)s::date)\nORDER BY o.owned_inv_no, o.owner_inv_no",
+      "result": [
+        {
+          "name": "Meridian Holdings I S.à r.l.",
+          "owner_no": "I-018",
+          "party_no": "I-006",
+          "valid_to": null,
+          "owner_name": "Meridian Holdings II S.à r.l.",
+          "source_ref": "onboarding.declared_owner:DO-004",
+          "valid_from": "2026-08-01",
+          "voting_pct": 30.0,
+          "economic_pct": 30.0,
+          "evidenced_by": "DOC-0106",
+          "owner_residence": "LU"
+        },
+        {
+          "name": "Meridian Holdings I S.à r.l.",
+          "owner_no": "I-019",
+          "party_no": "I-006",
+          "valid_to": null,
+          "owner_name": "Meridian Family Trust",
+          "source_ref": "onboarding.declared_owner:DO-005",
+          "valid_from": "2026-08-01",
+          "voting_pct": 70.0,
+          "economic_pct": 70.0,
+          "evidenced_by": "DOC-0106",
+          "owner_residence": "JE"
+        },
+        {
+          "name": "Meridian Holdings II S.à r.l.",
+          "owner_no": "I-006",
+          "party_no": "I-018",
+          "valid_to": null,
+          "owner_name": "Meridian Holdings I S.à r.l.",
+          "source_ref": "onboarding.declared_owner:DO-006",
+          "valid_from": "2026-08-01",
+          "voting_pct": 30.0,
+          "economic_pct": 30.0,
+          "evidenced_by": "DOC-0106",
+          "owner_residence": "LU"
+        },
+        {
+          "name": "Meridian Holdings II S.à r.l.",
+          "owner_no": "I-019",
+          "party_no": "I-018",
+          "valid_to": null,
+          "owner_name": "Meridian Family Trust",
+          "source_ref": "onboarding.declared_owner:DO-007",
+          "valid_from": "2026-08-01",
+          "voting_pct": 70.0,
+          "economic_pct": 70.0,
+          "evidenced_by": "DOC-0106",
+          "owner_residence": "JE"
+        }
+      ],
+      "row_count": 4,
+      "attested": true,
+      "verdict": "The sanctioned computation ran and the result is as reported."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 13,
+      "at": "2026-10-13T16:09:30.538950+00:00",
+      "kind": "computation",
+      "concept": "computations/ownership-cycles",
+      "terms": [
+        "xbpei:OwnershipInterest",
+        "xbpei:heldBy",
+        "xbpei:interestIn",
+        "xbpei:validDuring"
+      ],
+      "parameters": {
+        "on_date": "2026-11-16"
+      },
+      "executed": "MATCH (a:Party)-[:HOLDS* 1..6 (r, n | WHERE r.validFrom <= date($on_date) AND (r.validTo IS NULL OR r.validTo >= date($on_date)))]->(b:Party),\n      (b)-[:HOLDS* 1..6 (r, n | WHERE r.validFrom <= date($on_date) AND (r.validTo IS NULL OR r.validTo >= date($on_date)))]->(a)\nWHERE a.id < b.id\nRETURN DISTINCT a.id AS party, a.name AS name, a.sourceRefs AS source_refs,\n       b.id AS other_party, b.name AS other_name, b.sourceRefs AS other_source_refs\nORDER BY party, other_party",
+      "result": [
+        {
+          "name": "Meridian Holdings I S.à r.l.",
+          "party": "I-006",
+          "other_name": "Meridian Holdings II S.à r.l.",
+          "other_party": "I-018",
+          "source_refs": [
+            "investor_register.investor:I-006",
+            "treasury.counterparty:CP-106"
+          ],
+          "other_source_refs": [
+            "investor_register.investor:I-018"
+          ]
+        }
+      ],
+      "row_count": 1,
+      "attested": true,
+      "verdict": "The sanctioned computation ran and the result is as reported."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 14,
+      "at": "2026-10-13T16:10:01.461832+00:00",
+      "kind": "lookup",
+      "concept": "ontology/find",
+      "terms": [
+        "xbpei:Dividend",
+        "xbpei:Party",
+        "xbpei:WithholdingSchedule"
+      ],
+      "parameters": {
+        "text": "hold payment"
+      },
+      "executed": null,
+      "result": [
+        {
+          "kind": "code",
+          "term": "xbpei:Dividend",
+          "label": "Dividend",
+          "definition": "A payment a company makes to its shareholders out of profits."
+        },
+        {
+          "kind": "class",
+          "term": "xbpei:Party",
+          "label": "Party",
+          "definition": "A person or legal entity that can hold interests, play roles, pay or receive payments, and bear obligations. Identity is separate from the roles a party plays."
+        },
+        {
+          "kind": "class",
+          "term": "xbpei:WithholdingSchedule",
+          "label": "Withholding Schedule",
+          "definition": "The set of withholding determinations for a distribution, prepared, reviewed and signed off before payments are released. A corrected schedule is a new record."
+        }
+      ],
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 15,
+      "at": "2026-10-13T16:10:01.808942+00:00",
+      "kind": "lookup",
+      "concept": "ontology/find",
+      "terms": [
+        "xbpei:Agreement",
+        "xbpei:Manager",
+        "xbpei:OwnershipInterest",
+        "xbpei:RoleAssignment",
+        "xbpei:governedBy"
+      ],
+      "parameters": {
+        "text": "agreement"
+      },
+      "executed": null,
+      "result": [
+        {
+          "kind": "class",
+          "term": "xbpei:Agreement",
+          "label": "Agreement",
+          "definition": "A contract or governing document, such as a limited partnership agreement or shareholders' agreement."
+        },
+        {
+          "kind": "code",
+          "term": "xbpei:Manager",
+          "label": "Manager",
+          "definition": "The party that manages a fund vehicle under a management agreement."
+        },
+        {
+          "kind": "class",
+          "term": "xbpei:OwnershipInterest",
+          "label": "Ownership Interest",
+          "definition": "A holding by one party in one legal entity, with its own percentages, share class, validity period, governing agreement and evidence."
+        },
+        {
+          "kind": "class",
+          "term": "xbpei:RoleAssignment",
+          "label": "Role Assignment",
+          "definition": "The fact that a party plays a role of a given type in the context of a fund vehicle, under an agreement."
+        },
+        {
+          "kind": "relationship",
+          "term": "xbpei:governedBy",
+          "label": "governedBy",
+          "definition": "The agreement that sets the terms of the role or the interest."
+        }
+      ],
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 16,
+      "at": "2026-10-13T16:10:02.182060+00:00",
+      "kind": "lookup",
+      "concept": "ontology/find",
+      "terms": [],
+      "parameters": {
+        "text": "US person"
+      },
+      "executed": null,
+      "result": [],
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 17,
+      "at": "2026-10-13T16:10:02.491585+00:00",
+      "kind": "tool",
+      "concept": "tools/read-document",
+      "terms": null,
+      "parameters": {
+        "doc_ref": "DOC-0106"
+      },
+      "executed": null,
+      "result": {
+        "found": true,
+        "title": "Meridian Holdings I ownership declaration",
+        "digitised": true,
+        "source_ref": "documents.document:DOC-0106"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 18,
+      "at": "2026-10-13T16:10:04.698523+00:00",
+      "kind": "lookup",
+      "concept": "ontology/mappings",
+      "terms": [
+        "xbpei:Agreement"
+      ],
+      "parameters": {
+        "term": "xbpei:Agreement"
+      },
+      "executed": null,
+      "result": {
+        "term": "xbpei:Agreement",
+        "known": true,
+        "mapped": true
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 19,
+      "at": "2026-10-13T16:10:04.998249+00:00",
+      "kind": "lookup",
+      "concept": "ontology/mappings",
+      "terms": [
+        "xbpei:governedBy"
+      ],
+      "parameters": {
+        "term": "xbpei:governedBy"
+      },
+      "executed": null,
+      "result": {
+        "term": "xbpei:governedBy",
+        "known": true,
+        "mapped": true
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 20,
+      "at": "2026-10-13T16:10:05.246347+00:00",
+      "kind": "lookup",
+      "concept": "ontology/find",
+      "terms": [
+        "xbpei:CertificationType",
+        "xbpei:CertificationTypeScheme",
+        "xbpei:hasCertificationType",
+        "xbpei:TaxCertification"
+      ],
+      "parameters": {
+        "text": "certification type"
+      },
+      "executed": null,
+      "result": [
+        {
+          "kind": "class",
+          "term": "xbpei:CertificationType",
+          "label": "Certification Type",
+          "definition": "A kind of tax certification form. Members depend on the jurisdiction pair chosen and are supplied as data, not in this ontology."
+        },
+        {
+          "kind": "code",
+          "term": "xbpei:CertificationTypeScheme",
+          "label": "Certification types",
+          "definition": "The code list of kinds of tax certification."
+        },
+        {
+          "kind": "relationship",
+          "term": "xbpei:hasCertificationType",
+          "label": "hasCertificationType",
+          "definition": "The form type of the certification."
+        },
+        {
+          "kind": "class",
+          "term": "xbpei:TaxCertification",
+          "label": "Tax Certification",
+          "definition": "A signed self-certification of tax status supplied by a party, valid for a stated period. Which form applies is jurisdiction-specific and is given by its certification type."
+        }
+      ],
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 21,
+      "at": "2026-10-13T16:10:05.494542+00:00",
+      "kind": "lookup",
+      "concept": "ontology/find",
+      "terms": [
+        "xbpei:TaxStatusAssertion",
+        "xbpei:TaxCertification",
+        "xbpei:aboutParty",
+        "xbpei:assessedUnder"
+      ],
+      "parameters": {
+        "text": "tax status"
+      },
+      "executed": null,
+      "result": [
+        {
+          "kind": "class",
+          "term": "xbpei:TaxStatusAssertion",
+          "label": "Tax Status Assertion",
+          "definition": "A dated statement of a party's tax classification or status as assessed under one jurisdiction."
+        },
+        {
+          "kind": "class",
+          "term": "xbpei:TaxCertification",
+          "label": "Tax Certification",
+          "definition": "A signed self-certification of tax status supplied by a party, valid for a stated period. Which form applies is jurisdiction-specific and is given by its certification type."
+        },
+        {
+          "kind": "relationship",
+          "term": "xbpei:aboutParty",
+          "label": "aboutParty",
+          "definition": "The party whose tax status is asserted."
+        },
+        {
+          "kind": "relationship",
+          "term": "xbpei:assessedUnder",
+          "label": "assessedUnder",
+          "definition": "The jurisdiction under whose tax law the status is asserted."
+        }
+      ],
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 22,
+      "at": "2026-10-13T16:10:08.223534+00:00",
+      "kind": "message",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": null,
+      "result": {
+        "text": "Data gathering is done; I'm now checking whether the fund's terms allow a hold, then recording assessments and drafting the schedule."
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 23,
+      "at": "2026-10-13T16:10:08.798764+00:00",
+      "kind": "tool",
+      "concept": "tools/read-document",
+      "terms": null,
+      "parameters": {
+        "doc_ref": "DOC-0201"
+      },
+      "executed": null,
+      "result": {
+        "found": true,
+        "title": "Distribution notice D-001",
+        "digitised": true,
+        "source_ref": "documents.document:DOC-0201"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 24,
+      "at": "2026-10-13T16:10:09.133410+00:00",
+      "kind": "lookup",
+      "concept": "ontology/describe",
+      "terms": [
+        "xbpei:TaxStatusAssertion"
+      ],
+      "parameters": {
+        "term": "xbpei:TaxStatusAssertion"
+      },
+      "executed": null,
+      "result": {
+        "kind": "class",
+        "term": "xbpei:TaxStatusAssertion",
+        "label": "Tax Status Assertion",
+        "status": "reviewed",
+        "steward": "Fund tax team",
+        "kinds_of": [
+          "xbpei:FactAssertion"
+        ],
+        "definition": "A dated statement of a party's tax classification or status as assessed under one jurisdiction.",
+        "properties": [
+          "xbpei:aboutParty",
+          "xbpei:assessedUnder",
+          "xbpei:evidencedBy",
+          "xbpei:recordedOn",
+          "xbpei:statement",
+          "xbpei:taxClassification",
+          "xbpei:validDuring"
+        ]
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 25,
+      "at": "2026-10-13T16:10:09.475756+00:00",
+      "kind": "lookup",
+      "concept": "ontology/mappings",
+      "terms": [
+        "xbpei:TaxStatusAssertion"
+      ],
+      "parameters": {
+        "term": "xbpei:TaxStatusAssertion"
+      },
+      "executed": null,
+      "result": {
+        "term": "xbpei:TaxStatusAssertion",
+        "known": true,
+        "mapped": true
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 26,
+      "at": "2026-10-13T16:10:22.244002+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-001",
+          "onboarding.tax_form:F-001",
+          "onboarding.residence_record:I-001/LU/2011-01-01",
+          "clearance.clearance:CL-001",
+          "rulebook.rule_version:R-02/2026.1"
+        ],
+        "rule_id": "R-02",
+        "reasoning": "D-001-A is a US-source dividend (paid by Orion Manufacturing Inc, E-003, via Atlas Acquisition SPV). Harbor Pension Trust receives on own account. FR-04: tax residence LU on payment date 2026-11-16. FR-05: W-8BEN-E F-001 valid on payment date, claims LU treaty, limitation-on-benefits PENSION (not ownership-based, so FR-07 not engaged). Clearance CL-001 in force on payment date with no open items or change case. Effective voting holding in Orion is 8.0%, below the R-03 threshold of 10%, so the 15% treaty rate of R-02 applies, not 5%.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-001",
+        "version_label": "2026.1",
+        "assessment_result": "applicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R001"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 27,
+      "at": "2026-10-13T16:10:26.155641+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-001"
+        ],
+        "rule_id": "R-03",
+        "reasoning": "FR-06: effective voting percentage of Harbor Pension Trust in the paying company Orion Manufacturing Inc (E-003) on 2026-11-16 is 8.0% (10% of the fund x 80% through the chain), below the inclusive 10% threshold. The qualifying-holding rate does not apply.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-001",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R002"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 28,
+      "at": "2026-10-13T16:10:30.412411+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-003",
+          "onboarding.tax_form:F-003",
+          "onboarding.residence_record:I-003/LU/2004-01-01",
+          "clearance.clearance:CL-003",
+          "rulebook.rule_version:R-03/2026.1"
+        ],
+        "rule_id": "R-03",
+        "reasoning": "D-001-A is a US-source dividend paid by Orion Manufacturing Inc (E-003). Kirchberg Industries S.A. receives on own account. R-02 facts met: tax residence LU on payment date 2026-11-16 (FR-04); W-8BEN-E F-003 valid on payment date, claims LU treaty with limitation-on-benefits ACTIVE_TRADE (FR-05; not ownership-based so FR-07 not engaged). FR-06: effective voting percentage in Orion is 10.0% (12.5% voting in the fund through the chain), which equals the 10% threshold; the threshold is inclusive, so it is met. Clearance CL-003 in force on payment date, no open items or change case. Rate 5%.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-003",
+        "version_label": "2026.1",
+        "assessment_result": "applicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R003"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 29,
+      "at": "2026-10-13T16:10:33.995848+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-004",
+          "onboarding.tax_form:F-004",
+          "onboarding.residence_record:I-004/LU/2006-01-01",
+          "clearance.clearance:CL-004",
+          "rulebook.rule_version:R-02/2026.1"
+        ],
+        "rule_id": "R-02",
+        "reasoning": "US-source dividend paid by Orion Manufacturing Inc (E-003). Limpertsberg Holdings S.A. receives on own account. FR-04: tax residence LU on payment date 2026-11-16. FR-05: W-8BEN-E F-004 valid on payment date, claims LU treaty, limitation-on-benefits ACTIVE_TRADE (FR-07 not engaged). Clearance CL-004 in force, no open items or change case. Effective voting holding in Orion is 9.99%, below the 10% threshold of R-03, so the 15% rate of R-02 applies.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-004",
+        "version_label": "2026.1",
+        "assessment_result": "applicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R004"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 30,
+      "at": "2026-10-13T16:10:36.523780+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-004"
+        ],
+        "rule_id": "R-03",
+        "reasoning": "FR-06: effective voting percentage of Limpertsberg Holdings S.A. in the paying company Orion Manufacturing Inc (E-003) on 2026-11-16 is 9.99% (12.4875% voting in the fund through the chain), below the inclusive 10% threshold. Not rounded up. The qualifying-holding rate does not apply.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-004",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R005"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 31,
+      "at": "2026-10-13T16:10:40.267003+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-005",
+          "onboarding.tax_form:F-005",
+          "onboarding.residence_record:I-005/LU/2008-01-01",
+          "clearance.clearance:CL-005",
+          "rulebook.rule_version:R-02/2026.1"
+        ],
+        "rule_id": "R-02",
+        "reasoning": "US-source dividend paid by Orion Manufacturing Inc (E-003). Grund Participations S.A. receives on own account. FR-04: tax residence LU on payment date 2026-11-16. FR-05: W-8BEN-E F-005 valid on payment date, claims LU treaty, limitation-on-benefits ACTIVE_TRADE (FR-07 not engaged). Clearance CL-005 in force, no open items or change case. Effective voting holding in Orion is 8.0% (economic 10.4%); the R-03 threshold is tested on voting, so R-03 does not apply and the 15% rate of R-02 applies.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-005",
+        "version_label": "2026.1",
+        "assessment_result": "applicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R006"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 32,
+      "at": "2026-10-13T16:10:42.943132+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-005"
+        ],
+        "rule_id": "R-03",
+        "reasoning": "FR-06: effective voting percentage of Grund Participations S.A. in Orion Manufacturing Inc (E-003) on 2026-11-16 is 8.0% (10% voting in the fund through the chain). Its effective economic percentage is 10.4% (13% economic), but the threshold is tested on voting percentage, not economic. Below the inclusive 10% threshold; the qualifying-holding rate does not apply.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-005",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R007"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 33,
+      "at": "2026-10-13T16:10:50.050644+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [
+          {
+            "about_party": "I-006",
+            "description": "Owners of Meridian Holdings I up to its ultimate owners cannot be established: circular holding with Meridian Holdings II (I-018) since 2026-08-01, and change case K-006 on clearance CL-006 is open. Cure: a person resolves the circular holding and closes K-006 with a re-decided clearance confirming whether the ownership/base-erosion test is still met.",
+            "unmet_requirement": "FR-07"
+          }
+        ],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-006",
+          "onboarding.tax_form:F-006",
+          "onboarding.residence_record:I-006/LU/2017-01-01",
+          "clearance.clearance:CL-006",
+          "onboarding.declared_owner:DO-004",
+          "onboarding.declared_owner:DO-005",
+          "onboarding.declared_owner:DO-006",
+          "onboarding.declared_owner:DO-007",
+          "documents.document:DOC-0106",
+          "rulebook.rule_version:R-01/2026.1"
+        ],
+        "rule_id": "R-02",
+        "reasoning": "Meridian Holdings I S.à r.l. is LU resident on the payment date and W-8BEN-E F-006 is valid and claims the LU treaty, but its limitation-on-benefits category is OWNERSHIP_BASE_EROSION, so the claim rests on who owns it (FR-07). Clearance CL-006 relied on declaration DO-003; change case K-006 is open (restructuring effective 2026-08-01, DOC-0106), so the clearance is not relied on for a reduced rate. Current declarations DO-004 to DO-007 show Meridian Holdings I and Meridian Holdings II (I-018) each holding 30% of the other, with Meridian Family Trust (Jersey) holding 70% of each; ownership-cycles reports the I-006/I-018 circular holding. Ultimate ownership cannot be read by walking the chain and is not resolved here. Treaty rule undetermined; the default (statutory) rate of R-01/2026.1, 30%, is applied and the line is left for the reviewer.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-006",
+        "version_label": "2026.1",
+        "assessment_result": "undetermined"
+      },
+      "executed": null,
+      "result": {
+        "findings": [
+          "MF-R001"
+        ],
+        "assessment": "A-R008"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 34,
+      "at": "2026-10-13T16:10:53.992219+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-008",
+          "onboarding.tax_form:F-008",
+          "onboarding.residence_record:I-008/LU/2016-01-01",
+          "clearance.clearance:CL-008",
+          "rulebook.rule_version:R-02/2026.1"
+        ],
+        "rule_id": "R-02",
+        "reasoning": "US-source dividend paid by Orion Manufacturing Inc (E-003). Alpha Holdings SA, investor I-008 (Luxembourg, reg. B 214 577; not the Swiss investor I-009 of the same name) receives on own account. FR-04: tax residence LU on payment date 2026-11-16. FR-05: W-8BEN-E F-008 valid on payment date, claims LU treaty, limitation-on-benefits ACTIVE_TRADE (FR-07 not engaged); the earlier form F-008a is superseded and not used. Clearance CL-008 in force, no open items or change case. Effective voting holding in Orion 4.8%, below the R-03 threshold, so 15%.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-008",
+        "version_label": "2026.1",
+        "assessment_result": "applicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R009"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 35,
+      "at": "2026-10-13T16:10:57.877162+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-009",
+          "onboarding.tax_form:F-009",
+          "onboarding.residence_record:I-009/CH/2012-01-01",
+          "clearance.clearance:CL-009",
+          "rulebook.rule_version:R-01/2026.1"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-A is a US-source dividend. FR-02: Alpha Holdings SA, investor I-009 (Switzerland, reg. CHE-318.442.907; not the Luxembourg investor I-008 of the same name) holds W-8BEN-E F-009 valid on payment date 2026-11-16: a foreign person, not an intermediary (FR-03 not engaged), no treaty claim. Recorded tax residence is CH; the only treaty rules in force for US-source dividends (R-02, R-03) require LU residence, so no reduced rate. Clearance CL-009 in force, no open items. The statutory 30% rate applies as a documented rate.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-009",
+        "version_label": "2026.1",
+        "assessment_result": "applicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R010"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 36,
+      "at": "2026-10-13T16:11:02.265499+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-002",
+          "investor_register.commitment:C-110",
+          "onboarding.tax_form:F-002",
+          "onboarding.tax_form:F-010",
+          "onboarding.residence_record:I-010/LU/2003-01-01",
+          "clearance.clearance:CL-002",
+          "rulebook.rule_version:R-02/2026.1"
+        ],
+        "rule_id": "R-02",
+        "reasoning": "US-source dividend paid by Orion Manufacturing Inc (E-003). Atlas Lux Feeder SCSp (I-002) certifies as a flow-through (W-8IMY F-002, valid on payment date) and is looked through; Ardennes Industrial Holding S.A. holds 50% of the feeder (C-110), so its share of the feeder's line is 1,200,000. FR-04: tax residence LU on payment date 2026-11-16. FR-05: W-8BEN-E F-010 valid on payment date, claims LU treaty, limitation-on-benefits ACTIVE_TRADE (FR-07 not engaged). The feeder's clearance CL-002 covers it, relies on F-010, and is in force with no open items or change case. Effective voting holding in Orion 9.6%, below the 10% threshold of R-03, so 15%.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-010",
+        "version_label": "2026.1",
+        "assessment_result": "applicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R011"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 37,
+      "at": "2026-10-13T16:11:04.992189+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-002",
+          "investor_register.commitment:C-110"
+        ],
+        "rule_id": "R-03",
+        "reasoning": "FR-06: effective voting percentage of Ardennes Industrial Holding S.A. in Orion Manufacturing Inc (E-003) on 2026-11-16 is 9.6% (50% of the feeder's 24% in the fund, through the chain), below the inclusive 10% threshold. The feeder's own 24% is not Ardennes' holding. The qualifying-holding rate does not apply.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-010",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R012"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 38,
+      "at": "2026-10-13T16:11:09.212428+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-002",
+          "investor_register.commitment:C-111",
+          "onboarding.tax_form:F-002",
+          "onboarding.tax_form:F-011",
+          "onboarding.residence_record:I-011/LU/2010-01-01",
+          "clearance.clearance:CL-002",
+          "rulebook.rule_version:R-02/2026.1"
+        ],
+        "rule_id": "R-02",
+        "reasoning": "US-source dividend paid by Orion Manufacturing Inc (E-003). Atlas Lux Feeder SCSp (I-002) is a flow-through (W-8IMY F-002) and is looked through; Moselle Capital S.A. holds 30% of the feeder (C-111), share of the feeder's line 720,000. FR-04: tax residence LU on payment date 2026-11-16. FR-05: W-8BEN-E F-011 valid on payment date, claims LU treaty, limitation-on-benefits ACTIVE_TRADE (FR-07 not engaged). Feeder's clearance CL-002 covers it, relies on F-011, in force with no open items or change case. Effective voting holding in Orion 5.76%, below the R-03 threshold, so 15%.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-011",
+        "version_label": "2026.1",
+        "assessment_result": "applicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R013"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 39,
+      "at": "2026-10-13T16:11:13.277492+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-002",
+          "investor_register.commitment:C-112",
+          "onboarding.tax_form:F-002",
+          "onboarding.tax_form:F-012",
+          "onboarding.residence_record:I-012/FR/1999-01-01",
+          "clearance.clearance:CL-002",
+          "rulebook.rule_version:R-01/2026.1"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-A is a US-source dividend. Atlas Lux Feeder SCSp (I-002) is a flow-through (W-8IMY F-002) and is looked through; Claire Dumont holds 20% of the feeder (C-112), share of the feeder's line 480,000. FR-02/FR-03: her W-8BEN F-012 is valid on payment date 2026-11-16: a foreign person, no treaty claim. Recorded tax residence is FR; the only treaty rules in force for US-source dividends (R-02, R-03) require LU residence, so no reduced rate. Feeder's clearance CL-002 covers her, relies on F-012, in force with no open items. The statutory 30% rate applies as a documented rate.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-012",
+        "version_label": "2026.1",
+        "assessment_result": "applicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R014"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 40,
+      "at": "2026-10-13T16:11:17.716569+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-007",
+          "onboarding.declared_owner:DO-001",
+          "onboarding.tax_form:F-007",
+          "onboarding.tax_form:F-013",
+          "onboarding.residence_record:I-013/LU/2001-01-01",
+          "clearance.clearance:CL-007",
+          "rulebook.rule_version:R-02/2026.1"
+        ],
+        "rule_id": "R-02",
+        "reasoning": "US-source dividend paid by Orion Manufacturing Inc (E-003). Sterling Nominees Ltd (I-007) holds as nominee (W-8IMY F-007, valid on payment date) and is looked through; Echternach Pension Fund is beneficial owner of 62.5% of the nominee's line (DO-001), 375,000. FR-04: tax residence LU on payment date 2026-11-16. FR-05: W-8BEN-E F-013 valid on payment date, claims LU treaty, limitation-on-benefits PENSION (FR-07 not engaged). Nominee's clearance CL-007 (admittedWithOpenItems) is in force on the payment date and relies on F-013; its open item MF-001 concerns the other, undocumented owner only, and the documented recipient keeps its own rate. Effective voting holding in Orion 3.0%, below the R-03 threshold, so 15%.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-013",
+        "version_label": "2026.1",
+        "assessment_result": "applicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R015"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 41,
+      "at": "2026-10-13T16:11:24.466341+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [
+          {
+            "about_party": "I-014",
+            "description": "No tax certification on file for Client account 7731 valid on the payment date 2026-11-16; no tax residence recorded. Cure: a valid certification from the underlying owner (and, for a treaty rate, a treaty claim with limitation-on-benefits statement and recorded residence) received and cleared before the payment date.",
+            "unmet_requirement": "FR-02"
+          },
+          {
+            "about_party": "I-007",
+            "description": "Sterling Nominees has not supplied the tax certification of the owner of 37.5% of the income it receives (existing open item MF-001 on CL-007). Cure: nominee supplies the owner's certification with its allocation.",
+            "unmet_requirement": "FR-03"
+          }
+        ],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-007",
+          "onboarding.declared_owner:DO-002",
+          "onboarding.tax_form:F-007",
+          "clearance.clearance:CL-007",
+          "rulebook.rule_version:R-01/2026.1"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-A is a US-source dividend. Sterling Nominees Ltd (I-007) holds as nominee (W-8IMY F-007) and is looked through; 'Client account 7731' is the beneficial owner of 37.5% of the nominee's line (DO-002), 225,000. No tax certification is on file for I-014 at any date and no tax residence is recorded (unknown, not 'none'), so its status cannot be determined and no treaty rule can be tested. Clearance CL-007 already carries open item MF-001 for this owner with default treatment '30% default rate on the share of the undocumented owner'. Undocumented recipient behind an intermediary: the default rate of R-01/2026.1, 30%, is applied to its share. The fund's terms on holding a payment could not be read through the bundle (no computation returns the governing agreement of the commitment), so the payment is not held.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-014",
+        "version_label": "2026.1",
+        "assessment_result": "undetermined"
+      },
+      "executed": null,
+      "result": {
+        "findings": [
+          "MF-R002",
+          "MF-R003"
+        ],
+        "assessment": "A-R016"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 42,
+      "at": "2026-10-13T16:11:30.004694+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [
+          {
+            "about_party": "I-015",
+            "description": "No tax certification valid on the payment date 2026-11-16: F-015 ended 2025-12-31 and no new form was received; clearance withdrawn (CL-015W). Cure: a new W-8BEN-E with LU treaty claim and limitation-on-benefits statement, and a new clearance decided before the payment date.",
+            "unmet_requirement": "FR-02"
+          }
+        ],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "treasury.payment:P-007",
+          "investor_register.commitment:C-015",
+          "onboarding.tax_form:F-015",
+          "onboarding.residence_record:I-015/LU/2013-01-01",
+          "clearance.clearance:CL-015W",
+          "rulebook.rule_version:R-01/2026.1"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-A is a US-source dividend. Bertrange Capital S.A. receives on own account. FR-02 not met: its only certification, W-8BEN-E F-015, ended on 2025-12-31 and is not valid on the payment date 2026-11-16 (the onboarding system still flags it VALIDATED; validity is tested on dates). The latest clearance, CL-015W, is 'withdrawn' from 2026-01-01 and not in force, with open item MF-002 and default treatment '30% default rate until a valid form is supplied'. Recorded residence is LU, but without a valid treaty claim R-02/R-03 cannot be relied on. No clearance and no certification valid on the payment date: default rate of R-01/2026.1, 30%. The fund's terms on holding a payment could not be read through the bundle, so the payment is not held.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-015",
+        "version_label": "2026.1",
+        "assessment_result": "undetermined"
+      },
+      "executed": null,
+      "result": {
+        "findings": [
+          "MF-R004"
+        ],
+        "assessment": "A-R017"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 43,
+      "at": "2026-10-13T16:11:34.152051+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "investor_register.commitment:C-016",
+          "entity_mgmt.shareholding:H-006",
+          "onboarding.tax_form:F-016",
+          "onboarding.residence_record:I-016/US/2024-01-15",
+          "clearance.clearance:CL-016",
+          "rulebook.rule_version:R-01/2026.1"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "R-01 is statutory withholding on US-source dividends paid to foreign persons. Atlas Co-Invest Vehicle LP receives on own account and holds a W-9 (F-016), valid on the payment date 2026-11-16, certifying it as a US person; recorded tax residence US; clearance CL-016 in force with no open items. Not a foreign person: R-01 does not apply, paid gross. Sources disagree on its holding in the fund: the investor register (system of record, C-016) holds 3.0% economic and voting; entity management shareholding H-006 holds 3.5%. The register figure is used, and the treasury line of 300,000 matches 3.0%. The difference does not affect the rate.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-016",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R018"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 44,
+      "at": "2026-10-13T16:11:36.867769+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-A",
+          "investor_register.commitment:C-017",
+          "onboarding.tax_form:F-017",
+          "onboarding.residence_record:I-017/US/2023-10-20",
+          "clearance.clearance:CL-017",
+          "rulebook.rule_version:R-01/2026.1"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "R-01 is statutory withholding on US-source dividends paid to foreign persons. Atlas GP LLC receives on own account and holds a W-9 (F-017), valid on the payment date 2026-11-16, certifying it as a US person; recorded tax residence US; clearance CL-017 in force with no open items. Not a foreign person: R-01 does not apply, paid gross.",
+        "subject_event": "D-001-A",
+        "subject_party": "I-017",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R019"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 45,
+      "at": "2026-10-13T16:11:44.921310+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-001"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient, own-account share 200,000, rate 0.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-001",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R020"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 46,
+      "at": "2026-10-13T16:11:47.127960+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-003"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient, own-account share 250,000, rate 0.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-003",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R021"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 47,
+      "at": "2026-10-13T16:11:49.395625+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-004"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient, own-account share 249,750, rate 0.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-004",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R022"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 48,
+      "at": "2026-10-13T16:11:51.608624+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-005"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient, own-account share 260,000, rate 0.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-005",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R023"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 49,
+      "at": "2026-10-13T16:11:53.976433+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-006"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient, own-account share 60,000, rate 0. The open change case K-006 does not bear on this component.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-006",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R024"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 50,
+      "at": "2026-10-13T16:11:56.332764+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-008"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient (Alpha Holdings SA, Luxembourg, I-008), own-account share 120,000, rate 0.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-008",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R025"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 51,
+      "at": "2026-10-13T16:11:58.712738+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-009"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient (Alpha Holdings SA, Switzerland, I-009), own-account share 20,000, rate 0.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-009",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R026"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 52,
+      "at": "2026-10-13T16:12:01.243106+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-002",
+          "investor_register.commitment:C-110"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient: 50% of the Atlas Lux Feeder line of 480,000 = 240,000, rate 0.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-010",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R027"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 53,
+      "at": "2026-10-13T16:12:03.714886+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-002",
+          "investor_register.commitment:C-111"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient: 30% of the Atlas Lux Feeder line of 480,000 = 144,000, rate 0.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-011",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R028"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 54,
+      "at": "2026-10-13T16:12:06.186364+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-002",
+          "investor_register.commitment:C-112"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient: 20% of the Atlas Lux Feeder line of 480,000 = 96,000, rate 0.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-012",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R029"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 55,
+      "at": "2026-10-13T16:12:08.650785+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-007",
+          "onboarding.declared_owner:DO-001"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient: 62.5% of the Sterling Nominees line of 120,000 = 75,000, rate 0.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-013",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R030"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 56,
+      "at": "2026-10-13T16:12:11.656309+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-007",
+          "onboarding.declared_owner:DO-002"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient: 37.5% of the Sterling Nominees line of 120,000 = 45,000, rate 0. The recipient is undocumented (see the D-001-A assessment), but the component itself is outside withholding, so the missing certification does not change the result here.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-014",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R031"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 57,
+      "at": "2026-10-13T16:12:14.189499+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-015"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient, own-account share 100,000, rate 0. The recipient has no valid certification or clearance (see the D-001-A assessment), but the component itself is outside withholding, so that does not change the result here.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-015",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R032"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 58,
+      "at": "2026-10-13T16:12:16.925697+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-016",
+          "entity_mgmt.shareholding:H-006"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient, own-account share 60,000, rate 0. The share follows the investor register (C-016, 3.0%, system of record); entity management shareholding H-006 holds 3.5%.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-016",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R033"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 59,
+      "at": "2026-10-13T16:12:19.070486+00:00",
+      "kind": "tool",
+      "concept": "tools/record-assessment",
+      "terms": [
+        "xbpei:ObligationAssessment",
+        "xbpei:evaluates",
+        "xbpei:hasSubjectParty",
+        "xbpei:hasSubjectEvent",
+        "xbpei:assessmentResult",
+        "xbpei:reasoning",
+        "xbpei:usesFact",
+        "xbpei:identifiesGap",
+        "xbpei:MissingFactFinding",
+        "xbpei:unmetRequirement"
+      ],
+      "parameters": {
+        "gaps": [],
+        "facts": [
+          "treasury.distribution_component:D-001-B",
+          "investor_register.commitment:C-017"
+        ],
+        "rule_id": "R-01",
+        "reasoning": "FR-01: D-001-B is a return of capital (income code ROC) with no source jurisdiction. R-01 covers US-source dividends; a return of capital is not income subject to withholding and no rule version in force covers it. Not applicable for this recipient, own-account share 80,250, rate 0.",
+        "subject_event": "D-001-B",
+        "subject_party": "I-017",
+        "version_label": "2026.1",
+        "assessment_result": "notApplicable"
+      },
+      "executed": null,
+      "result": {
+        "findings": [],
+        "assessment": "A-R034"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 60,
+      "at": "2026-10-13T16:13:03.871181+00:00",
+      "kind": "tool",
+      "concept": "tools/draft-schedule",
+      "terms": [
+        "xbpei:WithholdingSchedule",
+        "xbpei:scheduleFor",
+        "xbpei:scheduleStatus",
+        "xbpei:preparedBy",
+        "xbpei:includes",
+        "xbpei:WithholdingDetermination",
+        "xbpei:determinedFor",
+        "xbpei:forComponent",
+        "xbpei:determinationOutcome",
+        "xbpei:grossAmount",
+        "xbpei:withholdingRate",
+        "xbpei:taxWithheld",
+        "xbpei:netAmount",
+        "xbpei:rateBasis",
+        "xbpei:reliesOnClearance",
+        "xbpei:supportedBy"
+      ],
+      "parameters": {
+        "determinations": [
+          {
+            "net_amount": 850000,
+            "rate_basis": "R-02/2026.1 (Convention of 3 April 1996, Art. 10) treaty rate 15%; certification F-001 (W-8BEN-E, LU treaty claim, LOB PENSION) valid on 2026-11-16; LU residence; effective voting 8.0% in Orion Manufacturing, below R-03 threshold",
+            "gross_amount": 1000000,
+            "supported_by": "A-R001",
+            "tax_withheld": 150000,
+            "for_component": "D-001-A",
+            "determined_for": "I-001",
+            "withholding_rate": 15,
+            "relies_on_clearance": "CL-001",
+            "determination_outcome": "cleared"
+          },
+          {
+            "net_amount": 1020000,
+            "rate_basis": "R-02/2026.1 treaty rate 15%; 50% of Atlas Lux Feeder (I-002) line, looked through on W-8IMY F-002; certification F-010 (LU treaty claim, LOB ACTIVE_TRADE) valid on 2026-11-16; LU residence; effective voting 9.6%, below R-03 threshold",
+            "gross_amount": 1200000,
+            "supported_by": "A-R011",
+            "tax_withheld": 180000,
+            "for_component": "D-001-A",
+            "determined_for": "I-010",
+            "withholding_rate": 15,
+            "relies_on_clearance": "CL-002",
+            "determination_outcome": "cleared"
+          },
+          {
+            "net_amount": 612000,
+            "rate_basis": "R-02/2026.1 treaty rate 15%; 30% of Atlas Lux Feeder (I-002) line, looked through on W-8IMY F-002; certification F-011 (LU treaty claim, LOB ACTIVE_TRADE) valid on 2026-11-16; LU residence; effective voting 5.76%",
+            "gross_amount": 720000,
+            "supported_by": "A-R013",
+            "tax_withheld": 108000,
+            "for_component": "D-001-A",
+            "determined_for": "I-011",
+            "withholding_rate": 15,
+            "relies_on_clearance": "CL-002",
+            "determination_outcome": "cleared"
+          },
+          {
+            "net_amount": 336000,
+            "rate_basis": "R-01/2026.1 (26 U.S.C. 1441, 1442) statutory rate 30% as a documented rate; 20% of Atlas Lux Feeder (I-002) line, looked through on W-8IMY F-002; certification F-012 (W-8BEN, no treaty claim) valid on 2026-11-16; FR residence, no treaty rule in force",
+            "gross_amount": 480000,
+            "supported_by": "A-R014",
+            "tax_withheld": 144000,
+            "for_component": "D-001-A",
+            "determined_for": "I-012",
+            "withholding_rate": 30,
+            "relies_on_clearance": "CL-002",
+            "determination_outcome": "cleared"
+          },
+          {
+            "net_amount": 1187500,
+            "rate_basis": "R-03/2026.1 (Convention of 3 April 1996, Art. 10) qualifying-holding rate 5%; certification F-003 (LU treaty claim, LOB ACTIVE_TRADE) valid on 2026-11-16; LU residence; effective voting 10.0% in Orion Manufacturing, equal to the inclusive 10% threshold",
+            "gross_amount": 1250000,
+            "supported_by": "A-R003",
+            "tax_withheld": 62500,
+            "for_component": "D-001-A",
+            "determined_for": "I-003",
+            "withholding_rate": 5,
+            "relies_on_clearance": "CL-003",
+            "determination_outcome": "cleared"
+          },
+          {
+            "net_amount": 1061437.5,
+            "rate_basis": "R-02/2026.1 treaty rate 15%; certification F-004 (LU treaty claim, LOB ACTIVE_TRADE) valid on 2026-11-16; LU residence; effective voting 9.99%, below the 10% R-03 threshold",
+            "gross_amount": 1248750,
+            "supported_by": "A-R004",
+            "tax_withheld": 187312.5,
+            "for_component": "D-001-A",
+            "determined_for": "I-004",
+            "withholding_rate": 15,
+            "relies_on_clearance": "CL-004",
+            "determination_outcome": "cleared"
+          },
+          {
+            "net_amount": 1105000,
+            "rate_basis": "R-02/2026.1 treaty rate 15%; certification F-005 (LU treaty claim, LOB ACTIVE_TRADE) valid on 2026-11-16; LU residence; effective voting 8.0% (economic 10.4%), R-03 threshold is on voting and is not met",
+            "gross_amount": 1300000,
+            "supported_by": "A-R006",
+            "tax_withheld": 195000,
+            "for_component": "D-001-A",
+            "determined_for": "I-005",
+            "withholding_rate": 15,
+            "relies_on_clearance": "CL-005",
+            "determination_outcome": "cleared"
+          },
+          {
+            "net_amount": 210000,
+            "rate_basis": "Default rate 30% under R-01/2026.1. Treaty rule R-02/2026.1 undetermined: certification F-006 claims LU treaty on ownership-based LOB; clearance CL-006 has open change case K-006 and is not relied on; circular holding with Meridian Holdings II (I-018) leaves ultimate owners unknown (FR-07, MF-R001). Left for the reviewer.",
+            "gross_amount": 300000,
+            "supported_by": "A-R008",
+            "tax_withheld": 90000,
+            "for_component": "D-001-A",
+            "determined_for": "I-006",
+            "withholding_rate": 30,
+            "determination_outcome": "defaultRate"
+          },
+          {
+            "net_amount": 318750,
+            "rate_basis": "R-02/2026.1 treaty rate 15%; 62.5% of Sterling Nominees (I-007) line, looked through on W-8IMY F-007; certification F-013 (LU treaty claim, LOB PENSION) valid on 2026-11-16; LU residence; effective voting 3.0%",
+            "gross_amount": 375000,
+            "supported_by": "A-R015",
+            "tax_withheld": 56250,
+            "for_component": "D-001-A",
+            "determined_for": "I-013",
+            "withholding_rate": 15,
+            "relies_on_clearance": "CL-007",
+            "determination_outcome": "cleared"
+          },
+          {
+            "net_amount": 157500,
+            "rate_basis": "Default rate 30% under R-01/2026.1. Undocumented owner of 37.5% of Sterling Nominees (I-007) line: no certification and no recorded residence (FR-02, FR-03; MF-001 on CL-007, MF-R002, MF-R003). Not held: fund terms could not be read.",
+            "gross_amount": 225000,
+            "supported_by": "A-R016",
+            "tax_withheld": 67500,
+            "for_component": "D-001-A",
+            "determined_for": "I-014",
+            "withholding_rate": 30,
+            "determination_outcome": "defaultRate"
+          },
+          {
+            "net_amount": 510000,
+            "rate_basis": "R-02/2026.1 treaty rate 15%; Alpha Holdings SA (Luxembourg, B 214 577); certification F-008 (LU treaty claim, LOB ACTIVE_TRADE) valid on 2026-11-16; LU residence; effective voting 4.8%",
+            "gross_amount": 600000,
+            "supported_by": "A-R009",
+            "tax_withheld": 90000,
+            "for_component": "D-001-A",
+            "determined_for": "I-008",
+            "withholding_rate": 15,
+            "relies_on_clearance": "CL-008",
+            "determination_outcome": "cleared"
+          },
+          {
+            "net_amount": 70000,
+            "rate_basis": "R-01/2026.1 statutory rate 30% as a documented rate; Alpha Holdings SA (Switzerland, CHE-318.442.907); certification F-009 (W-8BEN-E, no treaty claim) valid on 2026-11-16; CH residence, no treaty rule in force",
+            "gross_amount": 100000,
+            "supported_by": "A-R010",
+            "tax_withheld": 30000,
+            "for_component": "D-001-A",
+            "determined_for": "I-009",
+            "withholding_rate": 30,
+            "relies_on_clearance": "CL-009",
+            "determination_outcome": "cleared"
+          },
+          {
+            "net_amount": 350000,
+            "rate_basis": "Default rate 30% under R-01/2026.1. No certification valid on 2026-11-16 (F-015 ended 2025-12-31) and clearance CL-015W withdrawn (FR-02; MF-002, MF-R004). Not held: fund terms could not be read.",
+            "gross_amount": 500000,
+            "supported_by": "A-R017",
+            "tax_withheld": 150000,
+            "for_component": "D-001-A",
+            "determined_for": "I-015",
+            "withholding_rate": 30,
+            "determination_outcome": "defaultRate"
+          },
+          {
+            "net_amount": 300000,
+            "rate_basis": "R-01/2026.1 not applicable: certified US person on W-9 F-016, valid on 2026-11-16; paid gross. Gross follows investor register C-016 (3.0%); entity management H-006 holds 3.5%.",
+            "gross_amount": 300000,
+            "supported_by": "A-R018",
+            "tax_withheld": 0,
+            "for_component": "D-001-A",
+            "determined_for": "I-016",
+            "withholding_rate": 0,
+            "relies_on_clearance": "CL-016",
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 401250,
+            "rate_basis": "R-01/2026.1 not applicable: certified US person on W-9 F-017, valid on 2026-11-16; paid gross.",
+            "gross_amount": 401250,
+            "supported_by": "A-R019",
+            "tax_withheld": 0,
+            "for_component": "D-001-A",
+            "determined_for": "I-017",
+            "withholding_rate": 0,
+            "relies_on_clearance": "CL-017",
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 200000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable)",
+            "gross_amount": 200000,
+            "supported_by": "A-R020",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-001",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 250000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable)",
+            "gross_amount": 250000,
+            "supported_by": "A-R021",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-003",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 249750,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable)",
+            "gross_amount": 249750,
+            "supported_by": "A-R022",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-004",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 260000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable)",
+            "gross_amount": 260000,
+            "supported_by": "A-R023",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-005",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 60000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable)",
+            "gross_amount": 60000,
+            "supported_by": "A-R024",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-006",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 120000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable)",
+            "gross_amount": 120000,
+            "supported_by": "A-R025",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-008",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 20000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable)",
+            "gross_amount": 20000,
+            "supported_by": "A-R026",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-009",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 240000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable). 50% of Atlas Lux Feeder (I-002) line.",
+            "gross_amount": 240000,
+            "supported_by": "A-R027",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-010",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 144000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable). 30% of Atlas Lux Feeder (I-002) line.",
+            "gross_amount": 144000,
+            "supported_by": "A-R028",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-011",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 96000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable). 20% of Atlas Lux Feeder (I-002) line.",
+            "gross_amount": 96000,
+            "supported_by": "A-R029",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-012",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 75000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable). 62.5% of Sterling Nominees (I-007) line.",
+            "gross_amount": 75000,
+            "supported_by": "A-R030",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-013",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 45000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable). 37.5% of Sterling Nominees (I-007) line.",
+            "gross_amount": 45000,
+            "supported_by": "A-R031",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-014",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 100000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable)",
+            "gross_amount": 100000,
+            "supported_by": "A-R032",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-015",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 60000,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable). Gross follows investor register C-016 (3.0%); entity management H-006 holds 3.5%.",
+            "gross_amount": 60000,
+            "supported_by": "A-R033",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-016",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          },
+          {
+            "net_amount": 80250,
+            "rate_basis": "Return of capital: not subject to withholding; no rule version in force covers it (R-01/2026.1 assessed not applicable)",
+            "gross_amount": 80250,
+            "supported_by": "A-R034",
+            "tax_withheld": 0,
+            "for_component": "D-001-B",
+            "determined_for": "I-017",
+            "withholding_rate": 0,
+            "determination_outcome": "notApplicable"
+          }
+        ],
+        "distribution_id": "D-001"
+      },
+      "executed": null,
+      "result": {
+        "status": "draft",
+        "schedule": "WS-R001",
+        "determinations": 30
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": "Written."
+    },
+    {
+      "run_id": "RUN-c502560c",
+      "seq": 61,
+      "at": "2026-10-13T16:13:21.831879+00:00",
+      "kind": "message",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": null,
+      "result": {
+        "text": "Steps 1–9 of WF3 are done for D-001: draft schedule **WS-R001** is recorded with 30 determinations under case K-R001, and I have stopped at step 10 for your review and sign-off.\n\n# Hand-over note: D-001, Atlas Growth Fund I LP (AGF1)\n\nRecord date is 2026-10-30 and payment date is 2026-11-16. Validity of every clearance and certification was tested on the payment date.\n\n## Totals (USD)\n\n| Component | Gross | Tax withheld | Net |\n|---|---|---|---|\n| D-001-A, US-source dividend | 10,000,000.00 | 1,510,562.50 | 8,489,437.50 |\n| D-001-B, return of capital | 2,000,000.00 | 0.00 | 2,000,000.00 |\n| **Total** | **12,000,000.00** | **1,510,562.50** | **10,489,437.50** |\n\n- **Paying company:** the dividend in D-001-A was paid by Orion Manufacturing Inc (E-003) through Atlas Acquisition SPV LLC (P-007, P-008), so the holding threshold was tested against Orion.\n- **Rules in force (US, version 2026.1):** R-01 statutory and default 30%; R-02 Luxembourg treaty 15%; R-03 Luxembourg qualifying holding 5% at 10% or more of the votes, inclusive.\n- **Default-rate lines:** 307,500 of the tax withheld sits on the three default-rate lines below.\n\n## Lines not cleared (all on D-001-A)\n\n| Recipient | Gross | Outcome | Why | What would cure it |\n|---|---|---|---|---|\n| I-006 Meridian Holdings I S.à r.l. | 300,000 | Default rate 30%, tax 90,000 | Its treaty claim (F-006) rests on ownership. Clearance CL-006 has open change case K-006. Since 2026-08-01 it and Meridian Holdings II (I-018) each hold 30% of the other (DOC-0106), so ultimate owners cannot be read. R-02 is assessed undetermined (A-R008, finding MF-R001). | A person resolves the circular holding and closes K-006 with a re-decided clearance. |\n| I-014 Client account 7731, behind Sterling Nominees (I-007), 37.5% | 225,000 | Default rate 30%, tax 67,500 | No certification and no recorded tax residence (A-R016, findings MF-R002 and MF-R003; existing open item MF-001 on CL-007). | The nominee supplies the owner's certification. |\n| I-015 Bertrange Capital S.A. | 500,000 | Default rate 30%, tax 150,000 | Form F-015 ended 2025-12-31 and clearance CL-015W is withdrawn (A-R017, finding MF-R004; existing MF-002). | A new form and a new clearance before the payment date. |\n| I-016 Atlas Co-Invest Vehicle LP | 300,000 | Not applicable, paid gross | Certified US person on W-9 F-016. | None needed. |\n| I-017 Atlas GP LLC | 401,250 | Not applicable, paid gross | Certified US person on W-9 F-017. | None needed. |\n\nAll 15 lines of D-001-B are `notApplicable` at rate 0, because a return of capital is outside every rule in force.\n\n**Default rate rather than hold:** I could not read the fund's terms. No computation returns the governing agreement of a commitment, so nothing is held. If the partnership agreement allows a hold on I-006, I-014 or I-015, that is your call.\n\n## Cleared lines to look at\n\n- **I-003 Kirchberg Industries, 5% (R-03):** its effective voting holding in Orion is exactly 10.0%, which meets the inclusive threshold.\n- **I-004 Limpertsberg Holdings, 15%:** its effective voting holding is 9.99%, just under the threshold; I did not round it up.\n- **I-005 Grund Participations, 15%:** its economic holding is 10.4% but its voting holding is 8.0%, and the threshold is tested on votes.\n- **I-010 Ardennes Industrial Holding, 15%:** it holds 9.6% through the feeder; the feeder's own 24% is not its holding.\n- **I-012 Claire Dumont (French resident) and I-009 Alpha Holdings SA (Swiss resident):** both are `cleared` at the statutory 30% as a documented rate. Each has a valid form with no treaty claim, and no treaty rule is in force for their residence.\n- **I-013 Echternach Pension Fund, 15%:** it relies on CL-007, which is \"admitted with open items\". The open item concerns only the other owner, I-014.\n- **Remaining lines:** I-001, I-008 and I-011 are cleared at 15% under R-02 with nothing unusual.\n\n## Disagreements and unknowns\n\n- **I-016 holding:** the investor register (C-016, system of record) holds 3.0%; entity management (H-006) holds 3.5%. I used the register; the treasury line of 300,000 matches 3.0%. The rate is unaffected.\n- **Two investors named \"Alpha Holdings SA\":** I-008 is the Luxembourg one (B 214 577) and I-009 the Swiss one (CHE-318.442.907). They were matched on LEI and treated separately.\n- **F-015 status flag:** the onboarding system still shows it as VALIDATED although it ended on 2025-12-31. I tested validity on the dates.\n- **\"US person\":** this is not a term in the ontology. I-016 and I-017 were treated as US persons on their W-9 forms and recorded US residence only.\n- **Look-through depth:** Atlas Lux Feeder (I-002) and Sterling Nominees (I-007) have no lines of their own; their shares go to the recipients behind them. No recipient is itself an intermediary.\n- **Rule text:** the bundle notes that the rule versions are illustrative and have not been checked against the primary text."
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    }
+  ]
+}

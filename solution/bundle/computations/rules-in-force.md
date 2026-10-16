@@ -17,7 +17,7 @@ supports: [WF3.3, WF3.6, C3.3, CQ4, CQ5]
 generated: { by: claude-code/claude-opus-5-5, at: 2026-10-06T16:57:20Z }
 ---
 
-One rate per rule version. `minimum_voting_pct` is inclusive: a holding equal to it meets the threshold, and it is tested on voting percentage, not economic percentage. `treaty_country` is the residence the recipient must have. The rules are illustrative and have not been checked against the primary text.
+One rate per rule version. `minimum_voting_pct` is inclusive: a holding equal to it meets the threshold, and it is tested on voting percentage, not economic percentage. `treaty_country` is the residence the recipient must have. The rule library does not close a version when a later one starts, so a version is in force only until a later version of the same rule takes effect. Rates follow the rule versions in force on the payment date. The rules are illustrative and have not been checked against the primary text.
 
 # Computation
 
@@ -34,6 +34,8 @@ SELECT r.rule_id, r.version_label, r.rule_name, r.rate_pct AS prescribed_rate, r
 FROM rulebook.rule_version r
 WHERE r.applies_in = %(jurisdiction)s
   AND r.eff_from <= %(on_date)s::date AND (r.eff_to IS NULL OR r.eff_to >= %(on_date)s::date)
+  AND NOT EXISTS (SELECT 1 FROM rulebook.rule_version later
+                  WHERE later.rule_id = r.rule_id AND later.eff_from > r.eff_from AND later.eff_from <= %(on_date)s::date)
 ORDER BY r.rule_id
 ```
 

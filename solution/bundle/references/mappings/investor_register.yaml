@@ -81,6 +81,10 @@ mappings:
         nominee where onboarding.declared_owner holds NOMINEE_ALLOC rows for the investor that are
         valid on the date in question; otherwise beneficial.
     interval: {property: xbpei:validDuring, start: from_dt, end: to_dt}
+    warnings:
+      - >-
+        unit_class A2 is class A units whose voting rights the holder has waived by side letter. The
+        register keeps the LPA's vote_pct for them; their xbpei:votingPercentage is 0.
 
   - term: xbpei:RoleAssignment
     table: commitment

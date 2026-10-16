@@ -10,9 +10,11 @@ Both start from the seeded Clearance schema and are scored against the answer ke
 
     python -m xbpei.agent grounded D-001
     python -m xbpei.agent control D-001
+    XBPEI_MODEL=claude-haiku-4-5-20251001 python -m xbpei.agent grounded D-002
 """
 import asyncio
 import json
+import os
 import sys
 import tempfile
 
@@ -25,7 +27,7 @@ from . import ADMIN_DSN, BUSINESS, CONTROL_DSN, DSN, bundle, ontology, tools
 from .execute import finish_run, log_step, plain, run_computation, start_run
 from .score import score
 
-MODEL = "claude-opus-5-5"
+MODEL = os.environ.get("XBPEI_MODEL", "claude-opus-5-5")
 PROCEDURE = "procedures/wf3-withholding-at-distribution"
 MAX_BUDGET_USD = 10.0
 LEGACY_SCHEMAS = ("entity_mgmt", "investor_register", "onboarding", "treasury", "documents", "rulebook", "clearance")
@@ -52,9 +54,10 @@ CONTROL_OUTPUT = {
         "lines": {"type": "array", "items": {
             "type": "object",
             "properties": {"recipient_no": {"type": "string", "description": "Investor number (inv_no) of the party whose income it is"},
-                           "component": {"type": "string"},
+                           "component": {"type": "string", "description": "Component identifier (comp_id), for example D-001-A"},
                            "outcome": {"type": "string", "enum": ["cleared", "defaultRate", "held", "notApplicable"]},
-                           "gross_amount": {"type": "number"}, "withholding_rate": {"type": "number"},
+                           "gross_amount": {"type": "number"},
+                           "withholding_rate": {"type": "number", "description": "Rate in percent: 15 for 15%"},
                            "tax_withheld": {"type": "number"}, "net_amount": {"type": "number"}, "basis": {"type": "string"}},
             "required": ["recipient_no", "component", "outcome", "gross_amount", "withholding_rate", "tax_withheld", "net_amount", "basis"]}},
         "notes": {"type": "string", "description": "Anything the reviewer must know"},
@@ -264,7 +267,7 @@ async def run(arm: str, distribution_id: str) -> dict:
             output = final.structured_output if final and final.structured_output else {"lines": [], "notes": ""}
             lines = output["lines"]
             evidence = " ".join(texts + [output.get("notes", "")] + [l.get("basis", "") for l in lines])
-        result = score(json.loads(json.dumps(lines, default=plain)), evidence)
+        result = score(json.loads(json.dumps(lines, default=plain)), evidence, distribution_id)
         conn.execute("""UPDATE runlog.run SET finished_at = now(), outcome = %s, turns = %s, duration_ms = %s, cost_usd = %s, usage = %s,
                         final_text = %s, score = %s WHERE run_id = %s""",
                      (final.subtype if final else "no result", final and final.num_turns, final and final.duration_ms,

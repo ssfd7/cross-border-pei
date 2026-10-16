@@ -1,0 +1,2901 @@
+{
+  "run": {
+    "run_id": "RUN-4615b89a",
+    "arm": "control",
+    "procedure": "procedures/wf3-withholding-at-distribution",
+    "subject": "D-002",
+    "model": "claude-opus-5-5",
+    "started_at": "2026-10-15T17:21:11.188996+00:00",
+    "finished_at": "2026-10-15T17:23:32.599771+00:00",
+    "outcome": "success",
+    "turns": 34,
+    "duration_ms": 140510,
+    "cost_usd": 0.5913,
+    "usage": {
+      "speed": "standard",
+      "iterations": [
+        {
+          "type": "message",
+          "input_tokens": 2,
+          "output_tokens": 9384,
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 4891,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_read_input_tokens": 33984,
+          "cache_creation_input_tokens": 4891
+        }
+      ],
+      "input_tokens": 20,
+      "service_tier": "standard",
+      "inference_geo": "global",
+      "output_tokens": 14482,
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 32652,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "fallback_credit": null,
+      "server_tool_use": {
+        "web_fetch_requests": 0,
+        "web_search_requests": 0
+      },
+      "output_tokens_details": {
+        "thinking_tokens": 6688
+      },
+      "cache_read_input_tokens": 196746,
+      "cache_creation_input_tokens": 32652
+    },
+    "final_text": "{\"lines\":[{\"recipient_no\":\"I-001\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":800000,\"withholding_rate\":10,\"tax_withheld\":80000,\"net_amount\":720000,\"basis\":\"Harbor Pension Trust. CL-001 cleared, valid to 2028-12-31, so valid on the 2027-01-12 payment date. Form F-001 W-8BEN-E (DOC-0101): Luxembourg treaty claim, limitation on benefits met as a pension fund, Luxembourg resident. Rule R-02 v2027.1 (in force from 2027-01-01): US-Luxembourg Convention Art. 10 as amended by the 2026 Protocol, Art. 3. 10% of the 10% share of the dividend.\"},{\"recipient_no\":\"I-010\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":960000,\"withholding_rate\":10,\"tax_withheld\":96000,\"net_amount\":864000,\"basis\":\"Owns 50% of the income paid through Atlas Lux Feeder SCSp (I-002, treated as transparent, form F-002 W-8IMY, CL-002 valid to 2028-12-31). Form F-010 W-8BEN-E valid to 2028-12-31: Luxembourg treaty claim, active-trade limitation on benefits, Luxembourg resident. Rule R-02 v2027.1, Convention Art. 10 / Protocol Art. 3. The 5% rate (R-03) was not applied: see notes.\"},{\"recipient_no\":\"I-011\",\"component\":\"D-002-A\",\"outcome\":\"defaultRate\",\"gross_amount\":576000,\"withholding_rate\":30,\"tax_withheld\":172800,\"net_amount\":403200,\"basis\":\"Owns 30% of the feeder's income through I-002. Form F-011 claims the Luxembourg treaty, but the residence record shows Moselle Capital moved its residence to Belgium from 2026-12-01 (DOC-0111, recorded 2026-12-20). The Luxembourg claim therefore fails the residence requirement (FR-08) on the payment date. This is a change in circumstances, so the form cannot be relied on for a reduced rate. Default 30% under R-01 v2026.1 (26 USC 1441/1442). Passed to WF2 with 2027-01-12 as the deadline.\"},{\"recipient_no\":\"I-012\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":384000,\"withholding_rate\":30,\"tax_withheld\":115200,\"net_amount\":268800,\"basis\":\"Claire Dumont (France), owns 20% of the feeder's income through I-002. Form F-012 W-8BEN valid to 2028-12-31, no treaty claim. Statutory 30% under R-01 v2026.1 (26 USC 1441).\"},{\"recipient_no\":\"I-003\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":1000000,\"withholding_rate\":10,\"tax_withheld\":100000,\"net_amount\":900000,\"basis\":\"Kirchberg Industries. CL-003 valid to 2027-12-31. Form F-003 W-8BEN-E: Luxembourg treaty claim, active-trade limitation on benefits, Luxembourg resident. Rule R-02 v2027.1, Convention Art. 10 / Protocol Art. 3. The 5% rate (R-03) was not applied because the class A2 side letter DOC-0003 is not digitised: see notes.\"},{\"recipient_no\":\"I-004\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":999000,\"withholding_rate\":10,\"tax_withheld\":99900,\"net_amount\":899100,\"basis\":\"Limpertsberg Holdings. CL-004 valid to 2027-12-31. Form F-004 W-8BEN-E: Luxembourg treaty claim, active-trade limitation on benefits. Rule R-02 v2027.1, Convention Art. 10 / Protocol Art. 3. Effective vote in Orion is 12.4875% x 80% = 9.99%, below the 10% that R-03 requires.\"},{\"recipient_no\":\"I-005\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":1040000,\"withholding_rate\":10,\"tax_withheld\":104000,\"net_amount\":936000,\"basis\":\"Grund Participations. CL-005 valid to 2027-12-31. Form F-005 W-8BEN-E: Luxembourg treaty claim, active-trade limitation on benefits. Rule R-02 v2027.1, Convention Art. 10 / Protocol Art. 3. Its class B units carry 10% of the vote, so effective vote in Orion is 8%: R-03 does not apply.\"},{\"recipient_no\":\"I-006\",\"component\":\"D-002-A\",\"outcome\":\"defaultRate\",\"gross_amount\":240000,\"withholding_rate\":30,\"tax_withheld\":72000,\"net_amount\":168000,\"basis\":\"Meridian Holdings I. CL-006 (Luxembourg treaty, ownership/base-erosion limitation on benefits) relied on owner declaration DO-003, which ended 2026-07-31. Change event CE-001 (restructuring of 2026-08-01, DOC-0106) opened change case K-006, still open. The new ownership is circular: Meridian I and II each hold 30% of the other, and Meridian Family Trust (Jersey) holds 70% of each. The owners up to the ultimate owners (FR-10) are not established, so the ownership-based treaty claim is unsupported on the payment date. Default 30% under R-01 v2026.1.\"},{\"recipient_no\":\"I-013\",\"component\":\"D-002-A\",\"outcome\":\"defaultRate\",\"gross_amount\":300000,\"withholding_rate\":30,\"tax_withheld\":90000,\"net_amount\":210000,\"basis\":\"Echternach Pension Fund, which owns 62.5% of the income paid through Sterling Nominees (I-007, a nonqualified intermediary, form F-007 W-8IMY, DOC-0107, CL-007). The form on file, F-013 W-8BEN-E, ends 2026-12-31, before the 2027-01-12 payment date (control C3.2), so there is no certification valid on the payment date (FR-02). Default 30% under R-01 v2026.1. Passed to WF2 with the payment date as the deadline. Likely cure: DOC-0107 refers to a W-8BEN-E dated 2025-03-04 that is not on file. If that form is validated in time, the rate becomes 10% under R-02 v2027.1 (tax 30,000, net 270,000).\"},{\"recipient_no\":\"I-014\",\"component\":\"D-002-A\",\"outcome\":\"defaultRate\",\"gross_amount\":180000,\"withholding_rate\":30,\"tax_withheld\":54000,\"net_amount\":126000,\"basis\":\"Client account 7731, which owns 37.5% of the income paid through Sterling Nominees (I-007). It has no tax certification: finding MF-001, unmet requirement FR-03. CL-007 was admitted with open items, and its recorded default treatment is 30% on the undocumented share. Default 30% under R-01 v2026.1 (US presumption rules).\"},{\"recipient_no\":\"I-008\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":480000,\"withholding_rate\":10,\"tax_withheld\":48000,\"net_amount\":432000,\"basis\":\"Alpha Holdings SA (Luxembourg, B 214 577). CL-008 valid from 2025-01-01 to 2027-12-31. Form F-008 W-8BEN-E valid to 2027-12-31: Luxembourg treaty claim, active-trade limitation on benefits. Rule R-02 v2027.1, Convention Art. 10 / Protocol Art. 3.\"},{\"recipient_no\":\"I-009\",\"component\":\"D-002-A\",\"outcome\":\"cleared\",\"gross_amount\":80000,\"withholding_rate\":30,\"tax_withheld\":24000,\"net_amount\":56000,\"basis\":\"Alpha Holdings SA (Switzerland, CHE-318.442.907). This is a different entity from I-008 with the same name. CL-009 valid to 2028-12-31. Form F-009 W-8BEN-E, no treaty claim. Statutory 30% under R-01 v2026.1.\"},{\"recipient_no\":\"I-015\",\"component\":\"D-002-A\",\"outcome\":\"defaultRate\",\"gross_amount\":400000,\"withholding_rate\":30,\"tax_withheld\":120000,\"net_amount\":280000,\"basis\":\"Bertrange Capital. CL-015 ended 2025-12-31 and CL-015W (withdrawn, case K-015) applies. Form F-015 ended 2025-12-31 and no new form was received (finding MF-002, unmet requirement FR-02). The recorded default treatment is 30% until a valid form is supplied. R-01 v2026.1. Item needed to cure: a new W-8BEN-E.\"},{\"recipient_no\":\"I-016\",\"component\":\"D-002-A\",\"outcome\":\"notApplicable\",\"gross_amount\":240000,\"withholding_rate\":0,\"tax_withheld\":0,\"net_amount\":240000,\"basis\":\"Atlas Co-Invest Vehicle LP, a US partnership. CL-016 open-ended. Form F-016 W-9 shows it is a US person, so withholding on foreign persons (R-01) does not apply. Paid gross.\"},{\"recipient_no\":\"I-017\",\"component\":\"D-002-A\",\"outcome\":\"notApplicable\",\"gross_amount\":321000,\"withholding_rate\":0,\"tax_withheld\":0,\"net_amount\":321000,\"basis\":\"Atlas GP LLC, a US person. CL-017 open-ended. Form F-017 W-9, so R-01 does not apply. Paid gross.\"}],\"notes\":\"WF3 for D-002 (Atlas Growth Fund I) has been prepared up to step 9. Steps 10 onward (second review, reconciliation sign-off, release) are not done. No withholding schedule or determination rows existed, and nothing has been written to the database (read-only access).\\n\\nDISTRIBUTION AND RECONCILIATION (control C3.4)\\n- Notice DOC-0202: record date 2026-12-15, payment date 2027-01-12, USD 8,000,000.\\n- One component, D-002-A: US-source dividend from Orion Manufacturing Inc. (a US corporation). It passed through Atlas Acquisition SPV LLC (disregarded, holds 80% of Orion) and arrived as payments P-009/P-010.\\n- The 12 payee lines add up to 8,000,000. They match the unit percentages at the record date.\\n- Schedule totals: gross 8,000,000; tax 1,175,900; net 6,824,100.\\n- Atlas Lux Feeder (I-002) and Sterling Nominees (I-007) are transparent or intermediaries. Their lines are split to the owners whose income it is: I-010, I-011 and I-012, and I-013 and I-014. The cash still goes to those two intermediaries as payees.\\n\\nRULE VERSIONS ON THE PAYMENT DATE\\n- R-01 v2026.1 (30%) and R-02 v2027.1 (Luxembourg treaty 10%, Protocol Art. 3, in force from 2027-01-01).\\n- Data issue: R-02 v2026.1 (15%) also has no end date in the rulebook, so it overlaps v2027.1. I used v2027.1 on the payment date. The rulebook needs v2026.1 end-dated 2026-12-31.\\n- No obligation_assessment rows exist for any recipient.\\n\\nREDUCED RATES THAT NEED REVIEW (control C3.3)\\n- Eight Luxembourg treaty lines at 10%: I-001, I-003, I-004, I-005, I-008, I-010, plus I-013 if cured.\\n- The 5% rate (R-03 v2026.1, at least 10% effective vote in the paying company) was not applied to anyone.\\n  (a) I-003 Kirchberg: effective vote is 12.5% x 80% = exactly 10.0%. However, its units moved to class A2 on 2026-12-01 under side letter DOC-0003, which is not digitised. Its effect on voting is unknown, so FR-06 cannot be confirmed.\\n  (b) I-010 Ardennes: the feeder's vote in the fund is 25% from 2026-12-01 in entity_mgmt holding H-005b, but 24% in investor_register commitment C-002. At 25%, I-010's effective vote is 25% x 50% x 80% = 10.0%; at 24% it is 9.6%. The conflicting records need resolving.\\n  Whether R-03 allows looking through the fund partnership is a judgement for the reviewer.\\n- 10% is the conservative choice. If either investor is confirmed at 5%, re-run step 9.\\n\\nDEFAULTS. Five lines, tax 508,800. Investor relations must notify each before payment (control C3.7). Hold was not used: the LPA (DOC-0001) is not digitised, so no hold right could be confirmed.\\n- I-011 Moselle: residence moved to Belgium on 2026-12-01 (DOC-0111, not digitised). Needs a new W-8BEN-E, possibly claiming the Belgian treaty. That treaty is not in the rulebook.\\n- I-006 Meridian I: change case K-006 is still open. The new ownership is circular, and the ultimate owner is a Jersey trust, so the ownership/base-erosion limitation-on-benefits test probably fails even after the facts are complete. Needs a full ownership chain and a fresh limitation-on-benefits analysis.\\n- I-013 Echternach: form F-013 ends 2026-12-31, before the payment date (scenario S3.5). DOC-0107 and tax status TS-013 (from 2025-03-04) point to a W-8BEN-E of 2025-03-04 that is not on file. Get it from Sterling or Echternach and validate it before 2027-01-12. If that happens, the line becomes 10% (tax 30,000).\\n- I-014 Client account 7731: needs a beneficial-owner certification.\\n- I-015 Bertrange: needs a new W-8BEN-E.\\n- I-011 and I-013 have been passed to WF2 with 2027-01-12 as the deadline. If they are cured before the step 9 cut-off (3 business days before payment), re-determine those lines.\\n\\nOTHER DATA POINTS\\n- I-016 is 3% in the investor register and distribution line, but 3.5% in entity_mgmt holding H-006. Paid as 3%; fund finance should confirm.\\n- F-002, the feeder's W-8IMY, has no document reference or withholding statement on file. The partner split of 50/30/20 is taken from the ALF1 commitments.\\n- I-008 and I-009 share the name \\\"Alpha Holdings SA\\\" but are different entities (Luxembourg and Switzerland). Check the payee mapping: CP-108 is I-008 and CP-109 is I-009.\\n- Date anomaly: the system date is 2026-10-15, but DOC-0202 (2026-12-07), DOC-0003 (2026-11-24), DOC-0111 (2026-12-18) and the I-011 residence record (recorded 2026-12-20) all postdate it. Confirm the as-of date before sign-off.\\n- The second reviewer must not be the preparer (control C3.5). The clearances were reviewed by STAFF-02 and STAFF-03.\"}",
+    "score": {
+      "cases": {
+        "G7 expired form": true,
+        "G4 nominee looked through": true,
+        "G8 US person not withheld": true,
+        "G13 votes waived by side letter": true,
+        "G10 residence moved: no treaty rate": true,
+        "G14 sources disagree: register wins": true,
+        "G3 circular holding: no treaty rate": true,
+        "G12 rule version on the payment date": true,
+        "G11 form ended before payment: no treaty rate": true
+      },
+      "tax_error": 0.0,
+      "tax_total": 1175900.0,
+      "cases_total": 9,
+      "gross_total": 8000000.0,
+      "lines_given": 15,
+      "cases_passed": 9,
+      "tax_expected": 1175900.0,
+      "lines_correct": 15,
+      "lines_expected": 15
+    }
+  },
+  "steps": [
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 1,
+      "at": "2026-10-15T17:21:14.081879+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from treasury.distribution where dist_id='D-002' union all select * from treasury.distribution where dist_id<>'D-002' limit 5",
+      "result": [
+        {
+          "ccy": "USD",
+          "pay_dt": "2027-01-12",
+          "status": "PROPOSED",
+          "dist_id": "D-002",
+          "fund_cp": "CP-001",
+          "gross_amt": 8000000.0,
+          "record_dt": "2026-12-15"
+        },
+        {
+          "ccy": "USD",
+          "pay_dt": "2026-11-16",
+          "status": "PROPOSED",
+          "dist_id": "D-001",
+          "fund_cp": "CP-001",
+          "gross_amt": 12000000.0,
+          "record_dt": "2026-10-30"
+        }
+      ],
+      "row_count": 2,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 2,
+      "at": "2026-10-15T17:21:14.860841+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select c.*, l.payee_cp, l.gross_amt line_amt from treasury.distribution_component c left join treasury.distribution_line l using(comp_id) where c.dist_id='D-002' order by 1,3",
+      "result": [
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "line_amt": 800000.0,
+          "payee_cp": "CP-101",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        },
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "line_amt": 1920000.0,
+          "payee_cp": "CP-102",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        },
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "line_amt": 1000000.0,
+          "payee_cp": "CP-103",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        },
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "line_amt": 999000.0,
+          "payee_cp": "CP-104",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        },
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "line_amt": 1040000.0,
+          "payee_cp": "CP-105",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        },
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "line_amt": 240000.0,
+          "payee_cp": "CP-106",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        },
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "line_amt": 480000.0,
+          "payee_cp": "CP-107",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        },
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "line_amt": 480000.0,
+          "payee_cp": "CP-108",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        },
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "line_amt": 80000.0,
+          "payee_cp": "CP-109",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        },
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "line_amt": 400000.0,
+          "payee_cp": "CP-115",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        },
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "line_amt": 240000.0,
+          "payee_cp": "CP-116",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        },
+        {
+          "comp_id": "D-002-A",
+          "dist_id": "D-002",
+          "line_amt": 321000.0,
+          "payee_cp": "CP-117",
+          "gross_amt": 8000000.0,
+          "income_cd": "DIV",
+          "source_country": "US"
+        }
+      ],
+      "row_count": 12,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 3,
+      "at": "2026-10-15T17:21:17.714117+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from treasury.counterparty order by 1",
+      "result": [
+        {
+          "lei": "XBPEISYNTH0000E00100",
+          "cp_id": "CP-001",
+          "reg_no": "DE 7104411",
+          "country": "US",
+          "cp_name": "ATLAS GROWTH FUND I LP"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00200",
+          "cp_id": "CP-002",
+          "reg_no": "DE 7104498",
+          "country": "US",
+          "cp_name": "ATLAS ACQUISITION SPV LLC"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00300",
+          "cp_id": "CP-003",
+          "reg_no": "DE 2893310",
+          "country": "US",
+          "cp_name": "ORION MANUFACTURING INC"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00600",
+          "cp_id": "CP-006",
+          "reg_no": "HRB 151 772",
+          "country": "DE",
+          "cp_name": "BOREALIS LOGISTIK GMBH"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00700",
+          "cp_id": "CP-007",
+          "reg_no": "B 283 115",
+          "country": "LU",
+          "cp_name": "ATLAS BOREALIS HOLDCO SARL"
+        },
+        {
+          "lei": null,
+          "cp_id": "CP-020",
+          "reg_no": "DE 7098820",
+          "country": "US",
+          "cp_name": "ATLAS CAPITAL MANAGEMENT LLC"
+        },
+        {
+          "lei": "XBPEISYNTH0000I00100",
+          "cp_id": "CP-101",
+          "reg_no": "B 198 220",
+          "country": "LU",
+          "cp_name": "HARBOR PENSION TRUST"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00500",
+          "cp_id": "CP-102",
+          "reg_no": "B 281 904",
+          "country": "LU",
+          "cp_name": "ATLAS LUX FEEDER SCSP"
+        },
+        {
+          "lei": "XBPEISYNTH0000I00300",
+          "cp_id": "CP-103",
+          "reg_no": "B 144 061",
+          "country": "LU",
+          "cp_name": "KIRCHBERG INDUSTRIES SA"
+        },
+        {
+          "lei": "XBPEISYNTH0000I00400",
+          "cp_id": "CP-104",
+          "reg_no": "B 152 733",
+          "country": "LU",
+          "cp_name": "LIMPERTSBERG HOLDINGS SA"
+        },
+        {
+          "lei": "XBPEISYNTH0000I00500",
+          "cp_id": "CP-105",
+          "reg_no": "B 167 408",
+          "country": "LU",
+          "cp_name": "GRUND PARTICIPATIONS SA"
+        },
+        {
+          "lei": "XBPEISYNTH0000I00600",
+          "cp_id": "CP-106",
+          "reg_no": "B 221 590",
+          "country": "LU",
+          "cp_name": "MERIDIAN HOLDINGS I SARL"
+        },
+        {
+          "lei": "XBPEISYNTH0000I00700",
+          "cp_id": "CP-107",
+          "reg_no": "09417265",
+          "country": "GB",
+          "cp_name": "STERLING NOMINEES LTD"
+        },
+        {
+          "lei": "XBPEISYNTH0000I00800",
+          "cp_id": "CP-108",
+          "reg_no": "B 214 577",
+          "country": "LU",
+          "cp_name": "ALPHA HOLDINGS SA"
+        },
+        {
+          "lei": "XBPEISYNTH0000I00900",
+          "cp_id": "CP-109",
+          "reg_no": "CHE-318.442.907",
+          "country": "CH",
+          "cp_name": "ALPHA HOLDINGS SA"
+        },
+        {
+          "lei": "XBPEISYNTH0000I01500",
+          "cp_id": "CP-115",
+          "reg_no": "B 188 371",
+          "country": "LU",
+          "cp_name": "BERTRANGE CAPITAL SA"
+        },
+        {
+          "lei": "XBPEISYNTH0000E01000",
+          "cp_id": "CP-116",
+          "reg_no": "DE 7230016",
+          "country": "US",
+          "cp_name": "ATLAS CO-INVEST VEHICLE LP"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00400",
+          "cp_id": "CP-117",
+          "reg_no": "DE 7104402",
+          "country": "US",
+          "cp_name": "ATLAS GP LLC"
+        }
+      ],
+      "row_count": 18,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 4,
+      "at": "2026-10-15T17:21:18.121630+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from investor_register.investor order by 1",
+      "result": [
+        {
+          "lei": "XBPEISYNTH0000I00100",
+          "inv_no": "I-001",
+          "reg_no": "B 198 220",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Pension fund",
+          "country_inc": "LU",
+          "country_res": "LU",
+          "display_name": "Harbor Pension Trust"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00500",
+          "inv_no": "I-002",
+          "reg_no": "B 281 904",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Special limited partnership",
+          "country_inc": "LU",
+          "country_res": null,
+          "display_name": "Atlas Lux Feeder SCSp"
+        },
+        {
+          "lei": "XBPEISYNTH0000I00300",
+          "inv_no": "I-003",
+          "reg_no": "B 144 061",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Public limited company",
+          "country_inc": "LU",
+          "country_res": "LU",
+          "display_name": "Kirchberg Industries S.A."
+        },
+        {
+          "lei": "XBPEISYNTH0000I00400",
+          "inv_no": "I-004",
+          "reg_no": "B 152 733",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Public limited company",
+          "country_inc": "LU",
+          "country_res": "LU",
+          "display_name": "Limpertsberg Holdings S.A."
+        },
+        {
+          "lei": "XBPEISYNTH0000I00500",
+          "inv_no": "I-005",
+          "reg_no": "B 167 408",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Public limited company",
+          "country_inc": "LU",
+          "country_res": "LU",
+          "display_name": "Grund Participations S.A."
+        },
+        {
+          "lei": "XBPEISYNTH0000I00600",
+          "inv_no": "I-006",
+          "reg_no": "B 221 590",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Private limited company",
+          "country_inc": "LU",
+          "country_res": "LU",
+          "display_name": "Meridian Holdings I S.à r.l."
+        },
+        {
+          "lei": "XBPEISYNTH0000I00700",
+          "inv_no": "I-007",
+          "reg_no": "09417265",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Private company limited by shares",
+          "country_inc": "GB",
+          "country_res": "GB",
+          "display_name": "Sterling Nominees Ltd"
+        },
+        {
+          "lei": "XBPEISYNTH0000I00800",
+          "inv_no": "I-008",
+          "reg_no": "B 214 577",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Public limited company",
+          "country_inc": "LU",
+          "country_res": "LU",
+          "display_name": "Alpha Holdings SA"
+        },
+        {
+          "lei": "XBPEISYNTH0000I00900",
+          "inv_no": "I-009",
+          "reg_no": "CHE-318.442.907",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Public limited company",
+          "country_inc": "CH",
+          "country_res": "CH",
+          "display_name": "Alpha Holdings SA"
+        },
+        {
+          "lei": "XBPEISYNTH0000I01000",
+          "inv_no": "I-010",
+          "reg_no": "B 139 215",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Public limited company",
+          "country_inc": "LU",
+          "country_res": "LU",
+          "display_name": "Ardennes Industrial Holding S.A."
+        },
+        {
+          "lei": "XBPEISYNTH0000I01100",
+          "inv_no": "I-011",
+          "reg_no": "B 176 842",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Public limited company",
+          "country_inc": "LU",
+          "country_res": "LU",
+          "display_name": "Moselle Capital S.A."
+        },
+        {
+          "lei": null,
+          "inv_no": "I-012",
+          "reg_no": null,
+          "inv_type": "IND",
+          "rec_type": "INV",
+          "legal_form": null,
+          "country_inc": null,
+          "country_res": "FR",
+          "display_name": "Claire Dumont"
+        },
+        {
+          "lei": "XBPEISYNTH0000I01300",
+          "inv_no": "I-013",
+          "reg_no": "B 120 388",
+          "inv_type": "ENT",
+          "rec_type": "UO ",
+          "legal_form": "Pension fund",
+          "country_inc": "LU",
+          "country_res": "LU",
+          "display_name": "Echternach Pension Fund"
+        },
+        {
+          "lei": null,
+          "inv_no": "I-014",
+          "reg_no": null,
+          "inv_type": "ENT",
+          "rec_type": "UO ",
+          "legal_form": null,
+          "country_inc": null,
+          "country_res": null,
+          "display_name": "Client account 7731"
+        },
+        {
+          "lei": "XBPEISYNTH0000I01500",
+          "inv_no": "I-015",
+          "reg_no": "B 188 371",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Public limited company",
+          "country_inc": "LU",
+          "country_res": "LU",
+          "display_name": "Bertrange Capital S.A."
+        },
+        {
+          "lei": "XBPEISYNTH0000E01000",
+          "inv_no": "I-016",
+          "reg_no": "DE 7230016",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Limited partnership",
+          "country_inc": "US",
+          "country_res": "US",
+          "display_name": "Atlas Co-Invest Vehicle LP"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00400",
+          "inv_no": "I-017",
+          "reg_no": "DE 7104402",
+          "inv_type": "ENT",
+          "rec_type": "INV",
+          "legal_form": "Limited liability company",
+          "country_inc": "US",
+          "country_res": "US",
+          "display_name": "Atlas GP LLC"
+        },
+        {
+          "lei": "XBPEISYNTH0000I01800",
+          "inv_no": "I-018",
+          "reg_no": "B 221 591",
+          "inv_type": "ENT",
+          "rec_type": "UO ",
+          "legal_form": "Private limited company",
+          "country_inc": "LU",
+          "country_res": "LU",
+          "display_name": "Meridian Holdings II S.à r.l."
+        },
+        {
+          "lei": null,
+          "inv_no": "I-019",
+          "reg_no": "JE 88214",
+          "inv_type": "ENT",
+          "rec_type": "UO ",
+          "legal_form": "Trust",
+          "country_inc": "JE",
+          "country_res": "JE",
+          "display_name": "Meridian Family Trust"
+        }
+      ],
+      "row_count": 19,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 5,
+      "at": "2026-10-15T17:21:18.503284+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from investor_register.commitment order by inv_no, from_dt",
+      "result": [
+        {
+          "to_dt": null,
+          "inv_no": "I-001",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 10.0,
+          "vote_pct": 10.0,
+          "commit_id": "C-001",
+          "fund_code": "AGF1",
+          "commit_amt": 20000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-002",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 24.0,
+          "vote_pct": 24.0,
+          "commit_id": "C-002",
+          "fund_code": "AGF1",
+          "commit_amt": 48000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": "2026-11-30",
+          "inv_no": "I-003",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 12.5,
+          "vote_pct": 12.5,
+          "commit_id": "C-003",
+          "fund_code": "AGF1",
+          "commit_amt": 25000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-003",
+          "from_dt": "2026-12-01",
+          "lpa_ref": "DOC-0003",
+          "unit_pct": 12.5,
+          "vote_pct": 12.5,
+          "commit_id": "C-003b",
+          "fund_code": "AGF1",
+          "commit_amt": 25000000.0,
+          "unit_class": "A2"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-004",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 12.4875,
+          "vote_pct": 12.4875,
+          "commit_id": "C-004",
+          "fund_code": "AGF1",
+          "commit_amt": 24975000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-005",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 13.0,
+          "vote_pct": 10.0,
+          "commit_id": "C-005",
+          "fund_code": "AGF1",
+          "commit_amt": 26000000.0,
+          "unit_class": "B (limited voting)"
+        },
+        {
+          "to_dt": "2025-02-28",
+          "inv_no": "I-005",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 6.0,
+          "vote_pct": 6.0,
+          "commit_id": "C-007a",
+          "fund_code": "AGF1",
+          "commit_amt": 12000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-006",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 3.0,
+          "vote_pct": 3.0,
+          "commit_id": "C-006",
+          "fund_code": "AGF1",
+          "commit_amt": 6000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-007",
+          "from_dt": "2025-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 6.0,
+          "vote_pct": 6.0,
+          "commit_id": "C-007",
+          "fund_code": "AGF1",
+          "commit_amt": 12000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": "2026-06-30",
+          "inv_no": "I-008",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 8.0,
+          "vote_pct": 8.0,
+          "commit_id": "C-008a",
+          "fund_code": "AGF1",
+          "commit_amt": 16000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-008",
+          "from_dt": "2026-07-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 6.0,
+          "vote_pct": 6.0,
+          "commit_id": "C-008",
+          "fund_code": "AGF1",
+          "commit_amt": 12000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-009",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 1.0,
+          "vote_pct": 1.0,
+          "commit_id": "C-009",
+          "fund_code": "AGF1",
+          "commit_amt": 2000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-010",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0002",
+          "unit_pct": 50.0,
+          "vote_pct": 50.0,
+          "commit_id": "C-110",
+          "fund_code": "ALF1",
+          "commit_amt": 24000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-011",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0002",
+          "unit_pct": 30.0,
+          "vote_pct": 30.0,
+          "commit_id": "C-111",
+          "fund_code": "ALF1",
+          "commit_amt": 14400000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-012",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0002",
+          "unit_pct": 20.0,
+          "vote_pct": 20.0,
+          "commit_id": "C-112",
+          "fund_code": "ALF1",
+          "commit_amt": 9600000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": "2026-06-30",
+          "inv_no": "I-015",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 3.0,
+          "vote_pct": 3.0,
+          "commit_id": "C-015a",
+          "fund_code": "AGF1",
+          "commit_amt": 6000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-015",
+          "from_dt": "2026-07-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 5.0,
+          "vote_pct": 5.0,
+          "commit_id": "C-015",
+          "fund_code": "AGF1",
+          "commit_amt": 10000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-016",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 3.0,
+          "vote_pct": 3.0,
+          "commit_id": "C-016",
+          "fund_code": "AGF1",
+          "commit_amt": 6000000.0,
+          "unit_class": "A"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-017",
+          "from_dt": "2024-03-01",
+          "lpa_ref": "DOC-0001",
+          "unit_pct": 4.0125,
+          "vote_pct": 7.0125,
+          "commit_id": "C-017",
+          "fund_code": "AGF1",
+          "commit_amt": 8025000.0,
+          "unit_class": "GP"
+        }
+      ],
+      "row_count": 19,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 6,
+      "at": "2026-10-15T17:21:22.997503+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from onboarding.declared_owner order by owned_inv_no, from_dt",
+      "result": [
+        {
+          "to_dt": "2026-07-31",
+          "decl_id": "DO-003",
+          "doc_ref": null,
+          "from_dt": "2024-03-01",
+          "pct_econ": 100.0,
+          "pct_vote": 100.0,
+          "alloc_basis": "OWNERSHIP",
+          "owned_inv_no": "I-006",
+          "owner_inv_no": "I-019"
+        },
+        {
+          "to_dt": null,
+          "decl_id": "DO-004",
+          "doc_ref": "DOC-0106",
+          "from_dt": "2026-08-01",
+          "pct_econ": 30.0,
+          "pct_vote": 30.0,
+          "alloc_basis": "OWNERSHIP",
+          "owned_inv_no": "I-006",
+          "owner_inv_no": "I-018"
+        },
+        {
+          "to_dt": null,
+          "decl_id": "DO-005",
+          "doc_ref": "DOC-0106",
+          "from_dt": "2026-08-01",
+          "pct_econ": 70.0,
+          "pct_vote": 70.0,
+          "alloc_basis": "OWNERSHIP",
+          "owned_inv_no": "I-006",
+          "owner_inv_no": "I-019"
+        },
+        {
+          "to_dt": null,
+          "decl_id": "DO-001",
+          "doc_ref": "DOC-0107",
+          "from_dt": "2025-03-01",
+          "pct_econ": 62.5,
+          "pct_vote": 62.5,
+          "alloc_basis": "NOMINEE_ALLOC",
+          "owned_inv_no": "I-007",
+          "owner_inv_no": "I-013"
+        },
+        {
+          "to_dt": null,
+          "decl_id": "DO-002",
+          "doc_ref": "DOC-0107",
+          "from_dt": "2025-03-01",
+          "pct_econ": 37.5,
+          "pct_vote": 37.5,
+          "alloc_basis": "NOMINEE_ALLOC",
+          "owned_inv_no": "I-007",
+          "owner_inv_no": "I-014"
+        },
+        {
+          "to_dt": null,
+          "decl_id": "DO-007",
+          "doc_ref": "DOC-0106",
+          "from_dt": "2026-08-01",
+          "pct_econ": 70.0,
+          "pct_vote": 70.0,
+          "alloc_basis": "OWNERSHIP",
+          "owned_inv_no": "I-018",
+          "owner_inv_no": "I-019"
+        },
+        {
+          "to_dt": null,
+          "decl_id": "DO-006",
+          "doc_ref": "DOC-0106",
+          "from_dt": "2026-08-01",
+          "pct_econ": 30.0,
+          "pct_vote": 30.0,
+          "alloc_basis": "OWNERSHIP",
+          "owned_inv_no": "I-018",
+          "owner_inv_no": "I-006"
+        }
+      ],
+      "row_count": 7,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 7,
+      "at": "2026-10-15T17:21:23.494813+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from onboarding.tax_form order by inv_no, signed_dt",
+      "result": [
+        {
+          "inv_no": "I-001",
+          "lob_cd": "PENSION",
+          "doc_ref": "DOC-0101",
+          "form_id": "F-001",
+          "recv_dt": "2025-02-03",
+          "valid_to": "2028-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2025-02-01",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU",
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-002",
+          "lob_cd": null,
+          "doc_ref": null,
+          "form_id": "F-002",
+          "recv_dt": "2025-01-21",
+          "valid_to": null,
+          "form_type": "W-8IMY",
+          "signed_dt": "2025-01-20",
+          "form_status": "VALIDATED",
+          "treaty_claim": "N",
+          "treaty_country": null,
+          "is_intermediary": "Y"
+        },
+        {
+          "inv_no": "I-003",
+          "lob_cd": "ACTIVE_TRADE",
+          "doc_ref": null,
+          "form_id": "F-003",
+          "recv_dt": "2024-06-04",
+          "valid_to": "2027-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2024-06-03",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU",
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-004",
+          "lob_cd": "ACTIVE_TRADE",
+          "doc_ref": null,
+          "form_id": "F-004",
+          "recv_dt": "2024-06-06",
+          "valid_to": "2027-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2024-06-05",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU",
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-005",
+          "lob_cd": "ACTIVE_TRADE",
+          "doc_ref": null,
+          "form_id": "F-005",
+          "recv_dt": "2024-07-12",
+          "valid_to": "2027-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2024-07-11",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU",
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-006",
+          "lob_cd": "OWNERSHIP_BASE_EROSION",
+          "doc_ref": null,
+          "form_id": "F-006",
+          "recv_dt": "2024-03-06",
+          "valid_to": "2027-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2024-03-05",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU",
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-007",
+          "lob_cd": null,
+          "doc_ref": "DOC-0107",
+          "form_id": "F-007",
+          "recv_dt": "2025-03-03",
+          "valid_to": null,
+          "form_type": "W-8IMY",
+          "signed_dt": "2025-03-01",
+          "form_status": "VALIDATED",
+          "treaty_claim": "N",
+          "treaty_country": null,
+          "is_intermediary": "Y"
+        },
+        {
+          "inv_no": "I-008",
+          "lob_cd": "ACTIVE_TRADE",
+          "doc_ref": null,
+          "form_id": "F-008a",
+          "recv_dt": "2021-05-12",
+          "valid_to": "2024-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2021-05-10",
+          "form_status": "SUPERSEDED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU",
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-008",
+          "lob_cd": "ACTIVE_TRADE",
+          "doc_ref": null,
+          "form_id": "F-008",
+          "recv_dt": "2024-11-22",
+          "valid_to": "2027-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2024-11-20",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU",
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-009",
+          "lob_cd": null,
+          "doc_ref": null,
+          "form_id": "F-009",
+          "recv_dt": "2025-04-15",
+          "valid_to": "2028-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2025-04-14",
+          "form_status": "VALIDATED",
+          "treaty_claim": "N",
+          "treaty_country": null,
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-010",
+          "lob_cd": "ACTIVE_TRADE",
+          "doc_ref": null,
+          "form_id": "F-010",
+          "recv_dt": "2025-01-16",
+          "valid_to": "2028-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2025-01-15",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU",
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-011",
+          "lob_cd": "ACTIVE_TRADE",
+          "doc_ref": null,
+          "form_id": "F-011",
+          "recv_dt": "2025-01-20",
+          "valid_to": "2028-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2025-01-18",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU",
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-012",
+          "lob_cd": null,
+          "doc_ref": null,
+          "form_id": "F-012",
+          "recv_dt": "2025-01-23",
+          "valid_to": "2028-12-31",
+          "form_type": "W-8BEN",
+          "signed_dt": "2025-01-22",
+          "form_status": "VALIDATED",
+          "treaty_claim": "N",
+          "treaty_country": null,
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-013",
+          "lob_cd": "PENSION",
+          "doc_ref": null,
+          "form_id": "F-013",
+          "recv_dt": "2023-03-07",
+          "valid_to": "2026-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2023-03-06",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU",
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-015",
+          "lob_cd": "ACTIVE_TRADE",
+          "doc_ref": "DOC-0115",
+          "form_id": "F-015",
+          "recv_dt": "2022-03-11",
+          "valid_to": "2025-12-31",
+          "form_type": "W-8BEN-E",
+          "signed_dt": "2022-03-10",
+          "form_status": "VALIDATED",
+          "treaty_claim": "Y",
+          "treaty_country": "LU",
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-016",
+          "lob_cd": null,
+          "doc_ref": null,
+          "form_id": "F-016",
+          "recv_dt": "2024-02-02",
+          "valid_to": null,
+          "form_type": "W-9",
+          "signed_dt": "2024-02-01",
+          "form_status": "VALIDATED",
+          "treaty_claim": "N",
+          "treaty_country": null,
+          "is_intermediary": "N"
+        },
+        {
+          "inv_no": "I-017",
+          "lob_cd": null,
+          "doc_ref": null,
+          "form_id": "F-017",
+          "recv_dt": "2024-02-02",
+          "valid_to": null,
+          "form_type": "W-9",
+          "signed_dt": "2024-02-01",
+          "form_status": "VALIDATED",
+          "treaty_claim": "N",
+          "treaty_country": null,
+          "is_intermediary": "N"
+        }
+      ],
+      "row_count": 17,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 8,
+      "at": "2026-10-15T17:21:23.832548+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from onboarding.tax_status order by inv_no, from_dt",
+      "result": [
+        {
+          "to_dt": null,
+          "inv_no": "I-001",
+          "doc_ref": "DOC-0101",
+          "from_dt": "2025-02-01",
+          "status_id": "TS-001",
+          "recorded_dt": "2025-02-10",
+          "classification": "opaque",
+          "assessed_country": "US"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-002",
+          "doc_ref": null,
+          "from_dt": "2025-01-20",
+          "status_id": "TS-002",
+          "recorded_dt": "2025-02-12",
+          "classification": "transparent",
+          "assessed_country": "US"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-003",
+          "doc_ref": null,
+          "from_dt": "2024-06-03",
+          "status_id": "TS-003",
+          "recorded_dt": "2024-06-20",
+          "classification": "opaque",
+          "assessed_country": "US"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-004",
+          "doc_ref": null,
+          "from_dt": "2024-06-05",
+          "status_id": "TS-004",
+          "recorded_dt": "2024-06-20",
+          "classification": "opaque",
+          "assessed_country": "US"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-005",
+          "doc_ref": null,
+          "from_dt": "2024-07-11",
+          "status_id": "TS-005",
+          "recorded_dt": "2024-07-25",
+          "classification": "opaque",
+          "assessed_country": "US"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-006",
+          "doc_ref": null,
+          "from_dt": "2024-03-05",
+          "status_id": "TS-006",
+          "recorded_dt": "2024-03-20",
+          "classification": "opaque",
+          "assessed_country": "US"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-007",
+          "doc_ref": "DOC-0107",
+          "from_dt": "2025-03-01",
+          "status_id": "TS-007",
+          "recorded_dt": "2025-03-15",
+          "classification": "transparent",
+          "assessed_country": "US"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-008",
+          "doc_ref": null,
+          "from_dt": "2021-05-10",
+          "status_id": "TS-008",
+          "recorded_dt": "2021-05-20",
+          "classification": "opaque",
+          "assessed_country": "US"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-009",
+          "doc_ref": null,
+          "from_dt": "2025-04-14",
+          "status_id": "TS-009",
+          "recorded_dt": "2025-04-20",
+          "classification": "opaque",
+          "assessed_country": "US"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-010",
+          "doc_ref": null,
+          "from_dt": "2025-01-15",
+          "status_id": "TS-010",
+          "recorded_dt": "2025-02-12",
+          "classification": "opaque",
+          "assessed_country": "US"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-011",
+          "doc_ref": null,
+          "from_dt": "2025-01-18",
+          "status_id": "TS-011",
+          "recorded_dt": "2025-02-12",
+          "classification": "opaque",
+          "assessed_country": "US"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-013",
+          "doc_ref": null,
+          "from_dt": "2025-03-04",
+          "status_id": "TS-013",
+          "recorded_dt": "2025-03-15",
+          "classification": "opaque",
+          "assessed_country": "US"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-015",
+          "doc_ref": "DOC-0115",
+          "from_dt": "2022-03-10",
+          "status_id": "TS-015",
+          "recorded_dt": "2022-03-20",
+          "classification": "opaque",
+          "assessed_country": "US"
+        }
+      ],
+      "row_count": 13,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 9,
+      "at": "2026-10-15T17:21:30.589046+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from investor_register.fund",
+      "result": [
+        {
+          "lei": "XBPEISYNTH0000E00100",
+          "base_ccy": "USD",
+          "fund_code": "AGF1",
+          "fund_name": "Atlas Growth Fund I LP"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00500",
+          "base_ccy": "USD",
+          "fund_code": "ALF1",
+          "fund_name": "Atlas Lux Feeder SCSp"
+        }
+      ],
+      "row_count": 2,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 10,
+      "at": "2026-10-15T17:21:31.084927+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from clearance.clearance order by clearance_of, decided_on",
+      "result": [
+        {
+          "case_id": null,
+          "valid_to": "2028-12-31",
+          "decided_on": "2025-02-10",
+          "valid_from": "2025-02-10",
+          "reviewed_by": "STAFF-02",
+          "clearance_id": "CL-001",
+          "clearance_of": "I-001",
+          "in_context_of": "AGF1",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "case_id": null,
+          "valid_to": "2028-12-31",
+          "decided_on": "2025-02-12",
+          "valid_from": "2025-02-12",
+          "reviewed_by": "STAFF-02",
+          "clearance_id": "CL-002",
+          "clearance_of": "I-002",
+          "in_context_of": "AGF1",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "case_id": null,
+          "valid_to": "2027-12-31",
+          "decided_on": "2024-06-20",
+          "valid_from": "2024-06-20",
+          "reviewed_by": "STAFF-02",
+          "clearance_id": "CL-003",
+          "clearance_of": "I-003",
+          "in_context_of": "AGF1",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "case_id": null,
+          "valid_to": "2027-12-31",
+          "decided_on": "2024-06-20",
+          "valid_from": "2024-06-20",
+          "reviewed_by": "STAFF-02",
+          "clearance_id": "CL-004",
+          "clearance_of": "I-004",
+          "in_context_of": "AGF1",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "case_id": null,
+          "valid_to": "2027-12-31",
+          "decided_on": "2024-07-25",
+          "valid_from": "2024-07-25",
+          "reviewed_by": "STAFF-02",
+          "clearance_id": "CL-005",
+          "clearance_of": "I-005",
+          "in_context_of": "AGF1",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "case_id": null,
+          "valid_to": "2027-12-31",
+          "decided_on": "2024-03-20",
+          "valid_from": "2024-03-20",
+          "reviewed_by": "STAFF-02",
+          "clearance_id": "CL-006",
+          "clearance_of": "I-006",
+          "in_context_of": "AGF1",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "case_id": null,
+          "valid_to": "2028-12-31",
+          "decided_on": "2025-03-15",
+          "valid_from": "2025-03-15",
+          "reviewed_by": "STAFF-02",
+          "clearance_id": "CL-007",
+          "clearance_of": "I-007",
+          "in_context_of": "AGF1",
+          "clearance_status": "admittedWithOpenItems",
+          "default_treatment": "30% default rate on the share of the undocumented owner"
+        },
+        {
+          "case_id": null,
+          "valid_to": "2024-12-31",
+          "decided_on": "2021-05-20",
+          "valid_from": "2021-05-20",
+          "reviewed_by": "STAFF-03",
+          "clearance_id": "CL-008A",
+          "clearance_of": "I-008",
+          "in_context_of": "AGF1",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "case_id": "K-008",
+          "valid_to": "2027-12-31",
+          "decided_on": "2024-12-02",
+          "valid_from": "2025-01-01",
+          "reviewed_by": "STAFF-02",
+          "clearance_id": "CL-008",
+          "clearance_of": "I-008",
+          "in_context_of": "AGF1",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "case_id": null,
+          "valid_to": "2028-12-31",
+          "decided_on": "2025-04-20",
+          "valid_from": "2025-04-20",
+          "reviewed_by": "STAFF-02",
+          "clearance_id": "CL-009",
+          "clearance_of": "I-009",
+          "in_context_of": "AGF1",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "case_id": null,
+          "valid_to": "2025-12-31",
+          "decided_on": "2022-03-20",
+          "valid_from": "2022-03-20",
+          "reviewed_by": "STAFF-03",
+          "clearance_id": "CL-015",
+          "clearance_of": "I-015",
+          "in_context_of": "AGF1",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "case_id": "K-015",
+          "valid_to": null,
+          "decided_on": "2026-01-01",
+          "valid_from": "2026-01-01",
+          "reviewed_by": "STAFF-02",
+          "clearance_id": "CL-015W",
+          "clearance_of": "I-015",
+          "in_context_of": "AGF1",
+          "clearance_status": "withdrawn",
+          "default_treatment": "30% default rate until a valid form is supplied"
+        },
+        {
+          "case_id": null,
+          "valid_to": null,
+          "decided_on": "2024-02-05",
+          "valid_from": "2024-02-05",
+          "reviewed_by": "STAFF-02",
+          "clearance_id": "CL-016",
+          "clearance_of": "I-016",
+          "in_context_of": "AGF1",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        },
+        {
+          "case_id": null,
+          "valid_to": null,
+          "decided_on": "2024-02-05",
+          "valid_from": "2024-02-05",
+          "reviewed_by": "STAFF-02",
+          "clearance_id": "CL-017",
+          "clearance_of": "I-017",
+          "in_context_of": "AGF1",
+          "clearance_status": "cleared",
+          "default_treatment": null
+        }
+      ],
+      "row_count": 14,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 11,
+      "at": "2026-10-15T17:21:31.376230+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from clearance.case order by opened_on",
+      "result": [
+        {
+          "case_id": "K-008",
+          "case_kind": "renewal",
+          "closed_on": "2024-12-02",
+          "opened_on": "2024-10-01",
+          "case_outcome": "renewed",
+          "triggered_by": null,
+          "concerns_party": "I-008",
+          "concerns_distribution": null
+        },
+        {
+          "case_id": "K-015",
+          "case_kind": "renewal",
+          "closed_on": "2026-01-01",
+          "opened_on": "2025-10-01",
+          "case_outcome": "withdrawn: no reply before the form ended",
+          "triggered_by": null,
+          "concerns_party": "I-015",
+          "concerns_distribution": null
+        },
+        {
+          "case_id": "K-006",
+          "case_kind": "change",
+          "closed_on": null,
+          "opened_on": "2026-08-20",
+          "case_outcome": null,
+          "triggered_by": "CE-001",
+          "concerns_party": "I-006",
+          "concerns_distribution": null
+        }
+      ],
+      "row_count": 3,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 12,
+      "at": "2026-10-15T17:21:33.323290+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from clearance.change_event",
+      "result": [
+        {
+          "change_id": "CE-001",
+          "learned_on": "2026-08-18",
+          "changes_ref": "onboarding.declared_owner:DO-003",
+          "description": "Meridian Holdings I reports a restructuring: Meridian Holdings II now holds 30% of it",
+          "occurred_on": "2026-08-01",
+          "recorded_on": "2026-08-20"
+        }
+      ],
+      "row_count": 1,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 13,
+      "at": "2026-10-15T17:21:33.929176+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from clearance.missing_fact_finding",
+      "result": [
+        {
+          "finding_id": "MF-001",
+          "about_party": "I-014",
+          "description": "No tax certification for the owner of 37.5% of the income Sterling Nominees receives",
+          "recorded_on": "2025-03-15",
+          "clearance_id": "CL-007",
+          "assessment_id": null,
+          "unmet_requirement": "FR-03"
+        },
+        {
+          "finding_id": "MF-002",
+          "about_party": "I-015",
+          "description": "Form F-015 ended on 31 December 2025 and no new form was received",
+          "recorded_on": "2026-01-01",
+          "clearance_id": "CL-015W",
+          "assessment_id": null,
+          "unmet_requirement": "FR-02"
+        }
+      ],
+      "row_count": 2,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 14,
+      "at": "2026-10-15T17:21:34.183664+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from rulebook.rule_version order by rule_id, eff_from",
+      "result": [
+        {
+          "eff_to": null,
+          "rule_id": "R-01",
+          "eff_from": "2026-01-01",
+          "rate_pct": 30.0,
+          "rule_name": "Statutory withholding on US-source dividends paid to foreign persons; also the default where documentation is missing or not valid",
+          "applies_in": "US",
+          "min_vote_pct": null,
+          "version_label": "2026.1",
+          "treaty_country": null
+        },
+        {
+          "eff_to": null,
+          "rule_id": "R-02",
+          "eff_from": "2026-01-01",
+          "rate_pct": 15.0,
+          "rule_name": "Treaty rate on US-source dividends paid to a resident of Luxembourg",
+          "applies_in": "US",
+          "min_vote_pct": null,
+          "version_label": "2026.1",
+          "treaty_country": "LU"
+        },
+        {
+          "eff_to": null,
+          "rule_id": "R-02",
+          "eff_from": "2027-01-01",
+          "rate_pct": 10.0,
+          "rule_name": "Treaty rate on US-source dividends paid to a resident of Luxembourg",
+          "applies_in": "US",
+          "min_vote_pct": null,
+          "version_label": "2027.1",
+          "treaty_country": "LU"
+        },
+        {
+          "eff_to": null,
+          "rule_id": "R-03",
+          "eff_from": "2026-01-01",
+          "rate_pct": 5.0,
+          "rule_name": "Treaty rate on US-source dividends paid to a Luxembourg company with a qualifying holding in the paying company",
+          "applies_in": "US",
+          "min_vote_pct": 10.0,
+          "version_label": "2026.1",
+          "treaty_country": "LU"
+        }
+      ],
+      "row_count": 4,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 15,
+      "at": "2026-10-15T17:21:34.575654+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from clearance.withholding_schedule; ",
+      "result": [],
+      "row_count": 0,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 16,
+      "at": "2026-10-15T17:21:39.773185+00:00",
+      "kind": "message",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": null,
+      "result": {
+        "text": "Checking rule requirements, ownership chain and remaining evidence before deciding the rates."
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 17,
+      "at": "2026-10-15T17:21:40.286709+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from rulebook.fact_requirement order by rule_id, version_label, req_id",
+      "result": [
+        {
+          "req_id": "FR-01",
+          "rule_id": "R-01",
+          "mandatory": true,
+          "description": "Income type and source jurisdiction of the distribution component",
+          "version_label": "2026.1"
+        },
+        {
+          "req_id": "FR-02",
+          "rule_id": "R-01",
+          "mandatory": true,
+          "description": "Tax certification of the recipient, valid on the payment date",
+          "version_label": "2026.1"
+        },
+        {
+          "req_id": "FR-03",
+          "rule_id": "R-01",
+          "mandatory": true,
+          "description": "For an intermediary or flow-through recipient: the tax certification of each underlying owner and its share",
+          "version_label": "2026.1"
+        },
+        {
+          "req_id": "FR-04",
+          "rule_id": "R-02",
+          "mandatory": true,
+          "description": "Tax residence of the recipient in the treaty jurisdiction",
+          "version_label": "2026.1"
+        },
+        {
+          "req_id": "FR-05",
+          "rule_id": "R-02",
+          "mandatory": true,
+          "description": "A treaty claim with a completed limitation-on-benefits statement",
+          "version_label": "2026.1"
+        },
+        {
+          "req_id": "FR-07",
+          "rule_id": "R-02",
+          "mandatory": false,
+          "description": "For an ownership-based limitation-on-benefits claim: the owners of the recipient up to its ultimate owners",
+          "version_label": "2026.1"
+        },
+        {
+          "req_id": "FR-08",
+          "rule_id": "R-02",
+          "mandatory": true,
+          "description": "Tax residence of the recipient in the treaty jurisdiction",
+          "version_label": "2027.1"
+        },
+        {
+          "req_id": "FR-09",
+          "rule_id": "R-02",
+          "mandatory": true,
+          "description": "A treaty claim with a completed limitation-on-benefits statement",
+          "version_label": "2027.1"
+        },
+        {
+          "req_id": "FR-10",
+          "rule_id": "R-02",
+          "mandatory": false,
+          "description": "For an ownership-based limitation-on-benefits claim: the owners of the recipient up to its ultimate owners",
+          "version_label": "2027.1"
+        },
+        {
+          "req_id": "FR-06",
+          "rule_id": "R-03",
+          "mandatory": true,
+          "description": "Effective voting percentage of the recipient in the paying company, and every fact R-02 requires",
+          "version_label": "2026.1"
+        }
+      ],
+      "row_count": 10,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 18,
+      "at": "2026-10-15T17:21:40.954407+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select r.*, a.title, a.citation, a.doc_dt, a.location from rulebook.rule_authority r join rulebook.authority_source a using(authority_id)",
+      "result": [
+        {
+          "title": "US Internal Revenue Code, withholding of tax on foreign persons",
+          "doc_dt": null,
+          "rule_id": "R-01",
+          "citation": "26 U.S.C. §§ 1441, 1442",
+          "location": "https://www.irs.gov/publications/p515",
+          "authority_id": "AU-01",
+          "version_label": "2026.1"
+        },
+        {
+          "title": "United States – Luxembourg income tax convention, dividends",
+          "doc_dt": "1996-04-03",
+          "rule_id": "R-02",
+          "citation": "Convention of 3 April 1996, Article 10",
+          "location": null,
+          "authority_id": "AU-02",
+          "version_label": "2026.1"
+        },
+        {
+          "title": "United States – Luxembourg income tax convention, dividends",
+          "doc_dt": "1996-04-03",
+          "rule_id": "R-03",
+          "citation": "Convention of 3 April 1996, Article 10",
+          "location": null,
+          "authority_id": "AU-02",
+          "version_label": "2026.1"
+        },
+        {
+          "title": "Protocol amending the United States – Luxembourg convention (illustrative)",
+          "doc_dt": "2026-06-30",
+          "rule_id": "R-02",
+          "citation": "Protocol of 2026, Article 3 (illustrative)",
+          "location": null,
+          "authority_id": "AU-03",
+          "version_label": "2027.1"
+        }
+      ],
+      "row_count": 4,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 19,
+      "at": "2026-10-15T17:21:42.039977+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select s.*, o.legal_name owner_name, d.legal_name owned_name from entity_mgmt.shareholding s left join entity_mgmt.legal_entity o on o.entity_id=s.owner_entity_id left join entity_mgmt.legal_entity d on d.entity_id=s.owned_entity_id",
+      "result": [
+        {
+          "eff_to": null,
+          "doc_ref": null,
+          "eff_from": "2024-02-12",
+          "pct_econ": 100.0,
+          "pct_vote": 100.0,
+          "holding_id": "H-001",
+          "owned_name": "Atlas Acquisition SPV LLC",
+          "owner_name": "Atlas Growth Fund I LP",
+          "share_class": "Membership interest",
+          "owned_entity_id": "E-002",
+          "owner_entity_id": "E-001"
+        },
+        {
+          "eff_to": null,
+          "doc_ref": "DOC-0301",
+          "eff_from": "2024-04-02",
+          "pct_econ": 80.0,
+          "pct_vote": 80.0,
+          "holding_id": "H-002",
+          "owned_name": "Orion Manufacturing Inc.",
+          "owner_name": "Atlas Acquisition SPV LLC",
+          "share_class": "Common stock",
+          "owned_entity_id": "E-003",
+          "owner_entity_id": "E-002"
+        },
+        {
+          "eff_to": null,
+          "doc_ref": null,
+          "eff_from": "2024-11-05",
+          "pct_econ": 100.0,
+          "pct_vote": 100.0,
+          "holding_id": "H-003",
+          "owned_name": "Atlas Borealis Holdco S.à r.l.",
+          "owner_name": "Atlas Growth Fund I LP",
+          "share_class": "Ordinary shares",
+          "owned_entity_id": "E-007",
+          "owner_entity_id": "E-001"
+        },
+        {
+          "eff_to": null,
+          "doc_ref": null,
+          "eff_from": "2025-01-22",
+          "pct_econ": 60.0,
+          "pct_vote": 60.0,
+          "holding_id": "H-004",
+          "owned_name": "Borealis Logistik GmbH",
+          "owner_name": "Atlas Borealis Holdco S.à r.l.",
+          "share_class": "Ordinary shares",
+          "owned_entity_id": "E-006",
+          "owner_entity_id": "E-007"
+        },
+        {
+          "eff_to": null,
+          "doc_ref": null,
+          "eff_from": "2024-03-01",
+          "pct_econ": 3.5,
+          "pct_vote": 3.5,
+          "holding_id": "H-006",
+          "owned_name": "Atlas Growth Fund I LP",
+          "owner_name": "Atlas Co-Invest Vehicle LP",
+          "share_class": "LP interest",
+          "owned_entity_id": "E-001",
+          "owner_entity_id": "E-010"
+        },
+        {
+          "eff_to": null,
+          "doc_ref": null,
+          "eff_from": "2024-03-01",
+          "pct_econ": 4.0125,
+          "pct_vote": 7.0125,
+          "holding_id": "H-007",
+          "owned_name": "Atlas Growth Fund I LP",
+          "owner_name": "Atlas GP LLC",
+          "share_class": "GP interest",
+          "owned_entity_id": "E-001",
+          "owner_entity_id": "E-004"
+        },
+        {
+          "eff_to": "2026-11-30",
+          "doc_ref": null,
+          "eff_from": "2024-03-01",
+          "pct_econ": 24.0,
+          "pct_vote": 24.0,
+          "holding_id": "H-005",
+          "owned_name": "Atlas Growth Fund I LP",
+          "owner_name": "Atlas Lux Feeder SCSp",
+          "share_class": "LP interest",
+          "owned_entity_id": "E-001",
+          "owner_entity_id": "E-005"
+        },
+        {
+          "eff_to": null,
+          "doc_ref": null,
+          "eff_from": "2026-12-01",
+          "pct_econ": 24.0,
+          "pct_vote": 25.0,
+          "holding_id": "H-005b",
+          "owned_name": "Atlas Growth Fund I LP",
+          "owner_name": "Atlas Lux Feeder SCSp",
+          "share_class": "LP interest",
+          "owned_entity_id": "E-001",
+          "owner_entity_id": "E-005"
+        }
+      ],
+      "row_count": 8,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 20,
+      "at": "2026-10-15T17:21:42.437091+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from onboarding.residence_record order by inv_no, from_dt",
+      "result": [
+        {
+          "to_dt": null,
+          "inv_no": "I-001",
+          "country": "LU",
+          "doc_ref": "DOC-0101",
+          "from_dt": "2011-01-01",
+          "recorded_dt": "2025-02-10"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-003",
+          "country": "LU",
+          "doc_ref": null,
+          "from_dt": "2004-01-01",
+          "recorded_dt": "2024-06-20"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-004",
+          "country": "LU",
+          "doc_ref": null,
+          "from_dt": "2006-01-01",
+          "recorded_dt": "2024-06-20"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-005",
+          "country": "LU",
+          "doc_ref": null,
+          "from_dt": "2008-01-01",
+          "recorded_dt": "2024-07-25"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-006",
+          "country": "LU",
+          "doc_ref": null,
+          "from_dt": "2017-01-01",
+          "recorded_dt": "2024-03-20"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-007",
+          "country": "GB",
+          "doc_ref": null,
+          "from_dt": "2015-01-01",
+          "recorded_dt": "2025-03-15"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-008",
+          "country": "LU",
+          "doc_ref": null,
+          "from_dt": "2016-01-01",
+          "recorded_dt": "2021-05-20"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-009",
+          "country": "CH",
+          "doc_ref": null,
+          "from_dt": "2012-01-01",
+          "recorded_dt": "2025-04-20"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-010",
+          "country": "LU",
+          "doc_ref": null,
+          "from_dt": "2003-01-01",
+          "recorded_dt": "2025-02-12"
+        },
+        {
+          "to_dt": "2026-11-30",
+          "inv_no": "I-011",
+          "country": "LU",
+          "doc_ref": null,
+          "from_dt": "2010-01-01",
+          "recorded_dt": "2025-02-12"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-011",
+          "country": "BE",
+          "doc_ref": "DOC-0111",
+          "from_dt": "2026-12-01",
+          "recorded_dt": "2026-12-20"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-012",
+          "country": "FR",
+          "doc_ref": null,
+          "from_dt": "1999-01-01",
+          "recorded_dt": "2025-02-12"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-013",
+          "country": "LU",
+          "doc_ref": null,
+          "from_dt": "2001-01-01",
+          "recorded_dt": "2025-03-15"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-015",
+          "country": "LU",
+          "doc_ref": "DOC-0115",
+          "from_dt": "2013-01-01",
+          "recorded_dt": "2022-03-20"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-016",
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "2024-01-15",
+          "recorded_dt": "2024-02-05"
+        },
+        {
+          "to_dt": null,
+          "inv_no": "I-017",
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "2023-10-20",
+          "recorded_dt": "2024-02-05"
+        }
+      ],
+      "row_count": 16,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 21,
+      "at": "2026-10-15T17:21:53.245998+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from documents.document order by doc_ref",
+      "result": [
+        {
+          "title": "Atlas Growth Fund I LP limited partnership agreement",
+          "doc_dt": "2024-02-20",
+          "doc_ref": "DOC-0001",
+          "doc_type": "LPA",
+          "about_ref": "AGF1",
+          "file_path": null
+        },
+        {
+          "title": "Atlas Lux Feeder SCSp limited partnership agreement",
+          "doc_dt": "2024-02-22",
+          "doc_ref": "DOC-0002",
+          "doc_type": "LPA",
+          "about_ref": "ALF1",
+          "file_path": null
+        },
+        {
+          "title": "Kirchberg Industries S.A. side letter",
+          "doc_dt": "2026-11-24",
+          "doc_ref": "DOC-0003",
+          "doc_type": "SIDELETTER",
+          "about_ref": "I-003",
+          "file_path": null
+        },
+        {
+          "title": "Harbor Pension Trust W-8BEN-E",
+          "doc_dt": "2025-02-01",
+          "doc_ref": "DOC-0101",
+          "doc_type": "TAXFORM",
+          "about_ref": "I-001",
+          "file_path": "DOC-0101-harbor-w8bene.md"
+        },
+        {
+          "title": "Meridian Holdings I ownership declaration",
+          "doc_dt": "2026-08-18",
+          "doc_ref": "DOC-0106",
+          "doc_type": "OWNERSHIP",
+          "about_ref": "I-006",
+          "file_path": "DOC-0106-meridian-ownership-declaration.md"
+        },
+        {
+          "title": "Sterling Nominees W-8IMY and withholding statement",
+          "doc_dt": "2025-03-01",
+          "doc_ref": "DOC-0107",
+          "doc_type": "TAXFORM",
+          "about_ref": "I-007",
+          "file_path": "DOC-0107-sterling-w8imy-statement.md"
+        },
+        {
+          "title": "Moselle Capital notice of transfer of seat to Belgium",
+          "doc_dt": "2026-12-18",
+          "doc_ref": "DOC-0111",
+          "doc_type": "RESIDENCE",
+          "about_ref": "I-011",
+          "file_path": null
+        },
+        {
+          "title": "Bertrange Capital W-8BEN-E",
+          "doc_dt": "2022-03-10",
+          "doc_ref": "DOC-0115",
+          "doc_type": "TAXFORM",
+          "about_ref": "I-015",
+          "file_path": "DOC-0115-bertrange-w8bene.md"
+        },
+        {
+          "title": "Distribution notice D-001",
+          "doc_dt": "2026-10-02",
+          "doc_ref": "DOC-0201",
+          "doc_type": "DISTNOTICE",
+          "about_ref": "D-001",
+          "file_path": "DOC-0201-distribution-notice-d001.md"
+        },
+        {
+          "title": "Distribution notice D-002",
+          "doc_dt": "2026-12-07",
+          "doc_ref": "DOC-0202",
+          "doc_type": "DISTNOTICE",
+          "about_ref": "D-002",
+          "file_path": "DOC-0202-distribution-notice-d002.md"
+        },
+        {
+          "title": "Orion Manufacturing share purchase agreement",
+          "doc_dt": "2024-04-02",
+          "doc_ref": "DOC-0301",
+          "doc_type": "SPA",
+          "about_ref": "E-003",
+          "file_path": null
+        }
+      ],
+      "row_count": 11,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 22,
+      "at": "2026-10-15T17:21:53.638927+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from clearance.clearance_reliance",
+      "result": [
+        {
+          "source_ref": "onboarding.tax_form:F-001",
+          "clearance_id": "CL-001",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-002",
+          "clearance_id": "CL-002",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-010",
+          "clearance_id": "CL-002",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-011",
+          "clearance_id": "CL-002",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-012",
+          "clearance_id": "CL-002",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-003",
+          "clearance_id": "CL-003",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-004",
+          "clearance_id": "CL-004",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-005",
+          "clearance_id": "CL-005",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-006",
+          "clearance_id": "CL-006",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.declared_owner:DO-003",
+          "clearance_id": "CL-006",
+          "reliance_kind": "fact"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-007",
+          "clearance_id": "CL-007",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-013",
+          "clearance_id": "CL-007",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-008a",
+          "clearance_id": "CL-008A",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-008",
+          "clearance_id": "CL-008",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-009",
+          "clearance_id": "CL-009",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-015",
+          "clearance_id": "CL-015",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-016",
+          "clearance_id": "CL-016",
+          "reliance_kind": "certification"
+        },
+        {
+          "source_ref": "onboarding.tax_form:F-017",
+          "clearance_id": "CL-017",
+          "reliance_kind": "certification"
+        }
+      ],
+      "row_count": 18,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 23,
+      "at": "2026-10-15T17:21:54.442241+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select a.*, (select json_agg(f) from clearance.assessment_fact f where f.assessment_id=a.assessment_id) facts from clearance.obligation_assessment a",
+      "result": [],
+      "row_count": 0,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 24,
+      "at": "2026-10-15T17:21:54.775392+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from clearance.withholding_determination",
+      "result": [],
+      "row_count": 0,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 25,
+      "at": "2026-10-15T17:21:58.387356+00:00",
+      "kind": "tool",
+      "concept": "tools/read-document",
+      "terms": null,
+      "parameters": {
+        "doc_ref": "DOC-0202"
+      },
+      "executed": null,
+      "result": {
+        "found": true,
+        "title": "Distribution notice D-002",
+        "digitised": true,
+        "source_ref": "documents.document:DOC-0202"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 26,
+      "at": "2026-10-15T17:21:58.787447+00:00",
+      "kind": "tool",
+      "concept": "tools/read-document",
+      "terms": null,
+      "parameters": {
+        "doc_ref": "DOC-0003"
+      },
+      "executed": null,
+      "result": {
+        "found": true,
+        "title": "Kirchberg Industries S.A. side letter",
+        "message": "The document is indexed but not digitised; its content is unknown.",
+        "digitised": false
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 27,
+      "at": "2026-10-15T17:21:59.154100+00:00",
+      "kind": "tool",
+      "concept": "tools/read-document",
+      "terms": null,
+      "parameters": {
+        "doc_ref": "DOC-0111"
+      },
+      "executed": null,
+      "result": {
+        "found": true,
+        "title": "Moselle Capital notice of transfer of seat to Belgium",
+        "message": "The document is indexed but not digitised; its content is unknown.",
+        "digitised": false
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 28,
+      "at": "2026-10-15T17:21:59.557416+00:00",
+      "kind": "tool",
+      "concept": "tools/read-document",
+      "terms": null,
+      "parameters": {
+        "doc_ref": "DOC-0107"
+      },
+      "executed": null,
+      "result": {
+        "found": true,
+        "title": "Sterling Nominees W-8IMY and withholding statement",
+        "digitised": true,
+        "source_ref": "documents.document:DOC-0107"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 29,
+      "at": "2026-10-15T17:21:59.907475+00:00",
+      "kind": "tool",
+      "concept": "tools/read-document",
+      "terms": null,
+      "parameters": {
+        "doc_ref": "DOC-0106"
+      },
+      "executed": null,
+      "result": {
+        "found": true,
+        "title": "Meridian Holdings I ownership declaration",
+        "digitised": true,
+        "source_ref": "documents.document:DOC-0106"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 30,
+      "at": "2026-10-15T17:22:00.190530+00:00",
+      "kind": "tool",
+      "concept": "tools/read-document",
+      "terms": null,
+      "parameters": {
+        "doc_ref": "DOC-0101"
+      },
+      "executed": null,
+      "result": {
+        "found": true,
+        "title": "Harbor Pension Trust W-8BEN-E",
+        "digitised": true,
+        "source_ref": "documents.document:DOC-0101"
+      },
+      "row_count": null,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 31,
+      "at": "2026-10-15T17:22:10.867028+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from entity_mgmt.legal_entity",
+      "result": [
+        {
+          "lei": "XBPEISYNTH0000E00100",
+          "is_spv": "N",
+          "reg_no": "DE 7104411",
+          "is_fund": "Y",
+          "entity_id": "E-001",
+          "is_portco": "N",
+          "legal_form": "Delaware limited partnership",
+          "legal_name": "Atlas Growth Fund I LP",
+          "tax_class_us": "partnership"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00200",
+          "is_spv": "Y",
+          "reg_no": "DE 7104498",
+          "is_fund": "N",
+          "entity_id": "E-002",
+          "is_portco": "N",
+          "legal_form": "Delaware limited liability company",
+          "legal_name": "Atlas Acquisition SPV LLC",
+          "tax_class_us": "disregarded"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00300",
+          "is_spv": "N",
+          "reg_no": "DE 2893310",
+          "is_fund": "N",
+          "entity_id": "E-003",
+          "is_portco": "Y",
+          "legal_form": "Delaware corporation",
+          "legal_name": "Orion Manufacturing Inc.",
+          "tax_class_us": "corporation"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00400",
+          "is_spv": "N",
+          "reg_no": "DE 7104402",
+          "is_fund": "N",
+          "entity_id": "E-004",
+          "is_portco": "N",
+          "legal_form": "Delaware limited liability company",
+          "legal_name": "Atlas GP LLC",
+          "tax_class_us": "partnership"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00500",
+          "is_spv": "N",
+          "reg_no": "B 281 904",
+          "is_fund": "Y",
+          "entity_id": "E-005",
+          "is_portco": "N",
+          "legal_form": "Luxembourg special limited partnership",
+          "legal_name": "Atlas Lux Feeder SCSp",
+          "tax_class_us": "partnership"
+        },
+        {
+          "lei": "XBPEISYNTH0000E00600",
+          "is_spv": "N",
+          "reg_no": "HRB 151 772",
+          "is_fund": "N",
+          "entity_id": "E-006",
+          "is_portco": "Y",
+          "legal_form": "German limited liability company",
+          "legal_name": "Borealis Logistik GmbH",
+          "tax_class_us": null
+        },
+        {
+          "lei": "XBPEISYNTH0000E00700",
+          "is_spv": "Y",
+          "reg_no": "B 283 115",
+          "is_fund": "N",
+          "entity_id": "E-007",
+          "is_portco": "N",
+          "legal_form": "Luxembourg private limited company",
+          "legal_name": "Atlas Borealis Holdco S.à r.l.",
+          "tax_class_us": null
+        },
+        {
+          "lei": "XBPEISYNTH0000E01000",
+          "is_spv": "N",
+          "reg_no": "DE 7230016",
+          "is_fund": "Y",
+          "entity_id": "E-010",
+          "is_portco": "N",
+          "legal_form": "Delaware limited partnership",
+          "legal_name": "Atlas Co-Invest Vehicle LP",
+          "tax_class_us": "partnership"
+        }
+      ],
+      "row_count": 8,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 32,
+      "at": "2026-10-15T17:22:11.369625+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from entity_mgmt.entity_jurisdiction",
+      "result": [
+        {
+          "to_dt": null,
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "2023-11-01",
+          "entity_id": "E-001",
+          "capacity_cd": "INC",
+          "recorded_dt": "2023-11-03",
+          "subdivision": "US-DE"
+        },
+        {
+          "to_dt": null,
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "2023-11-01",
+          "entity_id": "E-001",
+          "capacity_cd": "TAXRES",
+          "recorded_dt": "2023-11-03",
+          "subdivision": null
+        },
+        {
+          "to_dt": null,
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "2024-02-12",
+          "entity_id": "E-002",
+          "capacity_cd": "INC",
+          "recorded_dt": "2024-02-14",
+          "subdivision": "US-DE"
+        },
+        {
+          "to_dt": null,
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "2024-02-12",
+          "entity_id": "E-002",
+          "capacity_cd": "TAXRES",
+          "recorded_dt": "2024-02-14",
+          "subdivision": null
+        },
+        {
+          "to_dt": null,
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "1998-05-12",
+          "entity_id": "E-003",
+          "capacity_cd": "INC",
+          "recorded_dt": "2024-04-02",
+          "subdivision": "US-DE"
+        },
+        {
+          "to_dt": null,
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "1998-05-12",
+          "entity_id": "E-003",
+          "capacity_cd": "TAXRES",
+          "recorded_dt": "2024-04-02",
+          "subdivision": null
+        },
+        {
+          "to_dt": null,
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "1998-05-12",
+          "entity_id": "E-003",
+          "capacity_cd": "OPS",
+          "recorded_dt": "2024-04-02",
+          "subdivision": "US-OH"
+        },
+        {
+          "to_dt": null,
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "2023-10-20",
+          "entity_id": "E-004",
+          "capacity_cd": "INC",
+          "recorded_dt": "2023-11-03",
+          "subdivision": "US-DE"
+        },
+        {
+          "to_dt": null,
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "2023-10-20",
+          "entity_id": "E-004",
+          "capacity_cd": "TAXRES",
+          "recorded_dt": "2023-11-03",
+          "subdivision": null
+        },
+        {
+          "to_dt": null,
+          "country": "LU",
+          "doc_ref": null,
+          "from_dt": "2023-12-01",
+          "entity_id": "E-005",
+          "capacity_cd": "INC",
+          "recorded_dt": "2023-12-04",
+          "subdivision": null
+        },
+        {
+          "to_dt": null,
+          "country": "DE",
+          "doc_ref": null,
+          "from_dt": "2009-03-17",
+          "entity_id": "E-006",
+          "capacity_cd": "INC",
+          "recorded_dt": "2025-01-22",
+          "subdivision": null
+        },
+        {
+          "to_dt": null,
+          "country": "DE",
+          "doc_ref": null,
+          "from_dt": "2009-03-17",
+          "entity_id": "E-006",
+          "capacity_cd": "TAXRES",
+          "recorded_dt": "2025-01-22",
+          "subdivision": null
+        },
+        {
+          "to_dt": null,
+          "country": "DE",
+          "doc_ref": null,
+          "from_dt": "2009-03-17",
+          "entity_id": "E-006",
+          "capacity_cd": "OPS",
+          "recorded_dt": "2025-01-22",
+          "subdivision": "DE-HH"
+        },
+        {
+          "to_dt": null,
+          "country": "PL",
+          "doc_ref": null,
+          "from_dt": "2019-06-01",
+          "entity_id": "E-006",
+          "capacity_cd": "OPS",
+          "recorded_dt": "2025-01-22",
+          "subdivision": null
+        },
+        {
+          "to_dt": null,
+          "country": "LU",
+          "doc_ref": null,
+          "from_dt": "2024-11-05",
+          "entity_id": "E-007",
+          "capacity_cd": "INC",
+          "recorded_dt": "2024-11-07",
+          "subdivision": null
+        },
+        {
+          "to_dt": null,
+          "country": "LU",
+          "doc_ref": null,
+          "from_dt": "2024-11-05",
+          "entity_id": "E-007",
+          "capacity_cd": "TAXRES",
+          "recorded_dt": "2024-11-07",
+          "subdivision": null
+        },
+        {
+          "to_dt": null,
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "2024-01-15",
+          "entity_id": "E-010",
+          "capacity_cd": "INC",
+          "recorded_dt": "2024-01-17",
+          "subdivision": "US-DE"
+        },
+        {
+          "to_dt": null,
+          "country": "US",
+          "doc_ref": null,
+          "from_dt": "2024-01-15",
+          "entity_id": "E-010",
+          "capacity_cd": "TAXRES",
+          "recorded_dt": "2024-01-17",
+          "subdivision": null
+        }
+      ],
+      "row_count": 18,
+      "attested": null,
+      "verdict": null
+    },
+    {
+      "run_id": "RUN-4615b89a",
+      "seq": 33,
+      "at": "2026-10-15T17:22:11.635393+00:00",
+      "kind": "sql",
+      "concept": null,
+      "terms": null,
+      "parameters": null,
+      "executed": "select * from treasury.payment order by value_dt",
+      "result": [
+        {
+          "amt": 5000000.0,
+          "ccy": "USD",
+          "pay_id": "P-001",
+          "dist_id": null,
+          "payee_cp": "CP-001",
+          "payer_cp": "CP-101",
+          "value_dt": "2024-03-15",
+          "pay_type_cd": "CAPCALL"
+        },
+        {
+          "amt": 12000000.0,
+          "ccy": "USD",
+          "pay_id": "P-002",
+          "dist_id": null,
+          "payee_cp": "CP-001",
+          "payer_cp": "CP-102",
+          "value_dt": "2024-03-18",
+          "pay_type_cd": "CAPCALL"
+        },
+        {
+          "amt": 1500000.0,
+          "ccy": "USD",
+          "pay_id": "P-003",
+          "dist_id": null,
+          "payee_cp": "CP-001",
+          "payer_cp": "CP-116",
+          "value_dt": "2024-03-18",
+          "pay_type_cd": "CAPCALL"
+        },
+        {
+          "amt": 1000000.0,
+          "ccy": "USD",
+          "pay_id": "P-004",
+          "dist_id": null,
+          "payee_cp": "CP-020",
+          "payer_cp": "CP-001",
+          "value_dt": "2026-07-01",
+          "pay_type_cd": "MGMTFEE"
+        },
+        {
+          "amt": 3000000.0,
+          "ccy": "EUR",
+          "pay_id": "P-005",
+          "dist_id": null,
+          "payee_cp": "CP-007",
+          "payer_cp": "CP-006",
+          "value_dt": "2026-09-18",
+          "pay_type_cd": "DIV"
+        },
+        {
+          "amt": 3000000.0,
+          "ccy": "EUR",
+          "pay_id": "P-006",
+          "dist_id": null,
+          "payee_cp": "CP-001",
+          "payer_cp": "CP-007",
+          "value_dt": "2026-09-25",
+          "pay_type_cd": "DIV"
+        },
+        {
+          "amt": 10000000.0,
+          "ccy": "USD",
+          "pay_id": "P-007",
+          "dist_id": null,
+          "payee_cp": "CP-002",
+          "payer_cp": "CP-003",
+          "value_dt": "2026-10-09",
+          "pay_type_cd": "DIV"
+        },
+        {
+          "amt": 10000000.0,
+          "ccy": "USD",
+          "pay_id": "P-008",
+          "dist_id": null,
+          "payee_cp": "CP-001",
+          "payer_cp": "CP-002",
+          "value_dt": "2026-10-12",
+          "pay_type_cd": "DIV"
+        },
+        {
+          "amt": 8000000.0,
+          "ccy": "USD",
+          "pay_id": "P-009",
+          "dist_id": null,
+          "payee_cp": "CP-002",
+          "payer_cp": "CP-003",
+          "value_dt": "2026-12-01",
+          "pay_type_cd": "DIV"
+        },
+        {
+          "amt": 8000000.0,
+          "ccy": "USD",
+          "pay_id": "P-010",
+          "dist_id": null,
+          "payee_cp": "CP-001",
+          "payer_cp": "CP-002",
+          "value_dt": "2026-12-04",
+          "pay_type_cd": "DIV"
+        }
+      ],
+      "row_count": 10,
+      "attested": null,
+      "verdict": null
+    }
+  ]
+}
